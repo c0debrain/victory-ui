@@ -17,6 +17,7 @@ angular.module('app')
                 y: function(d) {
                     return d.y
                 },
+                height: 75,
                 color: [
                     $.Pages.getColor('success')
                 ],
@@ -26,13 +27,13 @@ angular.module('app')
                     bottom: 0,
                     left: 0
                 },
-                tooltips: true,
+                tooltips: false,
                 tooltipContent: function(key, y, e, graph) {
                     var data = graph.series.values[y - 1];
-                    return
-                    '<p>' + data.x + '</p>'
+                    return data.x;
                 },
                 useInteractiveGuideline: false,
+                interactive: false,
                 forceY: [0, 2],
                 showLegend: false,
                 transitionDuration: 500,
@@ -65,7 +66,7 @@ angular.module('app')
             x++;
 
             $scope.$apply(); // update both chart
-        }, 222500);
+        }, 2500);
 
         /* ============================================================
          * Sparkline Charts

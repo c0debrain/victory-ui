@@ -54,83 +54,7 @@
                             </div>
                         </div>
 
-                        <div class="panel-body sortable p-b-70">
-                            <p>
-                                Click on the refresh icon to simulate an AJAX call
-                                and to see an animated progress bar indicator above
-                                the portlet. These progress bars come in seven
-                                different colors that are available in the Pages
-                                contextual color scheme.
-                            </p>
-
-                            <div class="chart-table m-t-20">
-                                <div class="row">
-                                    <div class="col-sm-6 p-r-10">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p class="pull-left">Clusters</p>
-                                                <p class="pull-right bold">7</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p class="pull-left">Alerts</p>
-                                                <p class="pull-right bold">3</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6 p-l-10">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p class="pull-left">Time</p>
-                                                <p class="pull-right bold">05:20</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p class="pull-left">Warnings</p>
-                                                <p class="pull-right bold">15</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div jq-sparkline class="region-sparkline-chart sparkline-chart" ng-model="sparkline_line_data" opts="{{ sparkline_line_options }}"></div>
-                        </div>
-
-                        <ul class="status">
-                            <li class="stable"></li>
-                            <li class="warning"></li>
-                            <li class="danger"></li>
-                        </ul>
-                    </div>
-
-                    <!-- Start 2nd Panel -->
-                    <div class="panel panel-default region" pg-portlet id="portlet-linear" progress="bar" on-refresh="refreshTest('#portlet-linear')">
-                        <div class="panel-heading ">
-                            <div class="panel-title">Contegix (CTX)</div>
-
-                            <div class="panel-controls">
-                                <ul>
-                                    <li>
-                                        <a class="portlet-collapse" href="" data-toggle="collapse">
-                                            <i class="portlet-icon portlet-icon-collapse"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="portlet-refresh" href="" data-toggle="refresh">
-                                            <i class="portlet-icon portlet-icon-refresh"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="panel-body sortable p-b-100">
+                        <div class="panel-body sortable">
                             <p>
                                 Click on the refresh icon to simulate an AJAX call
                                 and to see an animated progress bar indicator above
@@ -179,9 +103,85 @@
                         <nvd3 options='nvd3_options' class="region-nvd3-chart line-chart" data='nvd3_data'></nvd3>
 
                         <ul class="status">
-                            <li class="stable"></li>
-                            <li class="warning"></li>
-                            <li class="danger"></li>
+                            <li class="stable"  style="width: 65%;"></li>
+                            <li class="warning" style="width: 25%;"></li>
+                            <li class="danger"  style="width: 10%;"></li>
+                        </ul>
+                    </div>
+
+                    <!-- Start 2nd Panel -->
+                    <div class="panel panel-default region" pg-portlet id="portlet-linear" progress="bar" on-refresh="refreshTest('#portlet-linear')">
+                        <div class="panel-heading ">
+                            <div class="panel-title">Contegix (CTX)</div>
+
+                            <div class="panel-controls">
+                                <ul>
+                                    <li>
+                                        <a class="portlet-collapse" href="" data-toggle="collapse">
+                                            <i class="portlet-icon portlet-icon-collapse"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="portlet-refresh" href="" data-toggle="refresh">
+                                            <i class="portlet-icon portlet-icon-refresh"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body sortable">
+                            <p>
+                                Click on the refresh icon to simulate an AJAX call
+                                and to see an animated progress bar indicator above
+                                the portlet. These progress bars come in seven
+                                different colors that are available in the Pages
+                                contextual color scheme.
+                            </p>
+
+                            <div class="chart-table m-t-20">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Clusters</p>
+                                                <p class="pull-right bold">7</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Alerts</p>
+                                                <p class="pull-right bold">3</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 p-l-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Time</p>
+                                                <p class="pull-right bold">05:20</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Warnings</p>
+                                                <p class="pull-right bold">15</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nvd3 options='nvd3_options' class="region-nvd3-chart line-chart" data='nvd3_data'></nvd3>
+
+                        <ul class="status">
+                            <li class="stable"  style="width: 65%;"></li>
+                            <li class="warning" style="width: 25%;"></li>
+                            <li class="danger"  style="width: 10%;"></li>
                         </ul>
                     </div>
                 </div>
@@ -222,9 +222,6 @@
                         </div>
 
                         <div class="panel-body sortable">
-                            <h3>
-                                <span class="semi-bold">Linear</span> Progress
-                            </h3>
                             <p>
                                 Click on the refresh icon to simulate an AJAX call
                                 and to see an animated progress bar indicator above
@@ -232,12 +229,50 @@
                                 different colors that are available in the Pages
                                 contextual color scheme.
                             </p>
+
+                            <div class="chart-table m-t-20">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Clusters</p>
+                                                <p class="pull-right bold">7</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Alerts</p>
+                                                <p class="pull-right bold">3</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 p-l-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Time</p>
+                                                <p class="pull-right bold">05:20</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Warnings</p>
+                                                <p class="pull-right bold">15</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
+                        <nvd3 options='nvd3_options' class="region-nvd3-chart line-chart" data='nvd3_data'></nvd3>
+
                         <ul class="status">
-                            <li class="stable"  style="width: 65%;"></li>
+                            <li class="stable"  style="width: 35%;"></li>
                             <li class="warning" style="width: 25%;"></li>
-                            <li class="danger"  style="width: 10%;"></li>
+                            <li class="danger"  style="width: 40%;"></li>
                         </ul>
                     </div>
 
@@ -263,9 +298,6 @@
                         </div>
 
                         <div class="panel-body sortable">
-                            <h3>
-                                <span class="semi-bold">Linear</span> Progress
-                            </h3>
                             <p>
                                 Click on the refresh icon to simulate an AJAX call
                                 and to see an animated progress bar indicator above
@@ -273,12 +305,50 @@
                                 different colors that are available in the Pages
                                 contextual color scheme.
                             </p>
+
+                            <div class="chart-table m-t-20">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Clusters</p>
+                                                <p class="pull-right bold">7</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Alerts</p>
+                                                <p class="pull-right bold">3</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 p-l-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Time</p>
+                                                <p class="pull-right bold">05:20</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Warnings</p>
+                                                <p class="pull-right bold">15</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
+                        <nvd3 options='nvd3_options' class="region-nvd3-chart line-chart" data='nvd3_data'></nvd3>
+
                         <ul class="status">
-                            <li class="stable"></li>
-                            <li class="warning"></li>
-                            <li class="danger"></li>
+                            <li class="stable"  style="width: 25%;"></li>
+                            <li class="warning" style="width: 25%;"></li>
+                            <li class="danger"  style="width: 50%;"></li>
                         </ul>
                     </div>
                 </div>

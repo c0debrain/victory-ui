@@ -5,15 +5,17 @@
 */
 
 // Global Styling
-.page-container {
-    padding-right: 57px;
-}
+@media screen and (min-width: 980px) {
+    .page-container {
+        padding-right: 57px;
+    }
 
-.header {
-    padding: 0 80px 0 0;
+    .header {
+        padding: 0 80px 0 0;
 
-    .logo-text {
-        padding-left: 15px;
+        .logo-text {
+            padding-left: 15px;
+        }
     }
 }
 
@@ -23,7 +25,7 @@
 }
 
 // Events Sidebar Styling
-.events-sidebar {
+.event-feed {
     left: auto;
     top: 0;
     right: 0;
@@ -78,11 +80,6 @@
             -ms-text-size-adjust: 100%;
             font-weight: bold;
 
-            i {
-                line-height: 50px;
-                width: 100%;
-            }
-
             .details {
                 display: none;
                 line-height: 12px;
@@ -106,29 +103,30 @@
                 z-index: 1000;
             }
 
-            &.primary:before {
-                background: @color-primary;
+            &:after {
+                content: '';
+                font-family: "FontAwesome";
+                line-height: 50px;
+                width: 100%;
             }
 
-            &.complete:before {
-                background: @color-complete;
-            }
+            &.primary:before    { background: @color-primary; }
+            &.primary:after     { content: "\f078"; }
 
-            &.success:before {
-                background: @color-success;
-            }
+            &.complete:before   { background: @color-complete; }
+            &.complete:after    { content: "\f00c"; }
 
-            &.warning:before {
-                background: @color-warning;
-            }
+            &.success:before    { background: @color-success; }
+            &.success:after     { content: "\f000"; }
 
-            &.danger:before {
-                background: @color-danger;
-            }
+            &.warning:before    { background: @color-warning; }
+            &.warning:after     { content: "\f12a"; }
 
-            &.info:before {
-                background: @color-info;
-            }
+            &.danger:before     { background: @color-danger; }
+            &.danger:after      { content: "\f00d"; }
+
+            &.info:before       { background: @color-info; }
+            &.info:after        { content: "\f129"; }
         }
     }
 }
@@ -144,17 +142,18 @@
     }
 
     .region-nvd3-chart {
-        position: absolute;
         width: 100%;
-        height: 100px;
-        bottom: 0;
-        left: 0;
         margin-bottom: -3px;
+        overflow-y: visible;
+
+        .nvtooltip {
+            padding: 3px;
+        }
     }
 
     ul.status {
         width: 100%;
-        height: 2px;
+        height: 4px;
         display: block;
         list-style: none;
         margin: 0;
@@ -189,7 +188,7 @@
         }
 
         &:hover {
-            height: 5px;
+            height: 7px;
             margin-top: -3px;
         }
     }
