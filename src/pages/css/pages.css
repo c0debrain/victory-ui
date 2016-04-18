@@ -13712,7 +13712,7 @@ Main components
   width: 57px;
   z-index: 1000;
   position: fixed;
-  overflow: hidden;
+  overflow: visible;
   background-color: #2b303b;
 }
 .events-sidebar .sidebar-header {
@@ -13730,50 +13730,124 @@ Main components
   position: relative;
   margin-bottom: 10px;
 }
-.events-sidebar ul {
+.events-sidebar ul.events {
   padding: 0;
   margin: 0;
   width: 100%;
   position: relative;
   list-style: none;
 }
-.events-sidebar ul li {
+.events-sidebar ul.events li {
   padding: 0;
-  width: 100%;
-  height: 50px;
+  margin: 0 0 5px 0;
   display: inline-block;
+  background: #21252d;
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+  color: #788195;
+  font-size: 16px;
+  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.05, 0.74, 0.27, 0.99);
+  transition: transform 0.4s cubic-bezier(0.05, 0.74, 0.27, 0.99);
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  font-weight: bold;
 }
-.events-sidebar ul li:hover span {
+.events-sidebar ul.events li i {
+  line-height: 50px;
+  width: 100%;
+}
+.events-sidebar ul.events li .details {
+  display: none;
+  line-height: 12px;
+  color: #788195;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  padding: 10px;
+}
+.events-sidebar ul.events li:hover {
   color: #fff;
-}
-.events-sidebar ul li span {
-  margin: 0 7px;
-}
-.events-sidebar ul li span:hover {
   cursor: pointer;
 }
-.events-sidebar ul li span.event:before {
+.events-sidebar ul.events li:before {
   content: '';
   position: absolute;
-  left: -3px;
+  left: -4px;
   height: 100%;
-  width: 3px;
+  width: 4px;
+  z-index: 1000;
 }
-.events-sidebar ul li span.event.primary:before {
+.events-sidebar ul.events li.primary:before {
   background: #6d5cae;
 }
-.events-sidebar ul li span.event.complete:before {
+.events-sidebar ul.events li.complete:before {
   background: #48b0f7;
 }
-.events-sidebar ul li span.event.success:before {
+.events-sidebar ul.events li.success:before {
   background: #10cfbd;
 }
-.events-sidebar ul li span.event.warning:before {
+.events-sidebar ul.events li.warning:before {
   background: #f8d053;
 }
-.events-sidebar ul li span.event.danger:before {
+.events-sidebar ul.events li.danger:before {
   background: #f55753;
 }
-.events-sidebar ul li span.event.info:before {
+.events-sidebar ul.events li.info:before {
   background: #3b4752;
+}
+.region .region-sparkline-chart {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  margin-bottom: -3px;
+}
+.region .region-nvd3-chart {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  bottom: 0;
+  left: 0;
+  margin-bottom: -3px;
+}
+.region ul.status {
+  width: 100%;
+  height: 2px;
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.region ul.status li {
+  display: block;
+  float: left;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.region ul.status li.stable {
+  width: 90%;
+  background: #10cfbd;
+}
+.region ul.status li.warning {
+  width: 5%;
+  background: #f8d053;
+}
+.region ul.status li.danger {
+  width: 5%;
+  background: #f55753;
+}
+.region ul.status:hover {
+  height: 5px;
+  margin-top: -3px;
 }

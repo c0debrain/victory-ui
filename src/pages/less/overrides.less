@@ -4,6 +4,7 @@
 
 */
 
+// Global Styling
 .page-container {
     padding-right: 57px;
 }
@@ -21,6 +22,7 @@
     font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+// Events Sidebar Styling
 .events-sidebar {
     left: auto;
     top: 0;
@@ -29,7 +31,7 @@
     width: 57px;
     z-index: 1000;
     position: fixed;
-    overflow: hidden;
+    overflow: visible;
     background-color: #2b303b;
 
     .sidebar-header {
@@ -48,7 +50,7 @@
         margin-bottom: 10px;
     }
 
-    ul {
+    ul.events {
         padding: 0;
         margin: 0;
         width: 100%;
@@ -57,53 +59,138 @@
 
         li {
             padding: 0;
-            width: 100%;
-            height: 50px;
+            margin: 0 0 5px 0;
             display: inline-block;
+            background: #21252d;
+            height: 50px;
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+            color: #788195;
+            font-size: 16px;
+            -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.05, 0.74, 0.27, 0.99);
+            transition: transform 0.4s cubic-bezier(0.05, 0.74, 0.27, 0.99);
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            font-weight: bold;
 
-            &:hover span {
+            i {
+                line-height: 50px;
+                width: 100%;
+            }
+
+            .details {
+                display: none;
+                line-height: 12px;
+                color: #788195;
+                font-family: Arial, sans-serif;
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            &:hover {
                 color: #fff;
+                cursor: pointer;
             }
 
-            span {
-                margin: 0 7px;
-
-                &:hover {
-                    cursor: pointer;
-                }
-
-                &.event:before {
-                    content: '';
-                    position: absolute;
-                    left: -3px;
-                    height: 100%;
-                    width: 3px;
-                }
-
-                &.event.primary:before {
-                    background: @color-primary;
-                }
-
-                &.event.complete:before {
-                    background: @color-complete;
-                }
-
-                &.event.success:before {
-                    background: @color-success;
-                }
-
-                &.event.warning:before {
-                    background: @color-warning;
-                }
-
-                &.event.danger:before {
-                    background: @color-danger;
-                }
-
-                &.event.info:before {
-                    background: @color-info;
-                }
+            &:before {
+                content: '';
+                position: absolute;
+                left: -4px;
+                height: 100%;
+                width: 4px;
+                z-index: 1000;
             }
+
+            &.primary:before {
+                background: @color-primary;
+            }
+
+            &.complete:before {
+                background: @color-complete;
+            }
+
+            &.success:before {
+                background: @color-success;
+            }
+
+            &.warning:before {
+                background: @color-warning;
+            }
+
+            &.danger:before {
+                background: @color-danger;
+            }
+
+            &.info:before {
+                background: @color-info;
+            }
+        }
+    }
+}
+
+.region {
+
+    .region-sparkline-chart {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        margin-bottom: -3px;
+    }
+
+    .region-nvd3-chart {
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        bottom: 0;
+        left: 0;
+        margin-bottom: -3px;
+    }
+
+    ul.status {
+        width: 100%;
+        height: 2px;
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 999;
+
+        li {
+            display: block;
+            float: left;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+
+            &.stable {
+                width: 90%;
+                background: @color-success;
+            }
+
+            &.warning {
+                width: 5%;
+                background: @color-warning;
+            }
+
+            &.danger {
+                width: 5%;
+                background: @color-danger;
+            }
+        }
+
+        &:hover {
+            height: 5px;
+            margin-top: -3px;
         }
     }
 }

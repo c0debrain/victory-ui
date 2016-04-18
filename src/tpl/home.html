@@ -2,19 +2,290 @@
 <div class="container-fluid container-fixed-lg ">
     <ul class="breadcrumb">
         <li>
-            <a href="#">Home</a>
+            <a href="#">Dashboard</a>
         </li>
-        <li><a class="active" href="#">Plain template</a>
+        <li><a class="active" href="#">Home</a>
         </li>
     </ul>
     <!-- END BREADCRUMB -->
-    <h3 class="page-title">Page Title</h3>
 </div>
+
 <div class="container-fluid container-fixed-lg">
-    <!-- YOU CAN REMOVE .container-fixed-lg TO DISABLE THE FEATURE WHERE THE CONTENT
-                 ALIGNS TO THE CENTER WITHOUT STRECTHING UNGLY ON 1800PX(1080P & 4/5K MONITORS) UP WORDS SCREEN
-                  -->
-    <!-- CONTENT GOES HERE-->
-    <h1>Hey there!</h1>
-    <h2>{{message}}</h2>
+    <div class="panel panel-transparent">
+        <div class="panel-heading">
+            <div class="panel-title">OneLink Regions</div>
+        </div>
+
+        <div class="panel-body sortable">
+            <div class="row">
+
+                <!-- Start 1st Column -->
+                <div class="col-md-6 sortable-column" ui-jq="sortable" ui-options='{
+                    connectWith: ".sortable .row .col-md-6",
+                    handle: ".panel-heading",
+                    cancel: ".portlet-close",
+                    placeholder: "sortable-box-placeholder round-all",
+                    forcePlaceholderSize: true,
+                    tolerance: "pointer",
+                    forceHelperSize: true,
+                    revert: true,
+                    helper: "original",
+                    opacity: 0.8,
+                    iframeFix: false
+                }'>
+                    <!-- Start 1st Panel -->
+                    <div class="panel panel-default region" pg-portlet id="portlet-linear" progress="bar" on-refresh="refreshTest('#portlet-linear')">
+                        <div class="panel-heading ">
+                            <div class="panel-title">Amazon Web Services (AWS)</div>
+
+                            <div class="panel-controls">
+                                <ul>
+                                    <li>
+                                        <a class="portlet-collapse" href="" data-toggle="collapse">
+                                            <i class="portlet-icon portlet-icon-collapse"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="portlet-refresh" href="" data-toggle="refresh">
+                                            <i class="portlet-icon portlet-icon-refresh"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body sortable p-b-70">
+                            <p>
+                                Click on the refresh icon to simulate an AJAX call
+                                and to see an animated progress bar indicator above
+                                the portlet. These progress bars come in seven
+                                different colors that are available in the Pages
+                                contextual color scheme.
+                            </p>
+
+                            <div class="chart-table m-t-20">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Clusters</p>
+                                                <p class="pull-right bold">7</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Alerts</p>
+                                                <p class="pull-right bold">3</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 p-l-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Time</p>
+                                                <p class="pull-right bold">05:20</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Warnings</p>
+                                                <p class="pull-right bold">15</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div jq-sparkline class="region-sparkline-chart sparkline-chart" ng-model="sparkline_line_data" opts="{{ sparkline_line_options }}"></div>
+                        </div>
+
+                        <ul class="status">
+                            <li class="stable"></li>
+                            <li class="warning"></li>
+                            <li class="danger"></li>
+                        </ul>
+                    </div>
+
+                    <!-- Start 2nd Panel -->
+                    <div class="panel panel-default region" pg-portlet id="portlet-linear" progress="bar" on-refresh="refreshTest('#portlet-linear')">
+                        <div class="panel-heading ">
+                            <div class="panel-title">Contegix (CTX)</div>
+
+                            <div class="panel-controls">
+                                <ul>
+                                    <li>
+                                        <a class="portlet-collapse" href="" data-toggle="collapse">
+                                            <i class="portlet-icon portlet-icon-collapse"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="portlet-refresh" href="" data-toggle="refresh">
+                                            <i class="portlet-icon portlet-icon-refresh"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body sortable p-b-100">
+                            <p>
+                                Click on the refresh icon to simulate an AJAX call
+                                and to see an animated progress bar indicator above
+                                the portlet. These progress bars come in seven
+                                different colors that are available in the Pages
+                                contextual color scheme.
+                            </p>
+
+                            <div class="chart-table m-t-20">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Clusters</p>
+                                                <p class="pull-right bold">7</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Alerts</p>
+                                                <p class="pull-right bold">3</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 p-l-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Time</p>
+                                                <p class="pull-right bold">05:20</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Warnings</p>
+                                                <p class="pull-right bold">15</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nvd3 options='nvd3_options' class="region-nvd3-chart line-chart" data='nvd3_data'></nvd3>
+
+                        <ul class="status">
+                            <li class="stable"></li>
+                            <li class="warning"></li>
+                            <li class="danger"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Start 2nd Column -->
+                <div class="col-md-6 sortable-column" ui-jq="sortable" ui-options='{
+                    connectWith: ".sortable .row .col-md-6",
+                    handle: ".panel-heading",
+                    cancel: ".portlet-close",
+                    placeholder: "sortable-box-placeholder round-all",
+                    forcePlaceholderSize: true,
+                    tolerance: "pointer",
+                    forceHelperSize: true,
+                    revert: true,
+                    helper: "original",
+                    opacity: 0.8,
+                    iframeFix: false
+                }'>
+                    <!-- Start Third Panel -->
+                    <div class="panel panel-default region" pg-portlet id="portlet-linear" progress="bar" on-refresh="refreshTest('#portlet-linear')">
+                        <div class="panel-heading ">
+                            <div class="panel-title">Datapipe Hong Kong (DHK)</div>
+
+                            <div class="panel-controls">
+                                <ul>
+                                    <li>
+                                        <a class="portlet-collapse" href="" data-toggle="collapse">
+                                            <i class="portlet-icon portlet-icon-collapse"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="portlet-refresh" href="" data-toggle="refresh">
+                                            <i class="portlet-icon portlet-icon-refresh"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body sortable">
+                            <h3>
+                                <span class="semi-bold">Linear</span> Progress
+                            </h3>
+                            <p>
+                                Click on the refresh icon to simulate an AJAX call
+                                and to see an animated progress bar indicator above
+                                the portlet. These progress bars come in seven
+                                different colors that are available in the Pages
+                                contextual color scheme.
+                            </p>
+                        </div>
+
+                        <ul class="status">
+                            <li class="stable"  style="width: 65%;"></li>
+                            <li class="warning" style="width: 25%;"></li>
+                            <li class="danger"  style="width: 10%;"></li>
+                        </ul>
+                    </div>
+
+                    <!-- Start 4th Panel -->
+                    <div class="panel panel-default region" pg-portlet id="portlet-linear" progress="bar" on-refresh="refreshTest('#portlet-linear')">
+                        <div class="panel-heading ">
+                            <div class="panel-title">Datapipe New Jersey (DNJ)</div>
+
+                            <div class="panel-controls">
+                                <ul>
+                                    <li>
+                                        <a class="portlet-collapse" href="" data-toggle="collapse">
+                                            <i class="portlet-icon portlet-icon-collapse"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="portlet-refresh" href="" data-toggle="refresh">
+                                            <i class="portlet-icon portlet-icon-refresh"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body sortable">
+                            <h3>
+                                <span class="semi-bold">Linear</span> Progress
+                            </h3>
+                            <p>
+                                Click on the refresh icon to simulate an AJAX call
+                                and to see an animated progress bar indicator above
+                                the portlet. These progress bars come in seven
+                                different colors that are available in the Pages
+                                contextual color scheme.
+                            </p>
+                        </div>
+
+                        <ul class="status">
+                            <li class="stable"></li>
+                            <li class="warning"></li>
+                            <li class="danger"></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div> <!-- End Row -->
+        </div><!-- End Panel Body -->
+
+    </div>
 </div>
+<!-- END CONTAINER FLUID -->
