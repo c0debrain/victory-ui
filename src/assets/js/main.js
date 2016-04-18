@@ -1,6 +1,6 @@
 /* ============================================================
  * File: main.js
- * Main Controller to set global scope variables. 
+ * Main Controller to set global scope variables.
  * ============================================================ */
 
 angular.module('app')
@@ -8,14 +8,13 @@ angular.module('app')
 
         // App globals
         $scope.app = {
-            name: 'Pages',
-            description: 'Admin Dashboard UI kit',
+            name: 'OneLink NOC',
+            description: 'Network operations center dashboard that displays important information regarding the various hardware and software deployments that are embodied by the OneLink service.',
             layout: {
                 menuPin: false,
                 menuBehind: false,
                 theme: 'pages/css/pages.css'
-            },
-            author: 'Revox'
+            }
         }
 
         // Checks if the given state is the current state
@@ -40,10 +39,10 @@ angular.module('app')
 
 angular.module('app')
     /*
-        Use this directive together with ng-include to include a 
+        Use this directive together with ng-include to include a
         template file by replacing the placeholder element
     */
-    
+
     .directive('includeReplace', function() {
         return {
             require: 'ngInclude',

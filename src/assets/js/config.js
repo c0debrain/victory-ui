@@ -23,7 +23,7 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
-                                    /* 
+                                    /*
                                         Load any ocLazyLoad module here
                                         ex: 'wysihtml5'
                                         Open config.lazyload.js for available modules
@@ -33,9 +33,30 @@ angular.module('app')
                                 })
                                 .then(function() {
                                     return $ocLazyLoad.load([
-                                        'assets/js/controllers/home.js'
+                                        'assets/js/controllers/home.controller.js'
                                     ]);
                                 });
+                        }]
+                    }
+                })
+                // Login
+                .state('access', {
+                        url: '/access',
+                        template: '<div class="full-height" ui-view></div>'
+                    })
+                .state('access.login', {
+                    url: '/login',
+                    templateUrl: 'tpl/login.html',
+                    controller: 'LoginCtrl',
+                    controllerAs: 'vm',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load(
+                                [
+                                    'assets/js/controllers/login.controller.js',
+                                    'assets/js/services/authentication.service.js',
+                                    'assets/js/services/flash.service.js'
+                                ]);
                         }]
                     }
                 });
