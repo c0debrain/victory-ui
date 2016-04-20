@@ -4,7 +4,7 @@
 
 angular.module('app')
 
-.controller('EventFeedCtrl', ['$scope', function($scope) {
+.controller('EventFeedCtrl', ['$scope', '$interval', function($scope, $interval) {
     $scope.events = [{
         type: "complete",
         details: "The server is running under optimal conditions."
@@ -20,10 +20,9 @@ angular.module('app')
     }];
 
     // Every X seconds, copy one of the events and push it
-    setInterval(function() {
+    $interval(function() {
         $scope.events.push(angular.copy($scope.events[Math.floor(Math.random() * 4)]));
-
-        $scope.$apply();
+        if ($scope.events.length > 10) $scope.events.shift();
     }, 5000)
 }])
 

@@ -8,7 +8,7 @@ angular.module('app')
 
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $urlRouterProvider
-                .otherwise('/app/home');
+                .otherwise('/app/overview');
 
             $stateProvider
                 .state('app', {
@@ -16,21 +16,39 @@ angular.module('app')
                     url: "/app",
                     templateUrl: "tpl/app.html"
                 })
-                .state('app.dashboard', {
-                    url: "/home",
-                    templateUrl: "tpl/home.html",
-                    controller: 'HomeCtrl',
+                .state('app.overview', {
+                    url: "/overview",
+                    templateUrl: "tpl/overview.html",
+                    controller: 'OverviewCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
-                                    'sparkline',
                                     'nvd3'
                                 ], {
                                     insertBefore: '#lazyload_placeholder'
                                 })
                                 .then(function() {
                                     return $ocLazyLoad.load([
-                                        'assets/js/controllers/home.controller.js'
+                                        'assets/js/controllers/overview.controller.js'
+                                    ]);
+                                });
+                        }]
+                    }
+                })
+                .state('app.region', {
+                    url: "/region/:id",
+                    templateUrl: "tpl/region.html",
+                    controller: 'RegionCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                    'nvd3'
+                                ], {
+                                    insertBefore: '#lazyload_placeholder'
+                                })
+                                .then(function() {
+                                    return $ocLazyLoad.load([
+                                        'assets/js/controllers/region.controller.js'
                                     ]);
                                 });
                         }]

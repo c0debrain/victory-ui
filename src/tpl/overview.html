@@ -1,0 +1,201 @@
+<!-- START PAGE COVER -->
+<div class="container-fluid container-fixed-lg ">
+    <ul class="breadcrumb">
+        <li>
+            <a>NOC</a>
+        </li>
+        <li>
+            <a class="active">Overview</a>
+        </li>
+    </ul>
+    <!-- END BREADCRUMB -->
+</div>
+
+<div class="container-fluid container-fixed-lg">
+    <div class="panel panel-transparent">
+        <div class="panel-heading">
+            <div class="panel-title">OneLink Regions</div>
+        </div>
+
+        <div class="panel-body sortable">
+            <div class="row">
+
+                <!-- Start 1st Column -->
+                <div class="col-md-6 sortable-column" ui-jq="sortable" ui-options='{
+                    connectWith: ".sortable .row .col-md-6",
+                    handle: ".panel-heading",
+                    cancel: ".portlet-close",
+                    placeholder: "sortable-box-placeholder round-all",
+                    forcePlaceholderSize: true,
+                    tolerance: "pointer",
+                    forceHelperSize: true,
+                    revert: true,
+                    helper: "original",
+                    opacity: 0.8,
+                    iframeFix: false
+                }'>
+
+                    <div ng-repeat="region in regions" ng-if="$odd" class="panel panel-default region" pg-portlet id="{{ region.abbreviation }}" progress="circle" on-refresh="refreshTest('#{{ region.abbreviation }}')">
+                        <div class="panel-heading ">
+                            <div class="panel-title">{{ region.name }} ({{ region.abbreviation }})</div>
+
+                            <div class="panel-controls">
+                                <ul>
+                                    <li>
+                                        <a class="portlet-collapse" href="" data-toggle="collapse">
+                                            <i class="portlet-icon portlet-icon-collapse"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="portlet-refresh" href="" data-toggle="refresh">
+                                            <i class="portlet-icon portlet-icon-refresh"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body sortable">
+                            <p>
+                                {{ region.description }}
+                            </p>
+
+                            <div class="chart-table m-t-20 m-b-40">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Clusters</p>
+                                                <p class="pull-right bold">{{ region.statistics.clusters }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Alerts</p>
+                                                <p class="pull-right bold">{{ region.statistics.alerts }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 p-l-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Time</p>
+                                                <p class="pull-right bold">{{ region.statistics.timezone }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Warnings</p>
+                                                <p class="pull-right bold">{{ region.statistics.warnings }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nvd3 options='nvd3_options' class="region-nvd3-chart line-chart" data='nvd3_data'></nvd3>
+
+                        <ul class="status">
+                            <li class="stable"  style="width: {{ region.status.stable }}%;"></li>
+                            <li class="warning" style="width: {{ region.status.warning }}%;"></li>
+                            <li class="danger"  style="width: {{ region.status.danger }}%;"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Start 2nd Column -->
+                <div class="col-md-6 sortable-column" ui-jq="sortable" ui-options='{
+                    connectWith: ".sortable .row .col-md-6",
+                    handle: ".panel-heading",
+                    cancel: ".portlet-close",
+                    placeholder: "sortable-box-placeholder round-all",
+                    forcePlaceholderSize: true,
+                    tolerance: "pointer",
+                    forceHelperSize: true,
+                    revert: true,
+                    helper: "original",
+                    opacity: 0.8,
+                    iframeFix: false
+                }'>
+                      <div ng-repeat="region in regions" ng-if="$even" class="panel panel-default region" pg-portlet id="{{ region.abbreviation }}" progress="circle" on-refresh="refreshWithErrorTest('#{{ region.abbreviation }}')">
+                        <div class="panel-heading ">
+                            <div class="panel-title">{{ region.name }} ({{ region.abbreviation }})</div>
+
+                            <div class="panel-controls">
+                                <ul>
+                                    <li>
+                                        <a class="portlet-collapse" href="" data-toggle="collapse">
+                                            <i class="portlet-icon portlet-icon-collapse"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="portlet-refresh" href="" data-toggle="refresh">
+                                            <i class="portlet-icon portlet-icon-refresh"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body sortable">
+                            <p>
+                                {{ region.description }}
+                            </p>
+
+                            <div class="chart-table m-t-20 m-b-40">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Clusters</p>
+                                                <p class="pull-right bold">{{ region.statistics.clusters }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Alerts</p>
+                                                <p class="pull-right bold">{{ region.statistics.alerts }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 p-l-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Time</p>
+                                                <p class="pull-right bold">{{ region.statistics.timezone }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="pull-left">Warnings</p>
+                                                <p class="pull-right bold">{{ region.statistics.warnings }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nvd3 options='nvd3_options' class="region-nvd3-chart line-chart" data='nvd3_data'></nvd3>
+
+                        <ul class="status">
+                            <li class="stable"  style="width: {{ region.status.stable }}%;"></li>
+                            <li class="warning" style="width: {{ region.status.warning }}%;"></li>
+                            <li class="danger"  style="width: {{ region.status.danger }}%;"></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div> <!-- End Row -->
+        </div><!-- End Panel Body -->
+
+    </div>
+</div>
+<!-- END CONTAINER FLUID -->
