@@ -11,13 +11,15 @@ var clean           = require('gulp-clean');
 var minifycss       = require('gulp-minify-css');
 var gulpNgConfig    = require('gulp-ng-config');
 var b2v             = require('buffer-to-vinyl');
+var bower           = require('gulp-bower');
+var wiredep         = require('wiredep');
 
 // Config Paths
 config.paths = {
     config: './config/' + process.env.NODE_ENV,
-    source: './app/src',
-    pages:  './app/src/pages',
-    assets: './app/src/assets',
+    source: './source',
+    pages:  './source/pages',
+    assets: './source/assets',
     build:  './dist'
 };
 
@@ -49,12 +51,11 @@ gulp.task('less', function() {
  */
 gulp.task('watch', function() {
     gulp.watch([
-        config.paths.pages + '/less/*.less',
-        config.paths.assets + '/less/*.less'
-    ], ['less']);
+        config.paths.source
+    ], ['build']);
 });
 
-gulp.task('build', ['config', 'less', 'copy', 'css-min']);
+gulp.task('build', ['less', 'copy', 'config', 'bower']);
 
 /*
     Deletes the dist directory.
@@ -87,6 +88,7 @@ gulp.task('copy', ['clean'], function() {
 /*
     Minifies all default CSS assets in the build directory. Does not effect
     the source directory.
+    @TODO:  Actually implement this
  */
 gulp.task('css-min', function() {
     return gulp.src([config.paths.build + './assets/css/*.css', config.paths.build + './pages/css/*.css'])
@@ -110,8 +112,22 @@ gulp.task('config', function() {
 
     return b2v.stream(new Buffer(json), 'environment.js')
         .pipe(gulpNgConfig('app.env', { pretty: true }))
-        .pipe(gulp.dest(config.paths.source + '/assets/js'));
+        .pipe(gulp.dest(config.paths.build + '/assets/js'));
 });
+
+/*
+    Installs bower
+ */
+gulp.task('bower', ['copy'], function() {
+    // gulp.src(config.paths.build + '/index.html')
+    //     .pipe(wiredep());
+    //     .pipe(gulp.dest('./'));
+
+    wiredep({
+        src: config.paths.build + '/index.html'
+    })
+});
+
 
 gulp.task('default', function() {
     console.log("\n");

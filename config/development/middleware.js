@@ -8,7 +8,8 @@ var methodOverride  = require('method-override');
 
 module.exports = function(app) {
     // Serve static content
-    app.use(express.static(path.join(settings.path, 'app/src')));
+    app.use(express.static(path.join(settings.path, 'dist')));
+    app.use('/components', express.static(path.join(settings.path, 'bower_components')));
 
     // Parse the body of requests
     app.use(bodyParser.json());
@@ -28,7 +29,7 @@ module.exports = function(app) {
 
     app.use(function(req, res, next) {
         res.sendView = function(view) {
-            return res.sendFile(path.join(settings.path, 'app/src', view));
+            return res.sendFile(path.join(settings.path, 'dist', view));
         }
         next();
     });

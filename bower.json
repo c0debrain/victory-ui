@@ -1,0 +1,9 @@
+{
+    "name": "nocdashboard",
+    "dependencies": {
+        "ng-letter-avatar": "ngletteravatar#^4.0.2",
+        "angular-resource": "^1.5.5"
+    },
+    "private": true,
+    "analytics": false
+}
