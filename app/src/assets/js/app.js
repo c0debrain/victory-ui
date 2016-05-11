@@ -11,5 +11,5 @@ angular.module('app', [
     'ui.utils',
     'oc.lazyLoad',
     'ngCookies',
-    'app.environment'
+    'app.env'
 ]);

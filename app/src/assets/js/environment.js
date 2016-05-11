@@ -1,6 +1,8 @@
-angular.module("app.environment", [])
-.constant("api", "localhost")
-.constant("api_key", "development")
-.constant("api_version", "v1")
-.constant("node_env", "development")
-.constant("node_port", "3001");
+angular.module("app.env", [])
+.constant("env", {
+  "api": "localhost",
+  "api_key": "development",
+  "api_version": "v1",
+  "node_env": "development",
+  "node_port": "3001"
+});

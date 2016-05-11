@@ -4,7 +4,7 @@
  * ============================================================ */
 
 angular.module('app')
-    .controller('AppCtrl', ['$scope', '$rootScope', '$state', function($scope, $rootScope, $state) {
+    .controller('AppCtrl', ['$scope', '$rootScope', '$state', 'env', function($scope, $rootScope, $state, env) {
 
         // App globals
         $scope.app = {
@@ -15,25 +15,17 @@ angular.module('app')
                 menuBehind: false,
                 theme: 'pages/css/pages.css'
             }
-        }
+        };
 
         // Checks if the given state is the current state
         $scope.is = function(name) {
             return $state.is(name);
-        }
+        };
 
         // Checks if the given state/child states are present
         $scope.includes = function(name) {
             return $state.includes(name);
-        }
-
-        // Broadcasts a message to pgSearch directive to toggle search overlay
-        $scope.showSearchOverlay = function() {
-            $scope.$broadcast('toggleSearchOverlay', {
-                show: true
-            })
-        }
-
+        };
     }]);
 
 
@@ -42,7 +34,6 @@ angular.module('app')
         Use this directive together with ng-include to include a
         template file by replacing the placeholder element
     */
-
     .directive('includeReplace', function() {
         return {
             require: 'ngInclude',
@@ -51,4 +42,4 @@ angular.module('app')
                 el.replaceWith(el.children());
             }
         };
-    })
+    });

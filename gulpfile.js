@@ -99,15 +99,17 @@ gulp.task('css-min', function() {
  */
 gulp.task('config', function() {
     var json = JSON.stringify({
-        api:            process.env.API,
-        api_key:        process.env.API_KEY,
-        api_version:    process.env.API_VERSION,
-        node_env:       process.env.NODE_ENV,
-        node_port:      process.env.NODE_PORT
+        env: {
+            api:            process.env.API,
+            api_key:        process.env.API_KEY,
+            api_version:    process.env.API_VERSION,
+            node_env:       process.env.NODE_ENV,
+            node_port:      process.env.NODE_PORT
+        }
     });
 
     return b2v.stream(new Buffer(json), 'environment.js')
-        .pipe(gulpNgConfig('app.environment'))
+        .pipe(gulpNgConfig('app.env', { pretty: true }))
         .pipe(gulp.dest(config.paths.source + '/assets/js'));
 });
 
