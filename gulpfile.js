@@ -22,49 +22,56 @@ var paths = {
     assets: './source/assets',
     dist:   './dist'
 };
+var task = {
+    less: {}
+};
 
 /*
     Transpiles the framework's LESS files into CSS files.
  */
-gulp.task('less.framework', ['copy'], function() {
+gulp.task('less.framework', task.less.framework = function() {
     gulp.src(path.join(paths.pages, '/less/pages.less'))
         .pipe(less({ compress: false }))
         .pipe(gulp.dest(path.join(paths.dist, '/pages/css')))
         .pipe(livereload());
 });
+gulp.task('less.framework:copy', ['copy'], task.less.framework);
 
 /*
     Transpiles the application's LESS files into CSS files.
  */
-gulp.task('less.application', ['copy'], function() {
+gulp.task('less.application', task.less.application = function() {
     gulp.src(path.join(paths.assets, '/less/styles.less'))
         .pipe(less({ compress: false }))
         .pipe(gulp.dest(path.join(paths.dist, '/assets/css')))
         .pipe(livereload());
 });
+gulp.task('less.application:copy', ['copy'], task.less.application);
 
 /*
     Watches for changes in the source directory's LESS files. Transpiles them
     to CSS. This task makes sure the dist directory has been created first.
  */
-gulp.task('watch', ['copy'], function() {
-    livereload.listen();
-    gulp.watch(paths.source + '/**/*.less', ['less']);
+gulp.task('watch', task.watch = function() {
+    livereload.listen({ basepath: '' });
+    gulp.watch(paths.source + '/pages/less/*.less', ['less.framework']);
+    gulp.watch(paths.source + '/assets/less/*.less', ['less.application']);
 });
+gulp.task('watch:copy', ['copy'], task.watch);
 
 gulp.task('build',
     [
         'copy',
-        'less.framework',
-        'less.application',
-        'config'
+        'less.framework:copy',
+        'less.application:copy',
+        'config:copy'
     ]
 );
 
 /*
     Deletes the dist directory.
  */
-gulp.task('clean', function() {
+gulp.task('clean', task.clean = function() {
     return gulp.src(paths.dist, { read: false })
         .pipe(clean());
 });
@@ -74,7 +81,7 @@ gulp.task('clean', function() {
     Duplicates files that aren't specifically ignored into the dist directory.
     Deletes the previous dist directory to prevent any collisions.
  */
-gulp.task('copy', ['clean'], function() {
+gulp.task('copy', ['clean'], task.copy = function() {
     return gulp.src(
         [
             // Source Directory
@@ -101,20 +108,10 @@ gulp.task('copy', ['clean'], function() {
 });
 
 /*
-    Minifies all default CSS assets in the dist directory. Does not effect
-    the source directory.
-    @TODO:  Actually implement this
- */
-gulp.task('css-min', function() {
-    return gulp.src([paths.dist + './assets/css/*.css', paths.dist + './pages/css/*.css'])
-        .pipe(minifycss());
-});
-
-/*
     Generates environment variables that are to be injected into the Angular
     application at runtime.
  */
-gulp.task('config', function() {
+gulp.task('config', task.config = function() {
     var json = JSON.stringify({
         env: {
             api:            process.env.API,
@@ -129,6 +126,7 @@ gulp.task('config', function() {
         .pipe(gulpNgConfig('app.env', { pretty: true }))
         .pipe(gulp.dest(paths.dist + '/assets/js'));
 });
+gulp.task('config:copy',['copy'], task.config);
 
 
 
