@@ -26,10 +26,20 @@ var paths = {
 /*
     Transpiles the framework's LESS files into CSS files.
  */
-gulp.task('less', function() {
+gulp.task('less.framework', ['copy'], function() {
     gulp.src(path.join(paths.pages, '/less/pages.less'))
-        .pipe(less({ compress: true }))
+        .pipe(less({ compress: false }))
         .pipe(gulp.dest(path.join(paths.dist, '/pages/css')))
+        .pipe(livereload());
+});
+
+/*
+    Transpiles the application's LESS files into CSS files.
+ */
+gulp.task('less.application', ['copy'], function() {
+    gulp.src(path.join(paths.assets, '/less/styles.less'))
+        .pipe(less({ compress: false }))
+        .pipe(gulp.dest(path.join(paths.dist, '/assets/css')))
         .pipe(livereload());
 });
 
@@ -42,7 +52,14 @@ gulp.task('watch', ['copy'], function() {
     gulp.watch(paths.source + '/**/*.less', ['less']);
 });
 
-gulp.task('build', ['less', 'copy', 'config']);
+gulp.task('build',
+    [
+        'copy',
+        'less.framework',
+        'less.application',
+        'config'
+    ]
+);
 
 /*
     Deletes the dist directory.
@@ -60,14 +77,25 @@ gulp.task('clean', function() {
 gulp.task('copy', ['clean'], function() {
     return gulp.src(
         [
+            // Source Directory
             paths.source + '/**',
-            '!**/node_modules/**',
+
+            // Not dependencies
             '!**/node_modules/',
+            '!**/node_modules/**',
+
+            // Not process file
+            '!app.js',
+
+            // Not build files
             '!.gitgnore',
             '!package.json',
             '!Gruntfile.js',
             '!gulpfile.js',
-            '!app.js'
+
+            // Not LESS directories
+            '!**/**/less/',
+            '!**/**/less/**'
         ])
         .pipe(gulp.dest(paths.dist));
 });

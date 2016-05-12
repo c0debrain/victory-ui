@@ -1,40 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" data-ng-app="app" ng-controller="AppCtrl">
-
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
     <title>{{ app.name }}</title>
+
+    <!-- Metadata -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-    <link rel="apple-touch-icon" href="pages/ico/60.png">
-    <link rel="apple-touch-icon" href="pages/ico/76.png" sizes="76x76">
-    <link rel="apple-touch-icon" href="pages/ico/120.png" sizes="120x120">
-    <link rel="apple-touch-icon" href="pages/ico/152.png" sizes="152x152">
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta content="{{ app.description }}" name="description" />
     <meta content="{{ app.author }}" name="author" />
 
-    <!-- BEGIN Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="assets/plugins/pace/pace-theme-flash.css" />
-    <link rel="stylesheet" type="text/css" href="assets/plugins/boostrapv3/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="assets/plugins/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" type="text/css" href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" media="screen" />
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" type="text/css" href="plugins/pace/pace-theme-flash.css" />
+    <link rel="stylesheet" type="text/css" href="plugins/boostrapv3/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="plugins/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="plugins/jquery-scrollbar/jquery.scrollbar.css" media="screen" />
     <link id="lazyload_placeholder">
 
-    <!-- BEGIN Pages CSS-->
-    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
-    <link class="main-stylesheet" ng-href="{{ app.layout.theme }}" rel="stylesheet" type="text/css" />
+    <!-- Framework & Application CSS -->
+    <link rel="stylesheet" type="text/css" ng-href="{{ app.layout.theme }}" class="main-stylesheet"  />
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
 
     <!--[if lte IE 9]>
         <link href="pages/css/ie9.css" rel="stylesheet" type="text/css" />
     <![endif]-->
 
     <!--[if lt IE 9]>
-            <link href="assets/plugins/mapplic/css/mapplic-ie.css" rel="stylesheet" type="text/css" />
+            <link href="plugins/mapplic/css/mapplic-ie.css" rel="stylesheet" type="text/css" />
     <![endif]-->
 
     <!-- Fix for Windows 8 -->
@@ -57,31 +49,31 @@
 ">
     <div class="full-height" ui-view></div>
 
-    <!-- BEGIN VENDOR JS -->
-    <!-- JQUERY -->
-    <script src="assets/plugins/pace/pace.min.js"></script>
+    <!-- Vendor JavaScript -->
+    <!-- jQuery -->
+    <script src="plugins/pace/pace.min.js"></script>
     <script src="components/jquery/dist/jquery.js"></script>
-    <script src="assets/plugins/modernizr.custom.js"></script>
-    <script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script src="assets/plugins/boostrapv3/js/bootstrap.min.js"></script>
-    <script src="assets/plugins/jquery/jquery-easy.js"></script>
-    <script src="assets/plugins/jquery-unveil/jquery.unveil.min.js"></script>
-    <script src="assets/plugins/jquery-bez/jquery.bez.min.js"></script>
-    <script src="assets/plugins/jquery-ios-list/jquery.ioslist.min.js"></script>
-    <script src="assets/plugins/jquery-actual/jquery.actual.min.js"></script>
-    <script src="assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-    <script src="assets/plugins/classie/classie.js"></script>
+    <script src="plugins/modernizr.custom.js"></script>
+    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="plugins/boostrapv3/js/bootstrap.min.js"></script>
+    <script src="plugins/jquery/jquery-easy.js"></script>
+    <script src="plugins/jquery-unveil/jquery.unveil.min.js"></script>
+    <script src="plugins/jquery-bez/jquery.bez.min.js"></script>
+    <script src="plugins/jquery-ios-list/jquery.ioslist.min.js"></script>
+    <script src="plugins/jquery-actual/jquery.actual.min.js"></script>
+    <script src="plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="plugins/classie/classie.js"></script>
 
-    <!-- ANGULAR -->
+    <!-- Angular -->
     <script src="components/angular/angular.js"></script>
-    <script src="assets/plugins/angular-ui-router/angular-ui-router.min.js"></script>
-    <script src="assets/plugins/angular-ui-util/ui-utils.min.js"></script>
-    <script src="assets/plugins/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="assets/plugins/angular-oc-lazyload/ocLazyLoad.min.js"></script>
+    <script src="plugins/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="plugins/angular-ui-util/ui-utils.min.js"></script>
+    <script src="plugins/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="plugins/angular-oc-lazyload/ocLazyLoad.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.13/angular-cookies.min.js"></script>
     <script src="components/angular-resource/angular-resource.js"></script>
 
-    <!-- BEGIN CORE TEMPLATE JS -->
+    <!-- Framework Includes -->
     <script src="pages/js/pages.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/environment.js"></script>
@@ -98,8 +90,8 @@
     <script src="assets/js/directives/pg-search.js"></script>
     <script src="assets/js/directives/skycons.js"></script>
     <script src="assets/js/controllers/event-feed.controller.js"></script>
-    <!-- END CORE TEMPLATE JS -->
 
+    <!-- Livereload -->
     <script type="text/javascript">
         // document.write('<script src="http://'
         //     + (location.host || 'localhost').split(':')[0]
@@ -107,5 +99,4 @@
         // + 'script>');
     </script>
 </body>
-
 </html>

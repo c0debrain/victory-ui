@@ -9,7 +9,8 @@ var methodOverride  = require('method-override');
 module.exports = function(app) {
     // Serve static content
     app.use(express.static(path.join(settings.path, 'dist')));
-    app.use('/components', express.static(path.join(settings.path, 'bower_components')));
+    app.use('/components',  express.static(path.join(settings.path, 'bower_components')));
+    app.use('/plugins',     express.static(path.join(settings.path, 'plugins')));
 
     // Parse the body of requests
     app.use(bodyParser.json());
