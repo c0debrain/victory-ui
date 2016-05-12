@@ -1,7 +1,7 @@
 /* ============================================================
  * File: config.lazyload.js
- * Configure modules for ocLazyLoader. These are grouped by 
- * vendor libraries. 
+ * Configure modules for ocLazyLoader. These are grouped by
+ * vendor libraries.
  * ============================================================ */
 
 angular.module('app')
@@ -68,8 +68,8 @@ angular.module('app')
                 }, {
                     name: 'sparkline',
                     files: [
-                    'assets/plugins/jquery-sparkline/jquery.sparkline.min.js',
-                    'assets/plugins/angular-sparkline/angular-sparkline.js'
+                        'assets/plugins/jquery-sparkline/jquery.sparkline.min.js',
+                        'assets/plugins/angular-sparkline/angular-sparkline.js'
                     ]
                 }, {
                     name: 'mapplic',

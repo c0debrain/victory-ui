@@ -12,56 +12,43 @@ var minifycss       = require('gulp-minify-css');
 var gulpNgConfig    = require('gulp-ng-config');
 var b2v             = require('buffer-to-vinyl');
 var bower           = require('gulp-bower');
-var wiredep         = require('wiredep');
+var livereload      = require('gulp-livereload');
 
 // Config Paths
-config.paths = {
+var paths = {
     config: './config/' + process.env.NODE_ENV,
     source: './source',
     pages:  './source/pages',
     assets: './source/assets',
-    build:  './dist'
+    dist:   './dist'
 };
-
 
 /*
     Transpiles the framework's LESS files into CSS files.
  */
 gulp.task('less', function() {
-    gulp.src(config.paths.pages + '/less/pages.less')
-        .pipe(less({
-            paths: [
-                config.paths.pages + '/less/'
-            ]
-        }))
-        .pipe(gulp.dest(config.paths.pages + '/css/'));
-
-    gulp.src(config.paths.assets + '/less/style.less')
-        .pipe(less({
-            paths: [
-                config.paths.assets + '/less/'
-            ]
-        }))
-        .pipe(gulp.dest(config.paths.assets + '/css/'));
+    gulp.src(path.join(paths.pages, '/less/pages.less'))
+        .pipe(less({ compress: true }))
+        .pipe(gulp.dest(path.join(paths.dist, '/pages/css')))
+        .pipe(livereload());
 });
 
 /*
     Watches for changes in the source directory's LESS files. Transpiles them
-    to CSS. This task does not copy them to the dist directory.
+    to CSS. This task makes sure the dist directory has been created first.
  */
-gulp.task('watch', function() {
-    gulp.watch([
-        config.paths.source
-    ], ['build']);
+gulp.task('watch', ['copy'], function() {
+    livereload.listen();
+    gulp.watch(paths.source + '/**/*.less', ['less']);
 });
 
-gulp.task('build', ['less', 'copy', 'config', 'bower']);
+gulp.task('build', ['less', 'copy', 'config']);
 
 /*
     Deletes the dist directory.
  */
 gulp.task('clean', function() {
-    return gulp.src(config.paths.build + '', { read: false })
+    return gulp.src(paths.dist, { read: false })
         .pipe(clean());
 });
 
@@ -73,7 +60,7 @@ gulp.task('clean', function() {
 gulp.task('copy', ['clean'], function() {
     return gulp.src(
         [
-            config.paths.source + '/**',
+            paths.source + '/**',
             '!**/node_modules/**',
             '!**/node_modules/',
             '!.gitgnore',
@@ -82,16 +69,16 @@ gulp.task('copy', ['clean'], function() {
             '!gulpfile.js',
             '!app.js'
         ])
-        .pipe(gulp.dest(config.paths.build + ''));
+        .pipe(gulp.dest(paths.dist));
 });
 
 /*
-    Minifies all default CSS assets in the build directory. Does not effect
+    Minifies all default CSS assets in the dist directory. Does not effect
     the source directory.
     @TODO:  Actually implement this
  */
 gulp.task('css-min', function() {
-    return gulp.src([config.paths.build + './assets/css/*.css', config.paths.build + './pages/css/*.css'])
+    return gulp.src([paths.dist + './assets/css/*.css', paths.dist + './pages/css/*.css'])
         .pipe(minifycss());
 });
 
@@ -112,21 +99,9 @@ gulp.task('config', function() {
 
     return b2v.stream(new Buffer(json), 'environment.js')
         .pipe(gulpNgConfig('app.env', { pretty: true }))
-        .pipe(gulp.dest(config.paths.build + '/assets/js'));
+        .pipe(gulp.dest(paths.dist + '/assets/js'));
 });
 
-/*
-    Installs bower
- */
-gulp.task('bower', ['copy'], function() {
-    // gulp.src(config.paths.build + '/index.html')
-    //     .pipe(wiredep());
-    //     .pipe(gulp.dest('./'));
-
-    wiredep({
-        src: config.paths.build + '/index.html'
-    })
-});
 
 
 gulp.task('default', function() {
