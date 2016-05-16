@@ -5,8 +5,12 @@ var helmet          = require('helmet');
 var morgan          = require('morgan');
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
+var liveReload      = require('connect-livereload');
 
 module.exports = function(app) {
+    // Inject LiveReload into DOM
+    app.use(liveReload());
+
     // Serve static content
     app.use(express.static(path.join(settings.path, 'dist')));
     app.use('/components',  express.static(path.join(settings.path, 'bower_components')));

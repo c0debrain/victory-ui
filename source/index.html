@@ -51,7 +51,7 @@
 
     <!-- Vendor JavaScript -->
     <!-- jQuery -->
-    <script src="plugins/pace/pace.min.js"></script>
+    <script src="plugins/pace/pace.min.js" data-pace-options='{ "ajax": { "trackWebSockets": false } }'></script>
     <script src="components/jquery/dist/jquery.js"></script>
     <script src="plugins/modernizr.custom.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -90,13 +90,5 @@
     <script src="assets/js/directives/pg-search.js"></script>
     <script src="assets/js/directives/skycons.js"></script>
     <script src="assets/js/controllers/event-feed.controller.js"></script>
-
-    <!-- Livereload -->
-    <script type="text/javascript">
-        // document.write('<script src="http://'
-        //     + (location.host || 'localhost').split(':')[0]
-        //     + ':35729/livereload.js?snipver=1"></'
-        // + 'script>');
-    </script>
 </body>
 </html>

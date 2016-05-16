@@ -2,6 +2,7 @@
 require('dotenv').config();
 process.env.NODE_ENV = (process.env.NODE_ENV || 'development');
 
+
 // Global Dependencies
 var config          = require('./config')();
 var path            = require('path');
@@ -13,8 +14,12 @@ var gulpNgConfig    = require('gulp-ng-config');
 var b2v             = require('buffer-to-vinyl');
 var bower           = require('gulp-bower');
 var livereload      = require('gulp-livereload');
+var webserver       = require('gulp-webserver');
+var opn             = require('opn');
+var nodemon         = require('nodemon');
 
-// Config Paths
+
+// Config Variables --------------------------------------------
 var paths = {
     config: './config/' + process.env.NODE_ENV,
     source: './source',
@@ -22,9 +27,34 @@ var paths = {
     assets: './source/assets',
     dist:   './dist'
 };
+
 var task = {
     less: {}
 };
+
+var ignoredFiles = [
+    // Source Directory
+    paths.source + '/**',
+
+    // Not dependencies
+    '!**/node_modules/',
+    '!**/node_modules/**',
+
+    // Not process file
+    '!app.js',
+
+    // Not build files
+    '!.gitgnore',
+    '!package.json',
+    '!Gruntfile.js',
+    '!gulpfile.js',
+
+    // Not LESS directories
+    '!**/**/less/',
+    '!**/**/less/**'
+];
+
+// Gulp Tasks --------------------------------------------------
 
 /*
     Transpiles the framework's LESS files into CSS files.
@@ -37,6 +67,7 @@ gulp.task('less.framework', task.less.framework = function() {
 });
 gulp.task('less.framework:copy', ['copy'], task.less.framework);
 
+
 /*
     Transpiles the application's LESS files into CSS files.
  */
@@ -48,25 +79,28 @@ gulp.task('less.application', task.less.application = function() {
 });
 gulp.task('less.application:copy', ['copy'], task.less.application);
 
+
 /*
     Watches for changes in the source directory's LESS files. Transpiles them
     to CSS. This task makes sure the dist directory has been created first.
  */
 gulp.task('watch', task.watch = function() {
-    livereload.listen({ basepath: '' });
+    livereload.listen({ port: 35729 });
+
     gulp.watch(paths.source + '/pages/less/*.less', ['less.framework']);
+
     gulp.watch(paths.source + '/assets/less/*.less', ['less.application']);
+
+    // Reload on HTML changes
+    gulp.watch([
+        paths.source + '/*.html',
+        paths.source + '/tpl/*.html',
+        paths.source + '/tpl/**/*.html'
+    ], ['overwrite']);
 });
 gulp.task('watch:copy', ['copy'], task.watch);
+gulp.task('watch:server', ['server'], task.watch);
 
-gulp.task('build',
-    [
-        'copy',
-        'less.framework:copy',
-        'less.application:copy',
-        'config:copy'
-    ]
-);
 
 /*
     Deletes the dist directory.
@@ -82,30 +116,22 @@ gulp.task('clean', task.clean = function() {
     Deletes the previous dist directory to prevent any collisions.
  */
 gulp.task('copy', ['clean'], task.copy = function() {
-    return gulp.src(
-        [
-            // Source Directory
-            paths.source + '/**',
-
-            // Not dependencies
-            '!**/node_modules/',
-            '!**/node_modules/**',
-
-            // Not process file
-            '!app.js',
-
-            // Not build files
-            '!.gitgnore',
-            '!package.json',
-            '!Gruntfile.js',
-            '!gulpfile.js',
-
-            // Not LESS directories
-            '!**/**/less/',
-            '!**/**/less/**'
-        ])
-        .pipe(gulp.dest(paths.dist));
+    return gulp.src(ignoredFiles)
+        .pipe(gulp.dest(paths.dist))
+        .pipe(livereload());
 });
+
+
+/*
+    Overwrites files in the dist directory with files from the source
+    directory. Primarily intended to be used by livereload.
+ */
+gulp.task('overwrite', task.overwrite = function() {
+    return gulp.src(ignoredFiles)
+        .pipe(gulp.dest(paths.dist, { overwrite: true }))
+        .pipe(livereload());
+});
+
 
 /*
     Generates environment variables that are to be injected into the Angular
@@ -129,7 +155,49 @@ gulp.task('config', task.config = function() {
 gulp.task('config:copy',['copy'], task.config);
 
 
+/*
+    Run all necessary commands to build the application.
+ */
+gulp.task('build',
+    [
+        'copy',
+        'less.framework:copy',
+        'less.application:copy',
+        'config:copy'
+    ]
+);
 
+
+/*
+    Use Nodemon to deploy the server.
+ */
+gulp.task('server', ['build'], function() {
+    nodemon({
+        script: 'app.js',
+        ext: 'js html'
+    });
+});
+
+
+/*
+    Open the application in a browser window, after it has been served and the
+    watcher process has been initiated.
+ */
+gulp.task('open:browser', ['server', 'watch'], function() {
+    opn('http://' + process.env.HOST + ':' + process.env.NODE_PORT);
+});
+
+
+/*
+    Run all necessary tasks to deploy the application in development mode
+    with LiveReload enabled.
+ */
+gulp.task('serve', ['server', 'watch:server', 'open:browser']);
+
+
+/*
+    List all of the available commands.
+ */
 gulp.task('default', function() {
     console.log("\n");
     console.log("-------------------------------------------");
