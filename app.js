@@ -3,12 +3,12 @@ require('dotenv').config();
 process.env.NODE_ENV = (process.env.NODE_ENV || 'development');
 
 // Global Dependencies
-var express     = require('express');
-var colors      = require('colors')
+var express = require('express');
+var colors = require('colors')
 
 // Configuration
-var config      = require('./config')();
-var routes      = require('./config/routes');
+var config = require('./config')();
+var routes = require('./config/routes');
 
 // Initialize Server
 var app = express();
