@@ -88,7 +88,6 @@ gulp.task('watch', task.watch = function() {
     livereload.listen({ port: 35729 });
 
     gulp.watch(paths.source + '/pages/less/*.less', ['less.framework']);
-
     gulp.watch(paths.source + '/assets/less/*.less', ['less.application']);
 
     // Reload on HTML changes
@@ -96,6 +95,13 @@ gulp.task('watch', task.watch = function() {
         paths.source + '/*.html',
         paths.source + '/tpl/*.html',
         paths.source + '/tpl/**/*.html'
+    ], ['overwrite']);
+
+    // Reload on JS changes
+    gulp.watch([
+        paths.source + '/*.js',
+        paths.source + '/**/*.js',
+        paths.source + '/**/**/*.js'
     ], ['overwrite']);
 });
 gulp.task('watch:copy', ['copy'], task.watch);
@@ -139,17 +145,25 @@ gulp.task('overwrite', task.overwrite = function() {
  */
 gulp.task('config', task.config = function() {
     var json = JSON.stringify({
-        env: {
-            api:            process.env.API,
-            api_key:        process.env.API_KEY,
-            api_version:    process.env.API_VERSION,
-            node_env:       process.env.NODE_ENV,
-            node_port:      process.env.NODE_PORT
+        environment: {
+            api: {
+                protocol:       process.env.API_PROTOCOL,
+                host:           process.env.API_HOST,
+                version:        process.env.API_VERSION,
+                port:           process.env.API_PORT,
+                key:            process.env.API_KEY
+            },
+            dashboard: {
+                protocol:       process.env.NODE_PROTOCOL,
+                host:           process.env.NODE_HOST,
+                environment:    process.env.NODE_ENV,
+                port:           process.env.NODE_PORT
+            }
         }
     });
 
     return b2v.stream(new Buffer(json), 'environment.js')
-        .pipe(gulpNgConfig('app.env', { pretty: true }))
+        .pipe(gulpNgConfig('app.environment', { pretty: true }))
         .pipe(gulp.dest(paths.dist + '/assets/js'));
 });
 gulp.task('config:copy',['copy'], task.config);
@@ -184,7 +198,7 @@ gulp.task('server', ['build'], function() {
     watcher process has been initiated.
  */
 gulp.task('open:browser', ['server', 'watch'], function() {
-    opn('http://' + process.env.HOST + ':' + process.env.NODE_PORT);
+    opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT);
 });
 
 

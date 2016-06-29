@@ -11,7 +11,7 @@ angular.module('app')
                 $(element).search();
 
                 scope.$on('toggleSearchOverlay', function(scopeDetails, status) {
-                    if(status.show){
+                    if (status.show) {
                         $(element).data('pg.search').toggleOverlay('show');
                     } else {
                         $(element).data('pg.search').toggleOverlay('hide');

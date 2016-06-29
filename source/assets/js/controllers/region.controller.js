@@ -1,129 +1,117 @@
-'use strict';
-
-/* Controllers */
-
-angular.module('app')
+angular.module('app.controllers')
     .controller('RegionCtrl', ['$scope', '$stateParams', '$state', '$timeout', '$interval', function($scope, $stateParams, $state, $timeout, $interval) {
         // Redirect if no ID provided
         if (!$stateParams.id) { $state.go('app.overview'); }
 
         // External request to region information
-            // Resolve returned Promise
-            // IF success
-                // Assign to $scope.region
-            // IF failure
-                // Throw error
+        // Resolve returned Promise
+        // IF success
+        // Assign to $scope.region
+        // IF failure
+        // Throw error
 
         $scope.region = {
             name: "Amazon Web Services",
             abbreviation: "AWS",
             description: "Click on the refresh icon to simulate an AJAX call and to see an animated progress bar indicator above the portlet. These progress bars come in seven different colors that are available in the Pages contextual color scheme.",
-            clusters: [
-                {
-                    name: "AWS-US-AA",
-                    statistics: {
-                        virtual_machines: 14,
-                        timezone: -5,
-                        alerts: 3,
-                        warnings: 15
-                    },
-                    status: {
-                        stable: 35,
-                        warning: 25,
-                        danger: 40
-                    }
+            clusters: [{
+                name: "AWS-US-AA",
+                statistics: {
+                    virtual_machines: 14,
+                    timezone: -5,
+                    alerts: 3,
+                    warnings: 15
                 },
-                {
-                    name: "NVA-02",
-                    virtual_machines: 5,
-                    statistics: {
-                        virtual_machines: 14,
-                        timezone: -5,
-                        alerts: 3,
-                        warnings: 15
-                    },
-                    status: {
-                        stable: 35,
-                        warning: 25,
-                        danger: 40
-                    }
-                },
-                {
-                    name: "AWS-ASHFORD",
-                    virtual_machines: 7,
-                    statistics: {
-                        virtual_machines: 14,
-                        timezone: -5,
-                        alerts: 3,
-                        warnings: 15
-                    },
-                    status: {
-                        stable: 35,
-                        warning: 25,
-                        danger: 40
-                    }
-                },
-                {
-                    name: "AWS-US-DELTA",
-                    virtual_machines: 8,
-                    statistics: {
-                        virtual_machines: 14,
-                        timezone: -5,
-                        alerts: 3,
-                        warnings: 15
-                    },
-                    status: {
-                        stable: 35,
-                        warning: 25,
-                        danger: 40
-                    }
-                },
-                {
-                    name: "TEST-BIKESPOT",
-                    virtual_machines: 2,
-                    statistics: {
-                        virtual_machines: 14,
-                        timezone: -5,
-                        alerts: 3,
-                        warnings: 15
-                    },
-                    status: {
-                        stable: 35,
-                        warning: 25,
-                        danger: 40
-                    }
-                },
-                {
-                    name: "NVA-PCI-01",
-                    virtual_machines: 12,
-                    statistics: {
-                        virtual_machines: 14,
-                        timezone: -5,
-                        alerts: 3,
-                        warnings: 15
-                    },
-                    status: {
-                        stable: 35,
-                        warning: 25,
-                        danger: 40
-                    }
-                },
-                {
-                    name: "NVA-HILTON",
-                    virtual_machines: 6,
-                    statistics: {
-                        virtual_machines: 14,
-                        timezone: -5,
-                        alerts: 3,
-                        warnings: 15
-                    },
-                    status: {
-                        stable: 35,
-                        warning: 25,
-                        danger: 40
-                    }
+                status: {
+                    stable: 35,
+                    warning: 25,
+                    danger: 40
                 }
-            ]
+            }, {
+                name: "NVA-02",
+                virtual_machines: 5,
+                statistics: {
+                    virtual_machines: 14,
+                    timezone: -5,
+                    alerts: 3,
+                    warnings: 15
+                },
+                status: {
+                    stable: 35,
+                    warning: 25,
+                    danger: 40
+                }
+            }, {
+                name: "AWS-ASHFORD",
+                virtual_machines: 7,
+                statistics: {
+                    virtual_machines: 14,
+                    timezone: -5,
+                    alerts: 3,
+                    warnings: 15
+                },
+                status: {
+                    stable: 35,
+                    warning: 25,
+                    danger: 40
+                }
+            }, {
+                name: "AWS-US-DELTA",
+                virtual_machines: 8,
+                statistics: {
+                    virtual_machines: 14,
+                    timezone: -5,
+                    alerts: 3,
+                    warnings: 15
+                },
+                status: {
+                    stable: 35,
+                    warning: 25,
+                    danger: 40
+                }
+            }, {
+                name: "TEST-BIKESPOT",
+                virtual_machines: 2,
+                statistics: {
+                    virtual_machines: 14,
+                    timezone: -5,
+                    alerts: 3,
+                    warnings: 15
+                },
+                status: {
+                    stable: 35,
+                    warning: 25,
+                    danger: 40
+                }
+            }, {
+                name: "NVA-PCI-01",
+                virtual_machines: 12,
+                statistics: {
+                    virtual_machines: 14,
+                    timezone: -5,
+                    alerts: 3,
+                    warnings: 15
+                },
+                status: {
+                    stable: 35,
+                    warning: 25,
+                    danger: 40
+                }
+            }, {
+                name: "NVA-HILTON",
+                virtual_machines: 6,
+                statistics: {
+                    virtual_machines: 14,
+                    timezone: -5,
+                    alerts: 3,
+                    warnings: 15
+                },
+                status: {
+                    stable: 35,
+                    warning: 25,
+                    danger: 40
+                }
+            }]
         };
 
         /* ============================================================

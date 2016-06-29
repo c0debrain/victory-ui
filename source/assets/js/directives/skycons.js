@@ -9,7 +9,7 @@ angular.module('app')
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
-            	var skycons = new Skycons();
+                var skycons = new Skycons();
                 skycons.add($(element).get(0), attrs.class);
                 skycons.play();
             }

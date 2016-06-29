@@ -11,10 +11,12 @@ angular.module('app')
                 $(element).on('click', function() {
                     $(this).find(':input').focus();
                 });
+
                 $(element).find(':input').on('focus', function() {
                     $('.form-group.form-group-default').removeClass('focused');
                     $(element).addClass('focused');
                 });
+
                 $(element).find(':input').on('blur', function() {
                     $(element).removeClass('focused');
                     if ($(this).val()) {
@@ -23,6 +25,7 @@ angular.module('app')
                         $(element).find('label').removeClass('fade');
                     }
                 });
+
                 $(element).find('.checkbox, .radio').hover(function() {
                     $(this).parents('.form-group').addClass('focused');
                 }, function() {

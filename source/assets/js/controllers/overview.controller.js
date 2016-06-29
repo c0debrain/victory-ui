@@ -1,76 +1,36 @@
-'use strict';
+angular.module('app.controllers')
+    .controller('OverviewCtrl', ['$scope', '$timeout', '$interval', 'services.client', 'services.datacenter', function($scope, $timeout, $interval, ClientService, DatacenterService) {
 
-/* Controllers */
+        ClientService.all().$promise.then(function(clients) {
+            clients.forEach(function(client) {
+                console.log('Client Name:', client.client_name);
+            });
+        }, function(error) {
+            console.log(error);
+        });
 
-angular.module('app')
-    .controller('OverviewCtrl', ['$scope', '$timeout', '$interval', function($scope, $timeout, $interval) {
-
-        $scope.regions = [
-            {
-                name: "Datapipe Hong Kong",
-                abbreviation: "DHK",
-                description: "Click on the refresh icon to simulate an AJAX call and to see an animated progress bar indicator above the portlet. These progress bars come in seven different colors that are available in the Pages contextual color scheme.",
-                statistics: {
-                    clusters: 7,
-                    timezone: -5,
-                    alerts: 3,
-                    warnings: 15
-                },
-                status: {
-                    stable: 100,
-                    warning: 0,
-                    danger: 0
-                }
-            },
-            {
-                name: "Amazon Web Services",
-                abbreviation: "AWS",
-                description: "Click on the refresh icon to simulate an AJAX call and to see an animated progress bar indicator above the portlet. These progress bars come in seven different colors that are available in the Pages contextual color scheme.",
-                statistics: {
-                    clusters: 7,
-                    timezone: -5,
-                    alerts: 3,
-                    warnings: 15
-                },
-                status: {
-                    stable: 75,
-                    warning: 25,
-                    danger: 0
-                }
-            },
-            {
-                name: "Datapipe New Jersey",
-                abbreviation: "DNJ",
-                description: "Click on the refresh icon to simulate an AJAX call and to see an animated progress bar indicator above the portlet. These progress bars come in seven different colors that are available in the Pages contextual color scheme.",
-                statistics: {
-                    clusters: 7,
-                    timezone: -5,
-                    alerts: 3,
-                    warnings: 15
-                },
-                status: {
-                    stable: 35,
-                    warning: 25,
-                    danger: 40
-                }
-            },
-            {
-                name: "Contegix",
-                abbreviation: "CTX",
-                description: "Click on the refresh icon to simulate an AJAX call and to see an animated progress bar indicator above the portlet. These progress bars come in seven different colors that are available in the Pages contextual color scheme.",
-                statistics: {
-                    clusters: 7,
-                    timezone: -5,
-                    alerts: 3,
-                    warnings: 15
-                },
-                status: {
-                    stable: 0,
-                    warning: 30,
-                    danger: 70
-                }
-            }
-        ];
+        $scope.regions = [];
+        DatacenterService.all().$promise.then(function(datacenters) {
+            datacenters.forEach(function(datacenter) {
+                $scope.regions.push({
+                    name: datacenter.data_center_name,
+                    abbreviation: datacenter.data_center_code,
+                    statistics: {
+                        clusters: 7,
+                        timezone: -5,
+                        alerts: 3,
+                        warnings: 15
+                    },
+                    status: {
+                        stable: 100,
+                        warning: 0,
+                        danger: 0
+                    }
+                });
+            });
+        }, function(error) {
+            console.log(error);
+        });
 
 
         /* ============================================================

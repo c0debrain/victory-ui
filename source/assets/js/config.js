@@ -22,9 +22,7 @@ angular.module('app')
                     controller: 'OverviewCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                    'nvd3'
-                                ], {
+                            return $ocLazyLoad.load(['nvd3'], {
                                     insertBefore: '#lazyload_placeholder'
                                 })
                                 .then(function() {
@@ -41,9 +39,7 @@ angular.module('app')
                     controller: 'RegionCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                    'nvd3'
-                                ], {
+                            return $ocLazyLoad.load(['nvd3'], {
                                     insertBefore: '#lazyload_placeholder'
                                 })
                                 .then(function() {
@@ -56,9 +52,9 @@ angular.module('app')
                 })
                 // Login
                 .state('access', {
-                        url: '/access',
-                        template: '<div class="full-height" ui-view></div>'
-                    })
+                    url: '/access',
+                    template: '<div class="full-height" ui-view></div>'
+                })
                 .state('access.login', {
                     url: '/login',
                     templateUrl: 'tpl/login.html',
@@ -77,4 +73,7 @@ angular.module('app')
                 });
 
         }
-    ]);
+    ])
+    .run(function($http, environment) {
+        $http.defaults.headers.common['apikey'] = environment.api.key;
+    });

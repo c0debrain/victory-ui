@@ -4,12 +4,12 @@
  * will be loaded on demand using ocLazyLoad
  * ============================================================ */
 
-'use strict';
-
 angular.module('app', [
     'ui.router',
     'ui.utils',
     'oc.lazyLoad',
-    'ngCookies',
-    'app.env'
+    'app.environment',
+    'app.controllers',
+    'app.services',
+    'app.directives'
 ]);
