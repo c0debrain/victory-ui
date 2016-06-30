@@ -4,7 +4,7 @@
  * effect for tab transitions.
  * ============================================================ */
 
-angular.module('app')
+angular.module('app.directives')
     .directive('pgTab', ['$parse', function($parse) {
         return {
             link: function(scope, element, attrs) {
@@ -13,7 +13,6 @@ angular.module('app')
                 // Sliding effect for tabs
                 $(element).on('show.bs.tab', function(e) {
                     e = $(e.target).parent().find('a[data-toggle=tab]');
-
                     var hrefCurrent = e.attr('href');
 
                     if ($(hrefCurrent).is('.slide-left, .slide-right')) {
@@ -27,6 +26,7 @@ angular.module('app')
 
                 $(element).on('shown.bs.tab', {
                     onShown: onShown
+
                 }, function(e) {
                     if (e.data.onShown) {
                         e.data.onShown(scope);

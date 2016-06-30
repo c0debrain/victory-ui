@@ -3,12 +3,11 @@
  * Prepare Bootstrap dropdowns to match Pages theme
  * ============================================================ */
 
-angular.module('app')
+angular.module('app.directives')
     .directive('pgDropdown', function() {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
-
                 var btn = $(element).find('.dropdown-menu').siblings('.dropdown-toggle');
                 var offset = 0;
 
@@ -18,10 +17,10 @@ angular.module('app')
                 if (btn.actual('outerWidth') < menuWidth) {
                     btn.width(menuWidth - offset);
                     $(element).find('.dropdown-menu').width(btn.actual('outerWidth'));
+
                 } else {
                     $(element).find('.dropdown-menu').width(btn.actual('outerWidth'));
                 }
-
             }
         }
     });

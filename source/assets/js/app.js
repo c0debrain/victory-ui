@@ -11,5 +11,6 @@ angular.module('app', [
     'app.environment',
     'app.controllers',
     'app.services',
-    'app.directives'
+    'app.directives',
+    'app.filters'
 ]);

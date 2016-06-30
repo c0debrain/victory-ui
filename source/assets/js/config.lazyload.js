@@ -228,7 +228,6 @@ angular.module('app')
                         'plugins/angular-google-map-loader/google-maps.js'
                     ]
                 }
-
             ]
         });
     }]);

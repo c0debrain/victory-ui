@@ -3,7 +3,7 @@
  * Apply Pages default form effects
  * ============================================================ */
 
-angular.module('app')
+angular.module('app.directives')
     .directive('pgFormGroup', function() {
         return {
             restrict: 'A',

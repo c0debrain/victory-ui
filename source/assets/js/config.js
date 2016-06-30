@@ -19,7 +19,7 @@ angular.module('app')
                 .state('app.overview', {
                     url: "/overview",
                     templateUrl: "tpl/overview.html",
-                    controller: 'OverviewCtrl',
+                    controller: 'controllers.overview',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load(['nvd3'], {
@@ -36,7 +36,7 @@ angular.module('app')
                 .state('app.region', {
                     url: "/region/:id",
                     templateUrl: "tpl/region.html",
-                    controller: 'RegionCtrl',
+                    controller: 'controllers.region',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load(['nvd3'], {
@@ -50,6 +50,7 @@ angular.module('app')
                         }]
                     }
                 })
+
                 // Login
                 .state('access', {
                     url: '/access',

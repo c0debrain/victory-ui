@@ -4,7 +4,7 @@
  * https://github.com/codrops/SelectInspiration
  * ============================================================ */
 
-angular.module('app')
+angular.module('app.directives')
     .directive('csSelect', function() {
         return {
             restrict: 'A',
@@ -14,7 +14,6 @@ angular.module('app')
                 var el = $(el).get(0);
                 $(el).wrap('<div class="cs-wrapper"></div>');
                 new SelectFx(el);
-
             }
         };
     });

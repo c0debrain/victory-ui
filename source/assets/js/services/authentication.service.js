@@ -1,5 +1,5 @@
 angular.module('app.services')
-    .factory('AuthenticationService', AuthenticationService);
+    .factory('services.authentication', AuthenticationService);
 
 AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout'];
 

@@ -4,7 +4,7 @@
  * http://darkskyapp.github.io/skycons/
  * ============================================================ */
 
-angular.module('app')
+angular.module('app.directives')
     .directive('skycons', function() {
         return {
             restrict: 'A',

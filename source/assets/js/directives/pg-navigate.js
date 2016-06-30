@@ -3,7 +3,7 @@
  * Pre-made view ports to be used for HTML5 mobile hybrid apps
  * ============================================================ */
 
-angular.module('app')
+angular.module('app.directives')
     .directive('pgNavigate', function() {
         return {
             restrict: 'A',

@@ -1,18 +1,18 @@
 angular.module('app.services')
     .factory('services.datacenter', DatacenterService);
 
-DatacenterService.$inject = ['$resource', 'services.api'];
+DatacenterService.$inject = ['$resource', 'environment'];
 
-function DatacenterService($resource, ApiResource) {
-    return $resource(ApiResource.location + '/datacenters/:id', { id: '@id' }, {
+function DatacenterService($resource, Environment) {
+    return $resource(Environment.api.path + '/datacenters/:id', { id: '@id' }, {
         all: {
-            url: ApiResource.location + '/datacenters/',
+            url: Environment.api.path + '/datacenters/',
             method: 'GET',
             cache: false,
             isArray: true
         },
         tree: {
-            url: ApiResource.location + '/datacenters/tree',
+            url: Environment.api.path + '/datacenters/tree',
             method: 'GET',
             cache: false,
             isArray: true
@@ -20,35 +20,35 @@ function DatacenterService($resource, ApiResource) {
 
         // Relations
         clients: {
-            url: ApiResource.location + '/datacenters/:id/clients',
+            url: Environment.api.path + '/datacenters/:id/clients',
             params: { id: '@id' },
             method: 'GET',
             cache: false,
             isArray: true
         },
         projects: {
-            url: ApiResource.location + '/datacenters/:id/projects',
+            url: Environment.api.path + '/datacenters/:id/projects',
             params: { id: '@id' },
             method: 'GET',
             cache: false,
             isArray: true
         },
         origins: {
-            url: ApiResource.location + '/datacenters/:id/origins',
+            url: Environment.api.path + '/datacenters/:id/origins',
             params: { id: '@id' },
             method: 'GET',
             cache: false,
             isArray: true
         },
         targets: {
-            url: ApiResource.location + '/datacenters/:id/targets',
+            url: Environment.api.path + '/datacenters/:id/targets',
             params: { id: '@id' },
             method: 'GET',
             cache: false,
             isArray: true
         },
         clusters: {
-            url: ApiResource.location + '/datacenters/:id/clusters',
+            url: Environment.api.path + '/datacenters/:id/clusters',
             params: { id: '@id' },
             method: 'GET',
             cache: false,

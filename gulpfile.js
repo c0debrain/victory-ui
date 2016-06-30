@@ -147,6 +147,7 @@ gulp.task('config', task.config = function() {
     var json = JSON.stringify({
         environment: {
             api: {
+                path:           process.env.API_PROTOCOL + '://' + process.env.API_HOST + (process.env.NODE_ENV != 'production' ? ':' + process.env.API_PORT : '') + '/' + process.env.API_VERSION,
                 protocol:       process.env.API_PROTOCOL,
                 host:           process.env.API_HOST,
                 version:        process.env.API_VERSION,
@@ -154,6 +155,7 @@ gulp.task('config', task.config = function() {
                 key:            process.env.API_KEY
             },
             dashboard: {
+                path:           process.env.NODE_PROTOCOL + '://' + process.env.NODE_HOST + (process.env.NODE_ENV != 'production' ? ':' + process.env.NODE_PORT : '') + '/',
                 protocol:       process.env.NODE_PROTOCOL,
                 host:           process.env.NODE_HOST,
                 environment:    process.env.NODE_ENV,

@@ -3,7 +3,7 @@
  * AngularJS directive for Pages Sidebar jQuery plugin
  * ============================================================ */
 
-angular.module('app')
+angular.module('app.directives')
     .directive('pgSidebar', function() {
         return {
             restrict: 'A',

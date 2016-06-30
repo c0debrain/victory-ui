@@ -1,5 +1,5 @@
 angular.module('app.services')
-    .factory('FlashService', FlashService);
+    .factory('services.flash', FlashService);
 
 FlashService.$inject = ['$rootScope'];
 

@@ -1,10 +1,11 @@
 angular.module('app.services')
-    .factory('services.api', ApiResource);
+    .factory('services.api', ApiService);
 
-ApiResource.$inject = ['environment'];
+ApiService.$inject = ['services.client', 'services.datacenter'];
 
-function ApiResource(env) {
+function ApiService(ClientService, DatacenterService) {
     return {
-        location: env.api.protocol + '://' + env.api.host + (env.dashboard.environment != 'production' ? ':' + env.api.port : '') + '/' + env.api.version
+        client:         ClientService,
+        datacenter:     DatacenterService
     };
 };

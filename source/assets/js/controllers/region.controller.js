@@ -1,5 +1,5 @@
 angular.module('app.controllers')
-    .controller('RegionCtrl', ['$scope', '$stateParams', '$state', '$timeout', '$interval', function($scope, $stateParams, $state, $timeout, $interval) {
+    .controller('controllers.region', ['$scope', '$stateParams', '$state', '$timeout', '$interval', function($scope, $stateParams, $state, $timeout, $interval) {
         // Redirect if no ID provided
         if (!$stateParams.id) { $state.go('app.overview'); }
 

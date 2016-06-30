@@ -1,29 +1,29 @@
 angular.module('app.controllers')
-    .controller('LoginCtrl', ['$scope', '$location', 'AuthenticationService', 'FlashService',
-        function($scope, $location, AuthenticationService, FlashService) {
+    .controller('controllers.login', LoginController);
 
-            var vm = this;
-            vm.login = login;
+LoginController.$inject = ['$scope', '$location', 'services.authentication', 'services.flash'];
 
-            // Reset login status
-            (function initController() {
-                AuthenticationService.ClearCredentials();
-            })();
+function LoginController($scope, $location, AuthenticationService, FlashService) {
+    var vm = this;
+    vm.login = login;
 
-            // Login Function
-            function login() {
-                vm.dataLoading = true;
-                AuthenticationService.Login(vm.username, vm.password, function(response) {
-                    if (response.success) {
-                        AuthenticationService.SetCredentials(vm.username, vm.password);
-                        $location.path('/');
+    // Reset login status
+    (function initController() {
+        AuthenticationService.ClearCredentials();
+    })();
 
-                    } else {
-                        FlashService.Error(response.message);
-                        vm.dataLoading = false;
-                    }
-                });
-            };
+    // Login Function
+    function login() {
+        vm.dataLoading = true;
+        AuthenticationService.Login(vm.username, vm.password, function(response) {
+            if (response.success) {
+                AuthenticationService.SetCredentials(vm.username, vm.password);
+                $location.path('/');
 
-        }
-    ]);
+            } else {
+                FlashService.Error(response.message);
+                vm.dataLoading = false;
+            }
+        });
+    };
+};
