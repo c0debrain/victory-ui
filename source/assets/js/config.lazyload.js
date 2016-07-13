@@ -227,6 +227,15 @@ angular.module('app')
                         'plugins/angular-google-map-loader/google-map-loader.js',
                         'plugins/angular-google-map-loader/google-maps.js'
                     ]
+                }, {
+                    name: 'ammaps',
+                    files: [
+                        'https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.13.0/ammap.js',
+                        'https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.13.0/maps/js/continentsLow.js',
+                        'https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.13.0/maps/js/worldLow.js',
+                        'https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.13.0/themes/dark.js'
+                    ],
+                    serie: true
                 }
             ]
         });

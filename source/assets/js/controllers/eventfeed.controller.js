@@ -19,8 +19,8 @@ function EventfeedController($scope, $interval) {
     }];
 
     // Every X seconds, copy one of the events and push it
-    $interval(function() {
-        $scope.events.push(angular.copy($scope.events[Math.floor(Math.random() * 4)]));
-        if ($scope.events.length > 10) $scope.events.shift();
-    }, 5000)
+    // $interval(function() {
+    //     $scope.events.push(angular.copy($scope.events[Math.floor(Math.random() * 4)]));
+    //     if ($scope.events.length > 10) $scope.events.shift();
+    // }, 5000)
 }

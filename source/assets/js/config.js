@@ -51,8 +51,26 @@ angular.module('app')
                     }
                 })
 
-                // Login
-                .state('access', {
+            .state('app.maps', {
+                url: '/maps',
+                templateUrl: 'tpl/map.html',
+                controller: 'controllers.map',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                                'ammaps'
+                            ], {
+                                insertBefore: '#lazyload_placeholder'
+                            })
+                            .then(function() {
+                                return $ocLazyLoad.load('assets/js/controllers/map.controller.js');
+                            });
+                    }]
+                }
+            })
+
+            // Login
+            .state('access', {
                     url: '/access',
                     template: '<div class="full-height" ui-view></div>'
                 })

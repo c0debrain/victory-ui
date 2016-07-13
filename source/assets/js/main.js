@@ -6,7 +6,7 @@ MainController.$inject = ['$scope', '$rootScope', '$state'];
 function MainController($scope, $rootScope, $state) {
     // App globals
     $scope.app = {
-        name: 'OneLink NOC',
+        name: 'OneLink Network Operations Center',
         description: 'Network operations center dashboard that displays important information regarding the various hardware and software deployments that are embodied by the OneLink service.',
         layout: {
             menuPin: false,
