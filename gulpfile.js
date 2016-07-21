@@ -21,11 +21,12 @@ var nodemon         = require('nodemon');
 
 // Config Variables --------------------------------------------
 var paths = {
-    config: './config/' + process.env.NODE_ENV,
-    source: './source',
-    pages:  './source/pages',
-    assets: './source/assets',
-    dist:   './dist'
+    config:         './config/' + process.env.NODE_ENV,
+    dist:           './dist',
+    source:         './source',
+    assets:         './source/assets',
+    templates:      './source/templates',
+    application:    './source/application'
 };
 
 var task = {
@@ -57,27 +58,15 @@ var ignoredFiles = [
 // Gulp Tasks --------------------------------------------------
 
 /*
-    Transpiles the framework's LESS files into CSS files.
- */
-gulp.task('less.framework', task.less.framework = function() {
-    gulp.src(path.join(paths.pages, '/less/pages.less'))
-        .pipe(less({ compress: false }))
-        .pipe(gulp.dest(path.join(paths.dist, '/pages/css')))
-        .pipe(livereload());
-});
-gulp.task('less.framework:copy', ['copy'], task.less.framework);
-
-
-/*
     Transpiles the application's LESS files into CSS files.
  */
-gulp.task('less.application', task.less.application = function() {
-    gulp.src(path.join(paths.assets, '/less/styles.less'))
+gulp.task('less', task.less = function() {
+    gulp.src(path.join(paths.assets, '/less/application.less'))
         .pipe(less({ compress: false }))
         .pipe(gulp.dest(path.join(paths.dist, '/assets/css')))
         .pipe(livereload());
 });
-gulp.task('less.application:copy', ['copy'], task.less.application);
+gulp.task('less:copy', ['copy'], task.less);
 
 
 /*
@@ -87,21 +76,21 @@ gulp.task('less.application:copy', ['copy'], task.less.application);
 gulp.task('watch', task.watch = function() {
     livereload.listen({ port: 35729 });
 
-    gulp.watch(paths.source + '/pages/less/*.less', ['less.framework']);
-    gulp.watch(paths.source + '/assets/less/*.less', ['less.application']);
+    gulp.watch(paths.source + '/assets/less/*.less', ['less']);
 
     // Reload on HTML changes
     gulp.watch([
         paths.source + '/*.html',
-        paths.source + '/tpl/*.html',
-        paths.source + '/tpl/**/*.html'
+        paths.templates + '/*.html',
+        paths.templates + '/**/*.html'
     ], ['overwrite']);
 
     // Reload on JS changes
     gulp.watch([
-        paths.source + '/*.js',
-        paths.source + '/**/*.js',
-        paths.source + '/**/**/*.js'
+        paths.assets + '/js/*.js',
+        paths.application + '/*.js',
+        paths.application + '/**/*.js',
+        paths.application + '/**/**/*.js'
     ], ['overwrite']);
 });
 gulp.task('watch:copy', ['copy'], task.watch);
@@ -166,7 +155,7 @@ gulp.task('config', task.config = function() {
 
     return b2v.stream(new Buffer(json), 'environment.js')
         .pipe(gulpNgConfig('app.environment', { pretty: true }))
-        .pipe(gulp.dest(paths.dist + '/assets/js'));
+        .pipe(gulp.dest(paths.dist + '/application'));
 });
 gulp.task('config:copy',['copy'], task.config);
 
@@ -177,8 +166,7 @@ gulp.task('config:copy',['copy'], task.config);
 gulp.task('build',
     [
         'copy',
-        'less.framework:copy',
-        'less.application:copy',
+        'less:copy',
         'config:copy'
     ]
 );

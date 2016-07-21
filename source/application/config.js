@@ -14,11 +14,11 @@ angular.module('app')
                 .state('app', {
                     abstract: true,
                     url: "/app",
-                    templateUrl: "tpl/app.html"
+                    templateUrl: "templates/app.html"
                 })
                 .state('app.overview', {
                     url: "/overview",
-                    templateUrl: "tpl/overview.html",
+                    templateUrl: "templates/pages/overview.html",
                     controller: 'controllers.overview',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -27,7 +27,7 @@ angular.module('app')
                                 })
                                 .then(function() {
                                     return $ocLazyLoad.load([
-                                        'assets/js/controllers/overview.controller.js'
+                                        'application/controllers/overview.controller.js'
                                     ]);
                                 });
                         }]
@@ -35,7 +35,7 @@ angular.module('app')
                 })
                 .state('app.region', {
                     url: "/region/:id",
-                    templateUrl: "tpl/region.html",
+                    templateUrl: "templates/pages/region.html",
                     controller: 'controllers.region',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -44,7 +44,7 @@ angular.module('app')
                                 })
                                 .then(function() {
                                     return $ocLazyLoad.load([
-                                        'assets/js/controllers/region.controller.js'
+                                        'application/controllers/region.controller.js'
                                     ]);
                                 });
                         }]
@@ -53,7 +53,7 @@ angular.module('app')
 
             .state('app.maps', {
                 url: '/maps',
-                templateUrl: 'tpl/map.html',
+                templateUrl: 'templates/pages/map.html',
                 controller: 'controllers.map',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -63,7 +63,7 @@ angular.module('app')
                                 insertBefore: '#lazyload_placeholder'
                             })
                             .then(function() {
-                                return $ocLazyLoad.load('assets/js/controllers/map.controller.js');
+                                return $ocLazyLoad.load('application/controllers/map.controller.js');
                             });
                     }]
                 }
@@ -76,16 +76,16 @@ angular.module('app')
                 })
                 .state('access.login', {
                     url: '/login',
-                    templateUrl: 'tpl/login.html',
+                    templateUrl: 'templates/pages/login.html',
                     controller: 'LoginCtrl',
                     controllerAs: 'vm',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load(
                                 [
-                                    'assets/js/controllers/login.controller.js',
-                                    'assets/js/services/authentication.service.js',
-                                    'assets/js/services/flash.service.js'
+                                    'application/controllers/login.controller.js',
+                                    'application/services/authentication.service.js',
+                                    'application/services/flash.service.js'
                                 ]);
                         }]
                     }
