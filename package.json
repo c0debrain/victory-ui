@@ -4,6 +4,7 @@
   "description": "Network operations center dashboard",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "bower": "^1.7.9",
     "buffer-to-vinyl": "^1.1.0",
     "colors": "0.6.2",
     "dotenv": "^2.0.0",
@@ -32,7 +33,7 @@
     "tiny-lr": "^0.2.1"
   },
   "scripts": {
-    "start": "gulp build && nodemon app.js",
-    "dev": "gulp config && gulp watch && nodemon app.js"
+    "start": "gulp serve",
+    "build": "gulp build"
   }
 }
