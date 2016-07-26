@@ -54,7 +54,7 @@ RUN bower install --allow-root
 # Copy in our source
 COPY . /var/www/noc-dashboard
 
-EXPOSE 80 443
+EXPOSE 80 3001
 
 RUN npm run build
 
