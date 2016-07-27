@@ -35,7 +35,7 @@
                     iframeFix: false
                 }'>
 
-                    <div ng-repeat="region in regions" ng-if="$odd" class="panel panel-default region" pg-portlet id="{{ region.abbreviation }}" progress="circle" on-refresh="refreshTest('#{{ region.abbreviation }}')">
+                    <div ng-repeat="region in overview.regions" ng-if="$odd" class="panel panel-default region" pg-portlet id="{{ region.abbreviation }}" progress="circle" on-refresh="refreshTest('#{{ region.abbreviation }}')">
                         <div class="panel-heading ">
                             <div class="panel-title">{{ region.name }} ({{ region.abbreviation }})</div>
 
@@ -97,7 +97,7 @@
                             </div>
                         </div>
 
-                        <nvd3 options='nvd3_options' class="region-nvd3-chart line-chart" data='nvd3_data'></nvd3>
+                        <nvd3 options="overview.nvd3_options" class="region-nvd3-chart line-chart" data='nvd3_data'></nvd3>
 
                         <ul class="status">
                             <li class="stable"  style="width: {{ region.status.stable }}%;"></li>
@@ -121,7 +121,7 @@
                     opacity: 0.8,
                     iframeFix: false
                 }'>
-                      <div ng-repeat="region in regions" ng-if="$even" class="panel panel-default region" pg-portlet id="{{ region.abbreviation }}" progress="circle" on-refresh="refreshWithErrorTest('#{{ region.abbreviation }}')">
+                      <div ng-repeat="region in overview.regions" ng-if="$even" class="panel panel-default region" pg-portlet id="{{ region.abbreviation }}" progress="circle" on-refresh="refreshWithErrorTest('#{{ region.abbreviation }}')">
                         <div class="panel-heading ">
                             <div class="panel-title">{{ region.name }} ({{ region.abbreviation }})</div>
 

@@ -78,19 +78,28 @@ gulp.task('less:copy', ['copy'], task.less);
 gulp.task('watch', task.watch = function() {
     livereload.listen({ port: 35729 });
 
+    // Reload on LESS changes
     gulp.watch([
-        paths.source + '/assets/less/*.less'
+        paths.source + '/assets/less/*.less',
+        paths.source + '/assets/less/**/*.less',
+        paths.source + '/assets/less/**/**/*.less'
     ], ['less']);
 
     // Reload on HTML & JS changes
     gulp.watch([
-        paths.source + '/*.html',
-        paths.templates + '/*.html',
-        paths.templates + '/**/*.html',
-        paths.assets + '/js/*.js',
-        paths.application + '/*.js',
-        paths.application + '/**/*.js',
-        paths.application + '/**/**/*.js'
+        // Root application directory & framework JS
+        paths.source        + '/*.html',
+        paths.assets        + '/js/*.js',
+
+        // Templates
+        paths.templates     + '/*.html',
+        paths.templates     + '/**/*.html',
+        paths.templates     + '/**/**/*.html',
+
+        // Application
+        paths.application   + '/*.js',
+        paths.application   + '/**/*.js',
+        paths.application   + '/**/**/*.js'
     ], ['overwrite']);
 });
 gulp.task('watch:copy', ['copy'], task.watch);
@@ -211,5 +220,7 @@ gulp.task('open:browser', ['server', 'watch'], function() {
     with LiveReload enabled.
  */
 gulp.task('serve', ['server', 'watch:server'], function() {
-    opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT);
+    setTimeout(function() {
+        opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT);
+    });
 });

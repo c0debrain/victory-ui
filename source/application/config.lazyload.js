@@ -231,9 +231,9 @@ angular.module('app')
                     name: 'ammaps',
                     files: [
                         'components/ammap3/ammap/ammap.js',
-                        'components/ammap3/ammap/themes/dark.js'
+                        'components/ammap3/ammap/themes/dark.js',
                         'components/ammap3/ammap/maps/js/continentsLow.js',
-                        'components/ammap3/ammap/maps/js/worldLow.js',
+                        'components/ammap3/ammap/maps/js/worldLow.js'
                     ],
                     serie: true
                 }

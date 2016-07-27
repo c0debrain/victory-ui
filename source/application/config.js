@@ -4,9 +4,11 @@
  * ============================================================ */
 
 angular.module('app')
-    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
+    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'FlashProvider',
 
-        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, FlashProvider) {
+            FlashProvider.setTemplatePreset('transclude');
+
             $urlRouterProvider
                 .otherwise('/app/overview');
 
@@ -20,6 +22,7 @@ angular.module('app')
                     url: '/overview',
                     templateUrl: 'templates/pages/overview.html',
                     controller: 'controllers.overview',
+                    controllerAs: 'overview',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load(['nvd3'], {

@@ -1,18 +1,11 @@
 angular.module('app.controllers')
     .controller('controllers.overview', OverviewController);
 
-OverviewController.$inject = ['$scope', '$timeout', '$interval', 'services.api'];
+OverviewController.$inject = ['$scope', '$timeout', '$interval', 'services.api', 'Flash'];
 
-function OverviewController($scope, $timeout, $interval, ApiService) {
-    ApiService.client.all().$promise.then(function(clients) {
-        clients.forEach(function(client) {
-            // console.log('Client Name:', client.client_name);
-        });
-    }, function(error) {
-        console.log(error);
-    });
-
+function OverviewController($scope, $timeout, $interval, ApiService, FlashService) {
     $scope.regions = [];
+
     ApiService.datacenter.all().$promise.then(function(datacenters) {
         datacenters.forEach(function(datacenter) {
             $scope.regions.push({
@@ -32,7 +25,11 @@ function OverviewController($scope, $timeout, $interval, ApiService) {
             });
         });
     }, function(error) {
-        console.log(error);
+        FlashService.create('danger', 'Failed to retrieve data from API Service.', 0, {
+            error: error
+        });
+
+        console.log('Error: ', error);
     });
 
 

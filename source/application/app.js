@@ -5,9 +5,13 @@
  * ============================================================ */
 
 angular.module('app', [
+    // Exernal Dependencies
     'ui.router',
     'ui.utils',
     'oc.lazyLoad',
+    'ngFlash',
+
+    // Internal Submodules
     'app.environment',
     'app.controllers',
     'app.services',

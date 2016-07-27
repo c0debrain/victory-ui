@@ -1,12 +1,11 @@
 <div class="event-feed page-sidebar" ng-controller="controllers.eventfeed">
-    <div class="sidebar-header">
-
-    </div>
     <ul class="events">
-        <li class="{{ event.type }}" ng-repeat="event in events | reverse">
-            <div class="details">
-                {{ event.details }}
-            </div>
-        </li>
+        <flash-message duration="5000" show-close="false">
+            <li class="{{ flash.type }}">
+                <div class="details">
+                    {{ flash.text }}
+                </div>
+            </li>
+        </flash-message>
     </ul>
 </div>
