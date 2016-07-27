@@ -17,6 +17,7 @@ var livereload      = require('gulp-livereload');
 var webserver       = require('gulp-webserver');
 var opn             = require('opn');
 var nodemon         = require('nodemon');
+var changed         = require('gulp-changed');
 
 
 // Config Variables --------------------------------------------
@@ -76,17 +77,15 @@ gulp.task('less:copy', ['copy'], task.less);
 gulp.task('watch', task.watch = function() {
     livereload.listen({ port: 35729 });
 
-    gulp.watch(paths.source + '/assets/less/*.less', ['less']);
+    gulp.watch([
+        paths.source + '/assets/less/*.less'
+    ], ['less']);
 
-    // Reload on HTML changes
+    // Reload on HTML & JS changes
     gulp.watch([
         paths.source + '/*.html',
         paths.templates + '/*.html',
-        paths.templates + '/**/*.html'
-    ], ['overwrite']);
-
-    // Reload on JS changes
-    gulp.watch([
+        paths.templates + '/**/*.html',
         paths.assets + '/js/*.js',
         paths.application + '/*.js',
         paths.application + '/**/*.js',
@@ -123,6 +122,7 @@ gulp.task('copy', ['clean'], task.copy = function() {
  */
 gulp.task('overwrite', task.overwrite = function() {
     return gulp.src(ignoredFiles)
+        .pipe(changed(paths.dist))
         .pipe(gulp.dest(paths.dist, { overwrite: true }))
         .pipe(livereload());
 });
@@ -196,24 +196,6 @@ gulp.task('open:browser', ['server', 'watch'], function() {
     Run all necessary tasks to deploy the application in development mode
     with LiveReload enabled.
  */
-gulp.task('serve', ['server', 'watch:server', 'open:browser']);
-
-
-/*
-    List all of the available commands.
- */
-gulp.task('default', function() {
-    console.log("\n");
-    console.log("-------------------------------------------");
-    console.log("| Command        | Calls                  |");
-    console.log("-------------------------------------------");
-    console.log("| gulp less      |                        |");
-    console.log("| gulp watch     | [ less ]               |");
-    console.log("| gulp build     | [ less, copy, css-min] |");
-    console.log("| gulp clean     |                        |");
-    console.log("| gulp copy      | [ clean ]              |");
-    console.log("| gulp css-min   |                        |");
-    console.log("| gulp config    |                        |");
-    console.log("-------------------------------------------");
-    console.log("\n");
+gulp.task('serve', ['server', 'watch:server'], function() {
+    opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT);
 });
