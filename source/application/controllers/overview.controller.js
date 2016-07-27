@@ -40,7 +40,7 @@ function OverviewController($scope, $timeout, $interval, ApiService) {
      * Portlets
      * ============================================================ */
     $scope.refreshTest = function(portlet) {
-        console.log("Refreshing...");
+        console.log('Refreshing...');
 
         // Timeout to simulate AJAX response delay
         $timeout(function() {
@@ -51,12 +51,12 @@ function OverviewController($scope, $timeout, $interval, ApiService) {
     }
 
     $scope.refreshWithErrorTest = function(portlet) {
-        console.log("Refreshing...");
+        console.log('Refreshing...');
 
         // Timeout to simulate AJAX response delay
         $timeout(function() {
             $(portlet).portlet({
-                error: "Something went terribly wrong!"
+                error: 'Something went terribly wrong!'
             });
         }, 2000);
     }
@@ -100,7 +100,7 @@ function OverviewController($scope, $timeout, $interval, ApiService) {
     };
 
     $scope.nvd3_data = [{
-        "values": [
+        'values': [
             { x: 1, y: 23 },
             { x: 2, y: 13 },
             { x: 3, y: 66 },
@@ -122,4 +122,4 @@ function OverviewController($scope, $timeout, $interval, ApiService) {
         if ($scope.nvd3_data[0].values.length > 20) $scope.nvd3_data[0].values.shift();
         x++;
     }, 2500);
-};
+}

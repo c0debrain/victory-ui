@@ -55,4 +55,4 @@ function DatacenterService($resource, Environment) {
             isArray: true
         }
     });
-};
+}

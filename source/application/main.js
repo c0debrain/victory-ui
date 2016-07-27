@@ -24,4 +24,4 @@ function MainController($scope, $rootScope, $state) {
     $scope.includes = function(name) {
         return $state.includes(name);
     };
-};
+}

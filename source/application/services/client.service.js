@@ -55,4 +55,4 @@ function ClientService($resource, Environment) {
             isArray: true
         }
     });
-};
+}

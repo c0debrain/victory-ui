@@ -13,12 +13,12 @@ angular.module('app')
             $stateProvider
                 .state('app', {
                     abstract: true,
-                    url: "/app",
-                    templateUrl: "templates/app.html"
+                    url: '/app',
+                    templateUrl: 'templates/app.html'
                 })
                 .state('app.overview', {
-                    url: "/overview",
-                    templateUrl: "templates/pages/overview.html",
+                    url: '/overview',
+                    templateUrl: 'templates/pages/overview.html',
                     controller: 'controllers.overview',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -34,8 +34,8 @@ angular.module('app')
                     }
                 })
                 .state('app.region', {
-                    url: "/region/:id",
-                    templateUrl: "templates/pages/region.html",
+                    url: '/region/:id',
+                    templateUrl: 'templates/pages/region.html',
                     controller: 'controllers.region',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -63,7 +63,10 @@ angular.module('app')
                                 insertBefore: '#lazyload_placeholder'
                             })
                             .then(function() {
-                                return $ocLazyLoad.load('application/controllers/map.controller.js');
+                                return $ocLazyLoad.load([
+                                    'application/controllers/map.controller.js',
+                                    'application/directives/ammaps.js'
+                                ]);
                             });
                     }]
                 }
@@ -94,5 +97,5 @@ angular.module('app')
         }
     ])
     .run(function($http, environment) {
-        $http.defaults.headers.common['apikey'] = environment.api.key;
+        $http.defaults.headers.common.apikey = environment.api.key;
     });

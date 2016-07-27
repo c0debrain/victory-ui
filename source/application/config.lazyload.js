@@ -230,10 +230,10 @@ angular.module('app')
                 }, {
                     name: 'ammaps',
                     files: [
-                        'https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.13.0/ammap.js',
-                        'https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.13.0/maps/js/continentsLow.js',
-                        'https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.13.0/maps/js/worldLow.js',
-                        'https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.13.0/themes/dark.js'
+                        'components/ammap3/ammap/ammap.js',
+                        'components/ammap3/ammap/themes/dark.js'
+                        'components/ammap3/ammap/maps/js/continentsLow.js',
+                        'components/ammap3/ammap/maps/js/worldLow.js',
                     ],
                     serie: true
                 }

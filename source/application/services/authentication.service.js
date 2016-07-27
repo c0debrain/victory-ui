@@ -20,7 +20,7 @@ function AuthenticationService($http, $cookieStore, $rootScope, $timeout) {
             method: 'POST',
             url: $rootScope.api + '/v1/users/' + $rootScope.config.metadata.slug + '/authenticate',
             data: JSON.stringify({
-                "user": authdata
+                'user': authdata
             })
         }).then(function successCallback(response) {
             callback(response.data);

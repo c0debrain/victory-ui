@@ -5,17 +5,17 @@ EventfeedController.$inject = ['$scope', '$interval'];
 
 function EventfeedController($scope, $interval) {
     $scope.events = [{
-        type: "complete",
-        details: "The server is running under optimal conditions."
+        type: 'complete',
+        details: 'The server is running under optimal conditions.'
     }, {
-        type: "danger",
-        details: "The server has exploded!"
+        type: 'danger',
+        details: 'The server has exploded!'
     }, {
-        type: "warning",
-        details: "The server might explode."
+        type: 'warning',
+        details: 'The server might explode.'
     }, {
-        type: "success",
-        details: "Server has been destroyed captain!"
+        type: 'success',
+        details: 'Server has been destroyed captain!'
     }];
 
     // Every X seconds, copy one of the events and push it

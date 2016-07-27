@@ -18,6 +18,7 @@ var webserver       = require('gulp-webserver');
 var opn             = require('opn');
 var nodemon         = require('nodemon');
 var changed         = require('gulp-changed');
+var jshint          = require('gulp-jshint');
 
 
 // Config Variables --------------------------------------------
@@ -104,6 +105,19 @@ gulp.task('clean', task.clean = function() {
         .pipe(clean());
 });
 
+
+/*
+    Checks for errors in syntax.
+ */
+gulp.task('lint', task.lint = function() {
+    return gulp.src([
+            paths.application + '/*.js',
+            paths.application + '/**/*.js',
+            paths.application + '/**/**/*.js'
+        ])
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'))
+});
 
 /*
     Duplicates files that aren't specifically ignored into the dist directory.

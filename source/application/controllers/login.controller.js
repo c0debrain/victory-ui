@@ -25,5 +25,5 @@ function LoginController($scope, $location, AuthenticationService, FlashService)
                 vm.dataLoading = false;
             }
         });
-    };
-};
+    }
+}

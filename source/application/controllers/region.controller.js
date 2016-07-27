@@ -11,11 +11,11 @@ angular.module('app.controllers')
         // Throw error
 
         $scope.region = {
-            name: "Amazon Web Services",
-            abbreviation: "AWS",
-            description: "Click on the refresh icon to simulate an AJAX call and to see an animated progress bar indicator above the portlet. These progress bars come in seven different colors that are available in the Pages contextual color scheme.",
+            name: 'Amazon Web Services',
+            abbreviation: 'AWS',
+            description: 'Click on the refresh icon to simulate an AJAX call and to see an animated progress bar indicator above the portlet. These progress bars come in seven different colors that are available in the Pages contextual color scheme.',
             clusters: [{
-                name: "AWS-US-AA",
+                name: 'AWS-US-AA',
                 statistics: {
                     virtual_machines: 14,
                     timezone: -5,
@@ -28,7 +28,7 @@ angular.module('app.controllers')
                     danger: 40
                 }
             }, {
-                name: "NVA-02",
+                name: 'NVA-02',
                 virtual_machines: 5,
                 statistics: {
                     virtual_machines: 14,
@@ -42,7 +42,7 @@ angular.module('app.controllers')
                     danger: 40
                 }
             }, {
-                name: "AWS-ASHFORD",
+                name: 'AWS-ASHFORD',
                 virtual_machines: 7,
                 statistics: {
                     virtual_machines: 14,
@@ -56,7 +56,7 @@ angular.module('app.controllers')
                     danger: 40
                 }
             }, {
-                name: "AWS-US-DELTA",
+                name: 'AWS-US-DELTA',
                 virtual_machines: 8,
                 statistics: {
                     virtual_machines: 14,
@@ -70,7 +70,7 @@ angular.module('app.controllers')
                     danger: 40
                 }
             }, {
-                name: "TEST-BIKESPOT",
+                name: 'TEST-BIKESPOT',
                 virtual_machines: 2,
                 statistics: {
                     virtual_machines: 14,
@@ -84,7 +84,7 @@ angular.module('app.controllers')
                     danger: 40
                 }
             }, {
-                name: "NVA-PCI-01",
+                name: 'NVA-PCI-01',
                 virtual_machines: 12,
                 statistics: {
                     virtual_machines: 14,
@@ -98,7 +98,7 @@ angular.module('app.controllers')
                     danger: 40
                 }
             }, {
-                name: "NVA-HILTON",
+                name: 'NVA-HILTON',
                 virtual_machines: 6,
                 statistics: {
                     virtual_machines: 14,
@@ -118,7 +118,7 @@ angular.module('app.controllers')
          * Portlets
          * ============================================================ */
         $scope.refreshTest = function(portlet) {
-            console.log("Refreshing...");
+            console.log('Refreshing...');
 
             // Timeout to simulate AJAX response delay
             $timeout(function() {
@@ -129,12 +129,12 @@ angular.module('app.controllers')
         };
 
         $scope.refreshWithErrorTest = function(portlet) {
-            console.log("Refreshing...");
+            console.log('Refreshing...');
 
             // Timeout to simulate AJAX response delay
             $timeout(function() {
                 $(portlet).portlet({
-                    error: "Something went terribly wrong!"
+                    error: 'Something went terribly wrong!'
                 });
             }, 2000);
         };
@@ -142,14 +142,6 @@ angular.module('app.controllers')
         /* ============================================================
          * NVD3 Charts
          * ============================================================ */
-        // $.Pages.getColor(colors[Math.floor(Math.random() * colors.length) + 1])
-        var colors = [
-            'success-light',
-            'complete-light',
-            'danger-light',
-            'warning-light',
-            'info-light'
-        ];
 
         $scope.nvd3_options = {
             chart: {
@@ -185,7 +177,7 @@ angular.module('app.controllers')
         };
 
         $scope.nvd3_data = [{
-            "values": [
+            'values': [
                 { x: 1, y: 23 },
                 { x: 2, y: 13 },
                 { x: 3, y: 66 },

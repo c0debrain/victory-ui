@@ -6,23 +6,23 @@ MapController.$inject = ['$scope'];
 function MapController($scope) {
 
     $scope.amMapOptions = {
-        type: "map",
-        theme: "light",
-        pathToImages: "http://www.amcharts.com/lib/3/images/",
+        type: 'map',
+        theme: 'light',
+        pathToImages: 'http://www.amcharts.com/lib/3/images/',
         addClassNames: true,
         areasSettings: {
             alpha: 0.75,
             rollOverAlpha: 0.75,
             selectedAlpha: 1,
             autoZoom: true,
-            rollOverOutlineColor: "#9a7bca",
+            rollOverOutlineColor: '#9a7bca',
             selectedColor: undefined,
-            color: "#eee",
-            outlineColor: "#3B4752"
+            color: '#eee',
+            outlineColor: '#3B4752'
         },
         backgroundZoomsToTop: true,
         dataProvider: {
-            map: "worldLow",
+            map: 'worldLow',
             getAreasFromMap: true,
             areas: [
             {
@@ -40,4 +40,4 @@ function MapController($scope) {
             panControlEnabled: false
         }
     };
-};
+}
