@@ -1,0 +1,32 @@
+{
+  "name": "angular-scaffolding",
+  "main": [
+    "/dist/angular-scaffolding.min.js",
+    "/dist/angular-scaffolding.min.css"
+  ],
+  "version": "0.1.0",
+  "description": "Financial management software.",
+  "authors": [
+    "Nick Lombardi"
+  ],
+  "ignore": [
+    "**/.*",
+    "package.json",
+    "klei.json",
+    "gulpfile.js",
+    "node_modules",
+    "bower_components",
+    "src"
+  ],
+  "dependencies": {
+    "angular": "~1.2.14",
+    "angular-route": "~1.2.14",
+    "oclazyload": "^1.0.9",
+    "angular-ui-router": "^0.3.1",
+    "angular-resource": "^1.5.7",
+    "font-awesome": "^4.6.3"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.14"
+  }
+}

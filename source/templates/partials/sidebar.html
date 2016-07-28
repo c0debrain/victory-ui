@@ -1,0 +1,37 @@
+<div class="sidebar" ng-controller="controllers.navigation">
+    <div class="tray"></div>
+
+    <div class="navigation">
+        <div class="menu-section">
+            <div class="menu-header">
+                <h1>Menu</h1>
+            </div>
+            <ul>
+                <li ng-repeat="item in menu">
+                    <a ui-sref="{{ item.url }}">{{ item.title }}</a>
+                    <span ng-if="item.badge" class="badge {{ item.badge.type }}">{{ item.badge.content }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-header">
+                <h1>Accounts</h1>
+                <i class="fa fa-cog"></i>
+            </div>
+            <ul>
+                <li ng-repeat="account in accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">
+                    <a href="">
+                        <i class="fa {{ account.type }}" aria-hidden="true"></i>{{ account.title }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="account">
+            <img src="http://themesanytime.com/startui/demo/img/photo-64-4.jpg" alt="Account">
+            <a href="#">Administrator</a>
+            <i class="fa fa-cog"></i>
+        </div>
+    </div>
+</div>

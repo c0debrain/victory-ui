@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app" ng-controller="AppCtrl">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>{{ app.name }}</title>
+
+    <!-- Metadata -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="{{ app.description }}" name="description" />
+    <meta content="{{ app.author }}" name="author" />
+
+    <link id="lazyload_placeholder">
+
+    <!-- Framework & Application CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/app.css" />
+    <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css" />
+</head>
+
+<body>
+    <div class="full-height" ui-view></div>
+
+    <!-- Angular -->
+    <script src="components/angular/angular.js"></script>
+    <script src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="components/oclazyload/dist/ocLazyLoad.min.js"></script>
+    <script src="components/angular-resource/angular-resource.min.js"></script>
+
+    <!-- Application -->
+    <script src="application/app.js"></script>
+    <script src="application/environment.js"></script>
+    <script src="application/config.js"></script>
+    <script src="application/config.lazyload.js"></script>
+    <script src="application/main.js"></script>
+
+    <!-- Directives -->
+    <script src="application/directives/index.js"></script>
+
+    <!-- Services -->
+    <script src="application/services/index.js"></script>
+
+    <!-- Controllers -->
+    <script src="application/controllers/index.js"></script>
+    <script src="application/controllers/navigation.controller.js"></script>
+
+    <!-- Filters -->
+    <script src="application/filters/index.js"></script>
+</body>
+</html>
