@@ -31,9 +31,7 @@ var paths = {
     templates: './source/templates',
 };
 
-var task = {
-    less: {}
-};
+var task = {};
 
 var ignoredFiles = [
     // Source Directory
@@ -62,7 +60,7 @@ var ignoredFiles = [
 /*
     Transpiles the application's LESS files into CSS files.
  */
-gulp.task('less.application', task.less.application = function() {
+gulp.task('less', task.less = function() {
     gulp.src(path.join(paths.assets, '/less/app.less'))
         .pipe(less({
             compress: false
@@ -70,7 +68,7 @@ gulp.task('less.application', task.less.application = function() {
         .pipe(gulp.dest(path.join(paths.dist, '/assets/css')))
         .pipe(livereload());
 });
-gulp.task('less.application:copy', ['copy'], task.less.application);
+gulp.task('less:copy', ['copy'], task.less);
 
 
 /*
@@ -198,7 +196,7 @@ gulp.task('config:copy', ['copy'], task.config);
  */
 gulp.task('build', [
     'copy',
-    'less.application:copy',
+    'less:copy',
     'config:copy'
 ]);
 
@@ -210,7 +208,7 @@ gulp.task('server', ['build'], function() {
     nodemon({
         script: 'app.js',
         ext: 'js html',
-        tasks: ['less.application', 'overwrite']
+        tasks: ['less', 'overwrite']
     });
 });
 
@@ -232,23 +230,4 @@ gulp.task('serve', ['server', 'watch:server'], function() {
     setTimeout(function() {
         opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT);
     });
-});
-
-/*
-    List all of the available commands.
- */
-gulp.task('default', function() {
-    console.log("\n");
-    console.log("-------------------------------------------");
-    console.log("| Command        | Calls                  |");
-    console.log("-------------------------------------------");
-    console.log("| gulp less      |                        |");
-    console.log("| gulp watch     | [ less ]               |");
-    console.log("| gulp build     | [ less, copy, css-min] |");
-    console.log("| gulp clean     |                        |");
-    console.log("| gulp copy      | [ clean ]              |");
-    console.log("| gulp css-min   |                        |");
-    console.log("| gulp config    |                        |");
-    console.log("-------------------------------------------");
-    console.log("\n");
 });
