@@ -1,10 +1,10 @@
 angular.module('app.controllers')
     .controller('controllers.login', LoginController);
 
-LoginController.$inject = ['$scope', '$location', 'services.authentication', 'services.flash'];
+LoginController.$inject = ['$scope', '$location', 'services.authentication', 'Flash'];
 
 function LoginController($scope, $location, AuthenticationService, FlashService) {
-    var vm = this;
+    var vm = this
     vm.login = login;
 
     // Reset login status
@@ -21,7 +21,8 @@ function LoginController($scope, $location, AuthenticationService, FlashService)
                 $location.path('/app/overview');
 
             } else {
-                FlashService.Error(response.message);
+                FlashService.clear();
+                FlashService.create('warning', response.message, 0);
                 vm.dataLoading = false;
             }
         });

@@ -20,13 +20,28 @@
     <!-- START Login Right Container-->
     <div class="login-container bg-white">
         <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
-            <div ng-include="'assets/img/demo/logo.svg'" style="width: 100%; height: 100px;"></div>
+            <div class="full-height full-width m-t-60 m-b-20" ng-include="'assets/img/logo.svg'"></div>
 
             <p class="p-t-35">Sign into your OneLink account using your credentials below.</p>
 
             <!-- START Login Form -->
             <form id="form-login" name="login" class="p-t-15" role="form" ng-submit="vm.login()" novalidate>
-                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+<!--                 <div ng-class="{
+                        'alert': flash,
+                        'alert-success': flash.type === 'success',
+                        'alert-danger': flash.type === 'error'
+                    }"
+                    ng-if="flash"
+                    ng-bind="flash.message"
+                ></div> -->
+
+                <flash-message duration="5000" show-close="false">
+                    <div class="{{ flash.type }}">
+                        <div class="details">
+                            {{ flash.text }}
+                        </div>
+                    </div>
+                </flash-message>
 
                 <!-- START Form Control-->
                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login.username.$invalid && !login.username.$pristine }">

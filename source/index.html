@@ -38,7 +38,7 @@
         'menu-behind' : app.layout.menuBehind
     }
 ">
-    <div ui-view></div>
+    <div class="full-height" ui-view></div>
 
     <!-- Vendor JavaScript -->
     <!-- jQuery -->
@@ -61,7 +61,7 @@
     <script src="plugins/angular-ui-util/ui-utils.min.js"></script>
     <script src="plugins/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="plugins/angular-oc-lazyload/ocLazyLoad.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.13/angular-cookies.min.js"></script>
+    <script src="components/angular-cookies/angular-cookies.min.js"></script>
     <script src="components/angular-resource/angular-resource.js"></script>
     <script src="components/angular-flash-alert/dist/angular-flash.js"></script>
 
@@ -94,7 +94,6 @@
 
     <!-- Controllers -->
     <script src="application/controllers/index.js"></script>
-    <script src="application/controllers/eventfeed.controller.js"></script>
 
     <!-- Filters -->
     <script src="application/filters/index.js"></script>

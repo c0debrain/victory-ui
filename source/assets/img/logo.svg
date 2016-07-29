@@ -1,0 +1,19 @@
+<svg class="animated-logo">
+    <script type="text/javascript">
+        $(document).ready(function() {
+            setTimeout(function() {
+                setInterval(function() {
+                    $('.toggled-text').toggle();
+                }, 1100);
+            }, 580);
+        });
+    </script>
+
+    <text class="onelink-text" stroke-width="0" x="35" y="60">One<tspan>Link</tspan></text>
+    <g class="onelink-orbit" transform="matrix(0.34125, -0.46875, 0.234375, 0.40340625, 83, 39)">
+        <path stroke="#F8D053" stroke-width="2" d="M 0,70 A 65,70 0 0,0 65,0 5,5 0 0,1 75,0 75,70 0 0,1 0,70Z" fill="#F8D053">
+            <animateTransform attributeName="transform" type="rotate" from="360 0 0" to="0 0 0" dur="2.2s" repeatCount="indefinite" />
+        </path>
+    </g>
+    <text class="onelink-text toggled-text" stroke-width="0" x="35" y="60">One</text>
+</svg>

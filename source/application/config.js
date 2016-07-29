@@ -83,15 +83,14 @@ angular.module('app')
                 .state('access.login', {
                     url: '/login',
                     templateUrl: 'templates/pages/login.html',
-                    controller: 'LoginCtrl',
+                    controller: 'controllers.login',
                     controllerAs: 'vm',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load(
                                 [
                                     'application/controllers/login.controller.js',
-                                    'application/services/authentication.service.js',
-                                    'application/services/flash.service.js'
+                                    'application/services/authentication.service.js'
                                 ]);
                         }]
                     }
