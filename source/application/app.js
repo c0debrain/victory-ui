@@ -11,6 +11,7 @@ angular.module('app', [
     'oc.lazyLoad',
     'ngFlash',
     'ngCookies',
+    'base64',
 
     // Internal Submodules
     'app.environment',

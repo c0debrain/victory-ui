@@ -1,30 +1,30 @@
 angular.module('app.controllers')
     .controller('controllers.login', LoginController);
 
-LoginController.$inject = ['$scope', '$location', 'services.authentication', 'Flash'];
+LoginController.$inject = ['$scope', '$location', 'services.authentication', 'services.notification'];
 
-function LoginController($scope, $location, AuthenticationService, FlashService) {
-    var vm = this
-    vm.login = login;
+function LoginController($scope, $location, $AuthenticationService, $NotificationService) {
 
     // Reset login status
     (function initController() {
-        AuthenticationService.ClearCredentials();
+        $AuthenticationService.ClearCredentials();
     })();
 
     // Login Function
-    function login() {
-        vm.dataLoading = true;
-        AuthenticationService.Login(vm.username, vm.password, function(response) {
+    this.authenticate = function() {
+        console.log('Authenticating...');
+
+        this.dataLoading = true;
+        $AuthenticationService.Login(this.username, this.password, function(response) {
             if (response.success) {
-                AuthenticationService.SetCredentials(vm.username, vm.password);
+                $AuthenticationService.SetCredentials(this.username, this.password);
                 $location.path('/app/overview');
 
             } else {
-                FlashService.clear();
-                FlashService.create('warning', response.message, 0);
-                vm.dataLoading = false;
+                $NotificationService.clear();
+                $NotificationService.create('warning', response.message, 0);
+                this.dataLoading = false;
             }
         });
-    }
+    };
 }

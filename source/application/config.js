@@ -4,18 +4,20 @@
  * ============================================================ */
 
 angular.module('app')
-    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'FlashProvider',
+    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'FlashProvider', '$locationProvider',
+        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $FlashProvider, $locationProvider) {
+            // Flash Service Configuration
+            $FlashProvider.setTemplatePreset('transclude');
 
-        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, FlashProvider) {
-            FlashProvider.setTemplatePreset('transclude');
+            // Use the HTML5 History API, remove /# from url
+            $locationProvider.html5Mode(true);
 
-            $urlRouterProvider
-                .otherwise('/app/overview');
+            // Set default state
+            $urlRouterProvider.otherwise('/overview');
 
             $stateProvider
                 .state('app', {
                     abstract: true,
-                    url: '/app',
                     templateUrl: 'templates/app.html'
                 })
                 .state('app.overview', {
@@ -84,7 +86,7 @@ angular.module('app')
                     url: '/login',
                     templateUrl: 'templates/pages/login.html',
                     controller: 'controllers.login',
-                    controllerAs: 'vm',
+                    controllerAs: 'login',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load(
@@ -98,6 +100,8 @@ angular.module('app')
 
         }
     ])
+
+    // Set the API key globally to be included with each request
     .run(function($http, environment) {
         $http.defaults.headers.common.apikey = environment.api.key;
     });

@@ -25,15 +25,17 @@
             <p class="p-t-35">Sign into your OneLink account using your credentials below.</p>
 
             <!-- START Login Form -->
-            <form id="form-login" name="login" class="p-t-15" role="form" ng-submit="vm.login()" novalidate>
-<!--                 <div ng-class="{
-                        'alert': flash,
-                        'alert-success': flash.type === 'success',
-                        'alert-danger': flash.type === 'error'
-                    }"
-                    ng-if="flash"
-                    ng-bind="flash.message"
-                ></div> -->
+            <form id="form-login" name="authenticate" class="p-t-15" role="form" ng-submit="login.authenticate()" novalidate>
+                <!--
+                    <div ng-class="{
+                            'alert': flash,
+                            'alert-success': flash.type === 'success',
+                            'alert-danger': flash.type === 'error'
+                        }"
+                        ng-if="flash"
+                        ng-bind="flash.message">
+                    </div>
+                -->
 
                 <flash-message duration="5000" show-close="false">
                     <div class="{{ flash.type }}">
@@ -47,7 +49,7 @@
                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login.username.$invalid && !login.username.$pristine }">
                     <label>Login</label>
                     <div class="controls">
-                        <input type="text" name="username" placeholder="User Name" class="form-control" ng-model="vm.username" required>
+                        <input type="text" name="username" placeholder="User Name" class="form-control" ng-model="login.username" required>
                     </div>
                 </div>
                 <label class="error" for="username" ng-show="login.username.$invalid && !login.username.$pristine">This field is required.</label>
@@ -57,7 +59,7 @@
                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login.password.$invalid && !login.password.$pristine }">
                     <label>Password</label>
                     <div class="controls">
-                        <input type="password" class="form-control" name="password" placeholder="Credentials" ng-model="vm.password" required>
+                        <input type="password" class="form-control" name="password" placeholder="Credentials" ng-model="login.password" required>
                     </div>
                 </div>
                 <label class="error" for="password" ng-show="login.password.$invalid && !login.password.$pristine">This field is required.</label>
@@ -77,7 +79,7 @@
                 </div>
                 <!-- END Form Control-->
 
-                <button class="btn btn-complete btn-cons m-t-10" type="submit" ng-disabled="login.$invalid || vm.dataLoading">Sign in</button>
+                <button class="btn btn-complete btn-cons m-t-10" type="submit" ng-disabled="login.$invalid || login.dataLoading">Sign in</button>
                 <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             </form>
             <!--END Login Form-->
