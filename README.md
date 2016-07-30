@@ -44,3 +44,9 @@ gulp dist
 ```
 
 Now there's a `./dist` folder with all scripts and stylesheets concatenated and minified, also third party libraries installed with bower will be concatenated and minified into `vendors.min.js` and `vendors.min.css` respectively.
+
+## Screenshots
+![Transactions](https://i.gyazo.com/46badfc11e649e17ee42d3b6ad30b670.png)
+
+![Budget](https://i.gyazo.com/94aec2e8d86a4c5679f230a9a45a26b1.png)
+
