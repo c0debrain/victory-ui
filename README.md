@@ -1,4 +1,4 @@
-angular-scaffolding
+Victory
 ============
 
 ## Development
@@ -6,10 +6,12 @@ angular-scaffolding
 To start developing in the project run:
 
 ```bash
+npm install
+gulp install
 gulp serve
 ```
 
-Then head to `http://localhost:3000` in your browser.
+Then head to `http://localhost:3001` in your browser.
 
 The `serve` tasks starts a static file server, which serves the AngularJS application, and a watch task which watches all files for changes and lints, builds and injects them into the index.html accordingly.
 
