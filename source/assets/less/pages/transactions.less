@@ -1,0 +1,44 @@
+.summaries {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+    .summary {
+        height: 100%;
+        padding: 15px;
+
+        .title {
+            float: left;
+            width: 100%;
+
+            span {
+                float: left;
+                font-weight: 600;
+                line-height: 1.4;
+                font-size: 1rem;
+            }
+
+            i {
+                height: 100%;
+                float: right;
+                width: 20px;
+                color: #5b6779;
+                cursor: pointer;
+            }
+        }
+
+        .amount {
+            padding-left: 8px;
+        }
+    }
+
+    .summary:not(:last-child)  {
+        border-right: 1px solid #d8e2e7;
+    }
+}
+
+.table-transactions {
+    td.account {
+        border-left: 8px solid #00A8FF;
+    }
+}

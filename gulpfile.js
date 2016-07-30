@@ -229,5 +229,5 @@ gulp.task('open:browser', ['server', 'watch'], function() {
 gulp.task('serve', ['server', 'watch:server'], function() {
     setTimeout(function() {
         opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT);
-    });
+    }, 500);
 });

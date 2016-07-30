@@ -7,6 +7,11 @@
 angular.module('app', [
     'ui.router',
     'oc.lazyLoad',
+
+    // 3rd Party Modules
+    'angular-peity',
+
+    // Application Modules
     'app.environment',
     'app.controllers',
     'app.services',

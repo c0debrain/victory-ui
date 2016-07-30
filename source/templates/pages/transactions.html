@@ -1,0 +1,75 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+        <section class="box-typical box-typical-max-280">
+            <div class="summaries row">
+                <div class="col-md-4 summary">
+                    <div class="title">
+                        <span>Weekly Transactions</span>
+                        <i class="fa fa-cog"></i>
+                    </div>
+                    <span class="amount">{{ transactions.weekly.amount | currency }}</span>
+                </div>
+                <div class="col-md-4 summary">
+                    <div class="title">
+                        <span>Monthly Transactions</span>
+                        <i class="fa fa-cog"></i>
+                    </div>
+                    <span class="amount">{{ transactions.monthly.amount | currency }}</span>
+                </div>
+                <div class="col-md-4 summary">
+                    <div class="title">
+                        <span>Yearly Transactions</span>
+                        <i class="fa fa-cog"></i>
+                    </div>
+                    <span class="amount">{{ transactions.yearly.amount | currency }}</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="box-typical">
+			<header class="box-typical-header">
+				<div class="tbl-row">
+					<div class="tbl-cell tbl-cell-title">
+						<h3>Transactions</h3>
+					</div>
+				</div>
+			</header>
+
+			<div class="box-typical-body">
+				<div class="table-responsive">
+					<table class="table table-hover table-transactions">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                    <th>Category</th>
+                                <th>Account</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+						<tbody>
+							<tr ng-repeat="transaction in transactions.data">
+								<td class="table-check account" style="border-left-color: {{ transaction.account.color }}">
+									<div class="checkbox checkbox-only">
+										<input type="checkbox" id="tbl-check-{{ $index }}"/>
+										<label for="tbl-check-{{ $index }}"></label>
+									</div>
+								</td>
+								<td>{{ transaction.date }}</td>
+								<td>{{ transaction.description }}</td>
+								<td>{{ transaction.category }}</td>
+								<td>{{ transaction.account.name }}</td>
+								<td nowrap="nowrap">
+                                    {{ transaction.amount | currency }}<span class="caret color-red"></span>
+                                </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div><!--.box-typical-body-->
+		</section><!--.box-typical-->
+
+    </div><!--.container-fluid-->
+</div><!--.page-content-->

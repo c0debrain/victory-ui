@@ -27,6 +27,19 @@ angular.module('app')
                             ]);
                         }]
                     }
+                })
+                .state('app.transactions', {
+                    url: '/transactions',
+                    templateUrl: 'templates/pages/transactions.html',
+                    controller: 'controllers.transactions',
+                    controllerAs: 'transactions',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'application/controllers/transactions.controller.js'
+                            ]);
+                        }]
+                    }
                 });
         }
     ]);
