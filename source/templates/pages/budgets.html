@@ -1,0 +1,46 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+        <section class="box-typical" ng-repeat="scenario in scenarios">
+            <header class="box-typical-header">
+                <div class="tbl-row">
+                    <div class="tbl-cell tbl-cell-title">
+                        <h3>{{ scenario.name }}</h3>
+                    </div>
+                </div>
+            </header>
+
+            <div class="box-typical-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-transactions">
+                        <tbody>
+                            <tr ng-repeat="budget in scenario.data" style="background: {{ budget.background }}">
+                                <td class="account" style="border-left-color: {{ budget.color }}">
+                                    <div class="font-11 color-blue-grey-lighter uppercase">Category</div>
+                                    {{ budget.name }}
+                                </td>
+                                <td>
+                                    <div class="font-11 color-blue-grey-lighter uppercase">Spending</div>
+                                    {{ budget.spent | currency }} / {{ budget.allowance | currency }}
+                                </td>
+                                <td>Chart</td>
+                                <td>
+                                    <div class="font-11 color-blue-grey-lighter uppercase">Interval</div>
+                                    {{ budget.interval }}
+                                </td>
+                                <td>
+                                    <div class="font-11 color-blue-grey-lighter uppercase">Allowance</div>
+                                    {{ budget.allowance | currency }}
+                                </td>
+                                <td nowrap="nowrap">
+                                    Options
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.box-typical-body-->
+        </section><!--.box-typical-->
+
+    </div><!--.container-fluid-->
+</div><!--.page-content-->

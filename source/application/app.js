@@ -7,9 +7,7 @@
 angular.module('app', [
     'ui.router',
     'oc.lazyLoad',
-
-    // 3rd Party Modules
-    'angular-peity',
+    'smart-table',
 
     // Application Modules
     'app.environment',

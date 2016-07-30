@@ -4,16 +4,19 @@
  * ============================================================ */
 
 angular.module('app')
-    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
+    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider',
 
-        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
-            $urlRouterProvider
-                .otherwise('/app/overview');
+        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider) {
+
+            // Use the HTML5 History API, remove /# from url
+            $locationProvider.html5Mode(true);
+
+            // Set default Route
+            $urlRouterProvider.otherwise('/overview');
 
             $stateProvider
                 .state('app', {
                     abstract: true,
-                    url: '/app',
                     templateUrl: 'templates/app.html'
                 })
                 .state('app.overview', {
@@ -32,11 +35,22 @@ angular.module('app')
                     url: '/transactions',
                     templateUrl: 'templates/pages/transactions.html',
                     controller: 'controllers.transactions',
-                    controllerAs: 'transactions',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
                                 'application/controllers/transactions.controller.js'
+                            ]);
+                        }]
+                    }
+                })
+                .state('app.budgets', {
+                    url: '/budgets',
+                    templateUrl: 'templates/pages/budgets.html',
+                    controller: 'controllers.budgets',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'application/controllers/budgets.controller.js'
                             ]);
                         }]
                     }

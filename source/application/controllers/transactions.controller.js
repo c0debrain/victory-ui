@@ -1,22 +1,22 @@
 angular.module('app.controllers')
     .controller('controllers.transactions', TransactionsController);
 
-TransactionsController.$inject = [];
+TransactionsController.$inject = ['$scope'];
 
-function TransactionsController() {
-    this.weekly = {
+function TransactionsController($scope) {
+    $scope.weekly = {
         amount: '-120.02'
     };
 
-    this.monthly = {
+    $scope.monthly = {
         amount: '-678.00'
     };
 
-    this.yearly = {
+    $scope.yearly = {
         amount: '-1280.20'
     };
 
-    this.data = [
+    $scope.data = [
         {
             date: 'JUL 28',
             description: 'Blue Coyote Grill',

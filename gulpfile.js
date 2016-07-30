@@ -4,34 +4,36 @@ process.env.NODE_ENV = (process.env.NODE_ENV || 'development');
 
 
 // Global Dependencies
-var config = require('./config')();
-var path = require('path');
-var gulp = require('gulp');
-var less = require('gulp-less');
-var clean = require('gulp-clean');
-var minifycss = require('gulp-minify-css');
-var gulpNgConfig = require('gulp-ng-config');
-var b2v = require('buffer-to-vinyl');
-var bower = require('gulp-bower');
-var livereload = require('gulp-livereload');
-var webserver = require('gulp-webserver');
-var opn = require('opn');
-var nodemon = require('nodemon');
-var changed = require('gulp-changed');
-var jshint = require('gulp-jshint');
+var config          = require('./config')();
+var path            = require('path');
+var gulp            = require('gulp');
+var less            = require('gulp-less');
+var clean           = require('gulp-clean');
+var minifycss       = require('gulp-minify-css');
+var gulpNgConfig    = require('gulp-ng-config');
+var b2v             = require('buffer-to-vinyl');
+var bower           = require('gulp-bower');
+var livereload      = require('gulp-livereload');
+var webserver       = require('gulp-webserver');
+var opn             = require('opn');
+var nodemon         = require('nodemon');
+var changed         = require('gulp-changed');
+var jshint          = require('gulp-jshint');
 
 
 // Config Variables --------------------------------------------
 var paths = {
-    config: './config/' + process.env.NODE_ENV,
-    dist: './dist',
-    source: './source',
-    app: './source/application',
-    assets: './source/assets',
-    templates: './source/templates',
+    config:         './config/' + process.env.NODE_ENV,
+    dist:           './dist',
+    source:         './source',
+    assets:         './source/assets',
+    templates:      './source/templates',
+    application:    './source/application'
 };
 
-var task = {};
+var task = {
+    less: {}
+};
 
 var ignoredFiles = [
     // Source Directory
@@ -61,14 +63,56 @@ var ignoredFiles = [
     Transpiles the application's LESS files into CSS files.
  */
 gulp.task('less', task.less = function() {
-    gulp.src(path.join(paths.assets, '/less/app.less'))
-        .pipe(less({
-            compress: false
-        }))
+    gulp.src(path.join(paths.assets, '/less/application.less'))
+        .pipe(less({ compress: false }))
         .pipe(gulp.dest(path.join(paths.dist, '/assets/css')))
         .pipe(livereload());
 });
 gulp.task('less:copy', ['copy'], task.less);
+
+
+/*
+    Watches for changes in the source directory's LESS files. Transpiles them
+    to CSS. This task makes sure the dist directory has been created first.
+ */
+gulp.task('watch', task.watch = function() {
+    livereload.listen({ port: 35729 });
+
+    // Reload on LESS changes
+    gulp.watch([
+        paths.source + '/assets/less/*.less',
+        paths.source + '/assets/less/**/*.less',
+        paths.source + '/assets/less/**/**/*.less'
+    ], ['less']);
+
+    // Reload on HTML & JS changes
+    gulp.watch([
+        // Root application directory & framework JS
+        paths.source        + '/*.html',
+        paths.assets        + '/js/*.js',
+
+        // Templates
+        paths.templates     + '/*.html',
+        paths.templates     + '/**/*.html',
+        paths.templates     + '/**/**/*.html',
+
+        // Application
+        paths.application   + '/*.js',
+        paths.application   + '/**/*.js',
+        paths.application   + '/**/**/*.js'
+    ], ['overwrite']);
+});
+gulp.task('watch:copy', ['copy'], task.watch);
+gulp.task('watch:server', ['server'], task.watch);
+
+
+/*
+    Deletes the dist directory.
+ */
+gulp.task('clean', task.clean = function() {
+    return gulp.src(paths.dist, { read: false })
+        .pipe(clean());
+});
 
 
 /*
@@ -83,54 +127,6 @@ gulp.task('lint', task.lint = function() {
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
 });
-
-
-/*
-    Watches for changes in the source directory's LESS files. Transpiles them
-    to CSS. This task makes sure the dist directory has been created first.
- */
-gulp.task('watch', task.watch = function() {
-    livereload.listen({
-        port: 35729
-    });
-
-    // Reload on LESS changes
-    gulp.watch([
-        paths.source + '/assets/less/*.less',
-        paths.source + '/assets/less/**/*.less',
-        paths.source + '/assets/less/**/**/*.less'
-    ], ['less']);
-
-    // Reload on HTML & JS changes
-    gulp.watch([
-        // Root application directory & framework JS
-        paths.source + '/*.html',
-
-        // Templates
-        paths.templates + '/*.html',
-        paths.templates + '/**/*.html',
-        paths.templates + '/**/**/*.html',
-
-        // Application
-        paths.application + '/*.js',
-        paths.application + '/**/*.js',
-        paths.application + '/**/**/*.js'
-    ], ['overwrite']);
-});
-gulp.task('watch:copy', ['copy'], task.watch);
-gulp.task('watch:server', ['server'], task.watch);
-
-
-/*
-    Deletes the dist directory.
- */
-gulp.task('clean', task.clean = function() {
-    return gulp.src(paths.dist, {
-            read: false
-        })
-        .pipe(clean());
-});
-
 
 /*
     Duplicates files that aren't specifically ignored into the dist directory.
@@ -150,9 +146,7 @@ gulp.task('copy', ['clean'], task.copy = function() {
 gulp.task('overwrite', task.overwrite = function() {
     return gulp.src(ignoredFiles)
         .pipe(changed(paths.dist))
-        .pipe(gulp.dest(paths.dist, {
-            overwrite: true
-        }))
+        .pipe(gulp.dest(paths.dist, { overwrite: true }))
         .pipe(livereload());
 });
 
@@ -165,40 +159,40 @@ gulp.task('config', task.config = function() {
     var json = JSON.stringify({
         environment: {
             api: {
-                path: process.env.API_PROTOCOL + '://' + process.env.API_HOST + (process.env.NODE_ENV != 'production' ? ':' + process.env.API_PORT : '') + '/' + process.env.API_VERSION,
-                protocol: process.env.API_PROTOCOL,
-                host: process.env.API_HOST,
-                version: process.env.API_VERSION,
-                port: process.env.API_PORT,
-                key: process.env.API_KEY
+                path:           process.env.API_PROTOCOL + '://' + process.env.API_HOST + (process.env.NODE_ENV != 'production' ? ':' + process.env.API_PORT : '') + '/' + process.env.API_VERSION,
+                protocol:       process.env.API_PROTOCOL,
+                host:           process.env.API_HOST,
+                version:        process.env.API_VERSION,
+                port:           process.env.API_PORT,
+                key:            process.env.API_KEY
             },
             dashboard: {
-                path: process.env.NODE_PROTOCOL + '://' + process.env.NODE_HOST + (process.env.NODE_ENV != 'production' ? ':' + process.env.NODE_PORT : '') + '/',
-                protocol: process.env.NODE_PROTOCOL,
-                host: process.env.NODE_HOST,
-                environment: process.env.NODE_ENV,
-                port: process.env.NODE_PORT
+                path:           process.env.NODE_PROTOCOL + '://' + process.env.NODE_HOST + (process.env.NODE_ENV != 'production' ? ':' + process.env.NODE_PORT : '') + '/',
+                protocol:       process.env.NODE_PROTOCOL,
+                host:           process.env.NODE_HOST,
+                environment:    process.env.NODE_ENV,
+                port:           process.env.NODE_PORT
             }
         }
     });
 
     return b2v.stream(new Buffer(json), 'environment.js')
-        .pipe(gulpNgConfig('app.environment', {
-            pretty: true
-        }))
+        .pipe(gulpNgConfig('app.environment', { pretty: true }))
         .pipe(gulp.dest(paths.dist + '/application'));
 });
-gulp.task('config:copy', ['copy'], task.config);
+gulp.task('config:copy',['copy'], task.config);
 
 
 /*
     Run all necessary commands to build the application.
  */
-gulp.task('build', [
-    'copy',
-    'less:copy',
-    'config:copy'
-]);
+gulp.task('build',
+    [
+        'copy',
+        'less:copy',
+        'config:copy'
+    ]
+);
 
 
 /*
@@ -207,8 +201,7 @@ gulp.task('build', [
 gulp.task('server', ['build'], function() {
     nodemon({
         script: 'app.js',
-        ext: 'js html',
-        tasks: ['less', 'overwrite']
+        ext: 'js html'
     });
 });
 
@@ -229,5 +222,5 @@ gulp.task('open:browser', ['server', 'watch'], function() {
 gulp.task('serve', ['server', 'watch:server'], function() {
     setTimeout(function() {
         opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT);
-    }, 500);
+    });
 });
