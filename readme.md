@@ -1,4 +1,4 @@
-# Victory
+# Victory Financial Platform
 Your all-in-one financial tracking, management and advising platform.
 
 # Required Software
