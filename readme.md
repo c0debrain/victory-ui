@@ -1,7 +1,7 @@
 # Victory Financial Platform
 Your all-in-one financial tracking, management and advising platform.
 
-## Required Software
+## Dependencies
 You will need NodeJS installed on your operating system. The [node installation](https://nodejs.org/en/download/package-manager/) should come pre-packaged with NPM (Node Package Manager) which we will use to install our dependencies. You will need to have [bower](https://github.com/bower/bower) install globally on your machine using the following command:
 ```
 sudo npm install -g bower
