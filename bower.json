@@ -26,7 +26,11 @@
     "angular-resource": "^1.5.7",
     "font-awesome": "^4.6.3",
     "angular-peity": "^0.0.5",
-    "angular-datatables": "^0.5.4"
+    "angular-datatables": "^0.5.4",
+    "angular-smart-table": "^2.1.8",
+    "angular-cookies": "^1.5.8",
+    "angular-flash-alert": "^2.3.0",
+    "angular-permission": "^4.0.4"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.14"

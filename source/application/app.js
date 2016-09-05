@@ -8,6 +8,10 @@ angular.module('app', [
     'ui.router',
     'oc.lazyLoad',
     'smart-table',
+    'ngCookies',
+    'ngFlash',
+    'permission',
+    'permission.ui',
 
     // Application Modules
     'app.environment',
