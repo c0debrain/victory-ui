@@ -11,10 +11,12 @@ angular.module('app')
             $locationProvider.html5Mode(true);
 
             // Set default Route w/ workaround from angular-permissions
-            $urlRouterProvider.otherwise(function($injector) {
-                var $state = $injector.get("$state");
-                $state.go('/access/login');
-            });
+            // $urlRouterProvider.otherwise(function($injector) {
+            //     var $state = $injector.get("$state");
+            //     $state.go('/access/login');
+            // });
+
+            $urlRouterProvider.otherwise('/access/login');
 
             $stateProvider
                 .state('app', {
