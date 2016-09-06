@@ -34,11 +34,11 @@ function AuthenticationService(Environment, $rootScope, $http, $cookieStore) {
     }
 
     function setCredentials(response) {
-        $rootScope.token = response.token;
+        $rootScope.token = response.token.auth_token;
         $rootScope.user = response.user;
 
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.token.auth_token;
-        $cookieStore.put('token', response.token);
+        $cookieStore.put('token', response.token.auth_token);
         $cookieStore.put('user', response.user);
     }
 

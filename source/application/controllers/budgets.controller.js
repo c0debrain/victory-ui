@@ -1,5 +1,5 @@
 angular.module('app.controllers')
-    .controller('controllers.budgets', BudgetsController);
+    .controller('controllers.budget', BudgetsController);
 
 BudgetsController.$inject = ['$scope'];
 

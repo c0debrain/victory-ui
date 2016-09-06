@@ -1,9 +1,9 @@
 angular.module('app.controllers')
-    .controller('controllers.transactions', TransactionsController);
+    .controller('controllers.transaction', TransactionsController);
 
-TransactionsController.$inject = ['$scope'];
+TransactionsController.$inject = ['$scope', 'services.transaction'];
 
-function TransactionsController($scope) {
+function TransactionsController($scope, Transaction) {
     $scope.weekly = {
         amount: '-120.02'
     };
@@ -16,76 +16,9 @@ function TransactionsController($scope) {
         amount: '-1280.20'
     };
 
-    $scope.data = [
-        {
-            date: 'JUL 28',
-            description: 'Blue Coyote Grill',
-            category: 'Lunch at Work',
-            account: {
-                name: 'Checking',
-                color: '#00A8FF'
-            },
-            amount: '20.00'
-        },
-        {
-            date: 'JUL 28',
-            description: 'Blue Coyote Grill',
-            category: 'Lunch at Work',
-            account: {
-                name: 'Checking',
-                color: '#00A8FF'
-            },
-            amount: '20.00'
-        },
-        {
-            date: 'JUL 28',
-            description: 'Blue Coyote Grill',
-            category: 'Lunch at Work',
-            account: {
-                name: 'Checking',
-                color: '#00A8FF'
-            },
-            amount: '20.00'
-        },
-        {
-            date: 'JUL 28',
-            description: 'Blue Coyote Grill',
-            category: 'Lunch at Work',
-            account: {
-                name: 'Checking',
-                color: '#00A8FF'
-            },
-            amount: '20.00'
-        },
-        {
-            date: 'JUL 28',
-            description: 'Blue Coyote Grill',
-            category: 'Lunch at Work',
-            account: {
-                name: 'Checking',
-                color: '#00A8FF'
-            },
-            amount: '20.00'
-        },
-        {
-            date: 'JUL 28',
-            description: 'Blue Coyote Grill',
-            category: 'Lunch at Work',
-            account: {
-                name: 'Savings',
-                color: '#46c35f'
-            },
-            amount: '20.00'
-        },
-        {
-            date: 'JUL 28',
-            description: 'Blue Coyote Grill',
-            category: 'Lunch at Work',
-            account: {
-                name: 'Savings',
-                color: '#46c35f'
-            },
-            amount: '20.00'
-        }
-    ];
+    // Retrieve User's Transactions
+    Transaction.all(function(response) {
+        console.log('Transaction Service Response: ', response.data);
+        this.data = response.data;
+    }.bind(this));
 }

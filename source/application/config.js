@@ -16,7 +16,7 @@ angular.module('app')
             //     $state.go('/access/login');
             // });
 
-            $urlRouterProvider.otherwise('/access/login');
+            $urlRouterProvider.otherwise('/login');
 
             $stateProvider
                 .state('app', {
@@ -24,7 +24,12 @@ angular.module('app')
                     templateUrl: 'templates/app.html',
                     data: {
                         permissions: {
-                            only: ['isUser']
+                            only: ['isUser'],
+                            redirectTo: function() {
+                                return {
+                                    state: 'access.login'
+                                }
+                            }
                         }
                     }
                 })
@@ -43,11 +48,13 @@ angular.module('app')
                 .state('app.transactions', {
                     url: '/transactions',
                     templateUrl: 'templates/pages/transactions.html',
-                    controller: 'controllers.transactions',
+                    controller: 'controllers.transaction',
+                    controllerAs: 'transaction',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
-                                'application/controllers/transactions.controller.js'
+                                'application/services/transactions.service.js',
+                                'application/controllers/transactions.controller.js',
                             ]);
                         }]
                     }
@@ -55,7 +62,7 @@ angular.module('app')
                 .state('app.budgets', {
                     url: '/budgets',
                     templateUrl: 'templates/pages/budgets.html',
-                    controller: 'controllers.budgets',
+                    controller: 'controllers.budget',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
@@ -66,7 +73,6 @@ angular.module('app')
                 })
 
             .state('access', {
-                    url: '/access',
                     template: '<div class="full-height" ui-view></div>'
                 })
                 .state('access.login', {
@@ -83,17 +89,42 @@ angular.module('app')
                                 ]);
                         }]
                     }
-                });
+                })
+                // .state('access.register', {
+                //     url: '/register',
+                //     templateUrl: 'templates/pages/register.html',
+                //     controller: 'controllers.register',
+                //     controllerAs: 'register',
+                //     resolve: {
+                //         deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                //             return $ocLazyLoad.load(
+                //                 [
+                //                     'application/controllers/register.controller.js',
+                //                     'application/services/authentication.service.js'
+                //                 ]);
+                //         }]
+                //     }
+                // });
         }
     ])
 
 // Validate authentication
-.run(function($rootScope, $location, PermPermissionStore) {
+.run(function($rootScope, $location, $cookieStore, $http, PermPermissionStore) {
+    $rootScope.user = $cookieStore.get('user') || {};
+
+    if ($cookieStore.get('token')) {
+        $rootScope.token = $cookieStore.get('token');
+        $http.defaults.headers.common['Authorization'] = 'Bearer ' + $cookieStore.get('token');
+    } else {
+        $rootScope.token = '';
+    }
+
     PermPermissionStore.definePermission('isUser', function() {
         var restrictedPage = ['/login', '/register'].indexOf($location.path()) === -1;
 
         // If page is private, and no user or token exists, redirect to login
         if (restrictedPage && (!$rootScope.user || !$rootScope.token)) {
+            console.log('Unauthenticated!')
             return false;
         }
 

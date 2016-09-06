@@ -44,15 +44,15 @@
 
             <div class="box-typical-body">
                 <div class="table-responsive">
-                    <table class="table table-hover table-transactions" st-table="data">
+                    <table class="table table-hover table-transactions" st-table="transaction.data">
                         <thead>
                             <tr>
                                 <th style="width: 50px;"></th>
                                 <th st-sort="date">Date</th>
-                                <th st-sort="description">Description</th>
+                                <th st-sort="name">Description</th>
                                 <th st-sort="category">Category</th>
                                 <th st-sort="account">Account</th>
-                                <th st-sort="amount">Amount</th>
+                                <th st-sort="amount" style="width: 100px;">Amount</th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -74,19 +74,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="transaction in data">
-                                <td class="table-check account" style="border-left-color: {{ transaction.account.color }}">
+                            <tr ng-repeat="item in transaction.data">
+                                <td class="table-check account" style="border-left-color: {{ item.account.color }}">
                                     <div class="checkbox checkbox-only">
                                         <input type="checkbox" id="tbl-check-{{ $index }}"/>
                                         <label for="tbl-check-{{ $index }}"></label>
                                     </div>
                                 </td>
-                                <td>{{ transaction.date }}</td>
-                                <td>{{ transaction.description }}</td>
-                                <td>{{ transaction.category }}</td>
-                                <td>{{ transaction.account.name }}</td>
+                                <td am-time-ago="item.date"></td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.category.join(", ") || "Uncategorized" }}</td>
+                                <td>{{ item.account.name }}</td>
                                 <td nowrap="nowrap">
-                                    {{ transaction.amount | currency }}<span class="caret color-red"></span>
+                                    {{ item.amount | currency }}
+                                    <span class="caret"
+                                        ng-class="{
+                                            'color-red': (item.amount < 0),
+                                            'color-green': (item.amount > 0),
+                                            'caret-up': (item.amount > 0)
+                                        }">
+                                    </span>
                                 </td>
                             </tr>
                         </tbody>
