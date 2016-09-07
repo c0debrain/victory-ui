@@ -9,6 +9,10 @@ function LoginController($scope, $state, $AuthenticationService, $NotificationSe
         $AuthenticationService.clearCredentials();
     })();
 
+    // Set default login values for development ease
+    this.email = 'nkmlombardi@gmail.com';
+    this.password = 'password';
+
     this.authenticate = function(email, password) {
         console.log('Logging in with: ', email, password);
 
