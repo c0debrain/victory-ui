@@ -49,7 +49,7 @@ angular.module('app')
                     url: '/transactions',
                     templateUrl: 'templates/pages/transactions.html',
                     controller: 'controllers.transaction',
-                    controllerAs: 'transaction',
+                    controllerAs: 'transactionCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
@@ -79,7 +79,7 @@ angular.module('app')
                     url: '/login',
                     templateUrl: 'templates/pages/login.html',
                     controller: 'controllers.login',
-                    controllerAs: 'login',
+                    controllerAs: 'loginCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load(
@@ -90,21 +90,20 @@ angular.module('app')
                         }]
                     }
                 })
-                // .state('access.register', {
-                //     url: '/register',
-                //     templateUrl: 'templates/pages/register.html',
-                //     controller: 'controllers.register',
-                //     controllerAs: 'register',
-                //     resolve: {
-                //         deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                //             return $ocLazyLoad.load(
-                //                 [
-                //                     'application/controllers/register.controller.js',
-                //                     'application/services/authentication.service.js'
-                //                 ]);
-                //         }]
-                //     }
-                // });
+                .state('access.register', {
+                    url: '/register',
+                    templateUrl: 'templates/pages/register.html',
+                    controller: 'controllers.register',
+                    controllerAs: 'registerCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load(
+                                [
+                                    'application/controllers/register.controller.js'
+                                ]);
+                        }]
+                    }
+                });
         }
     ])
 

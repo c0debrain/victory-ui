@@ -16,9 +16,12 @@ function TransactionsController($scope, Transaction) {
         amount: '-1280.20'
     };
 
+    $scope.initialTransactions = [];
+    $scope.transactions = [];
+
     // Retrieve User's Transactions
-    Transaction.allWithAccounts(function(response) {
+    Transaction.all(function(response) {
         console.log('Transaction Service Response: ', response.data);
-        this.data = response.data;
+        $scope.transactions = response.data;
     }.bind(this));
 }

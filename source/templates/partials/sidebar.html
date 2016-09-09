@@ -1,8 +1,8 @@
-<div class="sidebar" ng-controller="controllers.navigation">
+<div class="sidebar">
     <div class="tray"></div>
 
     <div class="navigation">
-        <div class="menu-section">
+        <div class="menu-section" ng-controller="controllers.navigation as navigationCtrl">
             <div class="menu-header">
                 <h1>Menu</h1>
             </div>
@@ -14,15 +14,15 @@
             </ul>
         </div>
 
-        <div class="menu-section">
+        <div class="menu-section" ng-controller="controllers.account as accountCtrl">
             <div class="menu-header">
                 <h1>Accounts</h1>
                 <i class="fa fa-cog"></i>
             </div>
             <ul>
-                <li ng-repeat="account in accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">
+                <li ng-repeat="account in accountCtrl.accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">
                     <a href="">
-                        <i class="fa {{ account.type }}" aria-hidden="true"></i>{{ account.title }}
+                        <i class="fa fa-bank" aria-hidden="true"></i>{{ account.name }}
                     </a>
                 </li>
             </ul>

@@ -13,7 +13,7 @@ function LoginController($scope, $state, $AuthenticationService, $NotificationSe
     this.email = 'nkmlombardi@gmail.com';
     this.password = 'password';
 
-    this.authenticate = function(email, password) {
+    this.login = function(email, password) {
         console.log('Logging in with: ', email, password);
 
         if (email == '' || password == '') {

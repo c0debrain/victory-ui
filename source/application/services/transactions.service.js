@@ -10,9 +10,9 @@ function TransactionService($resource, Environment) {
             method: 'GET',
             url: Environment.api.path + '/transactions/self'
         },
-        allWithAccounts: {
-            method: 'GET',
-            url: Environment.api.path + '/transactions/self/accounts'
-        }
+        // allWithAccounts: {
+        //     method: 'GET',
+        //     url: Environment.api.path + '/transactions/self/accounts'
+        // }
     });
 }
