@@ -1,12 +1,15 @@
 angular.module('app.controllers')
     .controller('controllers.login', LoginController);
 
-LoginController.$inject = ['$scope', '$state', 'services.authentication', 'services.notification'];
+LoginController.$inject = ['$scope', '$state', 'services.authentication', 'services.notification', '$cookieStore'];
 
-function LoginController($scope, $state, $AuthenticationService, $NotificationService) {
+function LoginController($scope, $state, AuthService, $NotificationService, $cookieStore) {
     // Reset login status
     (function initController() {
-        $AuthenticationService.clearCredentials();
+        $cookieStore.remove('token');
+        $cookieStore.remove('user');
+        $rootScope.token = undefined;
+        $rootScope.user = undefined;
     })();
 
     // Set default login values for development ease
@@ -16,26 +19,24 @@ function LoginController($scope, $state, $AuthenticationService, $NotificationSe
     this.login = function(email, password) {
         console.log('Logging in with: ', email, password);
 
-        if (email == '' || password == '') {
-            $NotificationService.clear();
-            $NotificationService.create('warning', 'No credentials provided.', 0);
-            return;
-        }
-
         this.loading = true;
-        $AuthenticationService.login(email, password, function(response, error) {
-            if (response) {
-                console.log('Authenticate Response: ', response);
-                $AuthenticationService.setCredentials(response.data);
-                $state.go('app.overview')
+        AuthService.authenticate({
+            email: email,
+            password: password
 
-            } else {
-                console.log(error);
+        }, function success(response) {
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token.auth_token;
+            $cookieStore.put('token', response.data.token.auth_token);
+            $cookieStore.put('user', response.data.user);
+            $rootScope.token = response.data.token.auth_token;
+            $rootScope.user = response.data.user;
+            $state.go('app.overview');
 
-                $NotificationService.clear();
-                $NotificationService.create('warning', 'Incorrect credentials provided.', 0);
-                this.loading = false;
-            }
-        });
+        }, function error(response) {
+            console.log(response);
+            $NotificationService.clear();
+            $NotificationService.create('warning', 'Incorrect credentials provided.', 0);
+            this.loading = false;
+        })
     };
 }

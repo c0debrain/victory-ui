@@ -20,7 +20,7 @@ function TransactionsController($scope, Transaction) {
     $scope.transactions = [];
 
     // Retrieve User's Transactions
-    Transaction.all(function(response) {
+    Transaction.allWithAccounts(function(response) {
         console.log('Transaction Service Response: ', response.data);
         $scope.transactions = response.data;
     }.bind(this));

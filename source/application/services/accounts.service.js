@@ -7,9 +7,7 @@ function AccountService($resource, Environment) {
     return $resource(Environment.api.path + '/accounts/:id', { id: '@id' }, {
         all: {
             url: Environment.api.path + '/accounts/self',
-            method: 'GET',
-            cache: false,
-            isArray: false
+            method: 'GET'
         }
     });
 }

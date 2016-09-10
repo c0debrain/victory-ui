@@ -1,12 +1,18 @@
 angular.module('app.controllers')
     .controller('controllers.register', RegisterController);
 
-RegisterController.$inject = ['$scope', '$state', 'services.notification'];
+RegisterController.$inject = ['$scope', '$state', 'services.notification', 'services.user'];
 
-function RegisterController($scope, $state, $NotificationService) {
+function RegisterController($scope, $state, $NotificationService, $userService) {
     this.register = function(email, password) {
-        var userService = $feathers.service('users');
 
-        // Create user Request
+
+        // // Create user Request
+        // $userService.create({
+        //     email: email,
+        //     password: password
+        // }).then(function(user) {
+        //
+        // });
     };
 }

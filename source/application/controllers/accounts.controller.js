@@ -12,6 +12,7 @@ function AccountsController($scope, $rootScope, Account, $NotificationService) {
         this.accounts = response.data;
     }.bind(this));
 
+    // Handle onClick for accounts
     this.filterAccount = function(accountId) {
         this.accounts.map(function(account) {
             if (account.id === accountId) {

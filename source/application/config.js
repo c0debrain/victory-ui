@@ -108,16 +108,13 @@ angular.module('app')
     ])
 
 // Validate authentication
-.run(function($rootScope, $location, $cookieStore, $http, PermPermissionStore) {
+.run(function($rootScope, $location, $cookieStore, $http, PermPermissionStore, $window) {
     $rootScope.user = $cookieStore.get('user') || {};
+    $rootScope.token = $cookieStore.get('token') || '';
 
-    if ($cookieStore.get('token')) {
-        $rootScope.token = $cookieStore.get('token');
-        $http.defaults.headers.common['Authorization'] = 'Bearer ' + $cookieStore.get('token');
-    } else {
-        $rootScope.token = '';
-    }
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.token;
 
+    // Restrict based on permissions
     PermPermissionStore.definePermission('isUser', function() {
         var restrictedPage = ['/login', '/register'].indexOf($location.path()) === -1;
 

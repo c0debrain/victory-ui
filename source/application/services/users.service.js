@@ -12,11 +12,16 @@ function UserService($resource, Environment) {
             isArray: true
         },
 
-        projects: {
-            url: Environment.api.path + '/users/',
-            method: 'POST',
-            cache: false,
-            isArray: false
-        },
+        // projects: {
+        //     url: Environment.api.path + '/users/',
+        //     method: 'POST',
+        //     cache: false,
+        //     isArray: false
+        // },
+
+        create: {
+            url: Environment.api.path + '/users',
+            method: 'POST'
+        }
     });
 }

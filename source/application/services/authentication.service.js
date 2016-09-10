@@ -1,52 +1,13 @@
 angular.module('app.services')
     .factory('services.authentication', AuthenticationService);
 
-AuthenticationService.$inject = ['environment', '$rootScope', '$http', '$cookieStore'];
+AuthenticationService.$inject = ['$resource', 'environment'];
 
-function AuthenticationService(Environment, $rootScope, $http, $cookieStore) {
-    return {
-        login: login,
-        setCredentials: setCredentials,
-        clearCredentials: clearCredentials
-    }
-
-    function login(email, password, callback) {
-        if (!email || !password) {
-            return callback(null, {
-                message: "Insufficient parameters provided."
-            });
-        }
-
-        $http({
-            method: 'POST',
+function AuthenticationService($resource, Environment) {
+    return $resource(Environment.api.path + '/authenticate/', {}, {
+        authenticate: {
             url: Environment.api.path + '/authenticate/',
-            data: JSON.stringify({
-                email: email.toLowerCase(),
-                password: password
-            })
-        }).then(function(response) {
-            callback(response.data, null);
-
-        }, function(error) {
-            callback(null, error);
-        });
-
-    }
-
-    function setCredentials(response) {
-        $rootScope.token = response.token.auth_token;
-        $rootScope.user = response.user;
-
-        $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.token.auth_token;
-        $cookieStore.put('token', response.token.auth_token);
-        $cookieStore.put('user', response.user);
-    }
-
-    function clearCredentials() {
-        $rootScope.token = undefined;
-        $rootScope.user = undefined;
-        $cookieStore.remove('token');
-        $cookieStore.remove('user');
-        $http.defaults.headers.common.Authorization = 'Bearer';
-    }
+            method: 'POST'
+        }
+    });
 }
