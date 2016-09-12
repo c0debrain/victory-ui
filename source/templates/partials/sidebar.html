@@ -18,6 +18,7 @@
             <div class="menu-header">
                 <h1>Accounts</h1>
                 <i class="fa fa-cog"></i>
+                <i class="fa fa-plus" ng-click="accountCtrl.linkAccount()"></i>
             </div>
             <ul>
                 <li ng-repeat="account in accountCtrl.accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">

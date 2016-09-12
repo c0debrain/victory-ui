@@ -1,9 +1,9 @@
 angular.module('app.controllers')
     .controller('controllers.login', LoginController);
 
-LoginController.$inject = ['$scope', '$state', 'services.authentication', 'services.notification', '$cookieStore'];
+LoginController.$inject = ['$scope', '$rootScope', '$http', '$state', 'services.authentication', 'services.notification', '$cookieStore'];
 
-function LoginController($scope, $state, AuthService, $NotificationService, $cookieStore) {
+function LoginController($scope, $rootScope, $http, $state, AuthService, $NotificationService, $cookieStore) {
     // Reset login status
     (function initController() {
         $cookieStore.remove('token');

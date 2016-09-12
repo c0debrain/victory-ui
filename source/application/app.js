@@ -14,6 +14,7 @@ angular.module('app', [
     'permission',
     'permission.ui',
     'angularMoment',
+    'angular-plaid-link',
 
     // Application Modules
     'app.environment',

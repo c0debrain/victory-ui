@@ -4,8 +4,8 @@
  * ============================================================ */
 
 angular.module('app')
-    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider',
-        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider', 'plaidLinkProvider',
+        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider, $plaidLinkProvider) {
 
             // Use the HTML5 History API, remove /# from url
             $locationProvider.html5Mode(true);
@@ -17,6 +17,14 @@ angular.module('app')
             // });
 
             $urlRouterProvider.otherwise('/login');
+
+            // Plaid Configuration
+            $plaidLinkProvider.init({
+                clientName: 'Victory',
+                env: 'tartan',
+                key: 'test_key',
+                product: 'auth'
+            });
 
             $stateProvider
                 .state('app', {

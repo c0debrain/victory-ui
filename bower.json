@@ -31,7 +31,8 @@
     "angular-cookies": "^1.5.8",
     "angular-flash-alert": "^2.3.0",
     "angular-permission": "^4.0.4",
-    "angular-moment": "^0.10.3"
+    "angular-moment": "^0.10.3",
+    "angular-plaid-link": "^1.0.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.14"
