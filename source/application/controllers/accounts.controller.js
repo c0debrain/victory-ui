@@ -22,36 +22,33 @@ function AccountsController($scope, $rootScope, Account, $NotificationService, p
         });
     };
 
-    // Make connection to Plaid Servers
-    plaidLink.create({},
-
-        // Exchange public token for access_token server-side
-        function success(token) {
-            Account.exchange({ public_token: token, returning: false }, function(resPromise) {
-                return resPromise.$promise.then(function(response) {
-                    if (response.data.updated) {
-
-                        // Just pull in all new accounts
-                        Account.all(function(response) {
-                            console.log('Account Service Response: ', response.data);
-                            $scope.accounts = response.data;
-                        });
-                    }
-                });
-            });
-        },
-
-        // Callback for when user exits modal
-        function exit() {
-            console.log('Exited plaidLink modal');
-        }
-    );
-
     // Plaid connect modal
-    this.linkAccount = function() {
-        console.log('linkAccount()');
+    $scope.linkAccount = function() {
         if (plaidLink.isLoaded()) {
             plaidLink.open();
+        } else {
+            console.log('Plaid Link isn\'t loaded!');
         }
     };
+
+
+
+    function unionArrays(x, y) {
+        var obj = {};
+        for (var i = x.length - 1; i >= 0; --i)
+            obj[x[i]] = x[i];
+        for (var i = y.length - 1; i >= 0; --i)
+            obj[y[i]] = y[i];
+        var res = []
+        for (var k in obj) {
+            if (obj.hasOwnProperty(k)) // <-- optional
+                res.push(obj[k]);
+        }
+        return res;
+    }
+
+    // TODO: Need to figure out how to add newly linked accounts to application
+    $scope.$on('newAccounts', function(accounts) {
+        $scope.accounts = unionArrays($scope.accounts, accounts);
+    });
 };

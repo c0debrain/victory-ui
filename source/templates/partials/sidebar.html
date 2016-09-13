@@ -18,21 +18,25 @@
             <div class="menu-header">
                 <h1>Accounts</h1>
                 <i class="fa fa-cog"></i>
-                <i class="fa fa-plus" ng-click="accountCtrl.linkAccount()"></i>
+                <i class="fa fa-plus" ng-click="linkAccount()"></i>
             </div>
             <ul>
-                <li ng-repeat="account in accountCtrl.accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">
+                <li ng-repeat="account in accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">
                     <a href="">
                         <i class="fa fa-bank" aria-hidden="true"></i>{{ account.name }}
                     </a>
                 </li>
             </ul>
+            <p class="empty" ng-hide="accounts.length >= 0">
+                You have no accounts linked
+            </p>
         </div>
 
-        <div class="account">
+        <div class="account" ng-controller="controllers.sidemenu as sidemenuCtrl">
             <img src="http://themesanytime.com/startui/demo/img/photo-64-4.jpg" alt="Account">
-            <a href="#">Administrator</a>
-            <i class="fa fa-cog"></i>
+            <a href="#">Nick</a>
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            <i class="fa fa-sign-out" aria-hidden="true" ng-click="logout()"></i>
         </div>
     </div>
 </div>

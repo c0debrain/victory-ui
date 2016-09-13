@@ -107,7 +107,9 @@ angular.module('app')
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load(
                                 [
-                                    'application/controllers/register.controller.js'
+                                    'application/controllers/register.controller.js',
+                                    'application/services/users.service.js',
+                                    'application/services/authentication.service.js'
                                 ]);
                         }]
                     }
@@ -116,14 +118,36 @@ angular.module('app')
     ])
 
 // Validate authentication
-.run(function($rootScope, $location, $cookieStore, $http, PermPermissionStore, $window) {
+.run(AuthenticationConfiguration)
+.run(PlaidConfiguration);
+
+/*
+    Handle setting up authentication when the application loads. This includes
+    persisting authentication variables that are used with requests that are erased
+    from scope if the user refreshes the page.
+*/
+AuthenticationConfiguration.$inject = [
+    '$rootScope',
+    '$location',
+    '$cookieStore',
+    '$http',
+    'PermPermissionStore'
+];
+
+function AuthenticationConfiguration(
+    $rootScope,
+    $location,
+    $cookieStore,
+    $http,
+    Permissions
+) {
+    // Assign rootScope variables && Authorization header
     $rootScope.user = $cookieStore.get('user') || {};
     $rootScope.token = $cookieStore.get('token') || '';
-
     $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.token;
 
     // Restrict based on permissions
-    PermPermissionStore.definePermission('isUser', function() {
+    Permissions.definePermission('isUser', function() {
         var restrictedPage = ['/login', '/register'].indexOf($location.path()) === -1;
 
         // If page is private, and no user or token exists, redirect to login
@@ -134,4 +158,45 @@ angular.module('app')
 
         return true;
     });
-});
+};
+
+/*
+    Handles setting up the Plaid Link that is used to import the user's bank
+    accounts and transactions.
+*/
+PlaidConfiguration.$inject = [
+    '$rootScope',
+    'plaidLink',
+    'services.account'
+];
+
+function PlaidConfiguration(
+    $rootScope,
+    plaidLink,
+    Account
+) {
+    plaidLink.create({},
+
+        // Exchange public token for access_token server-side
+        function success(token) {
+            Account.exchange({ public_token: token, returning: false }, function(resPromise) {
+                return resPromise.$promise.then(function(response) {
+                    if (response.data.updated) {
+
+                        // Just pull in all new accounts
+                        Account.all(function(response) {
+                            console.log('Account Service Response: ', response.data);
+                            $rootScope.$broadcast('newAccounts', response.data);
+                        });
+                    }
+                });
+            });
+        },
+
+        // Callback for when user exits modal
+        function exit() {
+            console.log('Exited plaidLink modal');
+        }
+    );
+
+};
