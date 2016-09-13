@@ -117,9 +117,9 @@ angular.module('app')
         }
     ])
 
-// Validate authentication
-.run(AuthenticationConfiguration)
-.run(PlaidConfiguration);
+    // Validate authentication
+    .run(AuthenticationConfiguration)
+    .run(PlaidConfiguration);
 
 /*
     Handle setting up authentication when the application loads. This includes
