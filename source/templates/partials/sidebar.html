@@ -21,13 +21,13 @@
                 <i class="fa fa-plus" ng-click="linkAccount()"></i>
             </div>
             <ul>
-                <li ng-repeat="account in accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">
+                <li ng-repeat="account in $root.accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">
                     <a href="">
                         <i class="fa fa-bank" aria-hidden="true"></i>{{ account.name }}
                     </a>
                 </li>
             </ul>
-            <p class="empty" ng-hide="accounts.length >= 0">
+            <p class="empty" ng-hide="$root.accounts.length >= 0">
                 You have no accounts linked
             </p>
         </div>

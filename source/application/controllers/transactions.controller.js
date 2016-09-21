@@ -23,5 +23,22 @@ function TransactionsController($scope, Transaction) {
     Transaction.allWithAccounts(function(response) {
         console.log('Transaction Service Response: ', response.data);
         $scope.transactions = response.data;
-    }.bind(this));
+
+        // Map through transactions and set filtered property
+        $scope.transactions.map(function(transaction) {
+            transaction.filtered = false;
+        });
+
+        $scope.initialTransactions = [].concat($scope.transactions);
+    });
+
+    // Filter out specified accounts on event
+    $scope.$on('toggleAccount', function(event, account) {
+        $scope.transactions.forEach(function(transaction) {
+            if (transaction.PlaidAccount.id === account.id) {
+                console.log('Transaction from account filtered: ', transaction.name);
+                transaction.filtered = !transaction.filtered;
+            }
+        });
+    });
 }

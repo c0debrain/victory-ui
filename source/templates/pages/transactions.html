@@ -34,10 +34,10 @@
                         <h3>Transactions</h3>
                     </div>
                     <div class="tbl-cell">
-                        <div id="search_filter" class="table-search-filter">
+                        <!-- <div id="search_filter" class="table-search-filter">
                             <input type="search" class="form-control input-sm" placeholder="" aria-controls="example">
                             <label>Search: </label>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </header>
@@ -46,8 +46,8 @@
                 <div class="table-responsive">
                     <table
                         class="table table-hover table-transactions"
-                        st-table="displayedTransactions"
-                        st-safe-src="transactions"
+                        st-table="transactions"
+                        st-safe-src="initialTransactions"
                     >
                         <thead>
                             <tr>
@@ -58,7 +58,7 @@
                                 <th st-sort="account">Account</th>
                                 <th st-sort="amount" style="width: 100px;">Amount</th>
                             </tr>
-                            <!-- <tr>
+                            <tr>
                                 <th></th>
                                 <th>
                                     <st-date predicate="date"></st-date>
@@ -70,13 +70,13 @@
                                     <input st-search="category" placeholder="Search Category" class="input-sm form-control" type="search"/>
                                 </th>
                                 <th>
-                                    <st-select-distinct predicate="account"></st-select-distinct>
+                                    <!-- <st-select-distinct collection="transactions" predicate="account"></st-select-distinct> -->
                                 </th>
                                 <th></th>
-                            </tr> -->
+                            </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in transactions">
+                            <tr ng-repeat="item in transactions" ng-show="!item.filtered">
                                 <td class="table-check account" style="border-left-color: {{ item.account.color }}">
                                     <div class="checkbox checkbox-only">
                                         <input type="checkbox" id="tbl-check-{{ $index }}"/>
