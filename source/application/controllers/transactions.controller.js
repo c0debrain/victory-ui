@@ -1,7 +1,7 @@
 angular.module('app.controllers')
     .controller('controllers.transaction', TransactionsController);
 
-TransactionsController.$inject = ['$scope', 'services.transaction', 'ui.select', 'ngSanitize'];
+TransactionsController.$inject = ['$scope', 'services.transaction'];
 
 function TransactionsController($scope, Transaction) {
     $scope.weekly = {
