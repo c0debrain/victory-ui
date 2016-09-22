@@ -19,6 +19,12 @@ angular.module('app')
                         'https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.13.0/themes/dark.js'
                     ],
                     serie: true
+                },
+                {
+                    name: 'ui-select',
+                    files: [
+                        'components/angular-ui-select3/src/select3.js'
+                    ]
                 }
             ]
         });

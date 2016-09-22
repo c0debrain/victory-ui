@@ -1,7 +1,7 @@
 angular.module('app.controllers')
     .controller('controllers.transaction', TransactionsController);
 
-TransactionsController.$inject = ['$scope', 'services.transaction'];
+TransactionsController.$inject = ['$scope', 'services.transaction', 'ui.select', 'ngSanitize'];
 
 function TransactionsController($scope, Transaction) {
     $scope.weekly = {
@@ -18,6 +18,7 @@ function TransactionsController($scope, Transaction) {
 
     $scope.initialTransactions = [];
     $scope.transactions = [];
+    $scope.showControls = false;
 
     // Retrieve User's Transactions
     Transaction.allWithAccounts(function(response) {
@@ -41,4 +42,9 @@ function TransactionsController($scope, Transaction) {
             }
         });
     });
+
+    // Toggle table controls
+    $scope.toggleControls = function() {
+        $scope.showControls = !$scope.showControls;
+    };
 }
