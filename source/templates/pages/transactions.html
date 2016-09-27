@@ -1,32 +1,48 @@
 <div class="page-content">
     <div class="container-fluid">
+        <section class="control">
+            <div class="row row-white row-title">
+                <h1>Transactions</h1>
+            </div>
 
-        <section class="box-typical box-typical-max-280">
-            <div class="summaries row">
-                <div class="col-md-4 summary">
-                    <div class="title">
-                        <span>Weekly Transactions</span>
-                        <i class="fa fa-cog"></i>
-                    </div>
-                    <span class="amount">{{ weekly.amount | currency }}</span>
+            <div class="row row-white row-tabs">
+                <div class="col-md-12">
+                    <ul>
+                        <li class="active">Recent</li>
+                        <li>Previous Exports</li>
+                        <li>Customers</li>
+                        <li>Team</li>
+                    </ul>
                 </div>
-                <div class="col-md-4 summary">
-                    <div class="title">
-                        <span>Monthly Transactions</span>
-                        <i class="fa fa-cog"></i>
+            </div>
+
+            <div class="row row-gray row-filters">
+                <div class="col-md-3">
+                    <div class="filter">
+                        <div class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
+                            <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+                            Action
+                            </button>
+
+                        <div class="dropdown-menu" uib-dropdown-menu="" role="menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                        </div>
                     </div>
-                    <span class="amount">{{ monthly.amount | currency }}</span>
                 </div>
-                <div class="col-md-4 summary">
-                    <div class="title">
-                        <span>Yearly Transactions</span>
-                        <i class="fa fa-cog"></i>
+
+                <div class="col-md-4 pull-right">
+                    <div class="search">
+                        <input type="text" class="form-control" placeholder="Search transactions">
                     </div>
-                    <span class="amount">{{ yearly.amount | currency }}</span>
                 </div>
             </div>
         </section>
-
+        
         <section class="box-typical">
             <header class="box-typical-header">
                 <div class="tbl-row">
