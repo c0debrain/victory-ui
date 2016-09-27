@@ -74,7 +74,8 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
-                                'application/controllers/budgets.controller.js'
+                                'application/controllers/budgets.controller.js',
+                                'application/services/categories.service.js'
                             ]);
                         }]
                     }
