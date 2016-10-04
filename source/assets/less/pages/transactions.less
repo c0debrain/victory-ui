@@ -39,7 +39,15 @@
 
 .table-transactions {
     td.account {
-        border-left: 8px solid #00A8FF;
+        border-left: 8px solid transparent;
+
+        &.pending {
+            border-left-color: #486B95;
+        }
+
+        &.new {
+            border-left-color: #1A91EB;
+        }
     }
 
     .filter-select {
@@ -48,6 +56,6 @@
     }
 
     .table-check {
-        
+
     }
 }

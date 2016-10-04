@@ -1,55 +1,68 @@
-th[st-sort] {
-    cursor: pointer;
-}
-
-th[st-sort]:after {
-    font-family: FontAwesome;
-    content: "\f0dc";
-    float: right;
-}
-
-input[st-search] {
-    width: 100%;
-    box-sizing: border-box !important;
-}
-
-.st-sort-ascent:after {
-    font-family: FontAwesome;
-    content: "\f160" !important;
-    float: right;
-}
-
-.st-sort-descent:after {
-    font-family: FontAwesome;
-    content: "\f161" !important;
-    float: right;
-}
-
-.table-search-filter {
-    label {
-        font-weight: normal;
-        white-space: nowrap;
-        text-align: left;
-        float: right;
-        display: inline-block;
-        vertical-align: middle;
-        line-height: 38px;
-        padding-right: 15px;
+.table-datatable {
+    th {
+        color: #7F8FA4;
+        font-weight: 500;
     }
 
-    input {
-        width: auto;
-        display: inline-block;
-        vertical-align: middle;
+    th[st-sort] {
+        cursor: pointer;
+    }
+
+    th[st-sort]:after {
+        font-family: FontAwesome;
+        content: "\f0dc";
         float: right;
     }
-}
 
-.filter-toggle {
-    float: right;
-    margin-right: 10px;
+    input[st-search] {
+        width: 100%;
+        box-sizing: border-box !important;
+    }
 
-    &.toggled-off {
-        color: #000;
+    .st-sort-ascent, .st-sort-descent {
+        color: #1A91EB;
+    }
+
+    .st-sort-ascent:after {
+        font-family: FontAwesome;
+        content: "\f160" !important;
+        float: right;
+        color: #1A91EB;
+    }
+
+    .st-sort-descent:after {
+        font-family: FontAwesome;
+        content: "\f161" !important;
+        float: right;
+        color: #1A91EB;
+    }
+
+    .table-search-filter {
+        label {
+            font-weight: normal;
+            white-space: nowrap;
+            text-align: left;
+            float: right;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 38px;
+            padding-right: 15px;
+        }
+
+        input {
+            width: auto;
+            display: inline-block;
+            vertical-align: middle;
+            float: right;
+        }
+    }
+
+    .filter-toggle {
+        float: right;
+        margin-right: 10px;
+
+        &.toggled-off {
+            color: #000;
+        }
     }
 }

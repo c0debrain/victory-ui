@@ -68,7 +68,7 @@
 
                     <div class="box-typical-body">
                         <div class="table-responsive">
-                            <table class="table table-hover table-transactions" st-table="transactions" st-safe-src="initialTransactions">
+                            <table class="table table-hover table-datatable table-transactions" st-table="transactions" st-safe-src="initialTransactions">
                                 <thead>
                                     <tr>
                                         <th style="width: 50px;"></th>
@@ -100,7 +100,10 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in transactions" ng-show="!item.filtered">
-                                        <td class="table-check account" style="border-left-color: {{ item.account.color }}">
+                                        <td class="table-check account" ng-class="{
+                                            'pending': ($index <= 4),
+                                            'new': ($index > 4 && $index < 10)
+                                        }">
                                             <div class="checkbox checkbox-only">
                                                 <input type="checkbox" id="tbl-check-{{ $index }}" />
                                                 <label for="tbl-check-{{ $index }}"></label>
