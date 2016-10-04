@@ -11,10 +11,12 @@ angular.module('app', [
     'ngFlash',
     'ngCookies',
     'ngResource',
+    'ngAnimate',
     'permission',
     'permission.ui',
     'angularMoment',
     'angular-plaid-link',
+    'ui.bootstrap',
 
     // Application Modules
     'app.environment',
