@@ -1,46 +1,73 @@
 <div class="page-content">
+    <div class="container-fluid m-b-20">
+        <section class="page-control">
+            <div class="row row-white row-title">
+                <div class="col-md-12">
+                    <h1>Budgets</h1>
+                </div>
+            </div>
+
+            <div class="row row-white row-tabs">
+                <div class="col-md-12">
+                    <ul>
+                        <li class="active">Scenarios</li>
+                        <li>Categories</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row row-gray row-filters">
+                <div class="col-md-12">
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+
     <div class="container-fluid">
+        <div class="row row-transactions">
+            <div class="col-md-12">
+                <section class="box-typical" ng-repeat="scenario in scenarios">
+                    <header class="box-typical-header">
+                        <div class="tbl-row">
+                            <div class="tbl-cell tbl-cell-title">
+                                <h3>{{ scenario.name }}</h3>
+                            </div>
+                        </div>
+                    </header>
 
-        <section class="box-typical" ng-repeat="scenario in scenarios">
-            <header class="box-typical-header">
-                <div class="tbl-row">
-                    <div class="tbl-cell tbl-cell-title">
-                        <h3>{{ scenario.name }}</h3>
-                    </div>
-                </div>
-            </header>
-
-            <div class="box-typical-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-transactions">
-                        <tbody>
-                            <tr ng-repeat="budget in scenario.data" style="background: {{ budget.background }}">
-                                <td class="account" style="border-left-color: {{ budget.color }}">
-                                    <div class="font-11 color-blue-grey-lighter uppercase">Category</div>
-                                    {{ budget.name }}
-                                </td>
-                                <td>
-                                    <div class="font-11 color-blue-grey-lighter uppercase">Spending</div>
-                                    {{ budget.spent | currency }} / {{ budget.allowance | currency }}
-                                </td>
-                                <td>Chart</td>
-                                <td>
-                                    <div class="font-11 color-blue-grey-lighter uppercase">Interval</div>
-                                    {{ budget.interval }}
-                                </td>
-                                <td>
-                                    <div class="font-11 color-blue-grey-lighter uppercase">Allowance</div>
-                                    {{ budget.allowance | currency }}
-                                </td>
-                                <td nowrap="nowrap">
-                                    Options
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div><!--.box-typical-body-->
-        </section><!--.box-typical-->
-
+                    <div class="box-typical-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-transactions">
+                                <tbody>
+                                    <tr ng-repeat="budget in scenario.data" style="background: {{ budget.background }}">
+                                        <td class="account" style="border-left-color: {{ budget.color }}">
+                                            <div class="font-11 color-blue-grey-lighter uppercase">Category</div>
+                                            {{ budget.name }}
+                                        </td>
+                                        <td>
+                                            <div class="font-11 color-blue-grey-lighter uppercase">Spending</div>
+                                            {{ budget.spent | currency }} / {{ budget.allowance | currency }}
+                                        </td>
+                                        <td>Chart</td>
+                                        <td>
+                                            <div class="font-11 color-blue-grey-lighter uppercase">Interval</div>
+                                            {{ budget.interval }}
+                                        </td>
+                                        <td>
+                                            <div class="font-11 color-blue-grey-lighter uppercase">Allowance</div>
+                                            {{ budget.allowance | currency }}
+                                        </td>
+                                        <td nowrap="nowrap">
+                                            Options
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--.box-typical-body-->
+                </section>
+            </div>
+        </div><!--.box-typical-->
     </div><!--.container-fluid-->
-</div><!--.page-content-->
+</div>
