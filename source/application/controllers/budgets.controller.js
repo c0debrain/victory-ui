@@ -1,17 +1,22 @@
 angular.module('app.controllers')
     .controller('controllers.budget', BudgetsController);
 
-BudgetsController.$inject = ['$scope', 'services.category', 'services.notification'];
+BudgetsController.$inject = ['$scope', '$rootScope', 'services.category', 'services.notification'];
 
-function BudgetsController($scope, Category, Notification) {
+function BudgetsController($scope, $rootScope, Category, Notification) {
 
-    Category.all(function(response) {
+    Category.allPrimary(function(response) {
         if (response.status === 'error') {
             Notification.create('warning', 'Failed to pull categories.', 0);
         }
 
         $scope.categories = response.data;
     });
+
+    $scope.active = 1;
+
+    $scope.transactions = $rootScope.transactions;
+
 
     $scope.scenarios = [
         {

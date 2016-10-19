@@ -1,0 +1,32 @@
+<section class="box-typical">
+    <header class="box-typical-header">
+        <div class="tbl-row">
+            <div class="tbl-cell tbl-cell-title">
+                <h3>Unbudgeted Categories</h3>
+            </div>
+        </div>
+    </header>
+
+    <div class="box-typical-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-transactions">
+                <tbody>
+                    <tr ng-repeat="category in categories">
+                        <td class="account">
+                            <div class="font-11 color-blue-grey-lighter uppercase">Category</div>
+                            {{ category.hierarchy.join(', ') }}
+                        </td>
+                        <td>
+                            <div class="font-11 color-blue-grey-lighter uppercase">Type</div>
+                            {{ category.type | capitalize }}
+                        </td>
+                        <td>
+                            <div class="font-11 color-blue-grey-lighter uppercase">Options</div>
+                            Options
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div><!--.box-typical-body-->
+</section>

@@ -9,6 +9,10 @@ function CategoryService($resource, Environment) {
         all: {
             method: 'GET',
             url: Environment.api.path + '/categories/'
+        },
+        allPrimary: {
+            method: 'GET',
+            url: Environment.api.path + '/categories/primary'
         }
     });
 }

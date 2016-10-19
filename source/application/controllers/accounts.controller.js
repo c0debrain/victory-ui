@@ -7,15 +7,15 @@ function AccountsController($scope, $rootScope, Account, $NotificationService, p
     $scope.accounts = $rootScope.accounts;
 
     // Retrieve User's accounts
-    Account.all(function(response) {
-        console.log('Account Service Response: ', response.data);
-        $rootScope.accounts = response.data;
-
-        // Map through and add filtered status to accounts
-        $rootScope.accounts.map(function(account) {
-            account.filtered = false;
-        });
-    });
+    // Account.all(function(response) {
+    //     console.log('Account Service Response: ', response.data);
+    //     $rootScope.accounts = response.data;
+    //
+    //     // Map through and add filtered status to accounts
+    //     $rootScope.accounts.map(function(account) {
+    //         account.filtered = false;
+    //     });
+    // });
 
     // Handle onClick for accounts
     $scope.filterAccount = function(accountId) {

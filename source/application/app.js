@@ -20,6 +20,7 @@ angular.module('app', [
 
     // Application Modules
     'app.environment',
+    'app.configuration',
     'app.controllers',
     'app.services',
     'app.directives',
