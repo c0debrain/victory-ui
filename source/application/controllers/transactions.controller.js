@@ -4,28 +4,27 @@ angular.module('app.controllers')
 TransactionsController.$inject = ['$scope', '$rootScope', 'services.transaction'];
 
 function TransactionsController($scope, $rootScope, Transaction) {
-    $scope.weekly = {
-        amount: '-120.02'
-    };
-
-    $scope.monthly = {
-        amount: '-678.00'
-    };
-
-    $scope.yearly = {
-        amount: '-1280.20'
-    };
-
     $scope.showControls = false;
     $scope.transactions = [];
     $scope.initialTransactions = [];
 
-    // Inject transactions upon retrieval
-    $scope.$on('retrievedTransactions', function() {
-        $scope.transactions = $rootScope.transactions.map(function(transaction) {
+    // Toggle the table header controls
+    $scope.toggleControls = function() {
+        $scope.showControls = !$scope.showControls;
+    };
+
+    // Function to inject transactions into this controller for rootScope
+    $scope.injectTransactions = function(source, target) {
+        if (source.transactions == null || source.accounts == null) {
+            return console.log('Waiting for account & transaction data to be loaded...');
+        }
+
+        // Append accounts property to transaction object
+        target.transactions = source.transactions.map(function(transaction) {
             transaction.filtered = false;
 
-            transaction.account = $rootScope.accounts.filter(function(account) {
+            // Determine account which transaction references
+            transaction.account = source.accounts.filter(function(account) {
                 if (transaction.plaid_account_id === account.plaid_id) {
                     return account;
                 }
@@ -34,13 +33,24 @@ function TransactionsController($scope, $rootScope, Transaction) {
             return transaction;
         });
 
-        $scope.initialTransactions = [].concat($scope.transactions);
+        // For
+        target.initialTransactions = [].concat(target.transactions);
+
+        console.info('Transactions <-> Accounts linked and injected into Transaction Controller.');
+    };
+
+    // Try to inject data into this controller
+    $scope.injectTransactions($rootScope, $scope);
+
+    // Inject transactions upon retrieval
+    $scope.$on('retrievedTransactions', function() {
+        $scope.injectTransactions($rootScope, $scope);
     });
 
     // Filter out specified accounts on event
     $scope.$on('toggleAccount', function(event, account) {
         $scope.transactions.forEach(function(transaction) {
-            if (transaction.PlaidAccount.id === account.id) {
+            if (transaction.account.id === account.id) {
                 console.log('Transaction from account filtered: ', transaction.name);
                 transaction.filtered = !transaction.filtered;
             }
