@@ -3,6 +3,10 @@ angular.module('app.controllers')
 
 CoreController.$inject = ['$scope', '$rootScope', '$state'];
 
+/*
+    This controller is instantiated on page load, as opposed to
+    application.controller which is instatiated on login.
+*/
 function CoreController($scope, $rootScope, $state) {
     $rootScope.app = {
         name: 'Victory Finance',

@@ -8,7 +8,6 @@ ApplicationController.$inject = ['$rootScope', 'services.account', 'services.tra
     core.controller which is instatiated on page load.
 */
 function ApplicationController($rootScope, $Accounts, $Transactions) {
-    console.warn('Application Controller instantiated');
 
     // Retrieve User's Accounts
     $Accounts.all(function(response) {
@@ -19,11 +18,15 @@ function ApplicationController($rootScope, $Accounts, $Transactions) {
         $rootScope.accounts.map(function(account) {
             account.filtered = false;
         });
+
+        $rootScope.$broadcast('retrievedAccounts');
     });
 
     // Retrieve User's Transactions
     $Transactions.all(function(response) {
         console.log('Transaction Service Response: ', response.data);
         $rootScope.transactions = response.data;
+
+        $rootScope.$broadcast('retrievedTransactions');
     });
 };

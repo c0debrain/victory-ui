@@ -4,5 +4,4 @@ angular.module('app.controllers')
 OverviewController.$inject = ['$scope'];
 
 function OverviewController($scope) {
-    console.warn('Overview controller instantiated');
 };
