@@ -11,7 +11,7 @@
         <div class="table-responsive">
             <table class="table table-hover table-transactions">
                 <tbody>
-                    <tr ng-repeat="category in categories">
+                    <tr ng-repeat="category in activeCategories">
                         <td class="account">
                             <div class="font-11 color-blue-grey-lighter uppercase">Category</div>
                             {{ category.hierarchy.join(', ') }}
@@ -19,6 +19,16 @@
                         <td>
                             <div class="font-11 color-blue-grey-lighter uppercase">Type</div>
                             {{ category.type | capitalize }}
+                        </td>
+                        <td>
+                            <div class="font-11 color-blue-grey-lighter uppercase">{{ category.totalSpent < 0 ? 'Spent' : 'Earned' }}</div>
+                            {{ category.totalSpent = (category.transactions | propertyTotal: 'amount') | currency  }}
+                            <span class="caret" ng-class="{
+                                    'color-red': (category.totalSpent < 0),
+                                    'color-green': (category.totalSpent > 0),
+                                    'caret-up': (category.totalSpent > 0)
+                                }">
+                            </span>
                         </td>
                         <td>
                             <div class="font-11 color-blue-grey-lighter uppercase">Options</div>

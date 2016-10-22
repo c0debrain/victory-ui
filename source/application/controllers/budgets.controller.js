@@ -5,157 +5,42 @@ BudgetsController.$inject = ['$scope', '$rootScope', 'services.category', 'servi
 
 function BudgetsController($scope, $rootScope, Category, Notification) {
 
-    Category.allPrimary(function(response) {
+    $scope.categories = [];
+    $scope.active = 1;
+    $scope.transactions = $rootScope.transactions;
+
+    $scope.filterActiveCategories = function() {
+        return $scope.categories.filter(function(category) {
+            category.transactions = [];
+
+            // Map through transactions and attach to matching category
+            $rootScope.transactions.map(function(transaction) {
+                if (transaction.category_id == category.plaid_id) {
+                    category.transactions.push(transaction);
+                }
+            });
+
+            // Only return categories containing transactions
+            if (category.transactions.length > 0) {
+                return category;
+            }
+        });
+    }
+
+    Category.all(function(response) {
         if (response.status === 'error') {
             Notification.create('warning', 'Failed to pull categories.', 0);
         }
 
         $scope.categories = response.data;
+
+        if ($rootScope.transactions != null) {
+            $scope.activeCategories = $scope.filterActiveCategories();
+        }
     });
 
-    $scope.active = 1;
-
-    $scope.transactions = $rootScope.transactions;
-
-
-    $scope.scenarios = [
-        {
-            name: 'Scenario 1',
-            data: [
-                {
-                    name: 'Coffee',
-                    spent: 20.00,
-                    allowance: 40.00,
-                    interval: '1 Month',
-                    color: '#00a8ff',
-                    background: '#e4f6fd'
-                },
-                {
-                    name: 'Restaurants',
-                    spent: 120.00,
-                    allowance: 80.00,
-                    interval: 'Two Weeks',
-                    color: '#46c35f',
-                    background: '#edf9ee'
-                },
-                {
-                    name: 'Groceries',
-                    spent: 80.00,
-                    allowance: 100.00,
-                    interval: 'Two Weeks',
-                    color: '#f29824',
-                    background: '#fdf4e6',
-                },
-                {
-                    name: 'Student Loans',
-                    spent: 286.00,
-                    allowance: 286.00,
-                    interval: '1 Month',
-                    color: '#fa424a',
-                    background: '#fff6f6'
-                },
-                {
-                    name: 'Coffee',
-                    spent: 20.00,
-                    allowance: 40.00,
-                    interval: '1 Month',
-                    color: '#00a8ff',
-                    background: '#e4f6fd'
-                },
-                {
-                    name: 'Restaurants',
-                    spent: 120.00,
-                    allowance: 80.00,
-                    interval: 'Two Weeks',
-                    color: '#46c35f',
-                    background: '#edf9ee'
-                },
-                {
-                    name: 'Groceries',
-                    spent: 80.00,
-                    allowance: 100.00,
-                    interval: 'Two Weeks',
-                    color: '#f29824',
-                    background: '#fdf4e6',
-                },
-                {
-                    name: 'Student Loans',
-                    spent: 286.00,
-                    allowance: 286.00,
-                    interval: '1 Month',
-                    color: '#fa424a',
-                    background: '#fff6f6'
-                }
-            ]
-        },
-        {
-            name: 'Scenario 2',
-            data: [
-                {
-                    name: 'Coffee',
-                    spent: 20.00,
-                    allowance: 40.00,
-                    interval: '1 Month',
-                    color: '#00a8ff',
-                    background: '#e4f6fd'
-                },
-                {
-                    name: 'Restaurants',
-                    spent: 120.00,
-                    allowance: 80.00,
-                    interval: 'Two Weeks',
-                    color: '#46c35f',
-                    background: '#edf9ee'
-                },
-                {
-                    name: 'Groceries',
-                    spent: 80.00,
-                    allowance: 100.00,
-                    interval: 'Two Weeks',
-                    color: '#f29824',
-                    background: '#fdf4e6',
-                },
-                {
-                    name: 'Student Loans',
-                    spent: 286.00,
-                    allowance: 286.00,
-                    interval: '1 Month',
-                    color: '#fa424a',
-                    background: '#fff6f6'
-                },
-                {
-                    name: 'Coffee',
-                    spent: 20.00,
-                    allowance: 40.00,
-                    interval: '1 Month',
-                    color: '#00a8ff',
-                    background: '#e4f6fd'
-                },
-                {
-                    name: 'Restaurants',
-                    spent: 120.00,
-                    allowance: 80.00,
-                    interval: 'Two Weeks',
-                    color: '#46c35f',
-                    background: '#edf9ee'
-                },
-                {
-                    name: 'Groceries',
-                    spent: 80.00,
-                    allowance: 100.00,
-                    interval: 'Two Weeks',
-                    color: '#f29824',
-                    background: '#fdf4e6',
-                },
-                {
-                    name: 'Student Loans',
-                    spent: 286.00,
-                    allowance: 286.00,
-                    interval: '1 Month',
-                    color: '#fa424a',
-                    background: '#fff6f6'
-                }
-            ]
-        }
-    ];
+    // Inject transactions upon retrieval
+    $scope.$on('retrievedTransactions', function() {
+        $scope.activeCategories = $scope.filterActiveCategories();
+    });
 }

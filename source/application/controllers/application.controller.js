@@ -23,9 +23,14 @@ function ApplicationController($rootScope, $Accounts, $Transactions) {
     });
 
     // Retrieve User's Transactions
-    $Transactions.all(function(response) {
+    $Transactions.allWithAccounts(function(response) {
         console.log('Transaction Service Response: ', response.data);
         $rootScope.transactions = response.data;
+
+        // Map through and add filtered status to accounts
+        $rootScope.transactions.map(function(transaction) {
+            transaction.filtered = false;
+        });
 
         $rootScope.$broadcast('retrievedTransactions');
     });

@@ -12,39 +12,12 @@ function TransactionsController($scope, $rootScope, Transaction) {
     $scope.toggleControls = function() {
         $scope.showControls = !$scope.showControls;
     };
-
-    // Function to inject transactions into this controller for rootScope
-    $scope.injectTransactions = function(source, target) {
-        if (source.transactions == null || source.accounts == null) {
-            return console.log('Waiting for account & transaction data to be loaded...');
-        }
-
-        // Append accounts property to transaction object
-        target.transactions = source.transactions.map(function(transaction) {
-            transaction.filtered = false;
-
-            // Determine account which transaction references
-            transaction.account = source.accounts.filter(function(account) {
-                if (transaction.plaid_account_id === account.plaid_id) {
-                    return account;
-                }
-            })[0];
-
-            return transaction;
-        });
-
-        // For
-        target.initialTransactions = [].concat(target.transactions);
-
-        console.info('Transactions <-> Accounts linked and injected into Transaction Controller.');
-    };
-
-    // Try to inject data into this controller
-    $scope.injectTransactions($rootScope, $scope);
+    
+    $scope.initialTransactions = [].concat($rootScope.transactions);
 
     // Inject transactions upon retrieval
     $scope.$on('retrievedTransactions', function() {
-        $scope.injectTransactions($rootScope, $scope);
+        $scope.initialTransactions = [].concat($rootScope.transactions);
     });
 
     // Filter out specified accounts on event
