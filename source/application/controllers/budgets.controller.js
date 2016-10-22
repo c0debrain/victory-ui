@@ -6,15 +6,18 @@ BudgetsController.$inject = ['$scope', '$rootScope', 'services.category', 'servi
 function BudgetsController($scope, $rootScope, Category, Notification) {
 
     $scope.categories = [];
+    $scope.activeCategories = [];
+    $scope.inactiveCategories = [];
+
     $scope.active = 1;
     $scope.transactions = $rootScope.transactions;
 
     $scope.filterActiveCategories = function() {
-        return $scope.categories.filter(function(category) {
+        $scope.categories.forEach(function(category) {
             category.transactions = [];
 
             // Map through transactions and attach to matching category
-            $rootScope.transactions.map(function(transaction) {
+            $rootScope.transactions.forEach(function(transaction) {
                 if (transaction.category_id == category.plaid_id) {
                     category.transactions.push(transaction);
                 }
@@ -22,7 +25,9 @@ function BudgetsController($scope, $rootScope, Category, Notification) {
 
             // Only return categories containing transactions
             if (category.transactions.length > 0) {
-                return category;
+                $scope.activeCategories.push(category);
+            } else if (category.hierarchy.length <= 2) {
+                $scope.inactiveCategories.push(category);
             }
         });
     }
@@ -35,12 +40,12 @@ function BudgetsController($scope, $rootScope, Category, Notification) {
         $scope.categories = response.data;
 
         if ($rootScope.transactions != null) {
-            $scope.activeCategories = $scope.filterActiveCategories();
+            $scope.filterActiveCategories();
         }
     });
 
     // Inject transactions upon retrieval
     $scope.$on('retrievedTransactions', function() {
-        $scope.activeCategories = $scope.filterActiveCategories();
+        $scope.filterActiveCategories();
     });
 }
