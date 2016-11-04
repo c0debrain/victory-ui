@@ -1,9 +1,11 @@
 angular.module('app.controllers')
     .controller('controllers.budget', BudgetsController);
 
-BudgetsController.$inject = ['$scope', '$rootScope', 'services.category', 'services.notification'];
+BudgetsController.$inject = ['$scope', '$rootScope', 'services.category', 'services.scenario', 'services.notification'];
 
-function BudgetsController($scope, $rootScope, Category, Notification) {
+function BudgetsController($scope, $rootScope, Category, Scenario, Notification) {
+
+    $scope.scenarios = [];
 
     $scope.categories = [];
     $scope.activeCategories = [];
@@ -31,6 +33,27 @@ function BudgetsController($scope, $rootScope, Category, Notification) {
             }
         });
     }
+
+    Scenario.allWithTransactions(function(response) {
+        if (response.status === 'error') {
+            Notification.create('warning', 'Failed to pull scenarios.', 0);
+        }
+
+        console.log('Scenario Service Response: ', response.data);
+        $scope.scenarios = response.data;
+
+        // response.data.map(function(scenario) {
+        //     scenario.budgets.map(function(budget) {
+        //         budget.category.transactions = $rootScope.transactions.filter(function(transaction) {
+        //             return transaction.category_id == budget.category.plaid_id;
+        //         });
+        //     });
+        // });
+
+        setTimeout(function() {
+            console.log('Scenarios after accumulation: ', $scope.scenarios)
+        }, 1000);
+    });
 
     Category.all(function(response) {
         if (response.status === 'error') {

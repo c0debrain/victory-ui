@@ -76,7 +76,9 @@ function RoutesConfiguration(
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'application/controllers/budgets.controller.js',
-                            'application/services/categories.service.js'
+                            'application/services/categories.service.js',
+                            'application/services/scenarios.service.js',
+                            'application/services/budgets.service.js'
                         ]);
                     }]
                 }

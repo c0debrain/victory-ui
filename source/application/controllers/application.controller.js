@@ -23,7 +23,7 @@ function ApplicationController($rootScope, $Accounts, $Transactions) {
     });
 
     // Retrieve User's Transactions
-    $Transactions.allWithAccounts(function(response) {
+    $Transactions.allWithAll(function(response) {
         console.log('Transaction Service Response: ', response.data);
         $rootScope.transactions = response.data;
 

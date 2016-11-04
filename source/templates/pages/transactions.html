@@ -88,9 +88,9 @@
                                             <input st-search="category" placeholder="Search Category" class="input-sm form-control" type="search" />
                                         </th>
                                         <th>
-                                            <select class="filter-select input-sm form-control" st-search="PlaidAccount.name">
+                                            <select class="filter-select input-sm form-control" st-search="account.name">
                                                 <option value="">All</option>
-                                                <option ng-repeat="row in initialTransactions | unique: 'plaid_account_id'" value="{{ row.PlaidAccount.name }}">{{ row.PlaidAccount.name }}</option>
+                                                <option ng-repeat="row in initialTransactions | unique: 'account_id'" value="{{ row.account.name }}">{{ row.account.name }}</option>
                                             </select>
                                         </th>
                                         <th></th>
@@ -109,7 +109,7 @@
                                         </td>
                                         <td am-time-ago="item.date"></td>
                                         <td>{{ item.name }}</td>
-                                        <td><i class="fa fa-circle-o color-green p-r-5" aria-hidden="true"></i> {{ item.category.join(", ") || "Uncategorized" }}</td>
+                                        <td><i class="fa fa-circle-o color-green p-r-5" aria-hidden="true"></i> {{ item.category.hierarchy.join(", ") || "Uncategorized" }}</td>
                                         <td>{{ item.account.name }}</td>
                                         <td nowrap="nowrap" class="text-right">
                                             {{ item.amount | currency }}

@@ -13,6 +13,10 @@ function TransactionService($resource, Environment) {
         allWithAccounts: {
             method: 'GET',
             url: Environment.api.path + '/transactions/self/accounts'
+        },
+        allWithAll: {
+            method: 'GET',
+            url: Environment.api.path + '/transactions/self/all'
         }
     });
 }

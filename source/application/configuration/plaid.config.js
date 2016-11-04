@@ -13,17 +13,18 @@ function PlaidConfiguration(
     Account
 ) {
     // Exchange public token for access_token server-side
-    plaidLink.create({
+    plaidLink.create(
+        {
             clientName: 'Victory Finance',
             env: 'tartan',
-            key: 'test_key',
+            key: 'a1ec13246c76e782666e1bb0bf8c8d',
             product: 'auth'
         },
 
         function success(token) {
             Account.exchange({ public_token: token, returning: false }, function(resPromise) {
                 return resPromise.$promise.then(function(response) {
-                    if (response.data.updated) {
+                    if (response.status.updated) {
 
                         // Just pull in all new accounts
                         Account.all(function(response) {
