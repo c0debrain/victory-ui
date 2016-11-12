@@ -4,5 +4,5 @@ angular.module('app.filters')
 function CapitalizeFilter($filter) {
     return function(token) {
         return token.charAt(0).toUpperCase() + token.slice(1);
-     }
+    }
 };

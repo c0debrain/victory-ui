@@ -1,16 +1,18 @@
 angular.module('app')
-    .run(PlaidConfiguration);
+    .run(PlaidConfiguration)
 
 PlaidConfiguration.$inject = [
     '$rootScope',
     'plaidLink',
-    'services.account'
-];
+    'services.account',
+    'services.plaid'
+]
 
 function PlaidConfiguration(
     $rootScope,
     plaidLink,
-    Account
+    Account,
+    Plaid
 ) {
     // Exchange public token for access_token server-side
     plaidLink.create(
@@ -22,26 +24,18 @@ function PlaidConfiguration(
         },
 
         function success(token) {
-            Account.exchange({ public_token: token, returning: false }, function(resPromise) {
+            Plaid.exchange({ public_token: token }, function(resPromise) {
                 return resPromise.$promise.then(function(response) {
-                    if (response.status.updated) {
-
-                        // Just pull in all new accounts
-                        Account.all(function(response) {
-                            console.log('Account Service Response: ', response.data);
-                            // $rootScope.$broadcast('newAccounts', response.data);
-
-                            $rootScope.accounts = response.data;
-                        });
+                    if (response.status === 'success') {
+                        $rootScope.$emit('plaidConnect')
                     }
-                });
-            });
+                })
+            })
         },
 
         // Callback for when user exits modal
         function exit() {
-            console.log('Exited plaidLink modal');
+            console.log('Exited plaidLink modal')
         }
-    );
-
-};
+    )
+}

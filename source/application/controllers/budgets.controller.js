@@ -41,18 +41,6 @@ function BudgetsController($scope, $rootScope, Category, Scenario, Notification)
 
         console.log('Scenario Service Response: ', response.data);
         $scope.scenarios = response.data;
-
-        // response.data.map(function(scenario) {
-        //     scenario.budgets.map(function(budget) {
-        //         budget.category.transactions = $rootScope.transactions.filter(function(transaction) {
-        //             return transaction.category_id == budget.category.plaid_id;
-        //         });
-        //     });
-        // });
-
-        setTimeout(function() {
-            console.log('Scenarios after accumulation: ', $scope.scenarios)
-        }, 1000);
     });
 
     Category.all(function(response) {

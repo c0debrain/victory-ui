@@ -2,7 +2,10 @@
     <header class="box-typical-header">
         <div class="tbl-row">
             <div class="tbl-cell tbl-cell-title">
-                <h3>{{ scenario.name }}</h3>
+                <h3 class="col-md-3 pull-left">{{ scenario.name }}</h3>
+                <div class="col-md-1 pull-right text-right">
+                    <i class="fa fa-plus"></i>
+                </div>
             </div>
         </div>
     </header>
@@ -18,18 +21,19 @@
                         </td>
                         <td>
                             <div class="font-11 color-blue-grey-lighter uppercase">Spending</div>
-                            {{ budget.category.transactions | propertyTotal: 'amount' | currency }} / {{ budget.allowance | currency }}
+                            {{ budget.category.transactions | propertyTotal: 'amount' | inverse | currency }} / {{ budget.allowance | currency }}
                         </td>
                         <td>
-                            <div class="font-11 color-blue-grey-lighter uppercase">Interval</div>
-                            1 Month
+                            <div class="font-11 color-blue-grey-lighter uppercase">Total</div>
+                            {{ budget.category.transactions.length }} transactions
                         </td>
                         <td>
-                            <div class="font-11 color-blue-grey-lighter uppercase">Allowance</div>
-                            {{ budget.allowance | currency }}
+                            <div class="font-11 color-blue-grey-lighter uppercase">Type</div>
+                            {{ budget.type | capitalize }}
                         </td>
                         <td nowrap="nowrap">
-                            Options
+                            <div class="font-11 color-blue-grey-lighter uppercase">Options</div>
+                            <i class="fa fa-cog"></i>
                         </td>
                     </tr>
                 </tbody>

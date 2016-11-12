@@ -8,14 +8,6 @@ function AccountService($resource, Environment) {
         all: {
             url: Environment.api.path + '/accounts/self',
             method: 'GET'
-        },
-        connect: {
-            url: Environment.api.path + '/plaid/connect',
-            method: 'POST'
-        },
-        exchange: {
-            url: Environment.api.path + '/plaid/exchange',
-            method: 'POST'
         }
     });
 }
