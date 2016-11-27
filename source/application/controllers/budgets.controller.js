@@ -39,6 +39,32 @@ function BudgetsController($scope, $rootScope, Category, Scenario, Notification)
             Notification.create('warning', 'Failed to pull scenarios.', 0);
         }
 
+        response.data.map(function(scenario) {
+            scenario.budgets.forEach(function(budget) {
+                budget.total = 0
+                scenario.income = 0
+                scenario.expenditure = 0
+
+                budget.category.transactions.forEach(function(transaction) {
+                    if (transaction.amount > 0) {
+                        scenario.income += transaction.amount
+                    } else if (transaction.amount < 0) {
+                        scenario.expenditure += transaction.amount
+                    }
+
+                    budget.total += transaction.amount
+                })
+
+                budget.progress = Math.round((Math.abs(budget.total) / Math.abs(budget.allowance)) * 100)
+            })
+
+            // scenario.budgets.reduce(function(previous, current) {
+            //     return previous + current.category.transactions.reduce(function(previous, current) {
+            //         return previous + current
+            //     }, 0)
+            // }, 0)
+        })
+
         console.log('Scenario Service Response: ', response.data);
         $scope.scenarios = response.data;
     });

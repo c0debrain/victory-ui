@@ -16,13 +16,17 @@
                 </div>
             </div>
 
-            <div class="row row-gray" ng-show="active == 1">
-                <div class="col-md-12">
-                    <p class="m-t-15 m-b-15 m-l-20 m-r-20">
+            <div class="row row-gray row-message" ng-show="active == 1">
+                <div class="col-md-10 p-t-md">
+                    <p class="pull-left">
                         A scenario is a version of a budget with changed variables. By
                         creating multiple scenarios you can compare different forecasted
                         finances based on the amount of allowance for each category.
                     </p>
+                </div>
+
+                <div class="col-md-2 text-right p-t-md">
+                    <button type="button" class="btn btn-primary"><i class="fa fa-plus m-r-md"></i> New Scenario</button>
                 </div>
             </div>
         </section>

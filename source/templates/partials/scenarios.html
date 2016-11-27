@@ -1,39 +1,84 @@
-<section class="box-typical" ng-repeat="scenario in scenarios">
+<section class="box-typical budgets" ng-repeat="scenario in scenarios" style="border-left-color: {{ scenario.color }}">
     <header class="box-typical-header">
         <div class="tbl-row">
-            <div class="tbl-cell tbl-cell-title">
-                <h3 class="col-md-3 pull-left">{{ scenario.name }}</h3>
-                <div class="col-md-1 pull-right text-right">
-                    <i class="fa fa-plus"></i>
-                </div>
+            <div class="col-md-1 tbl-cell tbl-image">
+                <span class="image" style="background-image: url('assets/images/scenarios/{{ scenario.image }}')">
+            </div>
+
+            <div class="col-md-3 tbl-cell tbl-cell-title p-l-0">
+                <h3>{{ scenario.name }}</h3>
+                <div class="font-11 color-blue-grey-lighter uppercase">Scenario</div>
+            </div>
+
+            <div class="col-md-2 tbl-cell pull-right text-right m-r-lg">
+                {{ (scenario.income + scenario.expenditure) | currency }}
+                <div class="font-11 color-blue-grey-lighter uppercase">Net Earnings</div>
+            </div>
+
+            <div class="col-md-2 tbl-cell pull-right text-right">
+                {{ scenario.expenditure | currency }}
+                <div class="font-11 color-blue-grey-lighter uppercase">Expenditure</div>
+            </div>
+
+            <div class="col-md-2 tbl-cell pull-right text-right">
+                {{ scenario.income | currency }}
+                <div class="font-11 color-blue-grey-lighter uppercase">Income</div>
             </div>
         </div>
     </header>
 
+
     <div class="box-typical-body">
         <div class="table-responsive">
-            <table class="table table-hover table-transactions">
+            <table class="table table-hover table-datatable table-budgets" st-table="scenario.budgets">
+                <thead>
+                    <tr>
+                        <th st-sort="category">Category</th>
+                        <th st-sort="progress">Progress</th>
+                        <th colspan="2"></th>
+                        <th st-sort="account">Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 <tbody>
-                    <tr ng-repeat="budget in scenario.budgets" style="background: {{ budget.background }}">
-                        <td class="account" style="border-left-color: {{ budget.color }}">
-                            <div class="font-11 color-blue-grey-lighter uppercase">Category</div>
-                            {{ budget.category.hierarchy.join(', ') }}
-                        </td>
+                    <tr ng-repeat="budget in scenario.budgets">
+                        <td>{{ budget.category.hierarchy.join(', ') }}</td>
                         <td>
-                            <div class="font-11 color-blue-grey-lighter uppercase">Spending</div>
-                            {{ budget.category.transactions | propertyTotal: 'amount' | inverse | currency }} / {{ budget.allowance | currency }}
+                            <div class="progress-with-amount">
+        						<progress
+                                    class="progress progress-success progress-no-margin"
+                                    value="{{ budget.progress >= 100 ? 100 : budget.progress }}"
+                                    max="100"
+                                    ng-class="{
+                                        'progress-success': (budget.progress < 90),
+                                        'progress-warning': (budget.progress > 90 && budget.progress < 150),
+                                        'progress-danger': (budget.progress > 150)
+                                    }">
+                                    {{ budget.progress | numberPadding: 2 }}
+                                </progress>
+        						<div class="progress-with-amount-number">{{ budget.progress | numberPadding: 2 }}%</div>
+        					</div>
                         </td>
-                        <td>
-                            <div class="font-11 color-blue-grey-lighter uppercase">Total</div>
-                            {{ budget.category.transactions.length }} transactions
+                        <td class="text-right">
+                            <div class="font-11 color-blue-grey-lighter uppercase">Spent</div>
+                            {{ budget.total | currency }}
                         </td>
-                        <td>
-                            <div class="font-11 color-blue-grey-lighter uppercase">Type</div>
-                            {{ budget.type | capitalize }}
+                        <td class="text-left">
+                            <div class="font-11 color-blue-grey-lighter uppercase">Allowance</div>
+                            {{ budget.allowance | currency }}
                         </td>
-                        <td nowrap="nowrap">
-                            <div class="font-11 color-blue-grey-lighter uppercase">Options</div>
-                            <i class="fa fa-cog"></i>
+                        <td><span class="label" ng-class="{
+                                'label-default': (budget.allowance < 0),
+                                'label-success': (budget.allowance > 0),
+                                'label-primary': (budget.allowance == 0)
+                            }">{{ budget.type | capitalize }}</span></td>
+                        <td class="text-right">
+                            <button type="button" class="btn btn-inline btn-regular">Actions</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="scenario.budgets.length == 0">
+                        <td colspan="6" class="text-center">
+                            No budgets to display.
                         </td>
                     </tr>
                 </tbody>
