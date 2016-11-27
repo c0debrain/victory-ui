@@ -24,7 +24,12 @@ bower install
 
 
 ## Screenshots
-![Transactions](https://i.gyazo.com/f6e4bf56aae06dafce446db215849ad9.png)
+### Login Page
+![Login](https://i.gyazo.com/7f66eebdfd26627a1ce5e0d6f36420ac.png)
 
-![Budget](https://i.gyazo.com/79ab27180bf31ad94036c1a4613ba4c5.png)
+### Transactions Page
+![Transactions](https://i.gyazo.com/c901e2ccb68ea166438aff8681fadc9a.png)
+
+### Budgets Page
+![Budget](https://i.gyazo.com/108a18f911014e2d2f9f2f4809153d7a.png)
 
