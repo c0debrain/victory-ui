@@ -19,6 +19,7 @@ var opn             = require('opn');
 var nodemon         = require('nodemon');
 var changed         = require('gulp-changed');
 var jshint          = require('gulp-jshint');
+var sourcemaps      = require('gulp-sourcemaps');
 
 
 // Config Variables --------------------------------------------
@@ -64,7 +65,9 @@ var ignoredFiles = [
  */
 gulp.task('less', task.less = function() {
     gulp.src(path.join(paths.assets, '/less/application.less'))
+        .pipe(sourcemaps.init())
         .pipe(less({ compress: false }))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.join(paths.dist, '/assets/css')))
         .pipe(livereload());
 });

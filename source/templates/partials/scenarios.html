@@ -14,17 +14,17 @@
                 <i class="fa fa-pencil edit color-blue-grey-lighter"></i>
             </div>
 
-            <div class="col-md-2 tbl-cell pull-right text-right m-r-lg">
+            <div class="col-md-2 tbl-cell float-md-right text-right m-r-lg">
                 {{ (scenario.income + scenario.expenditure) | currency }}
                 <div class="font-11 color-blue-grey-lighter uppercase">Net Earnings</div>
             </div>
 
-            <div class="col-md-2 tbl-cell pull-right text-right">
+            <div class="col-md-2 tbl-cell float-md-right text-right">
                 {{ scenario.expenditure | currency }}
                 <div class="font-11 color-blue-grey-lighter uppercase">Expenditure</div>
             </div>
 
-            <div class="col-md-2 tbl-cell pull-right text-right">
+            <div class="col-md-2 tbl-cell float-md-right text-right">
                 {{ scenario.income | currency }}
                 <div class="font-11 color-blue-grey-lighter uppercase">Income</div>
             </div>
@@ -74,7 +74,17 @@
         					</div>
                         </td>
                         <td class="text-right">
-                            <button type="button" class="btn btn-inline btn-regular">Actions</button>
+                            <div class="btn-group" uib-dropdown is-open="status.isopen">
+                                <button type="button" class="btn btn-inline btn-regular" uib-dropdown-toggle ng-disabled="disabled">
+                                    Button dropdown
+                                </button>
+                                <div class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                    <a class="dropdown-item">Edit</a>
+                                    <a class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item">Delete</a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr ng-show="scenario.budgets.length == 0">

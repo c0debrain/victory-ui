@@ -1,0 +1,109 @@
+@import '../partials/reset';
+@import '../partials/mixins';
+@import '../partials/vars';
+@import '../partials/icons';
+
+/* ==========================================================================
+   Nav
+   ========================================================================== */
+.nav {
+    &.nav-pills {
+        .nav-item {
+            margin: 0 25px 0 0;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            color: @color-grey-txt;
+            font-weight: 600;
+            border-radius: 25rem;
+            padding: 5px 10px;
+
+            &:hover {
+                color: @color-blue;
+            }
+
+            &.active {
+                color: #fff;
+                background-color: @color-blue;
+            }
+        }
+    }
+}
+// Crumbs
+.breadcrumb {
+    /*16*/
+    font-size: 1rem;
+    color: @color-grey-blue-txt;
+    background-color: @color-bg-grey;
+
+    > .active {
+        color: inherit;
+    }
+
+    &.breadcrumb-clean {
+        background: none;
+        padding: 1.5rem 0;
+        color: @color-grey-blue-lighter-txt;
+        border-bottom: solid 1px @color-border;
+        border-radius: 0;
+        margin: 0 0 1.5rem;
+
+        > li+li::before {
+            content: '>';
+        }
+
+        > .active {
+            color: @color-text;
+        }
+
+        a {
+            .a_colored(@color-grey-blue-lighter-txt, @color-blue);
+        }
+    }
+
+    &.breadcrumb-simple {
+        background: none;
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 0;
+    }
+}
+// Pagination
+.pagination {
+    font-size: 1rem;
+}
+
+.page-link {
+    border-color: @color-border-light;
+    color: @color-link;
+
+    &:focus,
+    &:hover {
+        background-color: @color-bg-grey-light;
+        color: @color-link;
+    }
+}
+
+.page-item.active .page-link {
+    border-color: @color-blue !important;
+    background-color: @color-blue !important;
+}
+
+.pager {
+    font-size: 1rem;
+
+    li > a {
+        border-color: @color-border-light;
+        color: @color-link;
+        border-radius: 0.25rem;
+
+        &:hover {
+            background-color: @color-bg-grey-light;
+        }
+    }
+
+    .disabled > a {
+        color: @color-grey-blue-lighter-txt !important;
+    }
+}
