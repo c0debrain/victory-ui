@@ -18,6 +18,7 @@ angular.module('app', [
     'angularMoment',
     'angular-plaid-link',
     'ui.bootstrap',
+    'xeditable',
 
     // Application Modules
     'app.environment',

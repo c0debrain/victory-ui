@@ -1,4 +1,31 @@
-// Components
+/**
+ * Partials
+ *
+ * These are includes that apply application-wide to all pages and components.
+ * They don't represent the look and style of a specific component / area but
+ * instead how all text, divs, icons or whatever look.
+ */
+@import 'partials/reset';
+@import 'partials/mixins';
+@import 'partials/vars';
+@import 'partials/helpers';
+@import 'partials/icons';
+@import 'partials/fonts';
+@import 'partials/typography';
+@import 'partials/forms';
+@import 'partials/grids';
+@import 'partials/interface';
+@import 'partials/base';
+@import 'partials/print';
+
+
+/**
+ * Components
+ *
+ * These are small pieces that appear throughout the application and are
+ * highly specific. Many correlate directly to Bootstrap components. Others are
+ * custom ones that were brought in.
+ */
 @import 'components/alert';
 @import 'components/button';
 @import 'components/dropdown';
@@ -12,25 +39,28 @@
 @import 'components/title';
 @import 'components/tooltip';
 @import 'components/upload';
+@import 'components/datatables';
 
-// Partials
-@import 'partials/reset';
-@import 'partials/mixins';
-@import 'partials/vars';
-@import 'partials/helpers';
-@import 'partials/icons';
-@import 'partials/fonts';
-@import 'partials/typography';
-@import 'partials/forms';
-@import 'partials/grids';
-@import 'partials/interface';
-@import 'partials/base';
-@import 'partials/sidebar';
-@import 'partials/print';
-@import 'partials/datatables';
-@import 'partials/top-control';
 
-// Pages
+/**
+ * Elements
+ *
+ * These are entire areas that must be styled in a certain way. These areas may
+ * be comprised of several components. These areas are usually repeated on pages
+ * throughout the application, but not necessarily all pages.
+ */
+@import 'elements/sidebar';
+@import 'elements/top-control';
+
+
+/**
+ * Pages
+ *
+ * These are styles that are to be applied at the page level. The styling for
+ * one page should never interfere with the styling of another page. This is the
+ * level at which you would apply overrides to any of the partials, components,
+ * or elements above. Styles here take highest precedence.
+ */
 @import 'pages/overview';
 @import 'pages/transactions';
 @import 'pages/budgets';
