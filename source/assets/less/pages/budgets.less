@@ -1,323 +1,113 @@
-section.budgets {
-    border-left: 4px solid #1A91EB;
-
-    header {
-        height: 82px;
-
-        .tbl-row {
-            height: 100%;
-            display: block;
-
-            .tbl-cell {
-                height: 100%;
-                padding: 22px;
-
-                span.image {
-                    display: block;
-                    border-radius: 50%;
-                    height: 48px;
-                    width: 48px;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    background-position: 50% 50%;
-                }
+.budgets {
+    .row-message {
+        button.btn {
+            i {
+                color: #86CAFF;
+                margin-right: 6px;
             }
-        }
-
-        .tbl-image {
-            padding: 17px 0 17px 20px !important;
         }
     }
 
-    .table-budgets {
-        button.btn-regular {
-            /* Base: */
-            background-image: linear-gradient(0deg, #F2F4F7 0%, #FFFFFF 100%);
-            border: 1px solid #CED0DA;
-            border-radius: 4px;
-            position: relative;
+    section.scenario {
+        border-left: 4px solid #1A91EB;
 
-            /* Actions: */
-            font-family: ProximaNova-Semibold;
+        .edit {
+            display: none;
+            float: left;
+            margin: 5px 10px;
             font-size: 14px;
-            color: #354052;
-            line-height: 19px;
-            padding-right: 35px;
-
-            &:before {
-                /* Arrow: */
-                font-family: FontAwesome;
-                content: "\f107";
-                position: absolute;
-                right: 0;
-                padding-right: 10px;
-            }
         }
 
-        th {
-            padding-bottom: 7px;
-            padding-top: 6px;
-            &:first-child {
-                padding-left: 25px;
-            }
-        }
-
-        td {
-            height: 70px;
-            &:first-child {
-                padding-left: 25px;
-            }
-        }
-    }
-}
-
-.progress-with-amount {
-    padding-right: 50px;
-}
-
-.box-typical {
-    background: #fff;
-    border: solid 1px @color-border-light;
-    border-radius: 4px;
-    margin: 0 0 20px;
-
-    .box-typical-header {
-        display: block;
-        width: 100%;
-
-        &.box-typical-header-bordered {
-            border-bottom: solid 1px @color-border-light;
-        }
-
-        .tbl-cell {
-            padding: 15px;
-            vertical-align: middle;
-
-            &.tbl-cell-title {
-                padding-right: 0;
-
-                h1, h2, h3, h4, h5, h6 {
-                    font-size: 1rem;
-                    font-weight: 600;
-                    line-height: 1.4;
-                    margin: 0;
-                    padding: 1px 0;
-                }
-            }
-
-            &.tbl-cell-actions {
-                padding-left: 0;
-                padding-top: 18px;
-                text-align: right;
-                white-space: nowrap;
-            }
-
-            &.tbl-cell-action-bordered {
-                border-left: solid 1px @color-border-light;
-                padding-top: 17px;
-                text-align: center;
-                width: 54px;
-
-                .action-btn {
-                    margin: 0;
-                }
-            }
-        }
-
-        .action-btn {
-            background: none;
-            border: none;
-            color: @color-grey;
-            display: inline-block;
-            font-size: 1rem;
-            line-height: 18px;
-            margin: 0 0 0 10px;
-            vertical-align: top;
-
-            .font-icon {
-                vertical-align: middle;
-
-                &.font-icon-minus {
-                    position: relative;
-                    top: 1px;
-                }
-            }
-
-            &:hover {
-                color: @color-blue;
-            }
-        }
-    }
-
-    .box-typical-header-sm {
-        font-weight: 600;
-        padding: 12px 15px;
-        position: relative;
-
-        &.bordered {
-            border-bottom: solid 1px @color-border-light;
-        }
-
-        .slider-arrs {
-            .clearfix();
-            margin-top: -12px;
-            position: absolute;
-            right: 12px;
-            top: 50%;
-
-            button {
-                background: none;
-                border: none;
-                color: @color-border;
-                float: left;
-                font-size: 1rem;
-                height: 24px;
-                line-height: 24px;
-                margin: 0 0 0 15px;
-                padding: 0;
+        &:hover {
+            .edit {
+                display: block;
+                transition: 1s all;
 
                 &:hover {
-                    color: @color-blue;
-                }
-
-                .font-icon {
-                    line-height: inherit;
-                    vertical-align: middle;
-                }
-            }
-        }
-    }
-
-    .box-typical-body {
-    }
-
-    .box-typical-footer {
-        background: #fbfcfd;
-        border-top: solid 1px @color-border-light;
-        padding: 12px 15px;
-
-        &:last-child {
-            border-radius: 0 0 4px 4px;
-        }
-
-        .tbl-cell {
-            vertical-align: middle;
-        }
-
-        .tbl-cell-action {
-            padding-left: 15px;
-            white-space: nowrap;
-            width: 20px;
-        }
-
-        .btn-icon {
-            background: none;
-            border: none;
-            color: @color-grey-blue-lighter-txt;
-            margin: 0 12px 0 0;
-            position: relative;
-            top: 2px;
-
-            &:hover {
-                color: @color-blue;
-            }
-        }
-    }
-
-    .box-typical-section {
-        border-top: solid 1px @color-border-light;
-        padding: 15px;
-
-        &:first-child {
-            border-top: none;
-        }
-
-        .box-typical-header-sm {
-            padding: 5px 0 15px;
-        }
-    }
-
-    &.box-typical-padding {
-        padding: 20px 15px;
-    }
-
-    &.box-typical-max-280 {
-        .box-typical-header {
-            border-bottom: solid 1px @color-border-light;
-            margin-bottom: -1px;
-        }
-
-        .box-typical-body {
-            height: 280px;
-            overflow: auto;
-        }
-    }
-
-    &.box-typical-dashboard {
-        margin: 0 0 30px;
-        overflow: hidden;
-
-        .box-typical-header {
-            border-bottom: solid 1px @color-border-light;
-        }
-
-        .box-typical-body {
-            height: 264px;
-            overflow: auto;
-            .tbl-typical th {
-                border-top: none;
-            }
-        }
-    }
-
-    &.box-typical-full-screen {
-        border: none;
-        border-radius: 0;
-        height: 100%;
-        left: 0;
-        margin: 0 0 20px;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 100;
-
-        .box-typical-header {
-            position: relative;
-            z-index: 110;
-
-            .tbl-cell.tbl-cell-title {
-                h1, h2, h3, h4, h5, h6 {
-                    font-size: 1.5rem;
-                }
-            }
-
-            .action-btn {
-                .font-icon-expand:before {
-                    content: "\73";
+                    color: @color-blue !important;
+                    cursor: pointer;
                 }
             }
         }
 
-        .tbl-typical {
-            th, td {
-                font-size: .9375rem;
+        header {
+            height: 82px;
+
+            .tbl-row {
+                height: 100%;
+                display: block;
+
+                .tbl-cell {
+                    height: 100%;
+                    padding: 23px 0 23px 20px;
+
+                    &:first-child {
+                        padding: 17px 0 17px 20px;
+                    }
+
+                    .image {
+                        float: left;
+                        display: block;
+                        border-radius: 50%;
+                        height: 48px;
+                        width: 48px;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                        background-position: 50% 50%;
+                        margin: 0 20px 0 10px;
+                    }
+
+                    .title {
+                        margin: 2px 0 0 0;
+                        float: left;
+                    }
+                }
+            }
+        }
+
+        .table-budgets {
+            button.btn-regular {
+                /* Base: */
+                background-image: linear-gradient(0deg, #F2F4F7 0%, #FFFFFF 100%);
+                border: 1px solid #CED0DA;
+                border-radius: 4px;
+                position: relative;
+
+                /* Actions: */
+                font-family: ProximaNova-Semibold;
+                font-size: 14px;
+                color: #354052;
+                line-height: 19px;
+                padding-right: 35px;
+
+                &:before {
+                    /* Arrow: */
+                    font-family: FontAwesome;
+                    content: "\f107";
+                    position: absolute;
+                    right: 0;
+                    padding-right: 10px;
+                }
+            }
+
+            th {
+                padding-bottom: 7px;
+                padding-top: 6px;
+                &:first-child {
+                    padding-left: 25px;
+                }
+            }
+
+            td {
+                height: 70px;
+                &:first-child {
+                    padding-left: 25px;
+                }
             }
         }
     }
 
-    &.box-typical-collapsed {
-        height: auto;
-
-        .box-typical-header {
-            border-bottom-color: transparent;
-        }
-
-        .box-typical-body {
-            display: none;
-        }
-
-        .box-typical-header .action-btn .font-icon-minus:before {
-            content: "\e07a";
-        }
+    .progress-with-amount {
+        padding-right: 50px;
     }
 }

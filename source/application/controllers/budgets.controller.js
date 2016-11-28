@@ -40,10 +40,11 @@ function BudgetsController($scope, $rootScope, Category, Scenario, Notification)
         }
 
         response.data.map(function(scenario) {
+            scenario.income = 0
+            scenario.expenditure = 0
+
             scenario.budgets.forEach(function(budget) {
                 budget.total = 0
-                scenario.income = 0
-                scenario.expenditure = 0
 
                 budget.category.transactions.forEach(function(transaction) {
                     if (transaction.amount > 0) {
@@ -85,4 +86,21 @@ function BudgetsController($scope, $rootScope, Category, Scenario, Notification)
     $scope.$on('retrievedTransactions', function() {
         $scope.filterActiveCategories();
     });
+
+    $scope.createScenario = function() {
+        var newScenario = new Scenario({ name: 'New Scenario' })
+        newScenario.$save()
+            .then(function(response) {
+                var scenario = response.data
+                scenario.budgets = []
+                scenario.expenditure = 0
+                scenario.income = 0
+
+                console.log('New Scenario: ', scenario)
+
+                $scope.scenarios.push(scenario)
+            })
+
+        console.log('Scenarios: ', $scope.scenarios)
+    }
 }

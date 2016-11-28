@@ -12,6 +12,7 @@ angular.module('app', [
     'ngCookies',
     'ngResource',
     'ngAnimate',
+    'ngLetterAvatar',
     'permission',
     'permission.ui',
     'angularMoment',
