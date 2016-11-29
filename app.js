@@ -1,6 +1,7 @@
-// Global Variables
-require('dotenv').config();
-process.env.NODE_ENV = (process.env.NODE_ENV || 'development');
+// Environment Variables
+var env = require('node-env-file')
+env(__dirname + '/.environment/.public.env')
+env(__dirname + '/.environment/.private.env')
 
 // Global Dependencies
 var express = require('express');

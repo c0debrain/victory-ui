@@ -1,10 +1,9 @@
-// Global Variables
-require('dotenv').config();
-process.env.NODE_ENV = (process.env.NODE_ENV || 'development');
+// Environment Variables
+var env = require('node-env-file')
+env(__dirname + '/.environment/.public.env')
+env(__dirname + '/.environment/.private.env')
 
-
-// Global Dependencies
-var config          = require('./config')();
+// Dependencies
 var path            = require('path');
 var gulp            = require('gulp');
 var less            = require('gulp-less');
@@ -24,7 +23,6 @@ var sourcemaps      = require('gulp-sourcemaps');
 
 // Config Variables --------------------------------------------
 var paths = {
-    config:         './config/' + process.env.NODE_ENV,
     dist:           './dist',
     source:         './source',
     assets:         './source/assets',
