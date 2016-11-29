@@ -20,6 +20,7 @@ angular.module('app', [
     'ui.bootstrap',
     'ui.tree',
     'xeditable',
+    'daterangepicker',
 
     // Application Modules
     'app.environment',

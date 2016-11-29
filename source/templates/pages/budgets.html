@@ -8,11 +8,20 @@
             </div>
 
             <div class="row row-white row-tabs">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <ul>
                         <li ng-click="active = 1" ng-class="{ 'active': (active == 1) }">Scenarios</li>
                         <li ng-click="active = 2" ng-class="{ 'active': (active == 2) }">Categories</li>
                     </ul>
+                </div>
+
+                <div class="col-md-4 text-right">
+                    <div class="input-group date pt-1">
+                        <input date-range-picker class="form-control date-picker" type="text" ng-model="dates" options="datePickerOptions" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
 

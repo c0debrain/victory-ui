@@ -30,7 +30,7 @@
     "angular-smart-table": "^2.1.8",
     "angular-cookies": "^1.5.8",
     "angular-flash-alert": "^2.3.0",
-    "angular-permission": "^4.0.6",
+    "angular-permission": "^4.1.2",
     "angular-moment": "^0.10.3",
     "angular-plaid-link": "^1.0.0",
     "angular-animate": "^1.5.8",
@@ -38,7 +38,9 @@
     "bootstrap": "v4.0.0-alpha.5",
     "angular-ui-tree": "^2.22.1",
     "angular-xeditable": "^0.5.0",
-    "ng-letter-avatar": "ngletteravatar#^4.0.4"
+    "ng-letter-avatar": "ngletteravatar#^4.0.4",
+    "angular-daterangepicker": "^0.2.2",
+    "jquery": "^3.1.1"
   },
   "devDependencies": {},
   "resolutions": {

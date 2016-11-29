@@ -23,21 +23,60 @@ function BudgetsController(
     $scope.categories = []
     $scope.active = 1
 
+    $scope.dates = {
+        startDate: moment().startOf('month'),
+        endDate: moment()
+    }
+
 
     /**
      * Pull in all Scenarios with their associated budgets, categories and
      * transactions, then calculate their net values by iterating through all
      * mentioned associations and accumulating their values.
      */
-    Scenario.allWithTransactions(function(response) {
-        if (response.status === 'error') {
-            Notification.create('warning', 'Failed to pull scenarios.', 0)
+    $scope.pullScenarios = function() {
+        var parameters = {}
+        if ($scope.dates.startDate !== null && $scope.dates.endDate !== null) {
+            parameters = {
+                startDate: moment($scope.dates.startDate).format(),
+                endDate: moment($scope.dates.endDate).format()
+            }
         }
 
-        console.log('Scenario Service Response: ', response.data)
-        $scope.scenarios = calculateNet(response.data)
-    })
+        Scenario.allWithTransactions(parameters, function(response) {
+            if (response.status === 'error') {
+                Notification.create('warning', 'Failed to pull scenarios.', 0)
+            }
 
+            console.log('Scenario Service Response: ', response.data)
+            $scope.scenarios = calculateNet(response.data)
+        })
+    }
+
+
+    $scope.datePickerOptions = {
+        ranges: {
+            'Today': [moment().startOf('day'), moment()],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Week': [moment().startOf('week'), moment()],
+            'This Month': [moment().startOf('month'), moment()],
+            'Last Month': [
+                moment().subtract(1, 'months').startOf('month'),
+                moment().subtract(1, 'months').endOf('month')
+            ]
+        },
+        opens: 'left',
+        eventHandlers: {
+            'apply.daterangepicker': function(ev, picker) {
+                $scope.pullScenarios()
+            }
+        }
+    }
+
+
+    // Pull information for the page
+    $scope.pullScenarios()
 
     /**
      * Pull in all categories
