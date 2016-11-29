@@ -9,6 +9,13 @@ function BudgetService($resource, Environment) {
             method: 'GET',
             url: Environment.api.path + '/budgets/self'
         },
+        getWithTransactions: {
+            method: 'GET',
+            url: Environment.api.path + '/budgets/self/:id/transactions',
+            params: {
+                id: '@id'
+            }
+        },
         update: {
             method: 'PUT' // this method issues a PUT request
         }

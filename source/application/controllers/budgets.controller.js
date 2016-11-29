@@ -77,6 +77,11 @@ function BudgetsController(
         }
     }
 
+    // Hack to make the date button show the datepicker
+    $scope.showDatepicker = function() {
+        $('#transaction-range-picker').data('daterangepicker').show()
+    }
+
     // Pull information for the page
     $scope.pullScenarios()
 
@@ -148,6 +153,8 @@ function BudgetsController(
      */
     var calculateNet = function(scenarios) {
         return scenarios.map(function(scenario) {
+            scenario.creatingBudget = false
+
             scenario.income = {
                 actual: 0,
                 allowance: 0
@@ -225,13 +232,43 @@ function BudgetsController(
         })
     }
 
+    /**
+     * Create a new Budget and append it to the $scope list
+     */
+    $scope.toggleCreateBudget = function(scenario) {
+        scenario.creatingBudget = true
+    }
+
+    $scope.createBudget = function() {
+        var newBudget = new Scenario({ name: 'New Budget' })
+
+        // Creates and calculates nets for our one Scenario, which will involve
+        // simply adding the net properties and setting them to zero
+        newBudget.$save()
+            .then(function(response) {
+                $scope.scenarios.push(calculateNet([response.data])[0])
+            })
+    }
 
     /**
      * Update an existing Budget, called by inline editing
      */
-    $scope.updateBudget = function(budget) {
-        Budget.update({ id: budget.id }, budget)
-        $scope.scenarios = calculateNet($scope.scenarios)
+    $scope.updateBudget = function(category) {
+        console.log('cat: ', category)
+
+
+        // Overwrite the category ID with it's association
+        // in case we changed the budget's category
+        // budget.category_id = budget.category.id
+
+        // console.log('Updated Budget: ', budget)
+
+        // Budget.update({ id: budget.id }, budget, function(response) {
+        //     console.log('Update Budget Response: ', response.data)
+        // })
+
+        // $scope.pullScenarios()
+        // $scope.scenarios = calculateNet($scope.scenarios)
     }
 
 
