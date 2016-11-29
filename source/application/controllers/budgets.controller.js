@@ -67,13 +67,15 @@ function BudgetsController(
             ]
         },
         opens: 'left',
+        locale: {
+            format: 'MMM Do, YYYY'
+        },
         eventHandlers: {
             'apply.daterangepicker': function(ev, picker) {
                 $scope.pullScenarios()
             }
         }
     }
-
 
     // Pull information for the page
     $scope.pullScenarios()
