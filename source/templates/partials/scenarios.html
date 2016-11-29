@@ -8,10 +8,27 @@
                     style="background-image: url('assets/images/scenarios/{{ scenario.image }}')">
                 </div>
                 <div class="title">
-                    <h3 editable-text="scenario.name" onbeforesave="updateScenario(scenario, $data)">{{ scenario.name }}</h3>
+                    <h3
+                        class="editable"
+                        editable-text="scenario.name"
+                        e-form="editScenario"
+                        onbeforesave="updateScenario(scenario)">
+                        {{ scenario.name }}
+                    </h3>
                     <div class="font-11 color-blue-grey-lighter uppercase">Scenario</div>
                 </div>
-                <i class="fa fa-pencil edit color-blue-grey-lighter"></i>
+                <div class="editable-tray">
+                    <i
+                        class="fa fa-pencil edit color-blue-grey-lighter"
+                        ng-click="editScenario.$show()"
+                        ng-hide="editScenario.$visible">
+                    </i>
+                    <i
+                        class="fa fa-trash edit color-blue-grey-lighter"
+                        ng-click="deleteScenario(scenario)"
+                        ng-hide="editScenario.$visible">
+                    </i>
+                </div>
             </div>
 
             <div class="col-md-2 tbl-cell float-md-right text-right mr-2">
@@ -33,7 +50,7 @@
 
 
     <div class="box-typical-body">
-        <table class="table table-hover table-datatable table-budgets" st-table="scenario.budgets">
+        <table class="table table-hover table-datatable table-budgets" st-table="scenario.budgets" ui-tree="dragOptions" data-clone-enabled="true" data-nodrop-enabled>
             <thead>
                 <tr>
                     <th st-sort="category">Category</th>
@@ -42,12 +59,17 @@
                     <th style="width: 10%;"></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr ng-repeat="budget in scenario.budgets">
+            <tbody ui-tree-nodes="" ng-model="scenario.budgets">
+                <tr
+                    style="z-index: 9999"
+                    ng-repeat="budget in scenario.budgets"
+                    ui-tree-node
+                >
                     <td>
                         <div class="font-11 color-blue-grey-lighter uppercase">{{ budget.type | capitalize }}</div>
                         {{ budget.category.hierarchy.join(', ') }}
                     </td>
+
                     <td>
                         <div class="progress-with-amount">
     						<progress
@@ -64,28 +86,44 @@
     						<div class="progress-with-amount-number">{{ budget.progress | numberPadding: 2 }}%</div>
     					</div>
                     </td>
+
                     <td class="text-right">
-                        <div class="font-11 color-blue-grey-lighter uppercase">Spent</div>
+                        <div class="font-11 color-blue-grey-lighter uppercase">{{ budget.allowance > 0 ? 'Earned' : 'Spent' }}</div>
                         {{ budget.total | currency }}
                     </td>
-                    <td class="text-left">
+
+                    <td class="text-left allowance">
                         <div class="font-11 color-blue-grey-lighter uppercase">Allowance</div>
-                        {{ budget.allowance | currency }}
+                        <span class="editable"
+                            editable-number="budget.allowance"
+                            e-form="editBudget"
+                            onbeforesave="updateBudget(budget)">
+                            {{ budget.allowance | currency }}
+
+                            <div class="editable-tray">
+                                <i
+                                    class="fa fa-pencil edit color-blue-grey-lighter"
+                                    ng-click="editBudget.$show()"
+                                    ng-hide="editBudget.$visible">
+                                </i>
+                            </div>
+                        </span>
+
                     </td>
+
                     <td class="text-right">
                         <div class="btn-group mr-2" uib-dropdown is-open="status.isopen">
                             <button type="button" class="btn btn-regular" uib-dropdown-toggle ng-disabled="disabled">
                                 Actions
                             </button>
                             <div class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                <a class="dropdown-item">Edit</a>
-                                <a class="dropdown-item">Duplicate</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item danger">Delete</a>
+                                <a class="dropdown-item" ui-tree-handle>Copy (Hold)</a>
+                                <a class="dropdown-item danger" ng-click="deleteBudget(budget)">Delete</a>
                             </div>
                         </div>
                     </td>
                 </tr>
+
                 <tr ng-show="scenario.budgets.length == 0">
                     <td colspan="6" class="text-center">
                         No budgets to display.

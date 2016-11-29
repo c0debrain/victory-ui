@@ -1,0 +1,44 @@
+@import '../partials/reset';
+@import '../partials/mixins';
+@import '../partials/vars';
+@import '../partials/icons';
+
+.editable-wrap {
+    .editable-controls > input {
+        border: inherit;
+        font: inherit;
+        border-bottom: 1px dotted @color-blue;
+        margin: 1px 0 0 0;
+        position: relative;
+    }
+
+    .editable-buttons {
+        button {
+            background: transparent;
+            border: none;
+            margin: 0 5px;
+            color: @color-grey-blue;
+
+            &:hover {
+                color: @color-blue !important;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.editable-click, a.editable-click {
+    color: inherit;
+    border: inherit;
+}
+
+.editable-tray {
+    i {
+        margin-right: 5px;
+
+        &:hover {
+                color: @color-blue !important;
+                cursor: pointer;
+        }
+    }
+}

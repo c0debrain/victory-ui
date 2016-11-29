@@ -2,7 +2,7 @@
     <header class="box-typical-header">
         <div class="tbl-row">
             <div class="tbl-cell tbl-cell-title">
-                <h3>Active Categories</h3>
+                <h3>Categories</h3>
             </div>
         </div>
     </header>
@@ -11,7 +11,7 @@
         <div class="table-responsive">
             <table class="table table-hover table-transactions">
                 <tbody>
-                    <tr ng-repeat="category in activeCategories">
+                    <tr ng-repeat="category in categories">
                         <td class="account">
                             <div class="font-11 color-blue-grey-lighter uppercase">Category</div>
                             {{ category.hierarchy.join(', ') }}
@@ -21,52 +21,14 @@
                             {{ category.type | capitalize }}
                         </td>
                         <td>
-                            <div class="font-11 color-blue-grey-lighter uppercase">{{ category.totalSpent < 0 ? 'Spent' : 'Earned' }}</div>
-                            {{ category.totalSpent = (category.transactions | propertyTotal: 'amount') | currency  }}
+                            <div class="font-11 color-blue-grey-lighter uppercase">{{ category.total < 0 ? 'Spent' : 'Earned' }}</div>
+                            {{ category.total | currency  }}
                             <span class="caret" ng-class="{
-                                    'color-red': (category.totalSpent < 0),
-                                    'color-green': (category.totalSpent > 0),
-                                    'caret-up': (category.totalSpent > 0)
+                                    'color-red': (category.total < 0),
+                                    'color-green': (category.total > 0),
+                                    'caret-up': (category.total > 0)
                                 }">
                             </span>
-                        </td>
-                        <td>
-                            <div class="font-11 color-blue-grey-lighter uppercase">Options</div>
-                            Options
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div><!--.box-typical-body-->
-</section>
-
-<!-- Inactive Categories -->
-<section class="box-typical">
-    <header class="box-typical-header">
-        <div class="tbl-row">
-            <div class="tbl-cell tbl-cell-title">
-                <h3>Inactive Categories</h3>
-            </div>
-        </div>
-    </header>
-
-    <div class="box-typical-body">
-        <div class="table-responsive">
-            <table class="table table-hover table-transactions">
-                <tbody>
-                    <tr ng-repeat="category in inactiveCategories">
-                        <td class="account">
-                            <div class="font-11 color-blue-grey-lighter uppercase">Category</div>
-                            {{ category.hierarchy.join(', ') }}
-                        </td>
-                        <td>
-                            <div class="font-11 color-blue-grey-lighter uppercase">Type</div>
-                            {{ category.type | capitalize }}
-                        </td>
-                        <td>
-                            <div class="font-11 color-blue-grey-lighter uppercase">Spent</div>
-                            {{ 0 | currency  }}
                         </td>
                         <td>
                             <div class="font-11 color-blue-grey-lighter uppercase">Options</div>

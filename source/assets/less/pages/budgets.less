@@ -8,42 +8,30 @@
         }
     }
 
-    .editable-wrap {
-        .editable-controls > input {
-            border: inherit;
-            font: inherit;
-        }
-    }
-
-    .editable-click, a.editable-click {
-        color: inherit;
-        border: inherit;
-    }
-
     section.scenario {
         border-left: 4px solid #1A91EB;
 
-        .edit {
-            display: none;
-            float: left;
-            margin: 5px 10px;
-            font-size: 14px;
-        }
-
-        &:hover {
-            .edit {
-                display: block;
-                transition: 1s all;
-
-                &:hover {
-                    color: @color-blue !important;
-                    cursor: pointer;
-                }
-            }
-        }
-
         header {
             height: 82px;
+
+            .editable-controls {
+                input {
+                    font-weight: 600;
+                }
+            }
+
+            .editable-tray {
+                display: none;
+                float: left;
+                margin: 5px 10px;
+                font-size: 14px;
+            }
+
+            &:hover {
+                .editable-tray {
+                    display: block;
+                }
+            }
 
             .tbl-row {
                 height: 100%;
@@ -112,8 +100,50 @@
 
             td {
                 height: 70px;
+
                 &:first-child {
                     padding-left: 25px;
+                }
+
+                &.allowance {
+                    position: relative;
+
+                    .editable {
+                        display: inline-block;
+                        position: relative;
+                    }
+
+                    .editable-tray {
+                        display: none;
+                        position: absolute;
+                        margin-left: 5px;
+                        right: -20px;
+                        top: 0;
+                    }
+
+                    &:hover {
+                        .editable-tray {
+                            display: inline;
+                        }
+                    }
+
+
+                    .editable-controls {
+                        position: relative;
+
+                        input {
+                            margin: 0;
+                        }
+
+                        .editable-buttons {
+                            position: absolute;
+                            right: -50px;
+                        }
+                    }
+
+                    form, input {
+                        width: 50px;
+                    }
                 }
             }
         }
