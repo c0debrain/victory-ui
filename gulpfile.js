@@ -1,7 +1,7 @@
 // Environment Variables
 var env = require('node-env-file')
-env(__dirname + '/.environment/.public.env')
-env(__dirname + '/.environment/.private.env')
+env(__dirname + '/.environment/public.env')
+env(__dirname + '/.environment/private.env')
 
 // Dependencies
 var path            = require('path');
