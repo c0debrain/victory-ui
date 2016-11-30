@@ -1,7 +1,7 @@
 angular.module('app.controllers')
-    .controller('controllers.navigation', NavigationController);
+    .controller('controllers.navigation', NavigationController)
 
-NavigationController.$inject = ['$scope'];
+NavigationController.$inject = ['$scope']
 
 function NavigationController($scope) {
     $scope.menu = [
@@ -25,5 +25,5 @@ function NavigationController($scope) {
             title: "Forecast",
             url: "app.forecast"
         }
-    ];
+    ]
 }

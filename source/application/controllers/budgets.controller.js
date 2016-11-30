@@ -87,23 +87,29 @@ function BudgetsController(
     $scope.pullScenarios()
 
     /**
-     * Pull in all categories
-     * @type {[type]}
+     * Pull in all categories that have transactions and append those transactions
+     * to the existing categories from the rootScope
      */
-    Category.allWithTransactions(function(response) {
-        if (response.status === 'error') {
-            Notification.create('warning', 'Failed to pull categories.', 0)
-        }
+    Category.allWithTransactions({ required: true }, function(response) {
+        console.log('Category Service Response: ', response.data, $scope.categories, $rootScope.categories)
 
         // Accumulate transaction amounts
-        response.data.map(function(category) {
-            category.total = category.transactions.reduce(function(previous, current) {
+        response.data.map(function(retrievedCategory) {
+            retrievedCategory.total = retrievedCategory.transactions.reduce(function(previous, current) {
                 return previous + current.amount
             }, 0)
-        })
 
-        console.log('Category Service Response: ', response.data)
-        $scope.categories = response.data
+            // Overwrite categories from rootScope
+            $scope.categories = $rootScope.categories.map(function(category) {
+                if (category.id === retrievedCategory.id) {
+                    Object.keys(retrievedCategory).forEach(function(key) {
+                        category[key] = retrievedCategory[key]
+                    })
+                }
+
+                return category
+            })
+        })
     })
 
 

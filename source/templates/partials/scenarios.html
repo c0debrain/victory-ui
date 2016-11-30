@@ -93,16 +93,17 @@
         >
             <thead>
                 <tr>
-                    <th st-sort="category" style="width: 30%;">Category</th>
+                    <th st-sort="category" style="width: 25%;">Category</th>
+                    <th colspan="1" style="width: 15%;"></th>
                     <th st-sort="progress" style="width: 25%;">Progress</th>
-                    <th colspan="2" style="width: 30%;"></th>
+                    <th colspan="1" style="width: 15%;"></th>
                     <!-- <th style="width: 5%;"></th> -->
                 </tr>
             </thead>
             <tbody ui-tree-nodes ng-model="scenario.budgets">
                 <tr
                     class="budget"
-                    ng-repeat="budget in scenario.budgets | orderBy: 'created_at'"
+                    ng-repeat="budget in scenario.budgets | orderBy: ['created_at']"
                     ui-tree-node
                     ng-class="{ 'unassigned': budget.incomplete }"
                 >
@@ -153,6 +154,11 @@
                         </span>
                     </td>
 
+                    <td class="text-right" style="width: 15%">
+                        <div class="font-11 color-blue-grey-lighter uppercase">{{ budget.allowance > 0 ? 'Earned' : 'Spent' }}</div>
+                        {{ budget.total | currency }}
+                    </td>
+
                     <td>
                         <div class="progress-with-amount">
                             <uib-progressbar
@@ -160,18 +166,12 @@
                                 value="budget.progress"
                                 max="100"
                                 ng-class="{
-                                    'progress-success': (budget.progress < 90),
-                                    'progress-warning': (budget.progress > 90 && budget.progress < 100),
-                                    'progress-danger': (budget.progress > 100)
+                                    'progress-success income': (budget.total > 0),
+                                    'progress-danger expense': (budget.total < 0)
                                 }">
                             </uib-progressbar>
                             <div class="progress-with-amount-number">{{ budget.progress | numberPadding: 2 }}%</div>
                         </div>
-                    </td>
-
-                    <td class="text-right" style="width: 15%">
-                        <div class="font-11 color-blue-grey-lighter uppercase">{{ budget.allowance > 0 ? 'Earned' : 'Spent' }}</div>
-                        {{ budget.total | currency }}
                     </td>
 
                     <td class="text-left allowance" style="width: 15%">

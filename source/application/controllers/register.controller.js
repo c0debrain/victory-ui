@@ -1,5 +1,5 @@
 angular.module('app.controllers')
-    .controller('controllers.register', RegisterController);
+    .controller('controllers.register', RegisterController)
 
 RegisterController.$inject = [
     '$rootScope',
@@ -10,7 +10,7 @@ RegisterController.$inject = [
     'services.notification',
     'services.user',
     'services.authentication'
-];
+]
 
 function RegisterController(
     $rootScope,
@@ -26,7 +26,7 @@ function RegisterController(
     // Trigger create new user process
     this.register = function(email, password) {
         // Clear all notifications first
-        Notification.clear();
+        Notification.clear()
 
         // Make request to create new user
         UserService.create({
@@ -40,19 +40,19 @@ function RegisterController(
 
             // Retrieve auth_token for newly created user && log them in
             }, function success(response) {
-                $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token.auth_token;
-                $cookieStore.put('token', response.data.token.auth_token);
-                $cookieStore.put('user', response.data.user);
-                $rootScope.token = response.data.token.auth_token;
-                $rootScope.user = response.data.user;
-                $state.go('app.overview');
+                $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token.auth_token
+                $cookieStore.put('token', response.data.token.auth_token)
+                $cookieStore.put('user', response.data.user)
+                $rootScope.token = response.data.token.auth_token
+                $rootScope.user = response.data.user
+                $state.go('app.overview')
 
             }, function error(response) {
-                Notification.create('warning', 'Failed to authenticate with newly created credentials.', 0);
-            });
+                Notification.create('warning', 'Failed to authenticate with newly created credentials.', 0)
+            })
 
         }, function error(response) {
-            Notification.create('warning', 'User registered with that email already exists.', 0);
-        });
-    };
+            Notification.create('warning', 'User registered with that email already exists.', 0)
+        })
+    }
 }
