@@ -12,6 +12,14 @@ function PlaidService($resource, Environment) {
         exchange: {
             url: Environment.api.path + '/plaid/exchange',
             method: 'POST'
+        },
+        getAccounts: {
+            url: Environment.api.path + '/plaid/accounts',
+            method: 'GET'
+        },
+        getTransactions: {
+            url: Environment.api.path + '/plaid/transactions',
+            method: 'GET'
         }
     })
 }

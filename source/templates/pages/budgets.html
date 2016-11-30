@@ -6,7 +6,7 @@
                     <h1>Budgets</h1>
                 </div>
 
-                <div class="col-md-3 text-right">
+                <div class="col-md-3 text-right" ng-show="active === 1">
                     <div class="input-group date">
                         <input id ="transaction-range-picker" date-range-picker class="form-control date-picker" type="text" ng-model="dates" options="datePickerOptions" />
                         <span class="input-group-addon" ng-click="showDatepicker()">
@@ -19,8 +19,8 @@
             <div class="row row-white row-tabs">
                 <div class="col-md-12">
                     <ul>
-                        <li ng-click="active = 1" ng-class="{ 'active': (active == 1) }">Scenarios</li>
-                        <li ng-click="active = 2" ng-class="{ 'active': (active == 2) }">Categories</li>
+                        <li ng-click="active = 1" ng-class="{ 'active': (active === 1) }">Scenarios</li>
+                        <li ng-click="active = 2" ng-class="{ 'active': (active === 2) }">Categories</li>
                     </ul>
                 </div>
             </div>

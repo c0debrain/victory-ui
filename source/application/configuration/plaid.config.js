@@ -26,9 +26,40 @@ function PlaidConfiguration(
         function success(token) {
             Plaid.exchange({ public_token: token }, function(resPromise) {
                 return resPromise.$promise.then(function(response) {
-                    if (response.status === 'success') {
-                        $rootScope.$emit('plaidConnect')
-                    }
+                    console.log('Plaid Connect Service Response: ', response.data)
+
+                    Plaid.getAccounts(function(response) {
+                        console.log('Plaid Accounts Service Response: ', response.data)
+
+                        // If any accounts were returned by the linked institution
+                        if (response.data.length > 0) {
+
+                            // Let's not forget that the request returns an array
+                            // of access tokens which each contain accounts
+                            response.data.forEach(function(tokenResponse) {
+                                tokenResponse.data.forEach(function(account) {
+                                    $rootScope.accounts.push(account)
+                                })
+                            })
+
+                            // Only bother with transactions if accounts were returned
+                            Plaid.getTransactions(function(response) {
+                                console.log('Plaid Transactions Service Response: ', response.data)
+
+                                // If transactions were returned, push them to global transactions
+                                if (response.data.length > 0) {
+
+                                    // Let's not forget that the request returns an array
+                                    // of access tokens which each contain transactions
+                                    response.data.forEach(function(tokenResponse) {
+                                        tokenResponse.data.forEach(function(transaction) {
+                                            $rootScope.transactions.push(transaction)
+                                        })
+                                    })
+                                }
+                            })
+                        }
+                    })
                 })
             })
         },
