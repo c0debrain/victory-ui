@@ -2,26 +2,26 @@
     <div class="container-fluid m-b-20">
         <section class="page-control">
             <div class="row row-white row-title">
-                <div class="col-md-12">
-                    <h1>Budgets</h1>
-                </div>
-            </div>
-
-            <div class="row row-white row-tabs">
                 <div class="col-md-9">
-                    <ul>
-                        <li ng-click="active = 1" ng-class="{ 'active': (active == 1) }">Scenarios</li>
-                        <li ng-click="active = 2" ng-class="{ 'active': (active == 2) }">Categories</li>
-                    </ul>
+                    <h1>Budgets</h1>
                 </div>
 
                 <div class="col-md-3 text-right">
-                    <div class="input-group date pt-1">
+                    <div class="input-group date">
                         <input id ="transaction-range-picker" date-range-picker class="form-control date-picker" type="text" ng-model="dates" options="datePickerOptions" />
                         <span class="input-group-addon" ng-click="showDatepicker()">
                             <i class="fa fa-calendar"></i>
                         </span>
                     </div>
+                </div>
+            </div>
+
+            <div class="row row-white row-tabs">
+                <div class="col-md-12">
+                    <ul>
+                        <li ng-click="active = 1" ng-class="{ 'active': (active == 1) }">Scenarios</li>
+                        <li ng-click="active = 2" ng-class="{ 'active': (active == 2) }">Categories</li>
+                    </ul>
                 </div>
             </div>
 

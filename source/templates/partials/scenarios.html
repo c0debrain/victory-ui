@@ -13,7 +13,8 @@
                         class="editable"
                         editable-text="scenario.name"
                         e-form="editScenario"
-                        onbeforesave="updateScenario(scenario)">
+                        onbeforesave="updateScenario(scenario)"
+                        ng-click="editScenario.$show()">
                         {{ scenario.name }}
                     </h3>
                     <div class="font-11 color-blue-grey-lighter uppercase">Scenario</div>
@@ -61,7 +62,7 @@
                 <span class="actual">{{ (scenario.income.actual + scenario.expense.actual) | currency }}</span>
                 <span class="divider"> / </span>
                 <span class="allowance">{{ (scenario.income.allowance + scenario.expense.allowance) | currency }}</span>
-                <div class="font-11 color-blue-grey-lighter uppercase income">Net Cash Flow</div>
+                <div class="font-11 color-blue-grey-lighter uppercase net">Net Cash Flow</div>
             </div>
 
             <div class="col-md-2 tbl-cell float-md-right text-right statistics">
@@ -75,7 +76,7 @@
                 <span class="actual">{{ scenario.income.actual | currency }}</span>
                 <span class="divider"> / </span>
                 <span class="allowance">{{ scenario.income.allowance | currency }}</span>
-                <div class="font-11 color-blue-grey-lighter uppercase net">Net Income</div>
+                <div class="font-11 color-blue-grey-lighter uppercase income">Net Income</div>
             </div>
         </div>
     </header>
@@ -95,7 +96,7 @@
                     <th st-sort="category" style="width: 30%;">Category</th>
                     <th st-sort="progress" style="width: 25%;">Progress</th>
                     <th colspan="2" style="width: 30%;"></th>
-                    <th style="width: 5%;"></th>
+                    <!-- <th style="width: 5%;"></th> -->
                 </tr>
             </thead>
             <tbody ui-tree-nodes ng-model="scenario.budgets">
@@ -114,7 +115,7 @@
                             onbeforesave="handleBudgetChange(scenario, budget, $data)"
                             ng-click="editBudgetCategory.$show()"
                         >
-                            {{ budget.category.hierarchy.join(', ') || 'None' }}
+                            {{ budget.category.hierarchy.join(' > ') || 'None' }}
                             <div class="editable-tray">
                                 <i
                                     class="fa fa-pencil edit color-blue-grey-lighter"
@@ -178,7 +179,8 @@
                         <span class="editable"
                             editable-number="budget.allowance"
                             e-form="editBudgetAllowance"
-                            onbeforesave="handleBudgetChange(scenario, budget, budget.category)">
+                            onbeforesave="handleBudgetChange(scenario, budget, budget.category)"
+                            ng-click="editBudgetAllowance.$show()">
                             {{ budget.allowance | currency }}
 
                             <div class="editable-tray">
@@ -192,9 +194,9 @@
 
                     </td>
 
-                    <td class="text-center list-transactions">
+                    <!-- <td class="text-center list-transactions">
                         <i class="fa fa-2x fa-bars" ng-click="showTransactions(budget)"></i>
-                    </td>
+                    </td> -->
                 </tr>
             </tbody>
             <tfoot>

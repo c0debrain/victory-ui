@@ -256,14 +256,11 @@ function BudgetsController(
      * Create a new Scenario and append it to the $scope list
      */
     $scope.createScenario = function() {
-        var newScenario = new Scenario({ name: 'New Scenario' })
-
         // Creates and calculates nets for our one Scenario, which will involve
         // simply adding the net properties and setting them to zero
-        newScenario.$save()
-            .then(function(response) {
-                $scope.scenarios.push(Scenario.allVirtuals([response.data])[0])
-            })
+        new Scenario({ name: 'New Scenario' }).$save().then(function(response) {
+            $scope.scenarios.push(Scenario.virtuals(response.data))
+        })
     }
 
 
@@ -271,8 +268,13 @@ function BudgetsController(
      * Update an existing Scenario, called by inline editing
      */
     $scope.updateScenario = function(scenario) {
-        Scenario.update({ id: scenario.id }, scenario)
-        scenario = Scenario.virtuals(scenario)
+        Scenario.update({ id: scenario.id }, scenario, function(response) {
+            Object.keys(response.data).forEach(function(key) {
+                scenario[key] = response.data[key]
+            })
+
+            scenario = Scenario.virtuals(scenario)
+        })
     }
 
 

@@ -2,8 +2,17 @@
     <div class="container-fluid m-b-20">
         <section class="page-control">
             <div class="row row-white row-title">
-                <div class="col-md-12">
+                <div class="col-md-9">
                     <h1>Transactions</h1>
+                </div>
+
+                <div class="col-md-3 text-right">
+                    <div class="input-group date">
+                        <input id ="transaction-range-picker" date-range-picker class="form-control date-picker" type="text" ng-model="dates" options="datePickerOptions" />
+                        <span class="input-group-addon" ng-click="showDatepicker()">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -16,31 +25,33 @@
                 </div>
             </div>
 
-            <div class="row row-gray row-filters">
-                <div class="col-md-3">
-                    <div class="filter">
-                        <div class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
-                            <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
+            <!--
+                <div class="row row-gray row-filters">
+                    <div class="col-md-3">
+                        <div class="filter">
+                            <div class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
+                                <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                </button>
 
-                            <div class="dropdown-menu" uib-dropdown-menu="" role="menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
+                                <div class="dropdown-menu" uib-dropdown-menu="" role="menu">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Separated link</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-4 pull-right">
-                    <div class="search">
-                        <input type="text" class="form-control" placeholder="Search transactions">
+                    <div class="col-md-4 pull-right">
+                        <div class="search">
+                            <input type="text" class="form-control" placeholder="Search transactions">
+                        </div>
                     </div>
                 </div>
-            </div>
+            -->
         </section>
     </div>
 
@@ -52,14 +63,6 @@
                         <div class="tbl-row">
                             <div class="tbl-cell tbl-cell-title">
                                 <h3>Recent Transactions</h3>
-                            </div>
-
-                            <div class="tbl-cell text-right">
-                                <a class="filter-toggle toggled-off" ng-click="toggleControls()" ng-class="{
-                                        'toggled-off': (!showControls)
-                                    }">
-                                    <i class="fa fa-filter"></i>
-                                </a>
                             </div>
                         </div>
                     </header>
@@ -76,7 +79,7 @@
                                         <th st-sort="account">Account</th>
                                         <th st-sort="amount" style="width: 100px;">Amount</th>
                                     </tr>
-                                    <tr ng-show="showControls">
+                                    <tr>
                                         <th></th>
                                         <th>
                                             <st-date predicate="date"></st-date>

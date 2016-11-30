@@ -9,7 +9,7 @@ CoreController.$inject = ['$scope', '$rootScope', '$state'];
 */
 function CoreController($scope, $rootScope, $state) {
     $rootScope.app = {
-        name: 'NOC Dashboard',
+        name: 'Victory',
         description: 'Your all-in-one financial tracking, management and advising platform.'
     };
 
