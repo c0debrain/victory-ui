@@ -20,12 +20,35 @@
         button {
             background: transparent;
             border: none;
-            margin: 0 5px;
+            margin: 0 3px;
             color: @color-grey-blue;
 
             &:hover {
                 color: @color-blue !important;
                 cursor: pointer;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        * {
+            transition: all .1ms linear;
+            -webkit-transition: all .1ms linear;
+            -moz-transition: all .1ms linear;
+            -o-transition: all .1ms linear;
+        }
+
+        li {
+            padding: 10px;
+            transition: 0s all;
+
+            &:hover, &.active {
+                background-color: @color-bg-blue;
+                cursor: pointer;
+
+                a {
+                    color: @color-white;
+                }
             }
         }
     }
@@ -41,8 +64,25 @@
         margin-right: 5px;
 
         &:hover {
-                color: @color-blue !important;
-                cursor: pointer;
+            cursor: pointer;
+        }
+    }
+
+    .edit {
+        &:hover {
+            color: @color-blue !important;
+        }
+    }
+
+    .copy {
+        &:hover {
+            color: @color-green !important;
+        }
+    }
+
+    .delete {
+        &:hover {
+            color: @color-red !important;
         }
     }
 }
