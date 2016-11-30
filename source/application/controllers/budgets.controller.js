@@ -50,6 +50,7 @@ function BudgetsController(
 
             console.log('Scenario Service Response: ', response.data)
             $scope.scenarios = Scenario.allVirtuals(response.data)
+            console.log('Scenario w/ Virtuals: ', $scope.scenarios)
         })
     }
 
@@ -147,16 +148,63 @@ function BudgetsController(
 
 
     /**
+     * Calculates all the virtual fields for all Budgets provided
+     *
+     * @param   [budgets]   all Budgets to calculate
+     * @return  [budgets]   all Budgets with virtual fields
+     */
+    Budget.allVirtuals = function(budgets) {
+        return budgets.map(function(budget) {
+            return Budget.virtuals(budget)
+        })
+    }
+
+
+    /**
+     * Calculates all the virtual fields for a Budget; are only existant
+     * on the client-side and are determined by other real values that are
+     * stored in the database. These fields cannot be persisted and must be
+     * recalculated on page load and on certain page events.
+     *
+     * Virtual Fields:
+     * @param budget.type
+     * @param budget.total
+     * @param budget.progress
+     */
+    Budget.virtuals = function(budget) {
+        // Set default virtual properties
+        budget.total = 0
+        budget.progress = 0
+
+        // Only if category has transactions
+        // Iterate through transactions and accumulate
+        if (budget.category.transactions) {
+            budget.total = budget.category.transactions.reduceRight(function(previous, current) {
+                return previous + current.amount
+            }, 0)
+        }
+
+        // Don't bother calculating budget progress if no allowance is set
+        if (budget.allowance !== 0 && budget.allowance) {
+            budget.progress = Math.round((budget.total / budget.allowance) * 100)
+        }
+
+        return budget
+    }
+
+
+    /**
      * Calculates all the virtual fields for all Scenarios
      *
-     * @param  {[type]} scenarios   all scenarios to calculate
-     * @return {[type]}             scenarios with net calculations
+     * @param   [scenarios]     all Scenarios to calculate
+     * @return  [scenarios]     all Scenarios with virtual fields
      */
     Scenario.allVirtuals = function(scenarios) {
         return scenarios.map(function(scenario) {
             return Scenario.virtuals(scenario)
         })
     }
+
 
     /**
      * Calculates all the virtual fields for a Scenario; are only existant
@@ -169,51 +217,36 @@ function BudgetsController(
      * @param scenario.income.allowance
      * @param scenario.expenditure.actual
      * @param scenario.expenditure.allowance
-     * @param budget.type
-     * @param budget.total
-     * @param budget.progress
      */
     Scenario.virtuals = function(scenario) {
-        scenario.creatingBudget = false
-
+        // Set default virtual properties
         scenario.income = {
             actual: 0,
             allowance: 0
         }
-
-        scenario.expenditure = {
+        scenario.expense = {
             actual: 0,
             allowance: 0
         }
 
-        if (!scenario.budgets) {
-            scenario.budgets = [];
-            return scenario
-        }
+        // Only perform this map if the scenario has a budgets property
+        if (scenario.budgets) {
+            scenario.budgets = Budget.allVirtuals(scenario.budgets)
 
-        scenario.budgets.map(function(budget) {
-            budget.total = 0
-
-            budget.category.transactions.forEach(function(transaction) {
-                if (transaction.amount > 0) {
-                    scenario.income.actual += transaction.amount
-                } else if (transaction.amount < 0) {
-                    scenario.expenditure.actual += transaction.amount
+            scenario.budgets.forEach(function(budget) {
+                if ((budget.total !== 0 ? budget.total : budget.allowance) > 0) {
+                    scenario.income.actual += budget.total
+                    scenario.income.allowance += budget.allowance
+                } else if ((budget.total !== 0 ? budget.total : budget.allowance) <= 0) {
+                    scenario.expense.actual += budget.total
+                    scenario.expense.allowance += budget.allowance
                 }
-
-                budget.total += transaction.amount
             })
 
-            if (budget.type === 'income') {
-                scenario.income.allowance += budget.allowance
-            } else if (budget.type === 'expense') {
-                scenario.expenditure.allowance += budget.allowance
-            }
-
-            budget.progress = Math.round((Math.abs(budget.total) / Math.abs(budget.allowance)) * 100)
-
-            return budget
-        })
+        // Otherwise assign an empty array of Budgets
+        } else {
+            scenario.budgets = []
+        }
 
         return scenario
     }
@@ -239,7 +272,7 @@ function BudgetsController(
      */
     $scope.updateScenario = function(scenario) {
         Scenario.update({ id: scenario.id }, scenario)
-        $scope.scenarios = Scenario.allVirtuals($scope.scenarios)
+        scenario = Scenario.virtuals(scenario)
     }
 
 
@@ -258,64 +291,77 @@ function BudgetsController(
      * Create a new Budget and append it to the $scope list
      */
     $scope.toggleCreateBudget = function(scenario) {
-        scenario.budgets.push({
-            hierarchy: ['Set Category'],
+        var budget = Budget.virtuals({
+            category: {
+                hierarchy: ['Set Category'],
+                transactions: []
+            },
+            total: 0,
             allowance: 0,
-            transactions: []
+            scenario_id: scenario.id,
+            incomplete: true
+        })
+
+        scenario.budgets.push(budget)
+    }
+
+    $scope.createBudget = function(scenario, budget) {
+        new Budget(budget).$save().then(function(response) {
+            Object.keys(response.data).forEach(function(key) {
+                budget[key] = response.data[key]
+            })
+
+            scenario = Scenario.virtuals(scenario)
         })
     }
 
-    $scope.createBudget = function(budget) {
-        var newBudget = new Budget(budget)
-
-        return newBudget.$save()
-            .then(function(response) {
-                return response.data
-            })
-    }
-
-    $scope.updateBudget = function(budget) {
+    $scope.updateBudget = function(scenario, budget) {
         Budget.update({ id: budget.id }, budget, function(response) {
-            return response.data
+            Object.keys(response.data).forEach(function(key) {
+                budget[key] = response.data[key]
+            })
+
+            scenario = Scenario.virtuals(scenario)
         })
     }
 
     /**
      * Update an existing Budget, called by inline editing
      */
-    $scope.handleBudgetChange = function(budget, category) {
+    $scope.handleBudgetChange = function(scenario, budget, category) {
         console.log(budget)
 
         // Overwrite the category & ID with it's association
         budget.category_id = category.id
 
         if (budget.id) {
-            $scope.updateBudget(budget)
-            budget.category = category
+            $scope.updateBudget(scenario, budget)
+            console.log('Budget updated: ', budget)
         } else {
-            budget = $scope.createBudget(budget)
+            $scope.createBudget(scenario, budget)
+            console.log('Budget created: ', budget)
         }
 
-        console.log('Updated / Created Budget: ', budget)
+        budget.incomplete = false
 
-        $scope.scenarios = Scenario.allVirtuals($scope.scenarios)
+        console.log('Updated / Created Budget: ', budget)
     }
 
 
     /**
      * Delete an existing Budget, called by row dropdown
      */
-    $scope.deleteBudget = function(budget) {
-        Budget.delete({ id: budget.id }, budget)
+    $scope.deleteBudget = function(scenario, budget) {
+        if (budget.id) {
+            Budget.delete({ id: budget.id }, budget)
+        }
 
-        $scope.scenarios = $scope.scenarios.map(function(scenario) {
-            scenario.budgets = scenario.budgets.filter(function(item) {
-                return item.id !== budget.id
-            })
-
-            return scenario
+        // If the budget has an ID, strip it out of the scenario based on it; If
+        // not, strip out the incomplete budget as this is the target of the deletion
+        scenario.budgets = scenario.budgets.filter(function(item) {
+            return (budget.id ? (item.id !== budget.id) : (item.incomplete !== true))
         })
 
-        $scope.scenarios = Scenario.allVirtuals($scope.scenarios)
+        scenario = Scenario.virtuals(scenario)
     }
 }

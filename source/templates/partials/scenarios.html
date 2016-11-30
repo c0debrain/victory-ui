@@ -58,17 +58,17 @@
             </div>
 
             <div class="col-md-2 tbl-cell float-md-right text-right mr-2 statistics">
-                <span class="actual">{{ (scenario.income.actual + scenario.expenditure.actual) | currency }}</span>
+                <span class="actual">{{ (scenario.income.actual + scenario.expense.actual) | currency }}</span>
                 <span class="divider"> / </span>
-                <span class="allowance">{{ (scenario.income.allowance + scenario.expenditure.allowance) | currency }}</span>
+                <span class="allowance">{{ (scenario.income.allowance + scenario.expense.allowance) | currency }}</span>
                 <div class="font-11 color-blue-grey-lighter uppercase income">Net Cash Flow</div>
             </div>
 
             <div class="col-md-2 tbl-cell float-md-right text-right statistics">
-                <span class="actual">{{ scenario.expenditure.actual | currency }}</span>
+                <span class="actual">{{ scenario.expense.actual | currency }}</span>
                 <span class="divider"> / </span>
-                <span class="allowance">{{ scenario.expenditure.allowance | currency }}</span>
-                <div class="font-11 color-blue-grey-lighter uppercase expenditure">Net Expenditure</div>
+                <span class="allowance">{{ scenario.expense.allowance | currency }}</span>
+                <div class="font-11 color-blue-grey-lighter uppercase expense">Net Expense</div>
             </div>
 
             <div class="col-md-2 tbl-cell float-md-right text-right statistics">
@@ -100,8 +100,10 @@
             </thead>
             <tbody ui-tree-nodes ng-model="scenario.budgets">
                 <tr
+                    class="budget"
                     ng-repeat="budget in scenario.budgets | orderBy: 'created_at'"
                     ui-tree-node
+                    ng-class="{ 'unassigned': budget.incomplete }"
                 >
                     <td class="category" ng-hide="budget.gettingDeleted">
                         <div ng-if="budget.type" class="font-11 color-blue-grey-lighter uppercase">{{ budget.type | capitalize }}</div>
@@ -109,7 +111,7 @@
                             editable-text="budget.category"
                             e-form="editBudgetCategory"
                             e-uib-typeahead="category as category.hierarchy[category.hierarchy.length - 1] for category in categories | filter: $viewValue | limitTo: 8"
-                            onbeforesave="handleBudgetChange(budget, $data)"
+                            onbeforesave="handleBudgetChange(scenario, budget, $data)"
                             ng-click="editBudgetCategory.$show()"
                         >
                             {{ budget.category.hierarchy.join(', ') || 'None' }}
@@ -134,23 +136,34 @@
                     <td ng-show="budget.gettingDeleted" class="delete-prompt">
                         <i class="fa fa-lg fa-warning color-red"></i>
                         <span>Are you sure you want to delete this budget?</span>
-                        <span class="color-blue-grey-lighter confirm" ng-click="deleteBudget(budget)">Yes</span>
-                        <span class="color-blue-grey-lighter cancel" ng-click="budget.gettingDeleted = false">No</span>
+                        <span class="prompt-actions">
+                            <button
+                                class="fa fa-check color-blue-grey-lighter confirm"
+                                title="Confirm"
+                                aria-label="Confirm"
+                                ng-click="deleteBudget(scenario, budget)">
+                            </button>
+                            <button
+                                class="fa fa-times color-blue-grey-lighter cancel"
+                                title="Cancel"
+                                aria-label="Cancel"
+                                ng-click="budget.gettingDeleted = false">
+                            </button>
+                        </span>
                     </td>
 
                     <td>
                         <div class="progress-with-amount">
-                            <progress
+                            <uib-progressbar
                                 class="progress progress-success progress-no-margin"
-                                value="{{ budget.progress >= 100 ? 100 : budget.progress }}"
+                                value="budget.progress"
                                 max="100"
                                 ng-class="{
                                     'progress-success': (budget.progress < 90),
                                     'progress-warning': (budget.progress > 90 && budget.progress < 100),
                                     'progress-danger': (budget.progress > 100)
                                 }">
-                                {{ budget.progress | numberPadding: 2 }}
-                            </progress>
+                            </uib-progressbar>
                             <div class="progress-with-amount-number">{{ budget.progress | numberPadding: 2 }}%</div>
                         </div>
                     </td>
@@ -165,7 +178,7 @@
                         <span class="editable"
                             editable-number="budget.allowance"
                             e-form="editBudgetAllowance"
-                            onbeforesave="handleBudgetChange(budget, budget.category)">
+                            onbeforesave="handleBudgetChange(scenario, budget, budget.category)">
                             {{ budget.allowance | currency }}
 
                             <div class="editable-tray">

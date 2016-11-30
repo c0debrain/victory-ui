@@ -329,3 +329,29 @@ a.btn-square-icon {
     color: @color-grey-blue-txt;
     padding-top: 11px;
 }
+
+// TODO: Make this like the other buttons
+
+.btn-regular {
+    /* Base: */
+    background-image: linear-gradient(0deg, #F2F4F7 0%, #FFFFFF 100%);
+    border: 1px solid #CED0DA;
+    border-radius: 4px;
+    position: relative;
+
+    /* Actions: */
+    font-family: @font-text;
+    font-size: 14px;
+    color: #354052;
+    line-height: 19px;
+    padding-right: 35px;
+
+    &:before {
+        /* Arrow: */
+        font-family: FontAwesome;
+        content: "\f107";
+        position: absolute;
+        right: 0;
+        padding-right: 10px;
+    }
+}

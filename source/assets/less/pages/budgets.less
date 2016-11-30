@@ -42,7 +42,7 @@
                     border-color: @color-green;
                 }
 
-                .expenditure {
+                .expense {
                     border-color: @color-red;
                 }
 
@@ -108,30 +108,6 @@
         }
 
         .table-budgets {
-            button.btn-regular {
-                /* Base: */
-                background-image: linear-gradient(0deg, #F2F4F7 0%, #FFFFFF 100%);
-                border: 1px solid #CED0DA;
-                border-radius: 4px;
-                position: relative;
-
-                /* Actions: */
-                font-family: @font-text;
-                font-size: 14px;
-                color: #354052;
-                line-height: 19px;
-                padding-right: 35px;
-
-                &:before {
-                    /* Arrow: */
-                    font-family: FontAwesome;
-                    content: "\f107";
-                    position: absolute;
-                    right: 0;
-                    padding-right: 10px;
-                }
-            }
-
             th {
                 padding-bottom: 7px;
                 padding-top: 6px;
@@ -141,77 +117,138 @@
                 }
             }
 
-            td {
-                height: 70px;
-
-                &:first-child {
-                    padding-left: 25px;
-                }
-
-                &.category,
-                &.allowance {
-                    position: relative;
-
-                    .editable {
-                        display: inline-block;
-                        position: relative;
-                    }
-
-                    .editable-tray {
-                        display: none;
-                        position: absolute;
-                        margin-left: 5px;
-                        right: -25px;
-                        top: 0;
-                    }
-
-                    &:hover {
+            .budget {
+                &.unassigned {
+                    td.category {
                         .editable-tray {
-                            display: inline;
+                            right: -50px;
+
+                            i.copy {
+                                display: none !important;
+                            }
+
+                        }
+
+                        span.editable {
+                            font-style: italic;
                         }
                     }
 
-                    .editable-controls {
+                    td:not(.category):not(.delete-prompt) {
+                        -webkit-filter: blur(3px);
+                        -moz-filter: blur(3px);
+                        -ms-filter: blur(3px);
+                        -o-filter: blur(3px);
+                        filter: blur(3px);
+
+                        -webkit-user-select: none; /* Chrome/Safari */
+                        -moz-user-select: none; /* Firefox */
+                        -ms-user-select: none; /* IE10+ */
+
+                        /* Rules below not implemented in browsers yet */
+                        -o-user-select: none;
+                        user-select: none;
+
+                        cursor: default !important;
                         position: relative;
 
-                        .editable-buttons {
+                        &.list-transactions {
+                            i {
+                                display: none;
+                            }
+                        }
+
+                        &.allowance {
+                            .editable-tray {
+                                display: none !important;
+                            }
+                        }
+
+                        &:before {
+                            content: '';
+                            background: transparent;
+                            z-index: 5;
                             position: absolute;
-                            right: -50px;
+                            height: 100%;
+                            width: 100%;
+                            top: 0;
+                            left: 0;
+                        }
+                    }
+                }
+
+                td {
+                    height: 70px;
+
+                    &:first-child {
+                        padding-left: 25px;
+                    }
+
+                    &.category,
+                    &.allowance {
+                        position: relative;
+
+                        .editable {
+                            display: inline-block;
+                            position: relative;
+                        }
+
+                        .editable-tray {
+                            display: none;
+                            position: absolute;
+                            margin-left: 5px;
+                            right: -25px;
+                            top: 0;
+                        }
+
+                        &:hover {
+                            .editable-tray {
+                                display: inline;
+                            }
+                        }
+
+                        .editable-controls {
+                            position: relative;
+
+                            .editable-buttons {
+                                position: absolute;
+                                right: -50px;
+                            }
+                        }
+
+                        input[type="number"]::-webkit-inner-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
+                        }
+
+                        input[type="number"] {
+                            -moz-appearance: textfield;
+                            width: 50px;
                         }
                     }
 
-                    input[type="number"]::-webkit-inner-spin-button {
-                        -webkit-appearance: none;
-                        margin: 0;
+                    &.category {
+                        .editable {
+                            border: none;
+                        }
+
+                        .editable-tray {
+                            right: -75px;
+                        }
+
+                        input {
+                            margin-top: 2px;
+                            width: 250px;
+                        }
                     }
 
-                    input[type="number"] {
-                        -moz-appearance: textfield;
-                        width: 50px;
-                    }
-                }
+                    &.list-transactions {
+                        color: #cbd3da;
 
-                &.category {
-                    .editable {
-                        border: none;
-                    }
-
-                    .editable-tray {
-                        right: -75px;
-                    }
-
-                    input {
-                        margin-top: 2px;
-                        width: 250px;
-                    }
-                }
-
-                &.list-transactions {
-                    color: #cbd3da;
-
-                    &:hover {
-                        color: @color-blue;
-                        cursor: pointer;
+                        &:hover {
+                            color: @color-blue;
+                            cursor: pointer;
+                        }
                     }
                 }
             }
