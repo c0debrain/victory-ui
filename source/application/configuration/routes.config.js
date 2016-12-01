@@ -1,12 +1,12 @@
 angular.module('app')
-    .config(RoutesConfiguration);
+    .config(RoutesConfiguration)
 
 RoutesConfiguration.$inject = [
     '$stateProvider',
     '$urlRouterProvider',
     '$ocLazyLoadProvider',
     '$locationProvider'
-];
+]
 
 function RoutesConfiguration(
     $stateProvider,
@@ -15,10 +15,10 @@ function RoutesConfiguration(
     $locationProvider
 ) {
     // Use the HTML5 History API, remove /# from url
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true)
 
     // Fallback route
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/login')
 
     // States / Routes
     $stateProvider
@@ -30,7 +30,7 @@ function RoutesConfiguration(
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         'application/controllers/application.controller.js'
-                    ]);
+                    ])
                 }]
             },
             data: {
@@ -50,7 +50,7 @@ function RoutesConfiguration(
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'application/controllers/overview.controller.js'
-                        ]);
+                        ])
                     }]
                 }
             })
@@ -65,7 +65,7 @@ function RoutesConfiguration(
                             'application/services/transactions.service.js',
                             'application/services/scenarios.service.js',
                             'application/controllers/transactions.controller.js',
-                        ]);
+                        ])
                     }]
                 }
             })
@@ -80,7 +80,7 @@ function RoutesConfiguration(
                             'application/services/categories.service.js',
                             'application/services/scenarios.service.js',
                             'application/services/budgets.service.js'
-                        ]);
+                        ])
                     }]
                 }
             })
@@ -99,7 +99,7 @@ function RoutesConfiguration(
                             [
                                 'application/controllers/login.controller.js',
                                 'application/services/authentication.service.js'
-                            ]);
+                            ])
                     }]
                 }
             })
@@ -115,8 +115,8 @@ function RoutesConfiguration(
                                 'application/controllers/register.controller.js',
                                 'application/services/users.service.js',
                                 'application/services/authentication.service.js'
-                            ]);
+                            ])
                     }]
                 }
-            });
-};
+            })
+}

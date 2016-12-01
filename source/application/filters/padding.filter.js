@@ -7,10 +7,10 @@ function PaddingFilter() {
         len = parseInt(len, 10)
 
         if (isNaN(num) || isNaN(len)) {
-            return n;
+            return n
         }
 
-        num = '' + num;
+        num = '' + num
         while (num.length < len) {
             num = '0' + num
         }

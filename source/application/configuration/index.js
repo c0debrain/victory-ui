@@ -1,1 +1,1 @@
-angular.module('app.configuration', ['app.environment']);
+angular.module('app.configuration', ['app.environment'])

@@ -1,25 +1,29 @@
-/* ============================================================
- * File: app.js
- * Configure global module dependencies. Page specific modules
- * will be loaded on demand using ocLazyLoad
- * ============================================================ */
-
+/**
+ * This is the main module that all other angular modules are attached to. This
+ * is essentially the application.
+ */
 angular.module('app', [
+
+    // Request Flow
     'ui.router',
-    'oc.lazyLoad',
-    'smart-table',
-    'ngFlash',
-    'ngCookies',
-    'ngResource',
-    'ngAnimate',
-    'ngLetterAvatar',
     'permission',
     'permission.ui',
+    'ngCookies',
+    'ngResource',
+    'oc.lazyLoad',
+
+    // Libraries
+    'ngAnimate',
+    'ui.bootstrap',
     'angularMoment',
     'angular-plaid-link',
-    'ui.bootstrap',
+
+    // Components
+    'ngFlash',
     'ui.tree',
     'xeditable',
+    'smart-table',
+    'ngLetterAvatar',
     'daterangepicker',
 
     // Application Modules
@@ -29,4 +33,5 @@ angular.module('app', [
     'app.services',
     'app.directives',
     'app.filters'
-]);
+
+])

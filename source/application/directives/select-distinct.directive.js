@@ -11,48 +11,48 @@ angular.module('app.directives')
             template: '<select ng-model="selectedOption" ng-change="optionChanged(selectedOption)" ng-options="opt for opt in distinctItems"></select>',
             link: function(scope, element, attr, table) {
                 var getPredicate = function() {
-                    var predicate = scope.predicate;
+                    var predicate = scope.predicate
                     if (!predicate && scope.predicateExpression) {
-                        predicate = scope.predicateExpression;
+                        predicate = scope.predicateExpression
                     }
-                    return predicate;
+                    return predicate
                 }
 
                 scope.$watch('collection', function(newValue) {
-                    var predicate = getPredicate();
+                    var predicate = getPredicate()
 
                     if (newValue) {
-                        var temp = [];
-                        scope.distinctItems = ['All'];
+                        var temp = []
+                        scope.distinctItems = ['All']
 
                         angular.forEach(scope.collection, function(item) {
-                            var value = item[predicate];
+                            var value = item[predicate]
 
                             if (value && value.trim().length > 0 && temp.indexOf(value) === -1) {
-                                temp.push(value);
+                                temp.push(value)
                             }
-                        });
-                        temp.sort();
+                        })
+                        temp.sort()
 
-                        scope.distinctItems = scope.distinctItems.concat(temp);
-                        scope.selectedOption = scope.distinctItems[0];
-                        scope.optionChanged(scope.selectedOption);
+                        scope.distinctItems = scope.distinctItems.concat(temp)
+                        scope.selectedOption = scope.distinctItems[0]
+                        scope.optionChanged(scope.selectedOption)
                     }
-                }, true);
+                }, true)
 
                 scope.optionChanged = function(selectedOption) {
-                    var predicate = getPredicate();
+                    var predicate = getPredicate()
 
-                    var query = {};
+                    var query = {}
 
-                    query.distinct = selectedOption;
+                    query.distinct = selectedOption
 
                     if (query.distinct === 'All') {
-                        query.distinct = '';
+                        query.distinct = ''
                     }
 
-                    table.search(query, predicate);
-                };
+                    table.search(query, predicate)
+                }
             }
         }
-    }]);
+    }])

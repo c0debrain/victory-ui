@@ -1,8 +1,8 @@
 angular.module('app.services')
-    .factory('services.notification', NotificationService);
+    .factory('services.notification', NotificationService)
 
-NotificationService.$inject = ['Flash'];
+NotificationService.$inject = ['Flash']
 
 function NotificationService($Flash) {
-    return $Flash;
+    return $Flash
 }

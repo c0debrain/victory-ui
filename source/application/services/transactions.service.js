@@ -1,7 +1,7 @@
 angular.module('app.services')
-    .factory('services.transaction', TransactionService);
+    .factory('services.transaction', TransactionService)
 
-TransactionService.$inject = ['$resource', 'environment'];
+TransactionService.$inject = ['$resource', 'environment']
 
 function TransactionService($resource, Environment) {
     return $resource(Environment.api.path + '/transactions/self/:id', { id: '@id' },
@@ -18,5 +18,5 @@ function TransactionService($resource, Environment) {
             method: 'GET',
             url: Environment.api.path + '/transactions/self/all'
         }
-    });
+    })
 }

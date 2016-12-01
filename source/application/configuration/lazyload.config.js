@@ -1,9 +1,9 @@
 angular.module('app')
-    .config(LazyloadConfiguration);
+    .config(LazyloadConfiguration)
 
 LazyloadConfiguration.$inject = [
     '$ocLazyLoadProvider'
-];
+]
 
 function LazyloadConfiguration(
     $ocLazyLoadProvider
@@ -29,5 +29,5 @@ function LazyloadConfiguration(
                 ]
             }
         ]
-    });
-};
+    })
+}

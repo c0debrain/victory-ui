@@ -1,7 +1,7 @@
 angular.module('app.services')
-    .factory('services.authentication', AuthenticationService);
+    .factory('services.authentication', AuthenticationService)
 
-AuthenticationService.$inject = ['$resource', 'environment'];
+AuthenticationService.$inject = ['$resource', 'environment']
 
 function AuthenticationService($resource, Environment) {
     return $resource(Environment.api.path + '/authenticate/', {}, {
@@ -9,5 +9,5 @@ function AuthenticationService($resource, Environment) {
             url: Environment.api.path + '/authenticate/',
             method: 'POST'
         }
-    });
+    })
 }

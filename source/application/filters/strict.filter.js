@@ -1,8 +1,8 @@
 angular.module('app.filters')
-    .filter('strictFilter', StrictFilter);
+    .filter('strictFilter', StrictFilter)
 
 function StrictFilter($filter) {
     return function(input, predicate) {
-        return $filter('filter')(input, predicate, true);
+        return $filter('filter')(input, predicate, true)
     }
-};
+}

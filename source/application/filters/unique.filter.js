@@ -1,17 +1,17 @@
 angular.module('app.filters')
-    .filter('unique', UniqueFilter);
+    .filter('unique', UniqueFilter)
 
 function UniqueFilter() {
     return function(arr, field) {
         var o = {},
             i, l = arr.length,
-            r = [];
+            r = []
         for (i = 0; i < l; i += 1) {
-            o[arr[i][field]] = arr[i];
+            o[arr[i][field]] = arr[i]
         }
         for (i in o) {
-            r.push(o[i]);
+            r.push(o[i])
         }
-        return r;
-    };
-};
+        return r
+    }
+}

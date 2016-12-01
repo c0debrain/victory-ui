@@ -1,7 +1,7 @@
 angular.module('app.services')
-    .factory('services.user', UserService);
+    .factory('services.user', UserService)
 
-UserService.$inject = ['$resource', 'environment'];
+UserService.$inject = ['$resource', 'environment']
 
 function UserService($resource, Environment) {
     return $resource(Environment.api.path + '/users/:id', { id: '@id' }, {
@@ -16,5 +16,5 @@ function UserService($resource, Environment) {
             url: Environment.api.path + '/users',
             method: 'POST'
         }
-    });
+    })
 }

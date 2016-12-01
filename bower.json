@@ -1,9 +1,5 @@
 {
-  "name": "angular-scaffolding",
-  "main": [
-    "/dist/angular-scaffolding.min.js",
-    "/dist/angular-scaffolding.min.css"
-  ],
+  "name": "victory-ui",
   "version": "0.1.0",
   "description": "Financial management software.",
   "authors": [
