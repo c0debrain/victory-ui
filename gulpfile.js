@@ -4,57 +4,33 @@ env(__dirname + '/.environment/public.env')
 env(__dirname + '/.environment/private.env')
 
 // Dependencies
-var path            = require('path');
-var gulp            = require('gulp');
-var less            = require('gulp-less');
-var clean           = require('gulp-clean');
-var minifycss       = require('gulp-minify-css');
-var gulpNgConfig    = require('gulp-ng-config');
-var b2v             = require('buffer-to-vinyl');
-var bower           = require('gulp-bower');
-var livereload      = require('gulp-livereload');
-var webserver       = require('gulp-webserver');
-var opn             = require('opn');
-var nodemon         = require('nodemon');
-var changed         = require('gulp-changed');
-var jshint          = require('gulp-jshint');
-var sourcemaps      = require('gulp-sourcemaps');
+var path            = require('path')
+var gulp            = require('gulp')
+var less            = require('gulp-less')
+var clean           = require('gulp-clean')
+var minifycss       = require('gulp-minify-css')
+var gulpNgConfig    = require('gulp-ng-config')
+var b2v             = require('buffer-to-vinyl')
+var bower           = require('gulp-bower')
+var livereload      = require('gulp-livereload')
+var webserver       = require('gulp-webserver')
+var opn             = require('opn')
+var nodemon         = require('nodemon')
+var changed         = require('gulp-changed')
+var jshint          = require('gulp-jshint')
+var sourcemaps      = require('gulp-sourcemaps')
 
 
 // Config Variables --------------------------------------------
 var paths = {
-    dist:           './dist',
+    build:           './.build',
     source:         './source',
     assets:         './source/assets',
     templates:      './source/templates',
     application:    './source/application'
-};
+}
 
-var task = {
-    less: {}
-};
-
-var ignoredFiles = [
-    // Source Directory
-    paths.source + '/**',
-
-    // Not dependencies
-    '!**/node_modules/',
-    '!**/node_modules/**',
-
-    // Not process file
-    '!app.js',
-
-    // Not build files
-    '!.gitgnore',
-    '!package.json',
-    '!Gruntfile.js',
-    '!gulpfile.js',
-
-    // Not LESS directories
-    '!**/**/less/',
-    '!**/**/less/**'
-];
+var task = {}
 
 // Gulp Tasks --------------------------------------------------
 
@@ -66,25 +42,25 @@ gulp.task('less', task.less = function() {
         .pipe(sourcemaps.init())
         .pipe(less({ compress: false }))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.join(paths.dist, '/assets/css')))
-        .pipe(livereload());
-});
-gulp.task('less:copy', ['copy'], task.less);
+        .pipe(gulp.dest(path.join(paths.build, '/assets/css')))
+        .pipe(livereload())
+})
+gulp.task('less:copy', ['copy'], task.less)
 
 
 /*
     Watches for changes in the source directory's LESS files. Transpiles them
-    to CSS. This task makes sure the dist directory has been created first.
+    to CSS. This task makes sure the build directory has been created first.
  */
 gulp.task('watch', task.watch = function() {
-    livereload.listen({ port: 35729 });
+    livereload.listen({ port: 35729 })
 
     // Reload on LESS changes
     gulp.watch([
         paths.source + '/assets/less/*.less',
         paths.source + '/assets/less/**/*.less',
         paths.source + '/assets/less/**/**/*.less'
-    ], ['less']);
+    ], ['less'])
 
     // Reload on HTML & JS changes
     gulp.watch([
@@ -101,19 +77,19 @@ gulp.task('watch', task.watch = function() {
         paths.application   + '/*.js',
         paths.application   + '/**/*.js',
         paths.application   + '/**/**/*.js'
-    ], ['overwrite']);
-});
-gulp.task('watch:copy', ['copy'], task.watch);
-gulp.task('watch:server', ['server'], task.watch);
+    ], ['overwrite'])
+})
+gulp.task('watch:copy', ['copy'], task.watch)
+gulp.task('watch:server', ['server'], task.watch)
 
 
 /*
-    Deletes the dist directory.
+    Deletes the build directory.
  */
 gulp.task('clean', task.clean = function() {
-    return gulp.src(paths.dist, { read: false })
-        .pipe(clean());
-});
+    return gulp.src(paths.build, { read: false })
+        .pipe(clean())
+})
 
 
 /*
@@ -127,29 +103,29 @@ gulp.task('lint', task.lint = function() {
         ])
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
-});
+})
 
 /*
-    Duplicates files that aren't specifically ignored into the dist directory.
-    Deletes the previous dist directory to prevent any collisions.
+    Duplicates files that aren't specifically ignored into the build directory.
+    Deletes the previous build directory to prevent any collisions.
  */
 gulp.task('copy', ['clean'], task.copy = function() {
-    return gulp.src(ignoredFiles)
-        .pipe(gulp.dest(paths.dist))
-        .pipe(livereload());
-});
+    return gulp.src(paths.source + '/**')
+        .pipe(gulp.dest(paths.build))
+        .pipe(livereload())
+})
 
 
 /*
-    Overwrites files in the dist directory with files from the source
+    Overwrites files in the build directory with files from the source
     directory. Primarily intended to be used by livereload.
  */
 gulp.task('overwrite', task.overwrite = function() {
-    return gulp.src(ignoredFiles)
-        .pipe(changed(paths.dist))
-        .pipe(gulp.dest(paths.dist, { overwrite: true }))
-        .pipe(livereload());
-});
+    return gulp.src(paths.source + '/**')
+        .pipe(changed(paths.build))
+        .pipe(gulp.dest(paths.build, { overwrite: true }))
+        .pipe(livereload())
+})
 
 
 /*
@@ -175,13 +151,13 @@ gulp.task('config', task.config = function() {
                 port:           process.env.NODE_PORT
             }
         }
-    });
+    })
 
     return b2v.stream(new Buffer(json), 'environment.js')
         .pipe(gulpNgConfig('app.environment', { pretty: true }))
-        .pipe(gulp.dest(paths.dist + '/application'));
-});
-gulp.task('config:copy',['copy'], task.config);
+        .pipe(gulp.dest(paths.build + '/application'))
+})
+gulp.task('config:copy',['copy'], task.config)
 
 
 /*
@@ -193,7 +169,7 @@ gulp.task('build',
         'less:copy',
         'config:copy'
     ]
-);
+)
 
 
 /*
@@ -201,10 +177,10 @@ gulp.task('build',
  */
 gulp.task('server', ['build'], function() {
     nodemon({
-        script: 'app.js',
+        script: 'server.js',
         ext: 'js html'
-    });
-});
+    })
+})
 
 
 /*
@@ -212,8 +188,8 @@ gulp.task('server', ['build'], function() {
     watcher process has been initiated.
  */
 gulp.task('open:browser', ['server', 'watch'], function() {
-    opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT);
-});
+    opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT)
+})
 
 
 /*
@@ -222,6 +198,6 @@ gulp.task('open:browser', ['server', 'watch'], function() {
  */
 gulp.task('serve', ['server', 'watch:server'], function() {
     setTimeout(function() {
-        opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT);
-    });
-});
+        opn('http://' + process.env.NODE_HOST + ':' + process.env.NODE_PORT)
+    }, 100)
+})

@@ -8,8 +8,7 @@ var express = require('express')
 var colors = require('colors')
 
 // Configuration
-var config = require('./config')()
-var routes = require('./config/routes')
+var config = require('./configuration')()
 
 // Initialize Server
 var app = express()
@@ -18,11 +17,13 @@ var app = express()
 config.middleware(app)
 
 // Initialize Routes
-routes(app)
+app.route('/*').get(function(req, res, next) {
+    res.sendFile('index.html', { root: __dirname + '/.build' })
+})
 
 // Execute Server
-var server = app.listen(config.settings.port, function() {
-    console.log('Listening on port ' + config.settings.port.blue + ' in a ' + process.env.NODE_ENV.blue + ' environment.')
+var server = app.listen(process.env.NODE_PORT, function() {
+    console.log('Listening on port ' + process.env.NODE_PORT.blue + ' in a ' + process.env.NODE_ENV.blue + ' environment.')
 
 }).on('error', function(e) {
     if (e.code == 'EADDRINUSE') {
