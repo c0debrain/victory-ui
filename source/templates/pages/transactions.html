@@ -8,7 +8,7 @@
 
                 <div class="col-md-3 text-right">
                     <div class="input-group date">
-                        <input id ="transaction-range-picker" date-range-picker class="form-control date-picker" type="text" ng-model="dates" options="datePickerOptions" />
+                        <input id="transaction-range-picker" date-range-picker class="form-control date-picker" type="text" ng-model="dates" options="datePickerOptions" />
                         <span class="input-group-addon" ng-click="showDatepicker()">
                             <i class="fa fa-calendar"></i>
                         </span>
@@ -69,7 +69,7 @@
 
                     <div class="box-typical-body">
                         <div class="table-responsive">
-                            <table class="table table-hover table-datatable table-transactions" st-table="transactions" st-safe-src="initialTransactions">
+                            <table class="table table-hover table-datatable table-transactions" st-table="transactions">
                                 <thead>
                                     <tr>
                                         <th style="width: 50px;"></th>
@@ -115,10 +115,11 @@
                                         <td>
                                             <i
                                                 ng-repeat="scenario in item.scenarios"
-                                                title="{{ scenario.name }}"
                                                 class="scenario fa fa-circle-o p-r-5"
                                                 style="color: {{ scenario.color }}"
-                                                aria-hidden="true">
+                                                aria-hidden="true"
+                                                tooltip-is-open="true"
+                                                uib-tooltip="{{ scenario.name }}">
                                             </i>
                                             {{ item.category.hierarchy[item.category.hierarchy.length - 1] || "Uncategorized" }}
                                         </td>
@@ -133,7 +134,12 @@
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr ng-show="transactions.length == 0">
+                                    <tr ng-show="pulledTransactions === false">
+                                        <td colspan="6" class="text-center">
+                                            Loading transactions...
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="pulledTransactions && transactions.length == 0">
                                         <td colspan="6" class="text-center">
                                             No transactions to display.
                                         </td>

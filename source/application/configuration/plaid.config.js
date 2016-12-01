@@ -20,7 +20,8 @@ function PlaidConfiguration(
             clientName: 'Victory Finance',
             env: 'tartan',
             key: 'a1ec13246c76e782666e1bb0bf8c8d',
-            product: 'connect'
+            product: 'connect',
+            longtail: true
         },
 
         function success(token) {

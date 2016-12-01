@@ -27,7 +27,6 @@
     "angular-cookies": "^1.5.8",
     "angular-flash-alert": "^2.3.0",
     "angular-permission": "^4.1.2",
-    "angular-moment": "^0.10.3",
     "angular-plaid-link": "^1.0.0",
     "angular-animate": "^1.5.8",
     "angular-bootstrap": "^2.1.4",
@@ -36,7 +35,8 @@
     "angular-xeditable": "^0.5.0",
     "ng-letter-avatar": "ngletteravatar#^4.0.4",
     "angular-daterangepicker": "^0.2.2",
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "angular-moment": "^1.0.1"
   },
   "devDependencies": {},
   "resolutions": {

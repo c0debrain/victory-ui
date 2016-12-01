@@ -4,6 +4,7 @@ angular.module('app.controllers')
 TransactionsController.$inject = [
     '$scope',
     '$rootScope',
+    'moment',
     'services.transaction',
     'services.scenario'
 ]
@@ -11,14 +12,15 @@ TransactionsController.$inject = [
 function TransactionsController(
     $scope,
     $rootScope,
+    moment,
     Transaction,
     Scenario
 ) {
     $scope.transactions = []
-    $scope.initialTransactions = []
+    $scope.pulledTransactions = false
 
     $scope.dates = {
-        startDate: moment().startOf('month'),
+        startDate: moment().startOf('year'),
         endDate: moment()
     }
 
@@ -35,6 +37,7 @@ function TransactionsController(
             ]
         },
         opens: 'left',
+        autoUpdateInput: true,
         locale: {
             format: 'MMM Do, YYYY'
         },
@@ -53,24 +56,34 @@ function TransactionsController(
         Transaction.allWithAll(parameters, function(transactionResponse) {
             console.log('Transaction Service Response: ', transactionResponse.data)
 
-            Scenario.allWithBudgets(function(scenarioResponse) {
-                console.log('Scenario Service Response: ', scenarioResponse.data)
-                $scope.scenarios = scenarioResponse.data
+            // Don't pull scenarios unless we have transactions
+            if (transactionResponse.data.length > 0) {
+                Scenario.allWithBudgets(function(scenarioResponse) {
+                    console.log('Scenario Service Response: ', scenarioResponse.data)
+                    $scope.scenarios = scenarioResponse.data
 
-                $scope.transactions = transactionResponse.data.map(function(transaction) {
-                    transaction.scenarios = []
+                    $scope.transactions = transactionResponse.data.map(function(transaction) {
+                        transaction.scenarios = []
 
-                    scenarioResponse.data.forEach(function(scenario) {
-                        scenario.budgets.forEach(function(budget) {
-                            if (budget.category_id === transaction.category_id) {
-                                transaction.scenarios.push(scenario)
-                            }
+                        scenarioResponse.data.forEach(function(scenario) {
+                            scenario.budgets.forEach(function(budget) {
+                                if (budget.category_id === transaction.category_id) {
+                                    transaction.scenarios.push(scenario)
+                                }
+                            })
                         })
+
+                        return transaction
                     })
 
-                    return transaction
+                    $scope.pulledTransactions = true
                 })
-            })
+
+            // No Transactions were returned for the specified date range
+            } else {
+                $scope.transactions = []
+                $scope.pulledTransactions = true
+            }
         })
 
     }
@@ -83,21 +96,4 @@ function TransactionsController(
     $scope.showDatepicker = function() {
         $('#transaction-range-picker').data('daterangepicker').show()
     }
-
-    $scope.initialTransactions = [].concat($rootScope.transactions)
-
-    // Inject transactions upon retrieval
-    $scope.$on('retrievedTransactions', function() {
-        $scope.initialTransactions = [].concat($rootScope.transactions)
-    })
-
-    // Filter out specified accounts on event
-    $scope.$on('toggleAccount', function(event, account) {
-        $scope.transactions.forEach(function(transaction) {
-            if (transaction.account.id === account.id) {
-                console.log('Transaction from account filtered: ', transaction.name)
-                transaction.filtered = !transaction.filtered
-            }
-        })
-    })
 }

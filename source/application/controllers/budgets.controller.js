@@ -28,6 +28,16 @@ function BudgetsController(
         endDate: moment()
     }
 
+    $scope.scenarioColors = [
+        '#00AEEF', // Blue
+        '#FECF39', // Yellow
+        '#81736A', // Brown
+        '#00AEEF', // Grey
+        '#FFA2AD', // Red
+        '#74C7A8', // Light Green
+        '#00797A', // Dark Green
+        '#8781BD' // Purple
+    ]
 
     /**
      * Pull in all Scenarios with their associated budgets, categories and
@@ -266,7 +276,12 @@ function BudgetsController(
     $scope.createScenario = function() {
         // Creates and calculates nets for our one Scenario, which will involve
         // simply adding the net properties and setting them to zero
-        new Scenario({ name: 'New Scenario' }).$save().then(function(response) {
+        new Scenario({
+            name: 'New Scenario', 
+            color: $scope.scenarioColors[
+                Math.floor(Math.random() * $scope.scenarioColors.length)
+            ]
+        }).$save().then(function(response) {
             $scope.scenarios.push(Scenario.virtuals(response.data))
         })
     }
