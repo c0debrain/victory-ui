@@ -8,7 +8,6 @@ var path            = require('path')
 var gulp            = require('gulp')
 var less            = require('gulp-less')
 var clean           = require('gulp-clean')
-var minifycss       = require('gulp-minify-css')
 var gulpNgConfig    = require('gulp-ng-config')
 var b2v             = require('buffer-to-vinyl')
 var bower           = require('gulp-bower')
@@ -23,7 +22,7 @@ var sourcemaps      = require('gulp-sourcemaps')
 
 // Config Variables --------------------------------------------
 var paths = {
-    build:           './.build',
+    build:          './.build',
     source:         './source',
     assets:         './source/assets',
     templates:      './source/templates',
@@ -31,6 +30,13 @@ var paths = {
 }
 
 var task = {}
+
+// Files to be ignored on copy
+var ignored = [
+    paths.source + '/**',
+    '!**/**/less/',
+    '!**/**/less/**'
+]
 
 // Gulp Tasks --------------------------------------------------
 
@@ -40,7 +46,7 @@ var task = {}
 gulp.task('less', task.less = function() {
     gulp.src(path.join(paths.assets, '/less/application.less'))
         .pipe(sourcemaps.init())
-        .pipe(less({ compress: false }))
+        .pipe(less({ compress: true }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.join(paths.build, '/assets/css')))
         .pipe(livereload())
@@ -66,7 +72,6 @@ gulp.task('watch', task.watch = function() {
     gulp.watch([
         // Root application directory & framework JS
         paths.source        + '/*.html',
-        paths.assets        + '/js/*.js',
 
         // Templates
         paths.templates     + '/*.html',
@@ -110,7 +115,7 @@ gulp.task('lint', task.lint = function() {
     Deletes the previous build directory to prevent any collisions.
  */
 gulp.task('copy', ['clean'], task.copy = function() {
-    return gulp.src(paths.source + '/**')
+    return gulp.src(ignored)
         .pipe(gulp.dest(paths.build))
         .pipe(livereload())
 })
