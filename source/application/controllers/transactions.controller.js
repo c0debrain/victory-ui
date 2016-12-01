@@ -18,7 +18,7 @@ function TransactionsController(
     $scope.initialTransactions = []
 
     $scope.dates = {
-        startDate: moment().startOf('year'),
+        startDate: moment().startOf('month'),
         endDate: moment()
     }
 

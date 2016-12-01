@@ -184,15 +184,17 @@ function BudgetsController(
 
         // Only if category has transactions
         // Iterate through transactions and accumulate
-        if (budget.category.transactions) {
-            budget.total = budget.category.transactions.reduceRight(function(previous, current) {
-                return previous + current.amount
-            }, 0)
-        }
+        if (budget.category) {
+            if (budget.category.transactions) {
+                budget.total = budget.category.transactions.reduceRight(function(previous, current) {
+                    return previous + current.amount
+                }, 0)
+            }
 
-        // Don't bother calculating budget progress if no allowance is set
-        if (budget.allowance !== 0 && budget.allowance) {
-            budget.progress = Math.round((budget.total / budget.allowance) * 100)
+            // Don't bother calculating budget progress if no allowance is set
+            if (budget.allowance !== 0 && budget.allowance) {
+                budget.progress = Math.round((budget.total / budget.allowance) * 100)
+            }
         }
 
         return budget
