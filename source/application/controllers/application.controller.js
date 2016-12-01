@@ -33,20 +33,6 @@ function ApplicationController(
     })
 
 
-    // Retrieve User's Transactions
-    Transactions.allWithAll(function(response) {
-        console.log('Transaction Service Response: ', response.data)
-        $rootScope.transactions = response.data
-
-        // Map through and add filtered status to accounts
-        $rootScope.transactions.map(function(transaction) {
-            transaction.filtered = false
-        })
-
-        $rootScope.$broadcast('retrievedTransactions')
-    })
-
-
     /**
      * Pull in all categories
      * @type {[type]}

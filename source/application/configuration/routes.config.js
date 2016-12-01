@@ -63,6 +63,7 @@ function RoutesConfiguration(
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'application/services/transactions.service.js',
+                            'application/services/scenarios.service.js',
                             'application/controllers/transactions.controller.js',
                         ]);
                     }]

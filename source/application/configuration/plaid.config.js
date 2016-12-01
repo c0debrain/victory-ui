@@ -28,46 +28,52 @@ function PlaidConfiguration(
                 return resPromise.$promise.then(function(response) {
                     console.log('Plaid Connect Service Response: ', response.data)
 
-                    Plaid.getAccounts(function(response) {
-                        console.log('Plaid Accounts Service Response: ', response.data)
+                    if (response.data.length > 0) {
+                        response.data.forEach(function(account) {
+                            $rootScope.accounts.push(account)
+                        })
+                    }
 
-                        // If an access token was returned
-                        if (response.data.length > 0) {
-
-                            // Let's not forget that the request returns an array
-                            // of access tokens which each contain accounts
-                            response.data.forEach(function(tokenResponse) {
-
-                                // If any accounts were returned by the linked institution
-                                if (tokenResponse.data.length > 0) {
-                                    tokenResponse.data.forEach(function(account) {
-                                        $rootScope.accounts.push(account)
-                                    })
-                                }
-                            })
-
-                            // Only bother with transactions if accounts were returned
-                            Plaid.getTransactions(function(response) {
-                                console.log('Plaid Transactions Service Response: ', response.data)
-
-                                // If an access token was returned
-                                if (response.data.length > 0) {
-
-                                    // Let's not forget that the request returns an array
-                                    // of access tokens which each contain transactions
-                                    response.data.forEach(function(tokenResponse) {
-
-                                        // Only bother if there are transactions
-                                        if (tokenResponse.data.length > 0) {
-                                            tokenResponse.data.forEach(function(transaction) {
-                                                $rootScope.transactions.push(transaction)
-                                            })
-                                        }
-                                    })
-                                }
-                            })
-                        }
-                    })
+                    // Plaid.getAccounts(function(response) {
+                    //     console.log('Plaid Accounts Service Response: ', response.data)
+                    //
+                    //     // If an access token was returned
+                    //     if (response.data.length > 0) {
+                    //
+                    //         // Let's not forget that the request returns an array
+                    //         // of access tokens which each contain accounts
+                    //         response.data.forEach(function(tokenResponse) {
+                    //
+                    //             // If any accounts were returned by the linked institution
+                    //             if (tokenResponse.data.length > 0) {
+                    //                 tokenResponse.data.forEach(function(account) {
+                    //                     $rootScope.accounts.push(account)
+                    //                 })
+                    //             }
+                    //         })
+                    //
+                    //         // Only bother with transactions if accounts were returned
+                    //         Plaid.getTransactions(function(response) {
+                    //             console.log('Plaid Transactions Service Response: ', response.data)
+                    //
+                    //             // If an access token was returned
+                    //             if (response.data.length > 0) {
+                    //
+                    //                 // Let's not forget that the request returns an array
+                    //                 // of access tokens which each contain transactions
+                    //                 response.data.forEach(function(tokenResponse) {
+                    //
+                    //                     // Only bother if there are transactions
+                    //                     if (tokenResponse.data.length > 0) {
+                    //                         tokenResponse.data.forEach(function(transaction) {
+                    //                             $rootScope.transactions.push(transaction)
+                    //                         })
+                    //                     }
+                    //                 })
+                    //             }
+                    //         })
+                    //     }
+                    // })
                 })
             })
         },

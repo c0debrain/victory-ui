@@ -91,10 +91,10 @@
                                             <input st-search="category" placeholder="Search Category" class="input-sm form-control" type="search" />
                                         </th>
                                         <th>
-                                            <select class="filter-select input-sm form-control" st-search="account.name">
+                                            <!-- <select class="filter-select input-sm form-control" st-search="account.name">
                                                 <option value="">All</option>
                                                 <option ng-repeat="row in initialTransactions | unique: 'account_id'" value="{{ row.account.name }}">{{ row.account.name }}</option>
-                                            </select>
+                                            </select> -->
                                         </th>
                                         <th></th>
                                     </tr>
@@ -113,7 +113,13 @@
                                         <td am-time-ago="item.date"></td>
                                         <td>{{ item.name }}</td>
                                         <td>
-                                            <i class="fa fa-circle-o color-green p-r-5" aria-hidden="true"></i>
+                                            <i
+                                                ng-repeat="scenario in item.scenarios"
+                                                title="{{ scenario.name }}"
+                                                class="scenario fa fa-circle-o p-r-5"
+                                                style="color: {{ scenario.color }}"
+                                                aria-hidden="true">
+                                            </i>
                                             {{ item.category.hierarchy[item.category.hierarchy.length - 1] || "Uncategorized" }}
                                         </td>
                                         <td>{{ item.account.name }}</td>

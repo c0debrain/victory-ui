@@ -1,14 +1,24 @@
 angular.module('app.controllers')
     .controller('controllers.transaction', TransactionsController)
 
-TransactionsController.$inject = ['$scope', '$rootScope', 'services.transaction']
+TransactionsController.$inject = [
+    '$scope',
+    '$rootScope',
+    'services.transaction',
+    'services.scenario'
+]
 
-function TransactionsController($scope, $rootScope, Transaction) {
+function TransactionsController(
+    $scope,
+    $rootScope,
+    Transaction,
+    Scenario
+) {
     $scope.transactions = []
     $scope.initialTransactions = []
 
     $scope.dates = {
-        startDate: moment().startOf('month'),
+        startDate: moment().startOf('year'),
         endDate: moment()
     }
 
@@ -30,10 +40,44 @@ function TransactionsController($scope, $rootScope, Transaction) {
         },
         eventHandlers: {
             'apply.daterangepicker': function(ev, picker) {
-                $scope.pullScenarios()
+                $scope.retrieveTransactions({
+                    startDate: moment($scope.dates.startDate).format(),
+                    endDate: moment($scope.dates.endDate).format()
+                })
             }
         }
     }
+
+    // Retrieve User's Transactions
+    $scope.retrieveTransactions = function(parameters) {
+        Transaction.allWithAll(parameters, function(transactionResponse) {
+            console.log('Transaction Service Response: ', transactionResponse.data)
+
+            Scenario.allWithBudgets(function(scenarioResponse) {
+                console.log('Scenario Service Response: ', scenarioResponse.data)
+                $scope.scenarios = scenarioResponse.data
+
+                $scope.transactions = transactionResponse.data.map(function(transaction) {
+                    transaction.scenarios = []
+
+                    scenarioResponse.data.forEach(function(scenario) {
+                        scenario.budgets.forEach(function(budget) {
+                            if (budget.category_id === transaction.category_id) {
+                                transaction.scenarios.push(scenario)
+                            }
+                        })
+                    })
+
+                    return transaction
+                })
+            })
+        })
+
+    }
+    $scope.retrieveTransactions({
+        startDate: moment($scope.dates.startDate).format(),
+        endDate: moment($scope.dates.endDate).format()
+    })
 
     // Hack to make the date button show the datepicker
     $scope.showDatepicker = function() {
