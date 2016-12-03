@@ -23,9 +23,31 @@ function BudgetsController(
     $scope.categories = []
     $scope.active = 1
 
-    $scope.dates = {
-        startDate: moment().startOf('month'),
-        endDate: moment()
+    $scope.dateRange = {
+        dates: {
+            startDate: moment().startOf('month'),
+            endDate: moment()
+        },
+        periods: 1
+    }
+
+    // Had to write my own period calculations because moment.js does not take
+    // into consideration the number of days in a month, and instead assumes
+    // they all have 30 days.
+    $scope.calculatePeriods = function() {
+        var monthsInRange = Math.ceil(moment($scope.dateRange.dates.endDate).endOf('month')
+            .diff(moment($scope.dateRange.dates.startDate).startOf('month'), 'months', true))
+        console.log('Months in Range: ', monthsInRange)
+
+        var daysInMonth = moment($scope.dateRange.dates.endDate).endOf('month')
+            .diff(moment($scope.dateRange.dates.startDate).startOf('month'), 'days', true)
+        console.log('Days in Month: ', daysInMonth)
+
+        var daysInRange = $scope.dateRange.dates.endDate
+            .diff($scope.dateRange.dates.startDate, 'days', true)
+        console.log('Days in Range: ', daysInRange)
+
+        $scope.dateRange.periods = (monthsInRange > 1 ? (daysInRange / daysInMonth) * monthsInRange : daysInRange / daysInMonth)
     }
 
     $scope.scenarioColors = [
@@ -44,12 +66,12 @@ function BudgetsController(
      * transactions, then calculate their net values by iterating through all
      * mentioned associations and accumulating their values.
      */
-    $scope.pullScenarios = function() {
+    $scope.retrieveScenarios = function() {
         var parameters = {}
-        if ($scope.dates.startDate !== null && $scope.dates.endDate !== null) {
+        if ($scope.dateRange.dates.startDate !== null && $scope.dateRange.dates.endDate !== null) {
             parameters = {
-                startDate: moment($scope.dates.startDate).format(),
-                endDate: moment($scope.dates.endDate).format()
+                startDate: moment($scope.dateRange.dates.startDate).format(),
+                endDate: moment($scope.dateRange.dates.endDate).format()
             }
         }
 
@@ -68,8 +90,6 @@ function BudgetsController(
     $scope.datePickerOptions = {
         ranges: {
             'Today': [moment().startOf('day'), moment()],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
             'This Week': [moment().startOf('week'), moment()],
             'This Month': [moment().startOf('month'), moment()],
             'Last Month': [
@@ -81,9 +101,13 @@ function BudgetsController(
         locale: {
             format: 'MMM Do, YYYY'
         },
+        minMode: 'month',
+        showWeekNumbers: true,
         eventHandlers: {
             'apply.daterangepicker': function(ev, picker) {
-                $scope.pullScenarios()
+                $scope.calculatePeriods()
+                $scope.retrieveScenarios()
+                $scope.retrieveCategories()
             }
         }
     }
@@ -94,33 +118,46 @@ function BudgetsController(
     }
 
     // Pull information for the page
-    $scope.pullScenarios()
+    $scope.retrieveScenarios()
 
     /**
      * Pull in all categories that have transactions and append those transactions
      * to the existing categories from the rootScope
      */
-    Category.allWithTransactions({ required: true }, function(response) {
-        console.log('Category Service Response: ', response.data, $scope.categories, $rootScope.categories)
+    $scope.retrieveCategories = function() {
+        var parameters = {
+            required: true
+        }
+        if ($scope.dateRange.dates.startDate !== null && $scope.dateRange.dates.endDate !== null) {
+            parameters = {
+                startDate: moment($scope.dateRange.dates.startDate).format(),
+                endDate: moment($scope.dateRange.dates.endDate).format()
+            }
+        }
 
-        // Accumulate transaction amounts
-        response.data.map(function(retrievedCategory) {
-            retrievedCategory.total = retrievedCategory.transactions.reduce(function(previous, current) {
-                return previous + current.amount
-            }, 0)
+        Category.allWithTransactions(parameters, function(response) {
+            // console.log('Category Service Response: ', response.data, $scope.categories, $rootScope.categories)
 
-            // Overwrite categories from rootScope
-            $scope.categories = $rootScope.categories.map(function(category) {
-                if (category.id === retrievedCategory.id) {
-                    Object.keys(retrievedCategory).forEach(function(key) {
-                        category[key] = retrievedCategory[key]
-                    })
-                }
+            // Accumulate transaction amounts
+            response.data.map(function(retrievedCategory) {
+                retrievedCategory.total = retrievedCategory.transactions.reduce(function(previous, current) {
+                    return previous + current.amount
+                }, 0)
 
-                return category
+                // Overwrite categories from rootScope
+                $scope.categories = $rootScope.categories.map(function(category) {
+                    if (category.id === retrievedCategory.id) {
+                        Object.keys(retrievedCategory).forEach(function(key) {
+                            category[key] = retrievedCategory[key]
+                        })
+                    }
+
+                    return category
+                })
             })
         })
-    })
+    }
+    $scope.retrieveCategories()
 
 
     $scope.dragOptions = {
@@ -203,7 +240,7 @@ function BudgetsController(
 
             // Don't bother calculating budget progress if no allowance is set
             if (budget.allowance !== 0 && budget.allowance) {
-                budget.progress = Math.round((budget.total / budget.allowance) * 100)
+                budget.progress = Math.round((budget.total / (budget.allowance * $scope.dateRange.periods)) * 100)
             }
         }
 
@@ -277,7 +314,7 @@ function BudgetsController(
         // Creates and calculates nets for our one Scenario, which will involve
         // simply adding the net properties and setting them to zero
         new Scenario({
-            name: 'New Scenario', 
+            name: 'New Scenario',
             color: $scope.scenarioColors[
                 Math.floor(Math.random() * $scope.scenarioColors.length)
             ]

@@ -45,7 +45,7 @@ function ApplicationController(
 
         // Make request for categories
         Category.all(parameters, function(response) {
-            console.log('Category Service Response: ', response.data)
+            // console.log('Category Service Response: ', response.data)
             $rootScope.categories = response.data
         })
     }

@@ -175,13 +175,18 @@
                     </td>
 
                     <td class="text-left allowance" style="width: 15%">
-                        <div class="font-11 color-blue-grey-lighter uppercase">Allowance</div>
+                        <div class="font-11 color-blue-grey-lighter uppercase">
+                            Allowance
+                            <span class="period">({{
+                                dateRange.periods !== 1 ? (dateRange.periods * 100.).toFixed(2) + '% of a month' : 'Monthly' 
+                            }})</span>
+                        </div>
                         <span class="editable"
                             editable-number="budget.allowance"
                             e-form="editBudgetAllowance"
                             onbeforesave="handleBudgetChange(scenario, budget, budget.category)"
                             ng-click="editBudgetAllowance.$show()">
-                            {{ budget.allowance | currency }}
+                            {{ budget.allowance * dateRange.periods | currency }}
 
                             <div class="editable-tray">
                                 <i
