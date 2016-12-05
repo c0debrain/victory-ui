@@ -97,6 +97,7 @@
                     <th colspan="1" style="width: 15%;"></th>
                     <th st-sort="progress" style="width: 25%;">Progress</th>
                     <th colspan="1" style="width: 15%;"></th>
+                    <th colspan="1" style="width: 15%;"></th>
                     <!-- <th style="width: 5%;"></th> -->
                 </tr>
             </thead>
@@ -108,12 +109,12 @@
                     ng-class="{ 'unassigned': budget.incomplete }"
                 >
                     <td class="category" ng-hide="budget.gettingDeleted">
-                        <div ng-if="budget.type" class="font-11 color-blue-grey-lighter uppercase">{{ budget.type | capitalize }}</div>
+                        <div ng-if="budget.type" class="font-11 color-blue-grey-lighter uppercase">{{ budget.type }}</div>
                         <span
                             editable-text="budget.category"
                             e-form="editBudgetCategory"
                             e-uib-typeahead="category as category.hierarchy[category.hierarchy.length - 1] for category in categories | filter: $viewValue | limitTo: 8"
-                            onbeforesave="handleBudgetChange(scenario, budget, $data)"
+                            onbeforesave="handleBudgetCategoryChange(scenario, budget, $data)"
                             ng-click="editBudgetCategory.$show()"
                         >
                             {{ budget.category.hierarchy.join(' > ') || 'None' }}
@@ -178,7 +179,7 @@
                         <div class="font-11 color-blue-grey-lighter uppercase">
                             Allowance
                             <span class="period">({{
-                                dateRange.periods !== 1 ? (dateRange.periods * 100.).toFixed(2) + '% of a month' : 'Monthly' 
+                                dateRange.periods !== 1 ? (dateRange.periods * 100.).toFixed(2) + '% of a month' : 'Monthly'
                             }})</span>
                         </div>
                         <span class="editable"
@@ -199,6 +200,17 @@
 
                     </td>
 
+                    <td class="text-left" style="width: 15%">
+                        <div class="font-11 color-blue-grey-lighter uppercase">Interval</div>
+                        <span
+                            editable-text="budget.interval"
+                            e-form="editBudgetInterval"
+                            e-uib-typeahead="interval as interval.text for interval in intervals | filter: $viewValue"
+                            onbeforesave="handleBudgetIntervalChange(scenario, budget, $data)"
+                            ng-click="editBudgetInterval.$show()">
+                            {{ budget.interval.text }}
+                        </span>
+                    </td>
                     <!-- <td class="text-center list-transactions">
                         <i class="fa fa-2x fa-bars" ng-click="showTransactions(budget)"></i>
                     </td> -->

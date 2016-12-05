@@ -84,6 +84,20 @@ function RoutesConfiguration(
                     }]
                 }
             })
+            .state('app.forecast', {
+                url: '/forecast',
+                templateUrl: 'templates/pages/forecast.html',
+                controller: 'controllers.forecast',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'application/services/transactions.service.js',
+                            'application/services/scenarios.service.js',
+                            'application/controllers/forecast.controller.js'
+                        ])
+                    }]
+                }
+            })
 
         .state('access', {
             template: '<div class="full-height" ui-view></div>'

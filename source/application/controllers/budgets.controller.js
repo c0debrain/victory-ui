@@ -23,6 +23,33 @@ function BudgetsController(
     $scope.categories = []
     $scope.active = 1
 
+    $scope.intervals = [
+        {
+            text: 'Daily',
+            dateRange: moment().add(1, 'days').diff(moment())
+        },
+        {
+            text: 'Weekly',
+            dateRange: moment().add(1, 'weeks').diff(moment())
+        },
+        {
+            text: 'Bi-Weekly',
+            dateRange: moment().add(2, 'weeks').diff(moment())
+        },
+        {
+            text: 'Monthly',
+            dateRange: moment().add(1, 'months').diff(moment())
+        },
+        {
+            text: 'Quarterly',
+            dateRange: moment().add(3, 'months').diff(moment())
+        },
+        {
+            text: 'Yearly',
+            dateRange: moment().add(1, 'year').diff(moment())
+        }
+    ]
+
     $scope.dateRange = {
         dates: {
             startDate: moment().startOf('month'),
@@ -358,6 +385,7 @@ function BudgetsController(
                 hierarchy: ['Set Category'],
                 transactions: []
             },
+            interval: $scope.intervals[3],
             total: 0,
             allowance: 0,
             scenario_id: scenario.id,
@@ -390,7 +418,7 @@ function BudgetsController(
     /**
      * Update an existing Budget, called by inline editing
      */
-    $scope.handleBudgetChange = function(scenario, budget, category) {
+    $scope.handleBudgetCategoryChange = function(scenario, budget, category) {
         console.log(budget)
 
         // Overwrite the category & ID with it's association
@@ -409,6 +437,14 @@ function BudgetsController(
         console.log('Updated / Created Budget: ', budget)
     }
 
+    $scope.handleBudgetIntervalChange = function(scenario, budget, interval) {
+        console.log(interval)
+
+        budget.interval = interval
+        $scope.updateBudget(scenario, budget)
+
+        console.log('Updated Budget Interval: ', budget)
+    }
 
     /**
      * Delete an existing Budget, called by row dropdown

@@ -1,0 +1,65 @@
+<div class="page-content forecast">
+    <div class="container-fluid m-b-20">
+        <section class="page-control">
+            <div class="row row-white row-title">
+                <div class="col-md-9">
+                    <h1>Forecast</h1>
+                </div>
+
+                <!-- <div class="col-md-3 text-right" ng-show="active === 1">
+                    <div class="input-group date">
+                        <input
+                            id="transaction-range-picker"
+                            date-range-picker
+                            datepicker-mode="'week'"
+                            class="form-control date-picker"
+                            type="text"
+                            ng-model="dateRange.dates"
+                            options="datePickerOptions"
+                        />
+                        <span class="input-group-addon" ng-click="showDatepicker()">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="row row-white row-tabs">
+                <div class="col-md-12">
+                    <ul>
+                        <li ng-click="active = 1" ng-class="{ 'active': (active === 1) }">Overview</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row row-gray row-message" ng-show="active == 1">
+                <div class="col-md-12 py-2">
+                    <p class="my-0">
+                        Forecast description
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row row-transactions">
+            <div class="col-md-12">
+                <highchart id="chart1" class="box-typical" config="chartConfig"></highchart>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+		<div class="box-typical">
+			<div class="calendar-page">
+				<div class="calendar-page-content">
+					<div class="calendar-page-title">Calendar</div>
+					<div class="calendar-page-content-in">
+                        <div ui-calendar ng-model="eventSources"></div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

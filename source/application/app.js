@@ -21,10 +21,12 @@ angular.module('app', [
     // Components
     'ngFlash',
     'ui.tree',
+    'ui.calendar',
     'xeditable',
     'smart-table',
     'ngLetterAvatar',
     'daterangepicker',
+    'highcharts-ng',
 
     // Application Modules
     'app.environment',
