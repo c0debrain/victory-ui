@@ -3,7 +3,7 @@
         <section class="page-control">
             <div class="row row-white row-title">
                 <div class="col-md-9">
-                    <h1>Worldview</h1>
+                    <h1>{{ datacenter.data_center_name }}</h1>
                 </div>
             </div>
 
@@ -23,26 +23,18 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4 hardware" ng-repeat="datacenter in datacenters" ng-click="enterDatacenter(datacenter)">
+            <div class="col-md-12">
                 <section class="box-typical">
                     <header class="box-typical-header">
-                        <ul class="health">
-                            <li class="stable" style="width: {{ datacenter.status.stable }}%"></li>
-                            <li class="warning" style="width: {{ datacenter.status.warning }}%"></li>
-                            <li class="danger" style="width: {{ datacenter.status.danger }}%"></li>
-                        </ul>
-
                         <div class="tbl-row">
                             <div class="tbl-cell tbl-cell-title">
                                 <h3>{{ datacenter.data_center_name }}</h3>
                             </div>
                         </div>
-
-                        <div class="abbreviation">{{ datacenter.data_center_code }}</div>
                     </header>
 
                     <div class="box-typical-body">
-                        <div class="table-responsive">
+                        <div class="mocked-chart">
 
                         </div>
                     </div>

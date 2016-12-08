@@ -54,50 +54,20 @@ function RoutesConfiguration(
                     }]
                 }
             })
-            .state('app.transactions', {
-                url: '/transactions',
-                templateUrl: 'templates/pages/transactions.html',
-                controller: 'controllers.transaction',
-                controllerAs: 'transactionCtrl',
+            .state('app.datacenter', {
+                url: '/datacenter',
+                templateUrl: 'templates/pages/datacenter.html',
+                controller: 'controllers.datacenter',
+                controllerAs: 'datacenterCtrl',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'application/services/transactions.service.js',
-                            'application/services/scenarios.service.js',
-                            'application/controllers/transactions.controller.js',
+                            'application/controllers/datacenter.controller.js',
                         ])
                     }]
                 }
             })
-            .state('app.budgets', {
-                url: '/budgets',
-                templateUrl: 'templates/pages/budgets.html',
-                controller: 'controllers.budget',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load([
-                            'application/controllers/budgets.controller.js',
-                            'application/services/categories.service.js',
-                            'application/services/scenarios.service.js',
-                            'application/services/budgets.service.js'
-                        ])
-                    }]
-                }
-            })
-            .state('app.forecast', {
-                url: '/forecast',
-                templateUrl: 'templates/pages/forecast.html',
-                controller: 'controllers.forecast',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load([
-                            'application/services/transactions.service.js',
-                            'application/services/scenarios.service.js',
-                            'application/controllers/forecast.controller.js'
-                        ])
-                    }]
-                }
-            })
+
 
         .state('access', {
             template: '<div class="full-height" ui-view></div>'

@@ -1,0 +1,20 @@
+@import '../partials/mixins';
+@import '../partials/vars';
+
+/* ==========================================================================
+   Datacenter
+   ========================================================================== */
+
+
+.mocked-chart {
+    height: 250px;
+    width: 100%;
+    background: @color-bg-page;
+
+    &:before {
+        content: 'Chart';
+        line-height: 250px;
+        font-size: 64px;
+        font-weight: bold;
+    }
+}

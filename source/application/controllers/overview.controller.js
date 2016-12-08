@@ -3,12 +3,14 @@ angular.module('app.controllers')
 
 OverviewController.$inject = [
     '$scope',
+    '$state',
     'services.api',
     'services.notification'
 ]
 
 function OverviewController(
     $scope,
+    $state,
     Api,
     Notification
 ) {
@@ -36,4 +38,8 @@ function OverviewController(
             return datacenter
         })
     })
+
+    $scope.enterDatacenter = function(datacenter) {
+        $state.go('app.datacenter', { id: datacenter.data_center_code })
+    }
 }
