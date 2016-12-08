@@ -22,14 +22,3 @@ Afterwards you will want to install front end dependencies that are included via
 bower install
 ```
 
-
-## Screenshots
-### Login Page
-![Login](https://i.gyazo.com/23e19ac0971fb26bd6f559f108f1f75f.png)
-
-### Transactions Page
-![Transactions](https://i.gyazo.com/531095fe0f13cbdfa4b04b1cf4917750.png)
-
-### Budgets Page
-![Budget](https://i.gyazo.com/42cf25de37fa96fceacb5c7d859bfd2c.png)
-
