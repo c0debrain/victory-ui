@@ -1,3 +1,50 @@
 <div class="page-content">
-    <div class="container-fluid"></div>
+    <div class="container-fluid m-b-20">
+        <section class="page-control">
+            <div class="row row-white row-title">
+                <div class="col-md-9">
+                    <h1>Datacenters</h1>
+                </div>
+            </div>
+
+            <div class="row row-white row-tabs">
+                <div class="col-md-12">
+                    <ul>
+                        <li class="active">Global</li>
+                        <li>North America</li>
+                        <li>South America</li>
+                        <li>Europe</li>
+                        <li>Asia</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 hardware" ng-repeat="datacenter in datacenters">
+                <section class="box-typical">
+                    <header class="box-typical-header">
+                        <ul class="health">
+                            <li class="stable" style="width: {{ datacenter.status.stable }}%"></li>
+                            <li class="warning" style="width: {{ datacenter.status.warning }}%"></li>
+                            <li class="danger" style="width: {{ datacenter.status.danger }}%"></li>
+                        </ul>
+                        <div class="tbl-row">
+                            <div class="tbl-cell tbl-cell-title">
+                                <h3><span class="semibold">[{{ datacenter.data_center_code }}]</span> {{ datacenter.data_center_name }}</h3>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="box-typical-body">
+                        <div class="table-responsive">
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 </div>

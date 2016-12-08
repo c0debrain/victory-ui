@@ -8,13 +8,6 @@ function NavigationController($scope) {
         {
             title: "Overview",
             url: "app.overview"
-        }, {
-            title: "Dispatch Alarms",
-            url: "app.dispatch",
-            badge: {
-                type: 'complete',
-                content: '21'
-            }
         }
     ]
 }
