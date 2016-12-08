@@ -1,9 +1,21 @@
 angular.module('app.controllers')
     .controller('controllers.account', AccountsController)
 
-AccountsController.$inject = ['$scope', '$rootScope', 'services.account', 'services.notification', 'plaidLink']
+AccountsController.$inject = [
+    '$scope',
+    '$rootScope',
+    'services.account',
+    'services.notification',
+    'plaidLink'
+]
 
-function AccountsController($scope, $rootScope, Account, $NotificationService, plaidLink) {
+function AccountsController(
+    $scope,
+    $rootScope,
+    Account,
+    $NotificationService,
+    plaidLink
+) {
     $scope.accounts = $rootScope.accounts
 
     // Handle onClick for accounts
