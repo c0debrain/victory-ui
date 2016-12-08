@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app" ng-controller="controllers.core">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>{{ app.name }}</title>
+    <base href="/">
+
+    <!-- Metadata -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="{{ app.description }}" name="description" />
+    <meta content="{{ app.author }}" name="author" />
+
+    <link id="lazyload_placeholder">
+
+    <!-- Framework & Application CSS -->
+    <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="components/angular-xeditable/dist/css/xeditable.min.css">
+    <link rel="stylesheet" type="text/css" href="components/angular-bootstrap/ui-bootstrap-csp.css">
+    <link rel="stylesheet" type="text/css" href="components/fullcalendar/dist/fullcalendar.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/application.css" />
+</head>
+
+<body>
+    <div class="full-height" ui-view></div>
+
+    <!-- Angular -->
+    <script src="components/jquery/dist/jquery.min.js"></script>
+    <script src="components/angular/angular.min.js"></script>
+    <script src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="components/oclazyload/dist/ocLazyLoad.min.js"></script>
+    <script src="components/angular-resource/angular-resource.min.js"></script>
+    <script src="components/angular-smart-table/dist/smart-table.min.js"></script>
+    <script src="components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="components/angular-flash-alert/dist/angular-flash.min.js"></script>
+    <script src="components/angular-permission/dist/angular-permission.min.js"></script>
+    <script src="components/angular-permission/dist/angular-permission-ui.min.js"></script>
+    <script src="components/moment/min/moment.min.js"></script>
+    <script src="components/angular-moment/angular-moment.min.js"></script>
+    <script src="components/angular-animate/angular-animate.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="components/ng-letter-avatar/dist/ngletteravatar.min.js"></script>
+    <script src="components/angular-xeditable/dist/js/xeditable.min.js"></script>
+    <script src="components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+    <script src="components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="components/angular-daterangepicker/js/angular-daterangepicker.min.js"></script>
+    <script src="components/highcharts/highcharts.js"></script>
+    <script src="components/highcharts-ng/dist/highcharts-ng.min.js"></script>
+    <script src="components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="components/socket.io-client/dist/socket.io.min.js"></script>
+    <script src="components/angular-socket-io/socket.min.js"></script>
+
+    <!-- Application -->
+    <script src="application/app.js"></script>
+    <script src="application/environment.js"></script>
+
+    <!-- Configuration -->
+    <script src="application/configuration/index.js"></script>
+    <script src="application/configuration/lazyload.config.js"></script>
+    <script src="application/configuration/routes.config.js"></script>
+    <script src="application/configuration/authentication.config.js"></script>
+    <script src="application/configuration/editable.config.js"></script>
+
+    <!-- Directives -->
+    <script src="application/directives/index.js"></script>
+    <script src="application/directives/select-distinct.directive.js"></script>
+
+    <!-- Services -->
+    <script src="application/services/index.js"></script>
+    <script src="application/services/notification.service.js"></script>
+    <script src="application/services/socket.service.js"></script>
+
+    <!-- Controllers -->
+    <script src="application/controllers/index.js"></script>
+    <script src="application/controllers/core.controller.js"></script>
+    <script src="application/controllers/navigation.controller.js"></script>
+    <script src="application/controllers/sidemenu.controller.js"></script>
+
+    <!-- Filters -->
+    <script src="application/filters/index.js"></script>
+    <script src="application/filters/strict.filter.js"></script>
+    <script src="application/filters/unique.filter.js"></script>
+    <script src="application/filters/inverse.filter.js"></script>
+    <script src="application/filters/capitalize.filter.js"></script>
+    <script src="application/filters/total.filter.js"></script>
+    <script src="application/filters/padding.filter.js"></script>
+
+    <!-- Interceptors -->
+    <script src="application/interceptors/index.js"></script>
+    <script src="application/interceptors/unauthenticated.interceptor.js"></script>
+</body>
+</html>

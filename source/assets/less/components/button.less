@@ -1,0 +1,357 @@
+@import '../partials/reset';
+@import '../partials/mixins';
+@import '../partials/vars';
+@import '../partials/icons';
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+    border-radius: 4px;
+    border: solid 1px @color-blue;
+    background: @color-blue;
+    color: #fff;
+
+    /* Button Text */
+    font-family: @font-text;
+    font-size: 14px;
+    line-height: 19px;
+
+    &:hover {
+        background-color: @color-hover-bg;
+        border-color: @color-hover-bg;
+    }
+
+    &:active {
+        background-color: @color-active-bg;
+        border-color: @color-active-bg;
+    }
+
+    &.disabled,
+    &:disabled {
+        background-color: @color-grey-btn-bg;
+        border-color: @color-grey-btn-bg;
+        color: @color-grey-blue-txt;
+    }
+
+    &.active {
+        background-color: #0090d9;
+        border-color: #0090d9;
+
+        &:hover {
+            background-color: darken(#0090d9, 5%);
+            border-color: darken(#0090d9, 5%);
+        }
+    }
+
+    &.btn-rounded {
+        border-radius: 25rem;
+    }
+    // With dropdown
+    &.btn-grey,
+    &.dropdown-toggle,
+    &.dropdown-toggle:focus {
+        background-color: @color-grey-btn-bg;
+        border-color: @color-grey-btn-bg;
+        color: @color-grey-blue-txt;
+        .hover_animate_none();
+
+        .btn-group.open &,
+        .dropdown.open & {
+            background-color: @color-blue;
+            border-color: @color-blue;
+
+            &:after {
+                transform: rotate(180deg);
+            }
+
+            &.btn-default-outline {
+                background-color: @color-border-light;
+                color: @color-grey-blue-lighter-txt;
+                border-color: @color-border-light;
+
+                &:hover {
+                    background-color: @color-border-light;
+                    color: @color-grey-blue-txt !important;
+                }
+            }
+        }
+
+        &.btn-default-outline {
+            color: @color-grey-blue-lighter-txt;
+            border-color: @color-border-light;
+
+            &:hover {
+                background-color: @color-border-light;
+                color: @color-grey-blue-txt !important;
+            }
+        }
+    }
+    // Colored
+    &.btn-danger,
+    &.btn-default,
+    &.btn-info,
+    &.btn-primary,
+    &.btn-secondary,
+    &.btn-success,
+    &.btn-warning {
+        color: #fff !important;
+    }
+
+    &.btn-default {
+        background-color: @color-grey;
+        border-color: @color-grey;
+
+        &:hover {
+            background-color: lighten(@color-grey, 6%);
+            border-color: lighten(@color-grey, 6%);
+        }
+    }
+
+    &.btn-primary {
+        background-image: @gradient-blue-bg;
+        border-color: @gradient-blue-border;
+
+        &:hover {
+            background-image: @gradient-blue-bg-hover;
+        }
+
+        &:active {
+            background-image: @gradient-blue-bg-clicked;
+            outline: none;
+        }
+    }
+
+    &.btn-secondary {
+        background-color: #6b7a85;
+        border-color: #6b7a85;
+
+        &:hover {
+            background-color: lighten(#6b7a85, 6%);
+            border-color: lighten(#6b7a85, 6%);
+        }
+    }
+
+    &.btn-success {
+        background-color: @color-green;
+        border-color: @color-green;
+
+        &:hover {
+            background-color: lighten(@color-green, 6%);
+            border-color: lighten(@color-green, 6%);
+        }
+    }
+
+    &.btn-info {
+        background-color: @color-purple;
+        border-color: @color-purple;
+
+        &:hover {
+            background-color: lighten(@color-purple, 6%);
+            border-color: lighten(@color-purple, 6%);
+        }
+    }
+
+    &.btn-warning {
+        background-color: @color-gold;
+        border-color: @color-gold;
+
+        &:hover {
+            background-color: lighten(@color-gold, 6%);
+            border-color: lighten(@color-gold, 6%);
+        }
+    }
+
+    &.btn-danger {
+        background-color: @color-red;
+        border-color: @color-red;
+
+        &:hover {
+            background-color: lighten(@color-red, 6%);
+            border-color: lighten(@color-red, 6%);
+        }
+    }
+    // Outline
+    &.btn-danger-outline,
+    &.btn-default-outline,
+    &.btn-info-outline,
+    &.btn-primary-outline,
+    &.btn-secondary-outline,
+    &.btn-success-outline,
+    &.btn-warning-outline {
+        background-color: #fff;
+
+        &:focus {
+            background-color: #fff;
+        }
+
+        &:hover {
+            color: #fff !important;
+        }
+    }
+
+    &.btn-primary-outline,
+    &.btn-primary-outline:focus {
+        color: @color-blue;
+        border-color: @color-blue;
+
+        &:hover {
+            background-color: @color-blue;
+        }
+    }
+
+    &.btn-secondary-outline {
+        color: #6b7a85;
+        border-color: #6b7a85;
+
+        &:hover {
+            background-color: #6b7a85;
+        }
+    }
+
+    &.btn-success-outline {
+        color: @color-green;
+        border-color: @color-green;
+
+        &:hover {
+            background-color: @color-green;
+        }
+    }
+
+    &.btn-info-outline {
+        color: @color-purple;
+        border-color: @color-purple;
+
+        &:hover {
+            background-color: @color-purple;
+        }
+    }
+
+    &.btn-warning-outline {
+        color: @color-gold;
+        border-color: @color-gold;
+
+        &:hover {
+            background-color: @color-gold;
+        }
+    }
+
+    &.btn-danger-outline {
+        color: @color-red;
+        border-color: @color-red;
+
+        &:hover {
+            background-color: @color-red;
+        }
+    }
+
+    &.btn-default-outline {
+        color: @color-grey-blue-lighter-txt;
+        border-color: @color-border-light;
+
+        &:hover {
+            background-color: @color-border-light;
+            color: @color-grey-blue-txt !important;
+        }
+    }
+    // Other style
+    &.btn-bordered {
+        background-color: #fff;
+    }
+
+    &.btn-select {
+        background: #fff;
+        border-color: @color-border-light;
+        color: @color-text;
+        font-weight: 400;
+
+        &:hover {
+            background-color: @color-bg-grey-light;
+        }
+    }
+
+    &.btn-inline {
+        margin-right: 8px;
+        margin-bottom: 8px;
+    }
+    // Icons
+    .font-icon-left {
+        margin: 0 5px 0 0;
+        position: relative;
+        top: 1px;
+    }
+}
+
+a.btn {
+    &:focus,
+    &:hover {
+        color: #fff;
+    }
+}
+// Font Awesome Styled
+.btn-square-icon {
+    min-width: 80px;
+    height: 60px;
+    border: solid 1px @color-border-light;
+    background: @color-bg-grey-light;
+    padding: 4px 10px 0;
+    color: @color-grey-blue-txt;
+    position: relative;
+    margin: 0 6px 10px 0;
+    vertical-align: middle;
+    text-align: center;
+
+    .fa {
+        display: block;
+        margin: 0 0 2px;
+    }
+
+    .label {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        position: absolute;
+        right: -5px;
+        top: -5px;
+    }
+
+    &:hover {
+        background-color: @color-bg-grey;
+    }
+
+    &.btn-square-icon-rounded {
+        border-radius: 0.25rem;
+    }
+}
+
+a.btn-square-icon {
+    display: inline-block;
+    color: @color-grey-blue-txt;
+    padding-top: 11px;
+}
+
+// TODO: Make this like the other buttons
+
+.btn-regular {
+    /* Base: */
+    background-image: linear-gradient(0deg, #F2F4F7 0%, #FFFFFF 100%);
+    border: 1px solid #CED0DA;
+    border-radius: 4px;
+    position: relative;
+
+    /* Actions: */
+    font-family: @font-text;
+    font-size: 14px;
+    color: #354052;
+    line-height: 19px;
+    padding-right: 35px;
+
+    &:before {
+        /* Arrow: */
+        font-family: FontAwesome;
+        content: "\f107";
+        position: absolute;
+        right: 0;
+        padding-right: 10px;
+    }
+}
