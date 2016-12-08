@@ -1,7 +1,7 @@
 angular.module('app')
-    .controller('AppCtrl', MainController);
+    .controller('AppCtrl', MainController)
 
-MainController.$inject = ['$scope', '$rootScope', '$state'];
+MainController.$inject = ['$scope', '$rootScope', '$state']
 
 function MainController($scope, $rootScope, $state) {
     // App globals
@@ -13,15 +13,15 @@ function MainController($scope, $rootScope, $state) {
             menuBehind: false,
             theme: 'pages/css/pages.css'
         }
-    };
+    }
 
     // Checks if the given state is the current state
     $scope.is = function(name) {
-        return $state.is(name);
-    };
+        return $state.is(name)
+    }
 
     // Checks if the given state/child states are present
     $scope.includes = function(name) {
-        return $state.includes(name);
-    };
+        return $state.includes(name)
+    }
 }

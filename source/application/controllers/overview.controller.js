@@ -1,26 +1,42 @@
 angular.module('app.controllers')
     .controller('controllers.overview', OverviewController);
 
-OverviewController.$inject = ['$scope', '$timeout', '$interval', 'services.api', 'services.notification'];
+OverviewController.$inject = ['$scope', '$timeout', '$interval', 'services.api', 'services.notification', 'services.socket'];
 
-function OverviewController($scope, $timeout, $interval, $ApiService, $NotificationService) {
+function OverviewController($scope, $timeout, $interval, $ApiService, $NotificationService, socket) {
     $scope.regions = [];
 
-    $ApiService.datacenter.all().$promise.then(function(datacenters) {
-        datacenters.forEach(function(datacenter) {
+    socket.on('connect', function() {
+        console.log('Socket connection established.')
+    })
+
+    // Emit ready event.
+    socket.emit('ready')
+
+    // Listen for the talk event.
+    socket.on('talk', function(data) {
+        alert(data.message)
+    })
+
+    $ApiService.datacenter.all().$promise.then(function(response) {
+        response.data.forEach(function(datacenter) {
+            var stable = Math.floor((Math.random() * 100) + 1)
+            var warning = Math.floor(((100 - stable) / 3) * 2)
+            var danger = Math.floor((100 - stable) / 3)
+
             $scope.regions.push({
                 name: datacenter.data_center_name,
                 abbreviation: datacenter.data_center_code,
                 statistics: {
-                    clusters: 7,
+                    clusters: Math.floor((Math.random() * 20) + 1),
                     timezone: -5,
-                    alerts: 3,
-                    warnings: 15
+                    alerts: Math.floor((Math.random() * 10) + 1),
+                    warnings: Math.floor((Math.random() * 30) + 1)
                 },
                 status: {
-                    stable: 100,
-                    warning: 0,
-                    danger: 0
+                    stable: stable,
+                    warning: warning,
+                    danger: danger
                 }
             });
         });
@@ -112,11 +128,11 @@ function OverviewController($scope, $timeout, $interval, $ApiService, $Notificat
         area: true
     }];
 
-    var x = 10;
-    $interval(function() {
-        $scope.nvd3_data[0].values.push({ x: x, y: Math.floor(Math.random() * 100) + 1 });
+    // var x = 10;
+    // $interval(function() {
+    //     $scope.nvd3_data[0].values.push({ x: x, y: Math.floor(Math.random() * 100) + 1 });
 
-        if ($scope.nvd3_data[0].values.length > 20) $scope.nvd3_data[0].values.shift();
-        x++;
-    }, 2500);
+    //     if ($scope.nvd3_data[0].values.length > 20) $scope.nvd3_data[0].values.shift();
+    //     x++;
+    // }, 2500);
 }

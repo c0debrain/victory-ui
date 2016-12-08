@@ -238,5 +238,5 @@ angular.module('app')
                     serie: true
                 }
             ]
-        });
-    }]);
+        })
+    }])

@@ -7,13 +7,13 @@ angular.module('app')
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'FlashProvider', '$locationProvider',
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $FlashProvider, $locationProvider) {
             // Flash Service Configuration
-            $FlashProvider.setTemplatePreset('transclude');
+            $FlashProvider.setTemplatePreset('transclude')
 
             // Use the HTML5 History API, remove /# from url
-            $locationProvider.html5Mode(true);
+            $locationProvider.html5Mode(true)
 
             // Set default state
-            $urlRouterProvider.otherwise('/overview');
+            $urlRouterProvider.otherwise('/overview')
 
             $stateProvider
                 .state('app', {
@@ -33,8 +33,8 @@ angular.module('app')
                                 .then(function() {
                                     return $ocLazyLoad.load([
                                         'application/controllers/overview.controller.js'
-                                    ]);
-                                });
+                                    ])
+                                })
                         }]
                     }
                 })
@@ -50,8 +50,8 @@ angular.module('app')
                                 .then(function() {
                                     return $ocLazyLoad.load([
                                         'application/controllers/region.controller.js'
-                                    ]);
-                                });
+                                    ])
+                                })
                         }]
                     }
                 })
@@ -71,8 +71,8 @@ angular.module('app')
                                 return $ocLazyLoad.load([
                                     'application/controllers/map.controller.js',
                                     'application/directives/ammaps.js'
-                                ]);
-                            });
+                                ])
+                            })
                     }]
                 }
             })
@@ -93,15 +93,15 @@ angular.module('app')
                                 [
                                     'application/controllers/login.controller.js',
                                     'application/services/authentication.service.js'
-                                ]);
+                                ])
                         }]
                     }
-                });
+                })
 
         }
     ])
 
     // Set the API key globally to be included with each request
     .run(function($http, environment) {
-        $http.defaults.headers.common.apikey = environment.api.key;
-    });
+        // $http.defaults.headers.common.apikey = environment.api.key
+    })

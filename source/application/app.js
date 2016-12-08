@@ -12,6 +12,7 @@ angular.module('app', [
     'ngFlash',
     'ngCookies',
     'base64',
+    'btford.socket-io',
 
     // Internal Submodules
     'app.environment',
@@ -19,4 +20,4 @@ angular.module('app', [
     'app.services',
     'app.directives',
     'app.filters'
-]);
+])
