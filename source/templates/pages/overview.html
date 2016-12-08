@@ -31,11 +31,14 @@
                             <li class="warning" style="width: {{ datacenter.status.warning }}%"></li>
                             <li class="danger" style="width: {{ datacenter.status.danger }}%"></li>
                         </ul>
+
                         <div class="tbl-row">
                             <div class="tbl-cell tbl-cell-title">
-                                <h3><span class="semibold">[{{ datacenter.data_center_code }}]</span> {{ datacenter.data_center_name }}</h3>
+                                <h3>{{ datacenter.data_center_name }}</h3>
                             </div>
                         </div>
+
+                        <div class="abbreviation">{{ datacenter.data_center_code }}</div>
                     </header>
 
                     <div class="box-typical-body">
