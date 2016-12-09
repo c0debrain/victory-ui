@@ -25,8 +25,11 @@
 <body>
     <div class="full-height" ui-view></div>
 
-    <!-- Angular -->
+    <!-- Libraries -->
+    <script src="components/lodash/dist/lodash.min.js"></script>
     <script src="components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Angular -->
     <script src="components/angular/angular.min.js"></script>
     <script src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="components/oclazyload/dist/ocLazyLoad.min.js"></script>
@@ -76,6 +79,10 @@
     <script src="application/services/api.service.js"></script>
     <script src="application/services/api/client.service.js"></script>
     <script src="application/services/api/datacenter.service.js"></script>
+
+    <!-- Stores -->
+    <script src="application/stores/index.js"></script>
+    <script src="application/stores/datacenter.store.js"></script>
 
     <!-- Controllers -->
     <script src="application/controllers/index.js"></script>

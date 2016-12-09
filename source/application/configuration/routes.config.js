@@ -55,7 +55,7 @@ function RoutesConfiguration(
                 }
             })
             .state('app.datacenter', {
-                url: '/datacenter',
+                url: '/datacenter/:id',
                 templateUrl: 'templates/pages/datacenter.html',
                 controller: 'controllers.datacenter',
                 controllerAs: 'datacenterCtrl',

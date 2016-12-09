@@ -4,8 +4,7 @@ angular.module('app.controllers')
 CoreController.$inject = [
     '$scope',
     '$rootScope',
-    '$state',
-    'services.socket'
+    '$state'
 ]
 
 /*
@@ -15,8 +14,7 @@ CoreController.$inject = [
 function CoreController(
     $scope,
     $rootScope,
-    $state,
-    socket
+    $state
 ) {
     $rootScope.app = {
         name: 'Network Operations Center | OneLink',
@@ -32,16 +30,4 @@ function CoreController(
     $scope.includes = function(name) {
         return $state.includes(name)
     }
-
-    socket.on('connect', function() {
-        console.log('Socket connection established.')
-    })
-
-    // Emit ready event.
-    socket.emit('ready')
-
-    // Listen for the talk event.
-    socket.on('talk', function(data) {
-        alert(data.message)
-    })
 }

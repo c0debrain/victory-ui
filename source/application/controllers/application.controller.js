@@ -2,7 +2,9 @@ angular.module('app.controllers')
     .controller('controllers.application', ApplicationController)
 
 ApplicationController.$inject = [
-    '$rootScope'
+    '$rootScope',
+    'services.api',
+    'stores.datacenter'
 ]
 
 /*
@@ -10,8 +12,9 @@ ApplicationController.$inject = [
     core.controller which is instatiated on page load.
 */
 function ApplicationController(
-    $rootScope
+    $rootScope,
+    Api,
+    Datacenter
 ) {
-
 
 }
