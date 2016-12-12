@@ -17,7 +17,7 @@ function OverviewController(
     Datacenter
 ) {
     // Initalize scope variables
-    Datacenter.load().then(function(datacenters) {
+    Datacenter.loadAll().then(function(datacenters) {
         $scope.datacenters = datacenters
 
         console.log($scope.datacenters)
