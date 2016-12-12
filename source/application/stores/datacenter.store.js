@@ -10,7 +10,7 @@ function DatacenterStore(
     Api,
     Socket
 ) {
-    var datacenters = []
+    var datacenters = {}
 
     // Listen for the talk event.
     Socket.on('datacenters:health', function(data) {
@@ -39,9 +39,7 @@ function DatacenterStore(
                     datacenters[datacenter.data_center_code] = datacenter
                 })
 
-                return Object.keys(datacenters).map(function(key, index) {
-                    return datacenters[key]
-                })
+                return datacenters
             })
         },
 
@@ -54,15 +52,15 @@ function DatacenterStore(
             return datacenters[key]
         },
 
-        find: function(key) {
+        findOne: function(key) {
             return datacenters[key]
         },
 
-        get: function() {
+        findAll: function() {
             return datacenters
         },
 
-        array: function() {
+        toArray: function() {
             return Object.keys(datacenters).map(function(key, index) {
                 return datacenters[key]
             })

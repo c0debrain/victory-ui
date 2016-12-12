@@ -23,7 +23,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4 hardware" ng-repeat="datacenter in datacenters" ng-click="enterDatacenter(datacenter)">
+            <div class="col-md-4 hardware" ng-repeat="(key, datacenter) in datacenters" ng-click="enterDatacenter(datacenter)">
                 <section class="box-typical">
                     <header class="box-typical-header">
                         <ul class="health">

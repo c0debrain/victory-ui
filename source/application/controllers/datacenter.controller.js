@@ -16,7 +16,7 @@ function DatacenterController(
     Notification,
     Datacenter
 ) {
-    $scope.datacenter = Datacenter.find($state.params.id)
+    $scope.datacenter = Datacenter.findOne($state.params.id)
 
     console.log('Datacenter: ', $scope.datacenter)
 }
