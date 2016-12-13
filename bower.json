@@ -5,7 +5,7 @@
     "angular": "1.6.0",
     "angular-route": "1.6.0",
     "oclazyload": "^1.0.9",
-    "angular-ui-router": "^0.3.1",
+    "angular-ui-router": "1.0.0-beta.3",
     "angular-resource": "^1.5.7",
     "font-awesome": "^4.6.3",
     "angular-peity": "^0.0.5",
@@ -15,7 +15,7 @@
     "angular-flash-alert": "^2.3.0",
     "angular-permission": "^4.1.2",
     "angular-plaid-link": "^1.0.0",
-    "angular-animate": "^1.5.8",
+    "angular-animate": "^1.6.0",
     "angular-bootstrap": "^2.1.4",
     "bootstrap": "v4.0.0-alpha.5",
     "angular-ui-tree": "^2.22.1",
@@ -29,10 +29,15 @@
     "fullcalendar": "2.1.1",
     "highcharts": "^5.0.6",
     "socket.io-client": "^1.7.1",
-    "angular-socket-io": "^0.7.0"
+    "angular-socket-io": "^0.7.0",
+    "lodash": "^4.17.2"
   },
   "devDependencies": {},
   "resolutions": {
-    "angular": ">=1.2.0"
+    "angular": "1.6.0",
+    "bootstrap": "v4.0.0-alpha.5",
+    "jquery": "^3.1.1",
+    "fullcalendar": "~2.7.1",
+    "angular-ui-router": "1.0.0-beta.3"
   }
 }
