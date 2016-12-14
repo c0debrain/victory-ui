@@ -29,6 +29,14 @@ function ApplicationController(
             account.filtered = false
         })
 
+        $rootScope.currentNetWorth = $rootScope.accounts.reduce(function(previous, current) {
+            if (current.type === 'credit') {
+                return previous - current.balance_current
+            }
+
+            return previous + current.balance_current
+        }, 0)
+
         $rootScope.$broadcast('retrievedAccounts')
     })
 
