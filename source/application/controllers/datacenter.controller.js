@@ -16,13 +16,11 @@ function DatacenterController(
     Notification,
     Datacenter
 ) {
-    Datacenter.find($state.params.id).then(function(datacenter) {
-        $scope.datacenter = datacenter
+    $scope.datacenter = Datacenter.find($state.params.id)
 
-        console.log('Datacenter: ', $scope.datacenter)
-    })
+    console.log($scope.datacenter)
 
-   $scope.chartConfig = {
+    $scope.chartConfig = {
         options: {
             //This is the Main Highcharts chart config. Any Highchart options are valid here.
             //will be overriden by values specified below.

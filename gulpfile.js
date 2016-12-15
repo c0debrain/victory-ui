@@ -18,6 +18,7 @@ var nodemon         = require('nodemon')
 var changed         = require('gulp-changed')
 var jshint          = require('gulp-jshint')
 var sourcemaps      = require('gulp-sourcemaps')
+var babel           = require('gulp-babel')
 
 
 // Config Variables --------------------------------------------
@@ -96,6 +97,18 @@ gulp.task('clean', task.clean = function() {
         .pipe(clean())
 })
 
+/*
+    Transpiles to ES7
+ */
+gulp.task('babel', task.babel = function() {
+    return gulp.src([
+            paths.application + '/*.js',
+            paths.application + '/**/*.js',
+            paths.application + '/**/**/*.js'
+        ])
+        .pipe(babel({ presets: ['es2017'] }))
+        .pipe(gulp.dest(paths.build))
+})
 
 /*
     Checks for errors in syntax.

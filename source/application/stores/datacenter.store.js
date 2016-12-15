@@ -40,20 +40,21 @@ function DatacenterStore(
     /*
         Class Methods
      */
-    var load = function(key) {
-        return Api.datacenter.get({ id: key }).$promise.then(function(response) {
-            if (response.status !== 'success') {
-                return Notification.create('danger', 'Failed to pull datacenters from API.')
-            }
+    var load = function(key, callback) {
+        Api.datacenter.get({ id: key })
+            .$promise.then(function(response) {
+                if (response.status !== 'success') {
+                    return Notification.create('danger', 'Failed to pull datacenters from API.')
+                }
 
-            // Mock statistical values until we have real data
-            var datacenter = mockStatistics(response.data[0])
+                // Mock statistical values until we have real data
+                var datacenter = mockStatistics(response.data[0])
 
-            // Make associative array entry
-            datacenters[datacenter.data_center_code] = datacenter
+                // Make associative array entry
+                datacenters[datacenter.data_center_code] = datacenter
 
-            return datacenter
-        })
+                callback(datacenter)
+            })
     }
 
     var loadAll = function() {
@@ -93,10 +94,14 @@ function DatacenterStore(
 
     var find = function(key) {
         if (datacenters && datacenters[key]) {
+            console.log('Entity exists in collection, returning: ', datacenters[key])
             return datacenters[key]
         }
 
-        return load(key)
+        console.log('Entity does not exist in collection, retrieving...')
+        return load(key, function(datacenter) {
+            return datacenter
+        })
     }
 
     var findAll = function() {
