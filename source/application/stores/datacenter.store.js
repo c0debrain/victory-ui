@@ -15,15 +15,24 @@ function DatacenterStore(
      */
     var datacenters = {}
 
+    /**
+     * Generate faked health data to be graphed
+     * @param  {[object]}   datacenter which we want to fake data for
+     * @return {[object]}
+     */
     var mockStatistics = function(datacenter) {
-        datacenter.statistics = {
-            clusters: Math.floor((Math.random() * 20) + 1),
-            alerts: Math.floor((Math.random() * 10) + 1),
-            warnings: Math.floor((Math.random() * 30) + 1)
-        }
         datacenter.status = { stable: Math.floor((Math.random() * 100) + 1) }
         datacenter.status.warning = Math.floor(((100 -  datacenter.status.stable) / 3) * 2)
         datacenter.status.danger = Math.floor((100 -  datacenter.status.stable) / 3)
+        datacenter.health = []
+
+        // Generate health history
+        for (var i = 0; i < 24; i++) {
+            datacenter.health.push({
+                date: moment().startOf('hour').subtract(i + 1, 'hour').format(),
+                status: Math.floor((Math.random() * 100) + 1)
+            })
+        }
 
         return datacenter
     }
@@ -37,28 +46,35 @@ function DatacenterStore(
     })
 
 
-    /*
-        Class Methods
+    /**
+     * Load in data from the API for a datacenter
+     * @param  {[string]}   key         key of the datacenter to load
+     * @param  {Function}   callback    to be executed on the returned data
+     * @return {Function}               callback executed on the returned data
      */
     var load = function(key, callback) {
-        Api.datacenter.get({ id: key })
-            .$promise.then(function(response) {
-                if (response.status !== 'success') {
-                    return Notification.create('danger', 'Failed to pull datacenters from API.')
-                }
+        Api.datacenter.get({ id: key }, function(response) {
+            if (response.status !== 'success') {
+                return Notification.create('danger', 'Failed to pull datacenters from API.')
+            }
 
-                // Mock statistical values until we have real data
-                var datacenter = mockStatistics(response.data[0])
+            // Mock statistical values until we have real data
+            var datacenter = mockStatistics(response.data[0])
 
-                // Make associative array entry
-                datacenters[datacenter.data_center_code] = datacenter
+            // Make associative array entry
+            datacenters[datacenter.data_center_code] = datacenter
 
-                callback(datacenter)
-            })
+            callback(datacenter)
+        })
     }
 
-    var loadAll = function() {
-        return Api.datacenter.all().$promise.then(function(response) {
+    /**
+     * Load in data from the API for all datacenters
+     * @param  {Function}   callback    to be executed on the returned data
+     * @return {Function}               callback executed on the returned data
+     */
+    var loadAll = function(callback) {
+        Api.datacenter.all(function(response) {
             if (response.status !== 'success') {
                 return Notification.create('danger', 'Failed to pull datacenters from API.')
             }
@@ -71,7 +87,7 @@ function DatacenterStore(
                 datacenters[datacenter.data_center_code] = datacenter
             })
 
-            return datacenters
+            callback(datacenters)
         })
     }
 
@@ -84,32 +100,26 @@ function DatacenterStore(
     }
 
     var update = function(key, properties) {
-        datacenters[key] = angular.extend(datacenters[key], properties)
-        return datacenters[key]
+        if (datacenters.length > 0 && datacenters[key]) {
+            datacenters[key] = angular.extend(datacenters[key], properties)
+            return datacenters[key]
+        }
+
+        return false
     }
 
     var updateAll = function() {
         return
     }
 
-    var find = function(key) {
-        if (datacenters && datacenters[key]) {
-            console.log('Entity exists in collection, returning: ', datacenters[key])
-            return datacenters[key]
-        }
-
-        console.log('Entity does not exist in collection, retrieving...')
-        return load(key, function(datacenter) {
-            return datacenter
-        })
+    var find = function(key, callback) {
+        if (datacenters && datacenters[key]) { return datacenters[key] }
+        return load(key, callback)
     }
 
-    var findAll = function() {
-        if (datacenters) {
-            return datacenters
-        }
-
-        return loadAll()
+    var findAll = function(callback) {
+        if (datacenters) { return datacenters }
+        return loadAll(callback)
     }
 
     /**

@@ -4,6 +4,7 @@ angular.module('app.controllers')
 DatacenterController.$inject = [
     '$scope',
     '$state',
+    '$timeout',
     'services.api',
     'services.notification',
     'stores.datacenter'
@@ -12,20 +13,58 @@ DatacenterController.$inject = [
 function DatacenterController(
     $scope,
     $state,
+    $timeout,
     Api,
     Notification,
     Datacenter
 ) {
-    $scope.datacenter = Datacenter.find($state.params.id)
+    $scope.datacenter = {}
 
-    console.log($scope.datacenter)
+    Datacenter.find($state.params.id, function(datacenter) {
+        $scope.datacenter = datacenter
+        console.log('Datacenter: ', $scope.datacenter)
+
+        $scope.chartConfig.series.push({
+            name: 'Performance',
+            data: datacenter.health.map(function(health) {
+                return [moment(health.date).calendar(), health.status]
+            }).reverse(),
+            type: 'area',
+            color: "#2099ea",
+            lineWidth: 1,
+            dashStyle: "longdash",
+            fillOpacity: 0.08,
+            marker: {
+                fillColor: "#FFF",
+                lineColor: "#2099ea",
+                lineWidth: 1.5,
+                width: 6,
+                height: 6,
+                radius: 3,
+                symbol: 'circle'
+            }
+        })
+
+        $scope.chartConfig.xAxis.categories = datacenter.health.map(function(health) {
+            return moment(health.date).format('HH:mm')
+        }).reverse()
+    })
 
     $scope.chartConfig = {
         options: {
-            //This is the Main Highcharts chart config. Any Highchart options are valid here.
-            //will be overriden by values specified below.
+            // This is the Main Highcharts chart config. Any Highchart options are valid here.
+            // will be overriden by values specified below.
             chart: {
-                type: 'areaspline'
+                animation: false,
+                type: 'area',
+                spacingLeft: 0,
+                spacingRight: 0,
+                spacingTop: 0,
+
+                style: {
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                    fontSize: '12px'
+                }
             },
             tooltip: {
                 style: {
@@ -33,47 +72,56 @@ function DatacenterController(
                     fontWeight: 'bold'
                 }
             },
-            margin: 0
+            legend: {
+                enabled: false
+            }
         },
-        //The below properties are watched separately for changes.
+        // The below properties are watched separately for changes.
 
-        //Series object (optional) - a list of series using normal Highcharts series options.
-        series: [{
-            data: [10, 15, 12, 8, 7]
-        }],
-        //Title configuration (optional)
+        // Series object (optional) - a list of series using normal Highcharts series options.
+        series: [],
+
+        // Title configuration (optional)
         title: {
             text: null
         },
 
-        //Boolean to control showing loading status on chart (optional)
-        //Could be a string if you want to show specific loading text.
+        // Boolean to control showing loading status on chart (optional)
+        // Could be a string if you want to show specific loading text.
         loading: false,
 
-        //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
-        //properties currentMin and currentMax provided 2-way binding to the chart's maximum and minimum
+        // Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
+        // properties currentMin and currentMax provided 2-way binding to the chart's maximum and minimum
         xAxis: {
-            currentMin: 0,
-            currentMax: 20,
-            title: {
-                text: ''
+            crosshair: {
+                color: "#e5e5e5",
+                width: 2,
+                zIndex: 2,
+                dashStyle: "shortdash"
             },
-            credits: {
-                enabled: true
-            }
+            startOnTick: false,
+            endOnTick: false,
+            gridLineWidth: 0,
+            minPadding: 0,
+            maxPadding: 0,
+            tickLength: 0
         },
         yAxis: {
             title: {
                 text: ''
-            }
+            },
+            labels: {
+                align: "left",
+                x: 10,
+                y: -8
+            },
+            startOnTick: false,
+            endOnTick: false
         },
-
-        //Whether to use Highstocks instead of Highcharts (optional). Defaults to false.
-        useHighStocks: false,
-
-        //function (optional)
         func: function(chart) {
-            //setup some logic for the chart
+            $timeout(function() {
+                chart.reflow()
+            }, 0)
         }
     }
 }
