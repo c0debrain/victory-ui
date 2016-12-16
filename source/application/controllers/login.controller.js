@@ -2,23 +2,23 @@ angular.module('app.controllers')
     .controller('controllers.login', LoginController)
 
 LoginController.$inject = [
-    '$scope',
+    '$cookieStore'
     '$rootScope',
-    '$http',
+    '$scope',
     '$state',
+    '$http',
     'services.authentication',
     'services.notification',
-    '$cookieStore'
 ]
 
 function LoginController(
-    $scope,
-    $rootScope,
-    $http,
-    $state,
-    Auth,
-    Notification,
     $cookieStore
+    $rootScope,
+    $scope,
+    $state,
+    $http,
+    AuthenticationService,
+    NotificationService,
 ) {
     // Reset login status
     (function initController() {
@@ -36,7 +36,7 @@ function LoginController(
         console.log('Logging in with: ', email, password)
 
         this.loading = true
-        Auth.authenticate({
+        AuthenticationService.authenticate({
             email: email,
             password: password
 
@@ -50,8 +50,8 @@ function LoginController(
 
         }, function error(response) {
             console.log(response)
-            Notification.clear()
-            Notification.create('warning', 'Incorrect credentials provided.', 0)
+            NotificationService.clear()
+            NotificationService.create('warning', 'Incorrect credentials provided.', 0)
             this.loading = false
         })
     }

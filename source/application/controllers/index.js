@@ -1,1 +1,1 @@
-angular.module('app.controllers', ['app.services', 'app.stores'])
+angular.module('app.controllers', ['app.services', 'app.managers'])

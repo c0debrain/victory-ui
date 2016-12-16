@@ -2,31 +2,31 @@ angular.module('app.controllers')
     .controller('controllers.register', RegisterController)
 
 RegisterController.$inject = [
+    '$cookieStore',
     '$rootScope',
     '$scope',
-    '$cookieStore',
     '$state',
     '$http',
+    'services.authentication'
     'services.notification',
     'services.user',
-    'services.authentication'
 ]
 
 function RegisterController(
+    $cookieStore,
     $rootScope,
     $scope,
-    $cookieStore,
     $state,
     $http,
-    Notification,
+    AuthenticationService
+    NotificationService,
     UserService,
-    Auth
 ) {
 
     // Trigger create new user process
     this.register = function(email, password) {
         // Clear all notifications first
-        Notification.clear()
+        NotificationService.clear()
 
         // Make request to create new user
         UserService.create({
@@ -34,7 +34,7 @@ function RegisterController(
             password: password
         }, function success(response) {
             // Make sure new user was created
-            Auth.authenticate({
+            AuthenticationService.authenticate({
                 email: email,
                 password: password
 
@@ -48,11 +48,11 @@ function RegisterController(
                 $state.go('app.overview')
 
             }, function error(response) {
-                Notification.create('warning', 'Failed to authenticate with newly created credentials.', 0)
+                NotificationService.create('warning', 'Failed to authenticate with newly created credentials.', 0)
             })
 
         }, function error(response) {
-            Notification.create('warning', 'User registered with that email already exists.', 0)
+            NotificationService.create('warning', 'User registered with that email already exists.', 0)
         })
     }
 }

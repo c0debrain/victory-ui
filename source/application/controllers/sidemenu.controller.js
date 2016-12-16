@@ -2,14 +2,14 @@ angular.module('app.controllers')
     .controller('controllers.sidemenu', SidemenuController)
 
 SidemenuController.$inject = [
-    '$scope',
     '$rootScope',
+    '$scope',
     '$state'
 ]
 
 function SidemenuController(
-    $scope,
     $rootScope,
+    $scope,
     $state
 ) {
     $scope.user = $rootScope.user

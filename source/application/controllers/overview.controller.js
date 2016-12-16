@@ -4,20 +4,16 @@ angular.module('app.controllers')
 OverviewController.$inject = [
     '$scope',
     '$state',
-    'services.api',
-    'services.notification',
-    'stores.datacenter'
+    'managers.datacenter'
 ]
 
 function OverviewController(
     $scope,
     $state,
-    Api,
-    Notification,
-    Datacenter
+    DatacenterManager
 ) {
     // Initalize scope variables
-    Datacenter.loadAll(function(datacenters) {
+    DatacenterManager.loadAll().then(function(datacenters) {
         $scope.datacenters = datacenters
     })
 

@@ -5,23 +5,21 @@ DatacenterController.$inject = [
     '$scope',
     '$state',
     '$timeout',
-    'services.api',
-    'services.notification',
-    'stores.datacenter'
+    'managers.datacenter'
 ]
 
 function DatacenterController(
     $scope,
     $state,
     $timeout,
-    Api,
-    Notification,
-    Datacenter
+    DatacenterManager
 ) {
     $scope.datacenter = {}
+    console.log('Code: ', $state.params.id)
 
-    Datacenter.find($state.params.id, function(datacenter) {
+    DatacenterManager.get($state.params.id).then(function(datacenter) {
         $scope.datacenter = datacenter
+
         console.log('Datacenter: ', $scope.datacenter)
 
         $scope.chartConfig.series.push({

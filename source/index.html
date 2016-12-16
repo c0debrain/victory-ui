@@ -62,7 +62,7 @@
 
     <!-- Configuration -->
     <script src="application/configuration/index.js"></script>
-    <!-- <script src="application/configuration/promise.config.js"></script> -->
+    <script src="application/configuration/promise.config.js"></script>
     <script src="application/configuration/lazyload.config.js"></script>
     <script src="application/configuration/routes.config.js"></script>
     <script src="application/configuration/authentication.config.js"></script>
@@ -76,13 +76,14 @@
     <script src="application/services/index.js"></script>
     <script src="application/services/notification.service.js"></script>
     <script src="application/services/socket.service.js"></script>
-    <script src="application/services/api.service.js"></script>
-    <script src="application/services/api/client.service.js"></script>
-    <script src="application/services/api/datacenter.service.js"></script>
 
-    <!-- Stores -->
-    <script src="application/stores/index.js"></script>
-    <script src="application/stores/datacenter.store.js"></script>
+    <!-- Models -->
+    <script src="application/models/index.js"></script>
+    <script src="application/models/datacenter.model.js"></script>
+
+    <!-- Managers -->
+    <script src="application/managers/index.js"></script>
+    <script src="application/managers/datacenter.manager.js"></script>
 
     <!-- Controllers -->
     <script src="application/controllers/index.js"></script>
@@ -101,6 +102,7 @@
 
     <!-- Interceptors -->
     <script src="application/interceptors/index.js"></script>
+    <script src="application/interceptors/api.interceptor.js"></script>
     <script src="application/interceptors/unauthenticated.interceptor.js"></script>
 </body>
 </html>

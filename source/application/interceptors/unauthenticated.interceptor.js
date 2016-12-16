@@ -1,9 +1,15 @@
 angular.module('app.interceptors')
     .factory('interceptors.unauthenticated', UnauthenticatedInterceptor)
 
-UnauthenticatedInterceptor.$inject = ['$q', '$location']
+UnauthenticatedInterceptor.$inject = [
+    '$location',
+    '$q'
+]
 
-function UnauthenticatedInterceptor($q, $location) {
+function UnauthenticatedInterceptor(
+    $location,
+    $q
+) {
     return {
         response: function(response) {
             if (response.status === 401) {
