@@ -20,8 +20,11 @@ function DatacenterManager(
     Instance
 ) {
     var manager = {
+        /* Class properties */
         _pool: {},
 
+
+        /* Private Methods */
         _retrieveInstance: function(id, data) {
             var instance = this._pool[id]
 
@@ -52,6 +55,7 @@ function DatacenterManager(
                     deferred.reject()
                 })
         },
+
 
         /* Public Methods */
         /* Use this function in order to get an instance by it's id */
@@ -109,7 +113,6 @@ function DatacenterManager(
 
             return instance
         }
-
     }
 
     return manager

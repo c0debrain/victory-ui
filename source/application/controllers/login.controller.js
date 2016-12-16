@@ -33,8 +33,6 @@ function LoginController(
     this.password = 'password'
 
     this.login = function(email, password) {
-        console.log('Logging in with: ', email, password)
-
         this.loading = true
 
         AuthenticationService.authenticate({
