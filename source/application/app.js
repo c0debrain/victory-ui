@@ -9,7 +9,6 @@ angular.module('app', [
     'permission',
     'permission.ui',
     'ngCookies',
-    'ngResource',
     'oc.lazyLoad',
     'btford.socket-io',
 
@@ -20,12 +19,7 @@ angular.module('app', [
 
     // Components
     'ngFlash',
-    'ui.tree',
-    'ui.calendar',
-    'xeditable',
     'smart-table',
-    'ngLetterAvatar',
-    'daterangepicker',
     'highcharts-ng',
 
     // Application Modules
