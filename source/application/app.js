@@ -32,6 +32,8 @@ angular.module('app', [
     'app.environment',
     'app.configuration',
     'app.controllers',
+    'app.models',
+    'app.managers',
     'app.services',
     'app.directives',
     'app.filters'
