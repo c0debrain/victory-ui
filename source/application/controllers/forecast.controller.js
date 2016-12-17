@@ -6,7 +6,8 @@ ForecastController.$inject = [
     '$rootScope',
     'moment',
     'services.transaction',
-    'services.scenario'
+    'services.scenario',
+    'services.user'
 ]
 
 function ForecastController(
@@ -14,7 +15,8 @@ function ForecastController(
     $rootScope,
     moment,
     Transaction,
-    Scenario
+    Scenario,
+    User
 ) {
     $scope.active = 1
     $scope.transactions = []
@@ -32,61 +34,14 @@ function ForecastController(
         console.log('Scenario Service Response: ', $scope.scenarios)
     })
 
-    Transaction.all(function(response) {
-        var groupBy = function(xs, key) {
-            return xs.reduce(function(rv, x) {
-                (rv[x[key]] = rv[x[key]] || []).push(x)
-                return rv
-            }, {})
-        }
+    User.netWorth({ startDate: moment().subtract(3, 'years').format() }, function(response) {
+        $scope.netWorth = response.data
 
-        // Group transactions by date (day in this case, due to the way Plaid dates are)
-        $scope.transactions = groupBy(response.data.map(function(transaction) {
-            transaction.date = moment(transaction.date).format('MM/DD/YY')
-            return transaction
-        }), 'date')
+        console.log('Net Worth: ', $scope.netWorth)
 
-        console.log('Transaction Service Response: ', $scope.transactions)
-
-        // $scope.values = Object.keys($scope.transactions).map(function(date) {
-        //     return $scope.transactions[date].reduce(function(previous, current) {
-        //         return previous + current.amount
-        //     }, ($rootScope.currentNetWorth || 0))
-        // })
-
-        $scope.dateTotals = []
-        var keyMap = Object.keys($scope.transactions).sort().reverse()
-
-        console.log('Current Net Worth: ', $rootScope.currentNetWorth)
-        console.log('KeyMap Length: ', keyMap)
-
-        // Iterate through the array backwards
-        // for (var i = 0; i <= keyMap.length - 1; i++) {
-        //     $scope.dateTotals[keyMap[i]] = $scope.transactions[keyMap[i]].reduce(function(previous, current) {
-        //         return previous + current.amount
-        //     }, 0)
-        //
-        //     console.log('Transactions @ ' + keyMap[i] + ': ', $scope.transactions[keyMap[i]])
-        // }
-
-        // console.log('keyMap: ', keyMap)
-
-        keyMap.forEach(function(currentValue) {
-            var total = $scope.transactions[currentValue].reduce(function(previous, current) {
-                return previous + current.amount
-            }, 0)
-
-            if (currentValue === keyMap[0]) {
-                total += $rootScope.currentNetWorth
-            } else {
-                console.log($scope.dateTotals, moment(currentValue).subtract(1, 'day').format('MM/DD/YY'))
-                // total += $scope.dateTotals[moment(currentValue).subtract(1, 'day').format()]
-            }
-
-            $scope.dateTotals[currentValue] = total
+        $scope.chartConfig.series.push({
+            data: $scope.netWorth
         })
-
-        console.log('Values: ', $scope.dateTotals)
     })
 
 
@@ -111,7 +66,7 @@ function ForecastController(
 
         // Series object (optional) - a list of series using normal Highcharts series options.
         series: [{
-            data: [10, 15, 12, 8, 7]
+            data: []
         }],
         // Title configuration (optional)
         title: {
@@ -120,7 +75,7 @@ function ForecastController(
 
         // Boolean to control showing loading status on chart (optional)
         // Could be a string if you want to show specific loading text.
-        loading: false,
+        loading: true,
 
         // Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
         // properties currentMin and currentMax provided 2-way binding to the chart's maximum and minimum

@@ -15,6 +15,11 @@ function UserService($resource, Environment) {
         create: {
             url: Environment.api.path + '/users',
             method: 'POST'
+        },
+
+        netWorth: {
+            url: Environment.api.path + '/users/self/networth',
+            method: 'GET'
         }
     })
 }

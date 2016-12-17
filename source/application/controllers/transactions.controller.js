@@ -16,6 +16,7 @@ function TransactionsController(
     Transaction,
     Scenario
 ) {
+    $scope.initial = []
     $scope.transactions = []
     $scope.pulledTransactions = false
 
@@ -78,6 +79,8 @@ function TransactionsController(
 
                     $scope.pulledTransactions = true
                 })
+
+                $scope.initial.concat(transactions)
 
             // No Transactions were returned for the specified date range
             } else {

@@ -69,11 +69,11 @@
 
                     <div class="box-typical-body">
                         <div class="table-responsive">
-                            <table class="table table-hover table-datatable table-transactions" st-table="transactions">
+                            <table class="table table-hover table-datatable table-transactions" st-table="initial" st-safe-src="transactions">
                                 <thead>
                                     <tr>
                                         <th style="width: 50px;"></th>
-                                        <th st-sort="date" style="width: 10%">Date</th>
+                                        <th st-sort="date" st-sort-default="reverse" style="width: 10%">Date</th>
                                         <th st-sort="name" style="width: 30%">Description</th>
                                         <th st-sort="category">Category</th>
                                         <th st-sort="account">Account</th>
@@ -100,7 +100,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="item in transactions" ng-show="!item.filtered">
+                                    <tr ng-repeat="item in initial" ng-show="!item.filtered">
                                         <td class="table-check account" ng-class="{
                                             'pending': ($index <= 4),
                                             'new': ($index > 4 && $index < 10)
