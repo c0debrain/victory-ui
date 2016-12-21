@@ -21,7 +21,7 @@ function TransactionsController(
     $scope.pulledTransactions = false
 
     $scope.dates = {
-        startDate: moment().startOf('year'),
+        startDate: moment().startOf('month'),
         endDate: moment()
     }
 
@@ -80,7 +80,7 @@ function TransactionsController(
                     $scope.pulledTransactions = true
                 })
 
-                $scope.initial.concat(transactions)
+                $scope.initial.concat($scope.transactions)
 
             // No Transactions were returned for the specified date range
             } else {
