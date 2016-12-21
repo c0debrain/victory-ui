@@ -99,7 +99,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody vs-repeat vs-scroll-parent=".table-responsive">
                                     <tr ng-repeat="item in initial" ng-show="!item.filtered">
                                         <td class="table-check account" ng-class="{
                                             'pending': ($index <= 4),

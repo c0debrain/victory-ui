@@ -3,14 +3,12 @@ angular.module('app.models')
 
 ScenarioModel.$inject = [
     '$http',
-    '$q',
-    'managers.budget'
+    '$q'
 ]
 
 function ScenarioModel(
     $http,
-    $q,
-    BudgetManager
+    $q
 ) {
     function Scenario(data) {
         if (data) {
@@ -35,37 +33,39 @@ function ScenarioModel(
      * @param scenario.expenditure.actual
      * @param scenario.expenditure.allowance
      */
-    Scenario.prototype.virtuals = function(scenario) {
+    Scenario.prototype.virtuals = function(datePeriods) {
         // Set default virtual properties
-        scenario.income = {
+        this.income = {
             actual: 0,
             allowance: 0
         }
-        scenario.expense = {
+        this.expense = {
             actual: 0,
             allowance: 0
         }
 
         // Only perform this map if the scenario has a budgets property
-        if (scenario.budgets) {
-            scenario.budgets = BudgetManager.virtuals(scenario.budgets)
+        if (this.budgets) {
+            this.budgets.forEach(function(budget) {
+                budget.virtuals(datePeriods)
+            })
 
-            scenario.budgets.forEach(function(budget) {
+            this.budgets.forEach(function(budget) {
                 if ((budget.total !== 0 ? budget.total : budget.allowance) > 0) {
-                    scenario.income.actual += budget.total
-                    scenario.income.allowance += budget.allowance
+                    this.income.actual += budget.total
+                    this.income.allowance += budget.allowance
                 } else if ((budget.total !== 0 ? budget.total : budget.allowance) <= 0) {
-                    scenario.expense.actual += budget.total
-                    scenario.expense.allowance += budget.allowance
+                    this.expense.actual += budget.total
+                    this.expense.allowance += budget.allowance
                 }
             })
 
         // Otherwise assign an empty array of Budgets
         } else {
-            scenario.budgets = []
+            this.budgets = []
         }
 
-        return scenario
+        return this
     }
 
 

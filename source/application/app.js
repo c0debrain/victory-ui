@@ -27,6 +27,7 @@ angular.module('app', [
     'ngLetterAvatar',
     'daterangepicker',
     'highcharts-ng',
+    'vs-repeat',
 
     // Application Modules
     'app.environment',

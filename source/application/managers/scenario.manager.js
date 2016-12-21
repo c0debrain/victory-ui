@@ -117,19 +117,6 @@ function ScenarioManager(
             }
 
             return instance
-        },
-
-
-        /**
-         * Calculates all the virtual fields for all Scenarios
-         *
-         * @param   [scenarios]     all Scenarios to calculate
-         * @return  [scenarios]     all Scenarios with virtual fields
-         */
-        virtuals: function(scenarios) {
-            return scenarios.map(function(scenario) {
-                return scenario.virtuals(scenario)
-            })
         }
     }
 

@@ -33,27 +33,27 @@ function BudgetModel(
      * @param budget.total
      * @param budget.progress
      */
-    Budget.prototype.virtuals = function(budget) {
+    Budget.prototype.virtuals = function(datePeriods) {
         // Set default virtual properties
-        budget.total = 0
-        budget.progress = 0
+        this.total = 0
+        this.progress = 0
 
         // Only if category has transactions
         // Iterate through transactions and accumulate
-        if (budget.category) {
-            if (budget.category.transactions) {
-                budget.total = budget.category.transactions.reduceRight(function(previous, current) {
+        if (this.category) {
+            if (this.category.transactions) {
+                this.total = this.category.transactions.reduceRight(function(previous, current) {
                     return previous + current.amount
                 }, 0)
             }
 
             // Don't bother calculating budget progress if no allowance is set
-            if (budget.allowance !== 0 && budget.allowance) {
-                budget.progress = Math.round((budget.total / (budget.allowance * $scope.dateRange.periods)) * 100)
+            if (this.allowance !== 0 && this.allowance) {
+                this.progress = Math.round((this.total / (this.allowance * datePeriods)) * 100)
             }
         }
 
-        return budget
+        return this
     }
 
 

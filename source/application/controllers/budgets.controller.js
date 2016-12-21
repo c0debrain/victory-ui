@@ -111,30 +111,35 @@ function BudgetsController(
         ScenarioManager.loadAll({
             relations: true,
             attributes: ['id']
+
         }).then(function(scenarios) {
             console.log('Scenario Manager Response: ', scenarios)
 
-            $scope.scenarios = ScenarioManager.virtuals(
-                scenarios.map(function(scenario) {
-                    scenario.budgets = scenario.budgets.map(function(budget) {
-                        return BudgetManager.get(budget.id)
-                    })
-                    return scenario
-                })
-            )
-        })
-        .catch(function(error) {
+            scenarios.forEach(function(scenario) {
+                scenario.virtuals($scope.dateRange.periods)
+            })
+
+        }).catch(function(error) {
             NotificationService.create('warning', error)
         })
 
-        // Scenario.allWithTransactions(parameters, function(response) {
-        //     if (response.status === 'error') {
-        //         Notification.create('warning', 'Failed to pull scenarios.', 0)
-        //     }
+        // BudgetManager.loadAll({
+        //     relations: true,
+        //     attributes: ['id']
+        // }).then(function(scenarios) {
+        //     console.log('Scenario Manager Response: ', scenarios)
         //
-        //     console.log('Scenario Service Response: ', response.data)
-        //
-        //     console.log('Scenario w/ Virtuals: ', $scope.scenarios)
+        //     $scope.scenarios = ScenarioManager.virtuals(
+        //         scenarios.map(function(scenario) {
+        //             scenario.budgets = scenario.budgets.map(function(budget) {
+        //                 return BudgetManager.get(budget.id)
+        //             })
+        //             return scenario
+        //         })
+        //     )
+        // })
+        // .catch(function(error) {
+        //     NotificationService.create('warning', error)
         // })
     }
 

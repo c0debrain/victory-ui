@@ -46,7 +46,7 @@ function BudgetManager(
         _load: function(id, deferred) {
             var scope = this
 
-            $http.get(Environment.api.path + '/budgets/' + id)
+            $http.get(Environment.api.path + '/budgets/self/' + id)
                 .then(function(response) {
                     var instance = scope._retrieveInstance(response.data.id, response.data)
                     deferred.resolve(instance)
@@ -129,18 +129,6 @@ function BudgetManager(
             }
 
             return instance
-        },
-
-        /**
-         * Calculates all the virtual fields for all Budgets provided
-         *
-         * @param   [budgets]   all Budgets to calculate
-         * @return  [budgets]   all Budgets with virtual fields
-         */
-        virtuals: function(budgets) {
-            return budgets.map(function(budget) {
-                return budget.virtuals(budget)
-            })
         }
     }
 
