@@ -5,7 +5,9 @@ ApplicationController.$inject = [
     '$rootScope',
     'services.account',
     'services.transaction',
-    'services.category'
+    'services.category',
+    'managers.account',
+    'services.notification'
 ]
 
 /*
@@ -16,47 +18,14 @@ function ApplicationController(
     $rootScope,
     Accounts,
     Transactions,
-    Category
+    Category,
+    AccountManager,
+    NotificationService
 ) {
-
-    // Retrieve User's Accounts
-    Accounts.all(function(response) {
-        console.log('Account Service Response: ', response.data)
-        $rootScope.accounts = response.data
-
-        // Map through and add filtered status to accounts
-        $rootScope.accounts.map(function(account) {
-            account.filtered = false
+    AccountManager.loadAll()
+        .then(function(accounts) {
+            $rootScope.accounts = accounts
+        }).catch(function(error) {
+            NotificationService.create('warning', error)
         })
-
-        $rootScope.currentNetWorth = $rootScope.accounts.reduce(function(previous, current) {
-            if (current.type === 'credit') {
-                return previous - current.balance_current
-            }
-
-            return previous + current.balance_current
-        }, 0)
-
-        $rootScope.$broadcast('retrievedAccounts')
-    })
-
-
-    /**
-     * Pull in all categories
-     * @type {[type]}
-     */
-    $rootScope.retrieveCategories = function() {
-        // Limit the attributes we are retrieving
-        var parameters = {
-            attributes: ['id', 'hierarchy', 'type']
-        }
-
-        // Make request for categories
-        Category.all(parameters, function(response) {
-            // console.log('Category Service Response: ', response.data)
-            $rootScope.categories = response.data
-        })
-    }
-    $rootScope.retrieveCategories()
-
 }

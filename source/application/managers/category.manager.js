@@ -1,11 +1,11 @@
 angular.module('app.managers')
-    .factory('managers.transaction', TransactionManager)
+    .factory('managers.category', CategoryManager)
 
-TransactionManager.$inject = [
+CategoryManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.transaction'
+    'models.category'
 ]
 
 /**
@@ -13,7 +13,7 @@ TransactionManager.$inject = [
  * same template for all models throughout the front-end. This will make
  * copying code across files much easier.
  */
-function TransactionManager(
+function CategoryManager(
     Environment,
     $http,
     $q,
@@ -46,7 +46,7 @@ function TransactionManager(
         _load: function(id, deferred) {
             var scope = this
 
-            $http.get(Environment.api.path + '/transactions/self/' + id)
+            $http.get(Environment.api.path + '/categories/' + id)
                 .then(function(response) {
                     var instance = scope._retrieveInstance(response.data.id, response.data)
                     deferred.resolve(instance)
@@ -78,7 +78,7 @@ function TransactionManager(
             var parameters = parameters || {}
             var scope = this
 
-            $http.get(Environment.api.path + '/transactions/self/' + (parameters.relations ? 'all' : ''), {
+            $http.get(Environment.api.path + '/categories/' + (parameters.relations ? 'self/relations' : ''), {
                 params: parameters
             }).then(function(response) {
                 var collection = []
@@ -89,7 +89,8 @@ function TransactionManager(
                 })
 
                 deferred.resolve(collection)
-            }).catch(function(error) {
+            })
+            .catch(function(error) {
                 console.error(error)
                 deferred.reject()
             })

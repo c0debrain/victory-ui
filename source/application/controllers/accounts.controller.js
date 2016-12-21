@@ -18,16 +18,6 @@ function AccountsController(
 ) {
     $scope.accounts = $rootScope.accounts
 
-    // Handle onClick for accounts
-    $scope.filterAccount = function(accountId) {
-        $rootScope.accounts.map(function(account) {
-            if (account.id === accountId) {
-                account.filtered = !account.filtered
-                $rootScope.$broadcast('toggleAccount', account)
-            }
-        })
-    }
-
     // Plaid connect modal
     $scope.linkAccount = function() {
         if (plaidLink.isLoaded()) {

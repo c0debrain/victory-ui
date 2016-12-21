@@ -1,11 +1,12 @@
 angular.module('app.managers')
-    .factory('managers.transaction', TransactionManager)
+    .factory('managers.scenario', ScenarioManager)
 
-TransactionManager.$inject = [
+ScenarioManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.transaction'
+    'models.scenario',
+    'managers.budget'
 ]
 
 /**
@@ -13,11 +14,12 @@ TransactionManager.$inject = [
  * same template for all models throughout the front-end. This will make
  * copying code across files much easier.
  */
-function TransactionManager(
+function ScenarioManager(
     Environment,
     $http,
     $q,
-    Instance
+    Instance,
+    BudgetManager
 ) {
     var manager = {
         /* Class properties */
@@ -46,7 +48,7 @@ function TransactionManager(
         _load: function(id, deferred) {
             var scope = this
 
-            $http.get(Environment.api.path + '/transactions/self/' + id)
+            $http.get(Environment.api.path + '/scenarios/' + id)
                 .then(function(response) {
                     var instance = scope._retrieveInstance(response.data.id, response.data)
                     deferred.resolve(instance)
@@ -78,7 +80,7 @@ function TransactionManager(
             var parameters = parameters || {}
             var scope = this
 
-            $http.get(Environment.api.path + '/transactions/self/' + (parameters.relations ? 'all' : ''), {
+            $http.get(Environment.api.path + '/scenarios/self/' + (parameters.relations ? 'relations' : ''), {
                 params: parameters
             }).then(function(response) {
                 var collection = []
@@ -87,6 +89,8 @@ function TransactionManager(
                     var instance = scope._retrieveInstance(data.id, data)
                     collection.push(instance)
                 })
+
+
 
                 deferred.resolve(collection)
             }).catch(function(error) {
@@ -113,6 +117,19 @@ function TransactionManager(
             }
 
             return instance
+        },
+
+
+        /**
+         * Calculates all the virtual fields for all Scenarios
+         *
+         * @param   [scenarios]     all Scenarios to calculate
+         * @return  [scenarios]     all Scenarios with virtual fields
+         */
+        virtuals: function(scenarios) {
+            return scenarios.map(function(scenario) {
+                return scenario.virtuals(scenario)
+            })
         }
     }
 

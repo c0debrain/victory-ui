@@ -1,11 +1,11 @@
 angular.module('app.managers')
-    .factory('managers.transaction', TransactionManager)
+    .factory('managers.account', AccountManager)
 
-TransactionManager.$inject = [
+AccountManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.transaction'
+    'models.account'
 ]
 
 /**
@@ -13,7 +13,7 @@ TransactionManager.$inject = [
  * same template for all models throughout the front-end. This will make
  * copying code across files much easier.
  */
-function TransactionManager(
+function AccountManager(
     Environment,
     $http,
     $q,
@@ -46,7 +46,7 @@ function TransactionManager(
         _load: function(id, deferred) {
             var scope = this
 
-            $http.get(Environment.api.path + '/transactions/self/' + id)
+            $http.get(Environment.api.path + '/accounts/' + id)
                 .then(function(response) {
                     var instance = scope._retrieveInstance(response.data.id, response.data)
                     deferred.resolve(instance)
@@ -73,26 +73,25 @@ function TransactionManager(
         },
 
         /* Use this function in order to get instances of all the instances */
-        loadAll: function(parameters) {
+        loadAll: function() {
             var deferred = $q.defer()
-            var parameters = parameters || {}
             var scope = this
 
-            $http.get(Environment.api.path + '/transactions/self/' + (parameters.relations ? 'all' : ''), {
-                params: parameters
-            }).then(function(response) {
-                var collection = []
+            $http.get(Environment.api.path + '/accounts/self')
+                .then(function(response) {
+                    var collection = []
 
-                response.data.forEach(function(data) {
-                    var instance = scope._retrieveInstance(data.id, data)
-                    collection.push(instance)
+                    response.data.forEach(function(data) {
+                        var instance = scope._retrieveInstance(data.id, data)
+                        collection.push(instance)
+                    })
+
+                    deferred.resolve(collection)
                 })
-
-                deferred.resolve(collection)
-            }).catch(function(error) {
-                console.error(error)
-                deferred.reject()
-            })
+                .catch(function(error) {
+                    console.error(error)
+                    deferred.reject()
+                })
 
             return deferred.promise
         },

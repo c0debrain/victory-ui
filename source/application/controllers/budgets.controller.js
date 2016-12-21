@@ -7,7 +7,10 @@ BudgetsController.$inject = [
     'services.category',
     'services.scenario',
     'services.budget',
-    'services.notification'
+    'services.notification',
+    'managers.scenario',
+    'managers.category',
+    'managers.budget'
 ]
 
 function BudgetsController(
@@ -16,7 +19,10 @@ function BudgetsController(
     Category,
     Scenario,
     Budget,
-    Notification
+    NotificationService,
+    ScenarioManager,
+    CategoryManager,
+    BudgetManager
 ) {
     // Scope variables
     $scope.scenarios = []
@@ -102,15 +108,34 @@ function BudgetsController(
             }
         }
 
-        Scenario.allWithTransactions(parameters, function(response) {
-            if (response.status === 'error') {
-                Notification.create('warning', 'Failed to pull scenarios.', 0)
-            }
+        ScenarioManager.loadAll({
+            relations: true,
+            attributes: ['id']
+        }).then(function(scenarios) {
+            console.log('Scenario Manager Response: ', scenarios)
 
-            console.log('Scenario Service Response: ', response.data)
-            $scope.scenarios = Scenario.allVirtuals(response.data)
-            console.log('Scenario w/ Virtuals: ', $scope.scenarios)
+            $scope.scenarios = ScenarioManager.virtuals(
+                scenarios.map(function(scenario) {
+                    scenario.budgets = scenario.budgets.map(function(budget) {
+                        return BudgetManager.get(budget.id)
+                    })
+                    return scenario
+                })
+            )
         })
+        .catch(function(error) {
+            NotificationService.create('warning', error)
+        })
+
+        // Scenario.allWithTransactions(parameters, function(response) {
+        //     if (response.status === 'error') {
+        //         Notification.create('warning', 'Failed to pull scenarios.', 0)
+        //     }
+        //
+        //     console.log('Scenario Service Response: ', response.data)
+        //
+        //     console.log('Scenario w/ Virtuals: ', $scope.scenarios)
+        // })
     }
 
 
@@ -152,37 +177,47 @@ function BudgetsController(
      * to the existing categories from the rootScope
      */
     $scope.retrieveCategories = function() {
-        var parameters = {
-            required: true
-        }
-        if ($scope.dateRange.dates.startDate !== null && $scope.dateRange.dates.endDate !== null) {
-            parameters = {
-                startDate: moment($scope.dateRange.dates.startDate).format(),
-                endDate: moment($scope.dateRange.dates.endDate).format()
-            }
-        }
+        CategoryManager.loadAll({
+            required: true,
+            relations: true,
+            startDate: moment($scope.dateRange.dates.startDate).format(),
+            endDate: moment($scope.dateRange.dates.endDate).format()
+        }).then(function(categories) {
+            console.log('Categories Manager Response: ', categories)
 
-        Category.allWithTransactions(parameters, function(response) {
-            // console.log('Category Service Response: ', response.data, $scope.categories, $rootScope.categories)
-
-            // Accumulate transaction amounts
-            response.data.map(function(retrievedCategory) {
-                retrievedCategory.total = retrievedCategory.transactions.reduce(function(previous, current) {
+            $scope.categories = categories.map(function(category) {
+                category.total = category.transactions.reduce(function(previous, current) {
                     return previous + current.amount
                 }, 0)
 
-                // Overwrite categories from rootScope
-                $scope.categories = $rootScope.categories.map(function(category) {
-                    if (category.id === retrievedCategory.id) {
-                        Object.keys(retrievedCategory).forEach(function(key) {
-                            category[key] = retrievedCategory[key]
-                        })
-                    }
-
-                    return category
-                })
+                return category
             })
+
+        }).catch(function(error) {
+            NotificationService.create('warning', error)
         })
+
+        // Category.allWithTransactions(parameters, function(response) {
+        //     // console.log('Category Service Response: ', response.data, $scope.categories, $rootScope.categories)
+        //
+        //     // Accumulate transaction amounts
+        //     response.data.map(function(retrievedCategory) {
+        //         retrievedCategory.total = retrievedCategory.transactions.reduce(function(previous, current) {
+        //             return previous + current.amount
+        //         }, 0)
+        //
+        //         // Overwrite categories from rootScope
+        //         $scope.categories = $rootScope.categories.map(function(category) {
+        //             if (category.id === retrievedCategory.id) {
+        //                 Object.keys(retrievedCategory).forEach(function(key) {
+        //                     category[key] = retrievedCategory[key]
+        //                 })
+        //             }
+        //
+        //             return category
+        //         })
+        //     })
+        // })
     }
     $scope.retrieveCategories()
 
@@ -224,113 +259,6 @@ function BudgetsController(
                     $scope.scenarios = Scenario.allVirtuals($scope.scenarios)
                 })
         }
-    }
-
-
-    /**
-     * Calculates all the virtual fields for all Budgets provided
-     *
-     * @param   [budgets]   all Budgets to calculate
-     * @return  [budgets]   all Budgets with virtual fields
-     */
-    Budget.allVirtuals = function(budgets) {
-        return budgets.map(function(budget) {
-            return Budget.virtuals(budget)
-        })
-    }
-
-
-    /**
-     * Calculates all the virtual fields for a Budget; are only existant
-     * on the client-side and are determined by other real values that are
-     * stored in the database. These fields cannot be persisted and must be
-     * recalculated on page load and on certain page events.
-     *
-     * Virtual Fields:
-     * @param budget.type
-     * @param budget.total
-     * @param budget.progress
-     */
-    Budget.virtuals = function(budget) {
-        // Set default virtual properties
-        budget.total = 0
-        budget.progress = 0
-
-        // Only if category has transactions
-        // Iterate through transactions and accumulate
-        if (budget.category) {
-            if (budget.category.transactions) {
-                budget.total = budget.category.transactions.reduceRight(function(previous, current) {
-                    return previous + current.amount
-                }, 0)
-            }
-
-            // Don't bother calculating budget progress if no allowance is set
-            if (budget.allowance !== 0 && budget.allowance) {
-                budget.progress = Math.round((budget.total / (budget.allowance * $scope.dateRange.periods)) * 100)
-            }
-        }
-
-        return budget
-    }
-
-
-    /**
-     * Calculates all the virtual fields for all Scenarios
-     *
-     * @param   [scenarios]     all Scenarios to calculate
-     * @return  [scenarios]     all Scenarios with virtual fields
-     */
-    Scenario.allVirtuals = function(scenarios) {
-        return scenarios.map(function(scenario) {
-            return Scenario.virtuals(scenario)
-        })
-    }
-
-
-    /**
-     * Calculates all the virtual fields for a Scenario; are only existant
-     * on the client-side and are determined by other real values that are
-     * stored in the database. These fields cannot be persisted and must be
-     * recalculated on page load and on certain page events.
-     *
-     * Virtual Fields:
-     * @param scenario.income.actual
-     * @param scenario.income.allowance
-     * @param scenario.expenditure.actual
-     * @param scenario.expenditure.allowance
-     */
-    Scenario.virtuals = function(scenario) {
-        // Set default virtual properties
-        scenario.income = {
-            actual: 0,
-            allowance: 0
-        }
-        scenario.expense = {
-            actual: 0,
-            allowance: 0
-        }
-
-        // Only perform this map if the scenario has a budgets property
-        if (scenario.budgets) {
-            scenario.budgets = Budget.allVirtuals(scenario.budgets)
-
-            scenario.budgets.forEach(function(budget) {
-                if ((budget.total !== 0 ? budget.total : budget.allowance) > 0) {
-                    scenario.income.actual += budget.total
-                    scenario.income.allowance += budget.allowance
-                } else if ((budget.total !== 0 ? budget.total : budget.allowance) <= 0) {
-                    scenario.expense.actual += budget.total
-                    scenario.expense.allowance += budget.allowance
-                }
-            })
-
-        // Otherwise assign an empty array of Budgets
-        } else {
-            scenario.budgets = []
-        }
-
-        return scenario
     }
 
 
@@ -396,6 +324,11 @@ function BudgetsController(
     }
 
     $scope.createBudget = function(scenario, budget) {
+        BudgetManager.create(budget)
+            .then(function(budget) {
+                ScenarioManager.set(Scenario.virtuals(budget))
+            })
+
         new Budget(budget).$save().then(function(response) {
             Object.keys(response.data).forEach(function(key) {
                 budget[key] = response.data[key]

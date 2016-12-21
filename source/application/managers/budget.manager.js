@@ -1,11 +1,11 @@
 angular.module('app.managers')
-    .factory('managers.transaction', TransactionManager)
+    .factory('managers.budget', BudgetManager)
 
-TransactionManager.$inject = [
+BudgetManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.transaction'
+    'models.budget'
 ]
 
 /**
@@ -13,7 +13,7 @@ TransactionManager.$inject = [
  * same template for all models throughout the front-end. This will make
  * copying code across files much easier.
  */
-function TransactionManager(
+function BudgetManager(
     Environment,
     $http,
     $q,
@@ -46,7 +46,7 @@ function TransactionManager(
         _load: function(id, deferred) {
             var scope = this
 
-            $http.get(Environment.api.path + '/transactions/self/' + id)
+            $http.get(Environment.api.path + '/budgets/' + id)
                 .then(function(response) {
                     var instance = scope._retrieveInstance(response.data.id, response.data)
                     deferred.resolve(instance)
@@ -73,26 +73,42 @@ function TransactionManager(
         },
 
         /* Use this function in order to get instances of all the instances */
-        loadAll: function(parameters) {
+        loadAll: function() {
             var deferred = $q.defer()
-            var parameters = parameters || {}
             var scope = this
 
-            $http.get(Environment.api.path + '/transactions/self/' + (parameters.relations ? 'all' : ''), {
-                params: parameters
-            }).then(function(response) {
-                var collection = []
+            $http.get(Environment.api.path + '/budgets/self')
+                .then(function(response) {
+                    var collection = []
 
-                response.data.forEach(function(data) {
-                    var instance = scope._retrieveInstance(data.id, data)
-                    collection.push(instance)
+                    response.data.forEach(function(data) {
+                        var instance = scope._retrieveInstance(data.id, data)
+                        collection.push(instance)
+                    })
+
+                    deferred.resolve(collection)
+                })
+                .catch(function(error) {
+                    console.error(error)
+                    deferred.reject()
                 })
 
-                deferred.resolve(collection)
-            }).catch(function(error) {
-                console.error(error)
-                deferred.reject()
-            })
+            return deferred.promise
+        },
+
+        create: function(data) {
+            var deferred = $q.defer()
+            var scope = this
+
+            $http.post(Environment.api.path + '/budgets/self', data)
+                .then(function(response) {
+                    var instance = scope.set(response)
+                    deferred.resolve(instance)
+                })
+                .catch(function(error) {
+                    console.error(error)
+                    deferred.reject()
+                })
 
             return deferred.promise
         },
@@ -113,6 +129,18 @@ function TransactionManager(
             }
 
             return instance
+        },
+
+        /**
+         * Calculates all the virtual fields for all Budgets provided
+         *
+         * @param   [budgets]   all Budgets to calculate
+         * @return  [budgets]   all Budgets with virtual fields
+         */
+        virtuals: function(budgets) {
+            return budgets.map(function(budget) {
+                return budget.virtuals(budget)
+            })
         }
     }
 
