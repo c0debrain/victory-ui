@@ -1,23 +1,11 @@
 # NOC Dashboard
-
-## Dependencies
-You will need NodeJS installed on your operating system. The [node installation](https://nodejs.org/en/download/package-manager/) should come pre-packaged with NPM (Node Package Manager) which we will use to install our dependencies. You will need to have [bower](https://github.com/bower/bower) install globally on your machine using the following command:
-```
-sudo npm install -g bower
-```
-For our build process, you will need a tool called [gulp](https://github.com/gulpjs) which allows us to define tasks to be carried out (such as minification of assets, copying of directories, and transpiling of code.
-```
-sudo npm install -g gulp
-```
-If you are on Windows, you won't have the option to run the install commmand with `sudo`, so you will need to run your command prommpt in Administrator mode.
+Network operations center dashboard that displays important information regarding the various hardware and software deployments that are embodied by the OneLink service.
 
 ## Installation
-To get the project up and running, run the following command, it will install all external back end node dependencies into the root directory under a directory named `node_modules`. Which dependencies should be installed are enumerated in a file called `package.json` in the root directory.
+You will need NodeJS installed on your operating system. The [node installation](https://nodejs.org/en/download/package-manager/) should come pre-packaged with NPM (Node Package Manager) which we will use to install our dependencies.
+
+## Setup
+To get the project up and running, run the following command, it will install all of the node server's dependencies in a directory named `node_modules`. The dependencies and what versions that should be installed are enumerated in a file called `package.json` in the root directory. Afterwards the command will automatically run the command `bower install` which will install the dashboard's front end dependencies (Angular, Bootstrap, jQuery, ect).
 ```
 npm install
 ```
-Afterwards you will want to install front end dependencies that are included via script tags. This dependency management is handled by Bower. It works very similarly to NPM.
-```
-bower install
-```
-
