@@ -14,4 +14,4 @@ Run the command:
 ```
 npm start
 ```
-This will initialize the webserver run several gulp tasks, and open your browser to localhost:3001 from which you may access the dashboard.
+This will initialize the webserver run several gulp tasks, and open your browser to localhost:3001 from which you may access the dashboard. Livereload will be enabled, where changes made to any files will initiate a recompliation of assets and page reload.
