@@ -5,6 +5,7 @@ DatacenterController.$inject = [
     '$scope',
     '$state',
     '$timeout',
+    '$interval',
     'managers.datacenter'
 ]
 
@@ -12,17 +13,70 @@ function DatacenterController(
     $scope,
     $state,
     $timeout,
+    $interval,
     DatacenterManager
 ) {
     $scope.datacenter = {}
-    console.log('Code: ', $state.params.id)
+
+    /**
+     * Helper that extends area and lines to the left and right plot edges.
+     *
+     * Has to be invoked with .call(), giving Highchart as the this reference
+     * and Highchart event as the second parameter.
+     *
+     * @return void
+     */
+    function edgeExtend(chart) {
+        var self = chart
+
+        chart.series.map(function(series) {
+            // Get inner-chart box
+            var box = self.plotBox
+
+            // Take areas path
+            var areaPath = series.areaPath
+
+            // Add start point
+            // Right after the first element (M)
+            areaPath.splice(1, 0, 0, areaPath[2], 'L')
+
+            // Add Last points upper area end
+            // Remove penultimate point
+            // Replace it with a new point reaching to the width of chart and growing to the height of last element
+            // And add the bottom-right corner
+            areaPath.splice(-6, 3, 'L', box.width, areaPath[areaPath.length - 7], 'L', box.width, box.height)
+
+            // Make the last points X be zero - that will result in bottom left corner
+            areaPath[areaPath.length - 2] = 0
+
+            // Replace value (redraw)
+            series.area.element.attributes.d.value = areaPath.join(' ')
+            var graphPath = series.graphPath
+
+            // Add start point
+            // Right after the first element (M)
+            graphPath.splice(1, 0, 0, graphPath[2], 'L')
+
+            // Add end point
+            graphPath.push('L', box.width, graphPath[graphPath.length - 1])
+            series.graph.element.attributes.d.value = graphPath.join(' ')
+        })
+    }
+
 
     DatacenterManager.get($state.params.id).then(function(datacenter) {
         $scope.datacenter = datacenter
-
         console.log('Datacenter: ', $scope.datacenter)
 
-        $scope.chartConfig.series.push({
+        datacenter.getClusters()
+            .then(function(clusters) {
+                console.log('Clusters: ', clusters)
+                $scope.clusters = clusters
+            })
+
+
+        // Push the retrieved data as a series on the chart
+        $scope.chartConfiguration.series.push({
             name: 'Performance',
             data: datacenter.health.map(function(health) {
                 return [moment(health.date).calendar(), health.status]
@@ -34,7 +88,7 @@ function DatacenterController(
             fillOpacity: 0.08,
             marker: {
                 fillColor: "#FFF",
-                lineColor: "#2099ea",
+                lineColor: null,
                 lineWidth: 1.5,
                 width: 6,
                 height: 6,
@@ -43,53 +97,48 @@ function DatacenterController(
             }
         })
 
-        $scope.chartConfig.xAxis.categories = datacenter.health.map(function(health) {
+        // Assign the X-Axis values
+        $scope.chartConfiguration.xAxis.categories = datacenter.health.map(function(health) {
             return moment(health.date).format('HH:mm')
         }).reverse()
     })
 
-    $scope.chartConfig = {
+    $scope.chartConfiguration = {
         options: {
-            // This is the Main Highcharts chart config. Any Highchart options are valid here.
-            // will be overriden by values specified below.
             chart: {
-                animation: false,
+                animation: true,
                 type: 'area',
                 spacingLeft: 0,
                 spacingRight: 0,
                 spacingTop: 0,
-
                 style: {
                     fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
                     fontSize: '12px'
+                },
+                events: {
+                    redraw: function(event) {
+                        edgeExtend(event.target)
+                    }
                 }
             },
             tooltip: {
                 style: {
-                    padding: 10,
+                    padding: 15,
                     fontWeight: 'bold'
                 }
             },
             legend: {
                 enabled: false
+            },
+            credits: {
+                show: false
             }
         },
-        // The below properties are watched separately for changes.
-
-        // Series object (optional) - a list of series using normal Highcharts series options.
         series: [],
-
-        // Title configuration (optional)
         title: {
             text: null
         },
-
-        // Boolean to control showing loading status on chart (optional)
-        // Could be a string if you want to show specific loading text.
         loading: false,
-
-        // Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
-        // properties currentMin and currentMax provided 2-way binding to the chart's maximum and minimum
         xAxis: {
             crosshair: {
                 color: "#e5e5e5",
@@ -114,12 +163,14 @@ function DatacenterController(
                 y: -8
             },
             startOnTick: false,
-            endOnTick: false
+            endOnTick: false,
+            softMax: 100,
+            softMin: 0
         },
         func: function(chart) {
             $timeout(function() {
                 chart.reflow()
-            }, 0)
+            })
         }
     }
 }

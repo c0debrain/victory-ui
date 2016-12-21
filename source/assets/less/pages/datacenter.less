@@ -6,125 +6,24 @@
    ========================================================================== */
 
 .chart-container {
-    @extend %clearfix;
-}
-
-#status-chart,
-.chart-info {
-    height: 515px;
+    *zoom: 1;
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
 }
 
 #status-chart {
     background: #fff;
     float: left;
-    border-radius: 5px 0 0 5px;
+    border-radius: 5px;
     overflow: hidden;
-    border: 1px solid #ddd;
-}
-
-.chart-info {
-    float: left;
-    background: #fff;
-    overflow: hidden;
-    text-align: center;
-    font-family: "Helvetica Neue", helvetica, sans-serif;
-    width: 240px;
-    border: 1px solid #ddd;
-    border-left: 0;
-    border-radius: 0 5px 5px 0;
-    .metric-group {
-        padding: 30px;
-        &:first-of-type {
-            border-bottom: 1px solid #ddd;
-        }
-    }
-    .metric {
-        display: block;
-        margin: 0 0 20px;
-        text-align: left;
-        .value {
-            font-size: 2rem;
-            font-weight: 300;
-            display: block;
-        }
-        .label {
-            font-size: 0.875rem;
-            color: #999999;
-            text-transform: uppercase;
-        }
-        &.primary {
-            .label {
-                &:before {
-                    content: '';
-                    display: inline-block;
-                    width: 14px;
-                    height: 14px;
-                    border-radius: 9999px;
-                    background: #ddd;
-                    position: relative;
-                    top: 1.5px;
-                    margin-right: 5px;
-                }
-            }
-        }
-        &.secondary {
-            padding-left: 20px;
-            position: relative;
-            &:before {
-                content: '';
-                width: 2px;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                left: 6px;
-            }
-            &:after {
-                content: '';
-                width: 6px;
-                height: 6px;
-                border: 2px solid #ddd;
-                display: inline-block;
-                border-radius: 9999px;
-                position: absolute;
-                top: 50%;
-                left: 2px;
-                transform: translateY(-50%);
-                background: #fff;
-            }
-            &:nth-child(2):before {
-                border-left: 2px dashed #ddd;
-            }
-            &:nth-child(3):before {
-                border-left: 2px dotted #ddd;
-            }
-            .value {
-                font-size: 1.125rem;
-                font-weight: 400;
-            }
-            .label {
-                font-size: .75rem;
-                text-transform: none;
-            }
-        }
-    }
-    .searches {
-        .primary .label:before {
-            background: #0f97ed;
-        }
-        .secondary:before,
-        .secondary:after {
-            border-color: #0f97ed !important;
-        }
-    }
-    .clickthroughs {
-        .primary .label:before {
-            background: #00d069;
-        }
-        .secondary:before,
-        .secondary:after {
-            border-color: #00d069 !important;
-        }
-    }
+    border: 1px solid #E6EAEE;
+    width: 100%;
 }
 
 path[stroke="#e5e5e5"] {

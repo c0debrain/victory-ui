@@ -1,35 +1,45 @@
 <div class="page-content">
-    <div class="container-fluid m-b-20">
+    <div class="container-fluid mb-2">
         <section class="page-control">
             <div class="row row-white row-title">
                 <div class="col-md-9">
                     <h1>{{ datacenter.data_center_name }}</h1>
                 </div>
             </div>
-
-            <div class="row row-white row-tabs">
-                <div class="col-md-12">
-                    <ul>
-                        <li class="active">Global</li>
-                        <li>North America</li>
-                        <li>South America</li>
-                        <li>Europe</li>
-                        <li>Asia</li>
-                    </ul>
-                </div>
-            </div>
         </section>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid content mb-2">
         <div class="row">
             <div class="col-md-12">
+                <highchart id="status-chart" config="chartConfiguration"></highchart>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-md-4 hardware" ng-repeat="(key, cluster) in clusters" ng-click="enterCluster(cluster)">
                 <section class="box-typical">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12 p-a-0">
-                                <highchart id="status-chart" config="chartConfig"></highchart>
+                    <header class="box-typical-header">
+                        <ul class="health">
+                            <li class="stable" style="width: {{ cluster.status.stable }}%"></li>
+                            <li class="warning" style="width: {{ cluster.status.warning }}%"></li>
+                            <li class="danger" style="width: {{ cluster.status.danger }}%"></li>
+                        </ul>
+
+                        <div class="tbl-row">
+                            <div class="tbl-cell tbl-cell-title">
+                                <h3>{{ cluster.cluster_name }}</h3>
                             </div>
+                        </div>
+
+                        <div class="abbreviation">{{ cluster.cluster_name }}</div>
+                    </header>
+
+                    <div class="box-typical-body">
+                        <div class="table-responsive">
+
                         </div>
                     </div>
                 </section>

@@ -2,13 +2,17 @@ angular.module('app.models')
     .factory('models.datacenter', DatacenterModel)
 
 DatacenterModel.$inject = [
+    'environment',
     '$http',
-    '$q'
+    '$q',
+    'managers.cluster'
 ]
 
 function DatacenterModel(
+    Environment,
     $http,
-    $q
+    $q,
+    ClusterManager
 ) {
 
     /**
@@ -26,7 +30,7 @@ function DatacenterModel(
         for (var i = 0; i < 24; i++) {
             datacenter.health.push({
                 date: moment().startOf('hour').subtract(i + 1, 'hour').format(),
-                status: Math.floor((Math.random() * 100) + 1)
+                status: Math.floor((Math.random() * 35) + 65)
             })
         }
 
@@ -39,10 +43,34 @@ function DatacenterModel(
         }
     }
 
-    Datacenter.prototype = {
-        setData: function(data) {
-            angular.extend(this, data)
-        }
+    Datacenter.prototype.setData = function(data) {
+        angular.extend(this, data)
+    }
+
+    Datacenter.prototype.getClusters = function() {
+        var deferred = $q.defer()
+        var scope = this
+
+
+        $http.get(Environment.api.path + '/datacenters/' + this.data_center_code + '/clusters')
+            .then(function(response) {
+                console.log('API response: ', response)
+
+                var collection = []
+
+                response.data.forEach(function(data) {
+                    var instance = ClusterManager._retrieveInstance(data.cluster_name, data)
+                    collection.push(instance)
+                })
+
+                deferred.resolve(collection)
+            })
+            .catch(function(error) {
+                console.error(error)
+                deferred.reject()
+            })
+
+        return deferred.promise
     }
 
     return Datacenter
