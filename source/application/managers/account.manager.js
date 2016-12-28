@@ -96,6 +96,22 @@ function AccountManager(
             return deferred.promise
         },
 
+        newWorthHistory: function(parameters) {
+            var deferred = $q.defer()
+
+            $http.get(Environment.api.path + '/users/self/networth', {
+                params: parameters
+            }).then(function(response) {
+                deferred.resolve(response.data)
+            })
+            .catch(function(error) {
+                console.error(error)
+                deferred.reject()
+            })
+
+            return deferred.promise
+        },
+
         /*
             This function is useful when we got somehow the instance data and we wish to
             store it or update the pool and get an instance in return
