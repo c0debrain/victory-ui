@@ -12,8 +12,8 @@
         border: inherit;
         font: inherit;
         border-bottom: 1px dotted @color-blue;
-        margin: 1px 0 0 0;
         position: relative;
+        margin: -4px 0;
     }
 
     .editable-input {
@@ -42,7 +42,7 @@
             -o-transition: all .1ms linear;
         }
 
-        li {
+        li.uib-typeahead-match {
             padding: 10px;
             transition: 0s all;
 
@@ -54,6 +54,20 @@
                     color: @color-white;
                 }
             }
+        }
+    }
+
+    &.editable-bsdate {
+        input[type="text"] {
+            background: transparent !important;
+            color: #000 !important;
+            padding: 0;
+            border: inherit;
+            border-bottom: 1px dotted #00AEEF;
+            margin: -4px 0;
+            position: relative;
+            width: 75px;
+            float: left;
         }
     }
 }

@@ -108,7 +108,7 @@
         }
 
         .table-budgets {
-            th {
+            & > th {
                 padding-bottom: 7px;
                 padding-top: 6px;
 
@@ -177,7 +177,7 @@
                     }
                 }
 
-                td {
+                & > td {
                     height: 70px;
 
                     &:first-child {
@@ -185,21 +185,18 @@
                     }
 
                     &.category,
-                    &.allowance {
+                    &.allowance,
+                    &.interval,
+                    &.start-date,
+                    &.end-date {
                         position: relative;
 
                         .editable {
                             display: inline-block;
                             position: relative;
+                            border: 0;
                         }
 
-                        .editable-tray {
-                            display: none;
-                            position: absolute;
-                            margin-left: 5px;
-                            right: -25px;
-                            top: 0;
-                        }
 
                         .period {
                             display: none;
@@ -217,10 +214,60 @@
 
                         .editable-controls {
                             position: relative;
+                            float: left;
 
                             .editable-buttons {
                                 position: absolute;
+                                top: 0;
+                            }
+                        }
+
+                        .editable-tray {
+                            display: none;
+                            position: absolute;
+                            margin-left: 5px;
+                            top: 0;
+                        }
+
+                        &.text-left {
+                            .editable[editable-bsdate] {
+                                float: left;
+                                padding-right: 25px;
+
+                                .editable-tray {
+                                    right: 0;
+                                }
+                            }
+
+                            .editable-buttons {
                                 right: -50px;
+                            }
+
+                            .editable-tray {
+                                right: -25px;
+                            }
+                        }
+
+                        &.text-right {
+                            .editable[editable-bsdate] {
+                                float: right;
+                                padding-left: 25px;
+
+                                .editable-tray {
+                                    left: 0;
+                                }
+                            }
+
+                            .editable-buttons {
+                                left: -50px;
+
+                                button {
+                                    float: right;
+                                }
+                            }
+
+                            .editable-tray {
+                                left: -25px;
                             }
                         }
 
@@ -232,6 +279,12 @@
                         input[type="number"] {
                             -moz-appearance: textfield;
                             width: 50px;
+                        }
+                    }
+
+                    &.interval {
+                        input {
+                            width: 65px;
                         }
                     }
 

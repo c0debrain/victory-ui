@@ -339,9 +339,21 @@ function BudgetsController(
     $scope.handleBudgetIntervalChange = function(scenario, budget, interval) {
         console.log(interval)
 
-        budget.interval = interval
+        budget.interval = angular.extend(budget.interval, interval)
+
+        console.log(budget.interval)
+
         $scope.updateBudget(scenario, budget)
 
         console.log('Updated Budget Interval: ', budget)
     }
+
+    $scope.opened = {}
+
+	$scope.open = function($event, elementOpened) {
+		$event.preventDefault()
+		$event.stopPropagation()
+
+		$scope.opened[elementOpened] = !$scope.opened[elementOpened]
+	}
 }
