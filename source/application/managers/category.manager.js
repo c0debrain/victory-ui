@@ -5,7 +5,8 @@ CategoryManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.category'
+    'models.category',
+    'managers.transaction'
 ]
 
 /**
@@ -17,7 +18,8 @@ function CategoryManager(
     Environment,
     $http,
     $q,
-    Instance
+    Instance,
+    TransactionManager
 ) {
     var manager = {
         /* Class properties */
@@ -78,7 +80,7 @@ function CategoryManager(
             var parameters = parameters || {}
             var scope = this
 
-            $http.get(Environment.api.path + '/categories/' + (parameters.relations ? 'self/relations' : ''), {
+            $http.get(Environment.api.path + '/categories/', {
                 params: parameters
             }).then(function(response) {
                 var collection = []
@@ -106,11 +108,18 @@ function CategoryManager(
             var scope = this
             var instance = this._search(data.id)
 
+
+            if (data.transactions) {
+                data.transactions = data.transactions.map(function(transaction) {
+                    return TransactionManager.set(transaction)
+                })
+            }
+
             if (instance) {
                 instance.setData(data)
 
             } else {
-                instance = scope._retrieveInstance(data)
+                instance = scope._retrieveInstance(data.id, data)
             }
 
             return instance

@@ -109,7 +109,7 @@ function TransactionManager(
                 instance.setData(data)
 
             } else {
-                instance = scope._retrieveInstance(data)
+                instance = scope._retrieveInstance(data.id, data)
             }
 
             return instance

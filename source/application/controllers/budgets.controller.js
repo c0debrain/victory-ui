@@ -100,23 +100,18 @@ function BudgetsController(
      * mentioned associations and accumulating their values.
      */
     $scope.retrieveScenarios = function() {
-        var parameters = {}
-        if ($scope.dateRange.dates.startDate !== null && $scope.dateRange.dates.endDate !== null) {
-            parameters = {
-                startDate: moment($scope.dateRange.dates.startDate).format(),
-                endDate: moment($scope.dateRange.dates.endDate).format()
-            }
-        }
-
         ScenarioManager.loadAll({
             relations: true,
-            attributes: ['id']
+            attributes: ['id'],
+            startDate: moment($scope.dateRange.dates.startDate).format(),
+            endDate: moment($scope.dateRange.dates.endDate).format()
 
         }).then(function(scenarios) {
             console.log('Scenario Manager Response: ', scenarios)
+            $scope.scenarios = scenarios
 
-            scenarios.forEach(function(scenario) {
-                scenario.virtuals($scope.dateRange.periods)
+            $scope.scenarios.forEach(function(scenario) {
+                scenario.virtuals($scope.dateRange.dates)
             })
 
         }).catch(function(error) {
@@ -182,21 +177,18 @@ function BudgetsController(
      * to the existing categories from the rootScope
      */
     $scope.retrieveCategories = function() {
-        CategoryManager.loadAll({
-            required: true,
-            relations: true,
-            startDate: moment($scope.dateRange.dates.startDate).format(),
-            endDate: moment($scope.dateRange.dates.endDate).format()
-        }).then(function(categories) {
+        CategoryManager.loadAll().then(function(categories) {
             console.log('Categories Manager Response: ', categories)
 
-            $scope.categories = categories.map(function(category) {
-                category.total = category.transactions.reduce(function(previous, current) {
-                    return previous + current.amount
-                }, 0)
+            $scope.categories = categories
 
-                return category
-            })
+            // categories.map(function(category) {
+            //     category.total = category.transactions.reduce(function(previous, current) {
+            //         return previous + current.amount
+            //     }, 0)
+            //
+            //     return category
+            // })
 
         }).catch(function(error) {
             NotificationService.create('warning', error)

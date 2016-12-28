@@ -80,17 +80,21 @@ function ScenarioManager(
             var parameters = parameters || {}
             var scope = this
 
-            $http.get(Environment.api.path + '/scenarios/self/' + (parameters.relations ? 'relations' : ''), {
+            $http.get(Environment.api.path + '/scenarios/self/transactions', {
                 params: parameters
             }).then(function(response) {
                 var collection = []
 
                 response.data.forEach(function(data) {
+                    if (data.budgets) {
+                        data.budgets = data.budgets.map(function(budget) {
+                            return BudgetManager.set(budget)
+                        })
+                    }
+
                     var instance = scope._retrieveInstance(data.id, data)
                     collection.push(instance)
                 })
-
-
 
                 deferred.resolve(collection)
             }).catch(function(error) {

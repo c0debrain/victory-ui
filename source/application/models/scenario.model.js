@@ -2,13 +2,17 @@ angular.module('app.models')
     .factory('models.scenario', ScenarioModel)
 
 ScenarioModel.$inject = [
+    'environment',
     '$http',
-    '$q'
+    '$q',
+    'managers.budget'
 ]
 
 function ScenarioModel(
+    Environment,
     $http,
-    $q
+    $q,
+    BudgetManager
 ) {
     function Scenario(data) {
         if (data) {
@@ -18,6 +22,31 @@ function ScenarioModel(
 
     Scenario.prototype.setData = function(data) {
         angular.extend(this, data)
+    }
+
+    Scenario.prototype.getBudgets = function() {
+        var deferred = $q.defer()
+        var scope = this
+
+
+        $http.get(Environment.api.path + '/scenarios/self/' + this.id + '/budgets')
+            .then(function(response) {
+                console.log('API response: ', response)
+
+                var collection = []
+                response.data.forEach(function(data) {
+                    var instance = BudgetManager._retrieveInstance(data.cluster_name, data)
+                    collection.push(instance)
+                })
+
+                deferred.resolve(collection)
+            })
+            .catch(function(error) {
+                console.error(error)
+                deferred.reject()
+            })
+
+        return deferred.promise
     }
 
 
@@ -34,38 +63,40 @@ function ScenarioModel(
      * @param scenario.expenditure.allowance
      */
     Scenario.prototype.virtuals = function(datePeriods) {
+        var scope = this
+
         // Set default virtual properties
-        this.income = {
+        scope.income = {
             actual: 0,
             allowance: 0
         }
-        this.expense = {
+        scope.expense = {
             actual: 0,
             allowance: 0
         }
 
         // Only perform this map if the scenario has a budgets property
-        if (this.budgets) {
-            this.budgets.forEach(function(budget) {
+        if (scope.budgets) {
+            scope.budgets.forEach(function(budget) {
                 budget.virtuals(datePeriods)
             })
 
-            this.budgets.forEach(function(budget) {
+            scope.budgets.forEach(function(budget) {
                 if ((budget.total !== 0 ? budget.total : budget.allowance) > 0) {
-                    this.income.actual += budget.total
-                    this.income.allowance += budget.allowance
+                    scope.income.actual += budget.total
+                    scope.income.allowance += budget.allowance
                 } else if ((budget.total !== 0 ? budget.total : budget.allowance) <= 0) {
-                    this.expense.actual += budget.total
-                    this.expense.allowance += budget.allowance
+                    scope.expense.actual += budget.total
+                    scope.expense.allowance += budget.allowance
                 }
             })
 
-        // Otherwise assign an empty array of Budgets
+            // Otherwise assign an empty array of Budgets
         } else {
-            this.budgets = []
+            scope.budgets = []
         }
 
-        return this
+        return scope
     }
 
 

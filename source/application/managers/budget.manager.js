@@ -5,7 +5,8 @@ BudgetManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.budget'
+    'models.budget',
+    'managers.category'
 ]
 
 /**
@@ -17,7 +18,8 @@ function BudgetManager(
     Environment,
     $http,
     $q,
-    Instance
+    Instance,
+    CategoryManager
 ) {
     var manager = {
         /* Class properties */
@@ -121,11 +123,15 @@ function BudgetManager(
             var scope = this
             var instance = this._search(data.id)
 
+            if (data.category) {
+                data.category = CategoryManager.set(data.category)
+            }
+
             if (instance) {
                 instance.setData(data)
 
             } else {
-                instance = scope._retrieveInstance(data)
+                instance = scope._retrieveInstance(data.id, data)
             }
 
             return instance
