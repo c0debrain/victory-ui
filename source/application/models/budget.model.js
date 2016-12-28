@@ -2,11 +2,13 @@ angular.module('app.models')
     .factory('models.budget', BudgetModel)
 
 BudgetModel.$inject = [
+    'environment',
     '$http',
     '$q'
 ]
 
 function BudgetModel(
+    Environment,
     $http,
     $q
 ) {
@@ -18,9 +20,29 @@ function BudgetModel(
 
 
     Budget.prototype.setData = function(data) {
+        data.total = data.total || 0
+        data.progress = data.progress || 0
+        data.total = data.total || 0
+
         angular.extend(this, data)
     }
 
+    Budget.prototype.update = function(data) {
+        var deferred = $q.defer()
+        var scope = this
+
+        $http.put(Environment.api.path + '/budgets/self/' + data.id, data)
+            .then(function(response) {
+                var instance = angular.extend(scope, response.data)
+                deferred.resolve(instance)
+            })
+            .catch(function(error) {
+                console.error(error)
+                deferred.reject()
+            })
+
+        return deferred.promise
+    }
 
     /**
      * Calculates all the virtual fields for a Budget; are only existant

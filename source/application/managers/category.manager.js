@@ -100,6 +100,32 @@ function CategoryManager(
             return deferred.promise
         },
 
+        /* Use this function in order to get instances of all the instances */
+        loadAllWithTransactions: function(parameters) {
+            var deferred = $q.defer()
+            var parameters = parameters || {}
+            var scope = this
+
+            $http.get(Environment.api.path + '/categories/self/transactions', {
+                params: parameters
+            }).then(function(response) {
+                var collection = []
+
+                response.data.forEach(function(data) {
+                    var instance = scope._retrieveInstance(data.id, data)
+                    collection.push(instance)
+                })
+
+                deferred.resolve(collection)
+            })
+            .catch(function(error) {
+                console.error(error)
+                deferred.reject()
+            })
+
+            return deferred.promise
+        },
+
         /*
             This function is useful when we got somehow the instance data and we wish to
             store it or update the pool and get an instance in return

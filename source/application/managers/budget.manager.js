@@ -98,13 +98,17 @@ function BudgetManager(
             return deferred.promise
         },
 
-        create: function(data) {
+        create: function(data, category) {
             var deferred = $q.defer()
             var scope = this
 
             $http.post(Environment.api.path + '/budgets/self', data)
                 .then(function(response) {
-                    var instance = scope.set(response)
+                    if (category) {
+                        response.data.category = category
+                    }
+
+                    var instance = scope.set(response.data)
                     deferred.resolve(instance)
                 })
                 .catch(function(error) {
@@ -135,6 +139,56 @@ function BudgetManager(
             }
 
             return instance
+        },
+
+        update: function(data) {
+            var deferred = $q.defer()
+            var scope = this
+            var instance = this._search(data.id)
+
+            console.log('new budget data: ', data)
+
+            $http.put(Environment.api.path + '/budgets/self/' + data.id, data)
+                .then(function(response) {
+                    console.log('response: ', response.data)
+                    if (response.data.category) {
+                        response.data.category = CategoryManager.set(response.data.category)
+                    }
+
+                    if (instance) {
+                        instance.setData(response.data)
+
+                    } else {
+                        instance = scope._retrieveInstance(response.data.id, response.data)
+                    }
+
+                    deferred.resolve(instance)
+                })
+                .catch(function(error) {
+                    console.error(error)
+                    deferred.reject()
+                })
+
+
+            return deferred.promise
+        },
+
+
+        delete: function(id) {
+            var scope = this
+
+            $http.delete(Environment.api.path + '/budgets/self/' + id)
+                .then(function(response) {
+                    if (response.status === 200) {
+                        delete scope._pool[id]
+                        return true
+                    }
+
+                    return false
+                })
+                .catch(function(error) {
+                    console.error(error)
+                })
         }
     }
 

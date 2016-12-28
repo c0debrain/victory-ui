@@ -105,6 +105,23 @@ function ScenarioManager(
             return deferred.promise
         },
 
+        create: function(data) {
+            var deferred = $q.defer()
+            var scope = this
+
+            $http.post(Environment.api.path + '/scenarios/self', data)
+                .then(function(response) {
+                    var instance = scope.set(response.data)
+                    deferred.resolve(instance)
+                })
+                .catch(function(error) {
+                    console.error(error)
+                    deferred.reject()
+                })
+
+            return deferred.promise
+        },
+
         /*
             This function is useful when we got somehow the instance data and we wish to
             store it or update the pool and get an instance in return
@@ -121,6 +138,23 @@ function ScenarioManager(
             }
 
             return instance
+        },
+
+        delete: function(id) {
+            var scope = this
+
+            $http.delete(Environment.api.path + '/scenarios/self/' + id)
+                .then(function(response) {
+                    if (response.status === 200) {
+                        delete scope._pool[id]
+                        return true
+                    }
+
+                    return false
+                })
+                .catch(function(error) {
+                    console.error(error)
+                })
         }
     }
 

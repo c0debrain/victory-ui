@@ -21,25 +21,18 @@ function ScenarioModel(
     }
 
     Scenario.prototype.setData = function(data) {
-        angular.extend(this, data)
+        return angular.extend(this, data)
     }
 
-    Scenario.prototype.getBudgets = function() {
+
+    Scenario.prototype.update = function(data) {
         var deferred = $q.defer()
         var scope = this
 
-
-        $http.get(Environment.api.path + '/scenarios/self/' + this.id + '/budgets')
+        $http.put(Environment.api.path + '/scenarios/self/' + data.id, data)
             .then(function(response) {
-                console.log('API response: ', response)
-
-                var collection = []
-                response.data.forEach(function(data) {
-                    var instance = BudgetManager._retrieveInstance(data.cluster_name, data)
-                    collection.push(instance)
-                })
-
-                deferred.resolve(collection)
+                var instance = angular.extend(scope, response.data)
+                deferred.resolve(instance)
             })
             .catch(function(error) {
                 console.error(error)

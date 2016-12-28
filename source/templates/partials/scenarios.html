@@ -106,7 +106,7 @@
                     class="budget"
                     ng-repeat="budget in scenario.budgets | orderBy: ['created_at']"
                     ui-tree-node
-                    ng-class="{ 'unassigned': budget.incomplete }"
+                    ng-class="{ 'unassigned': !budget.category_id }"
                 >
                     <td class="category" ng-hide="budget.gettingDeleted">
                         <div ng-if="budget.type" class="font-11 color-blue-grey-lighter uppercase">{{ budget.type }}</div>
@@ -185,7 +185,7 @@
                         <span class="editable"
                             editable-number="budget.allowance"
                             e-form="editBudgetAllowance"
-                            onbeforesave="handleBudgetChange(scenario, budget, budget.category)"
+                            onbeforesave="updateBudget(scenario, budget)"
                             ng-click="editBudgetAllowance.$show()">
                             {{ budget.allowance * dateRange.periods | currency }}
 
