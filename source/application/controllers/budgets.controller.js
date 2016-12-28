@@ -96,7 +96,7 @@ function BudgetsController(
         '#8781BD' // Purple
     ]
 
-    $scope.datePickerOptions = {
+    $scope.datepickerConfiguration = {
         ranges: {
             'Today': [moment().startOf('day'), moment()],
             'This Week': [moment().startOf('week'), moment()],
@@ -126,52 +126,8 @@ function BudgetsController(
         $('#transaction-range-picker').data('daterangepicker').show()
     }
 
-    /**
-     * Pull in all Scenarios with their associated budgets, categories and
-     * transactions, then calculate their net values by iterating through all
-     * mentioned associations and accumulating their values.
-     */
-    $scope.retrieveScenarios = function() {
-        ScenarioManager.loadAll({
-            startDate: $scope.dateRange.dates.startDate.format(),
-            endDate: $scope.dateRange.dates.endDate.format()
 
-        }).then(function(scenarios) {
-            console.log('Scenario Manager Response: ', scenarios)
-            $scope.scenarios = scenarios
-
-            $scope.scenarios.forEach(function(scenario) {
-                scenario.virtuals($scope.dateRange.periods)
-            })
-
-        }).catch(function(error) {
-            NotificationService.create('warning', error)
-        })
-    }
-
-    // Pull information for the page
-    $scope.retrieveScenarios()
-
-    /**
-     * Pull in all categories that have transactions and append those transactions
-     * to the existing categories from the rootScope
-     */
-    $scope.retrieveCategories = function() {
-        CategoryManager.loadAllWithTransactions({
-            startDate: $scope.dateRange.dates.startDate.format(),
-            endDate: $scope.dateRange.dates.endDate.format()
-        }).then(function(categories) {
-            console.log('Categories Manager Response: ', categories)
-            $scope.categories = categories
-
-        }).catch(function(error) {
-            NotificationService.create('warning', error)
-        })
-    }
-    $scope.retrieveCategories()
-
-
-    $scope.dragOptions = {
+    $scope.draggableConfiguration = {
         beforeDrop: function(event) {
             console.log('Src Source Node: ', event)
 
@@ -209,6 +165,55 @@ function BudgetsController(
         }
     }
 
+    /**
+     * Resource Methods
+     * ---------------------
+     */
+
+
+     /**
+      * Pull in all categories that have transactions and append those transactions
+      * to the existing categories from the rootScope
+      */
+     $scope.retrieveCategories = function() {
+         CategoryManager.loadAllWithTransactions({
+             startDate: $scope.dateRange.dates.startDate.format(),
+             endDate: $scope.dateRange.dates.endDate.format()
+         }).then(function(categories) {
+             console.log('Categories Manager Response: ', categories)
+             $scope.categories = categories
+
+         }).catch(function(error) {
+             NotificationService.create('warning', error)
+         })
+     }
+     $scope.retrieveCategories()
+
+
+    /**
+     * Pull in all Scenarios with their associated budgets, categories and
+     * transactions, then calculate their net values by iterating through all
+     * mentioned associations and accumulating their values.
+     */
+    $scope.retrieveScenarios = function() {
+        ScenarioManager.loadAll({
+            startDate: $scope.dateRange.dates.startDate.format(),
+            endDate: $scope.dateRange.dates.endDate.format()
+
+        }).then(function(scenarios) {
+            console.log('Scenario Manager Response: ', scenarios)
+            $scope.scenarios = scenarios
+
+            $scope.scenarios.forEach(function(scenario) {
+                scenario.virtuals($scope.dateRange.periods)
+            })
+
+        }).catch(function(error) {
+            NotificationService.create('warning', error)
+        })
+    }
+    $scope.retrieveScenarios()
+
 
     /**
      * Create a new Scenario and append it to the $scope list
@@ -218,9 +223,7 @@ function BudgetsController(
         // simply adding the net properties and setting them to zero
         ScenarioManager.create({
             name: 'New Scenario',
-            color: $scope.scenarioColors[
-                Math.floor(Math.random() * $scope.scenarioColors.length)
-            ]
+            color: $scope.scenarioColors[Math.floor(Math.random() * $scope.scenarioColors.length)]
         }).then(function(scenario) {
             scenario.virtuals($scope.dateRange.periods)
             $scope.scenarios.push(scenario)
@@ -243,7 +246,6 @@ function BudgetsController(
      */
     $scope.deleteScenario = function(scenario) {
         ScenarioManager.delete(scenario.id)
-
         $scope.scenarios = $scope.scenarios.filter(function(item) {
             return item.id !== scenario.id
         })
@@ -255,7 +257,7 @@ function BudgetsController(
      */
     $scope.toggleCreateBudget = function(scenario) {
         var budget = new BudgetModel({
-            // Generate a temporary ID
+            // Generate a temporary ID so we can target and delete this later
             temporary_id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8)
                 return v.toString(16)
@@ -271,14 +273,10 @@ function BudgetsController(
             total: 0,
             progress: 0
         })
-
-        console.log('Skeleton Budget: ', budget)
-
         scenario.budgets.push(budget)
         scenario.virtuals($scope.dateRange.periods)
-
-        console.log('Budget Manager: ', BudgetManager._pool)
     }
+
 
     $scope.createBudget = function(scenario, budget, category) {
         BudgetManager.create(budget, category).then(function(newBudget) {
@@ -286,16 +284,11 @@ function BudgetsController(
             scenario.budgets = scenario.budgets.filter(function(item) {
                 return item.temporary_id !== budget.temporary_id
             })
-
-            // Push the new Budget instance to the scope
             scenario.budgets.push(newBudget)
-
-            // Update virtuals
             scenario.virtuals($scope.dateRange.periods)
-
-            console.log(scenario.budgets, budget)
         })
     }
+
 
     $scope.updateBudget = function(scenario, budget) {
         BudgetManager.update(budget, {
@@ -306,7 +299,25 @@ function BudgetsController(
         })
     }
 
+
     /**
+     * Delete an existing Budget, called by row dropdown
+     */
+    $scope.deleteBudget = function(scenario, budget) {
+        if (budget.id) {
+            BudgetManager.delete(budget.id)
+        }
+
+        // If the budget has an ID, strip it out of the scenario based on it; If
+        // not, strip out the incomplete budget as this is the target of the deletion
+        scenario.budgets = scenario.budgets.filter(function(item) {
+            return (budget.id ? (item.id !== budget.id) : (item.temporary_id !== budget.temporary_id))
+        })
+
+        scenario.virtuals($scope.dateRange.periods)
+    }
+
+    /*
      * Update an existing Budget, called by inline editing
      */
     $scope.handleBudgetCategoryChange = function(scenario, budget, category) {
@@ -324,6 +335,7 @@ function BudgetsController(
         budget.incomplete = false
     }
 
+
     $scope.handleBudgetIntervalChange = function(scenario, budget, interval) {
         console.log(interval)
 
@@ -331,20 +343,5 @@ function BudgetsController(
         $scope.updateBudget(scenario, budget)
 
         console.log('Updated Budget Interval: ', budget)
-    }
-
-    /**
-     * Delete an existing Budget, called by row dropdown
-     */
-    $scope.deleteBudget = function(scenario, budget) {
-        BudgetManager.delete(budget.id)
-
-        // If the budget has an ID, strip it out of the scenario based on it; If
-        // not, strip out the incomplete budget as this is the target of the deletion
-        scenario.budgets = scenario.budgets.filter(function(item) {
-            return (budget.id ? (item.id !== budget.id) : (item.incomplete !== true))
-        })
-
-        scenario.virtuals($scope.dateRange.periods)
     }
 }
