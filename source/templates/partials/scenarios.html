@@ -187,7 +187,7 @@
                         <span class="editable"
                             editable-number="budget.allowance"
                             e-form="editBudgetAllowance"
-                            onbeforesave="updateBudget(scenario, budget)"
+                            onbeforesave="updateBudget(scenario, budget, { allowance: $data })"
                             ng-click="editBudgetAllowance.$show()">
                             {{ budget.allowance * dateRange.periods | currency }}
 
@@ -207,10 +207,11 @@
                         <span class="editable"
                             editable-text="budget.interval"
                             e-form="editBudgetInterval"
+                            ng-model="budget.interval_text"
                             e-uib-typeahead="interval as interval.text for interval in intervals | filter: $viewValue"
-                            onbeforesave="handleBudgetIntervalChange(scenario, budget, $data)"
+                            onbeforesave="updateBudget(scenario, budget, { interval: $data.value, interval_text: $data.text })"
                             ng-click="editBudgetInterval.$show()">
-                            {{ budget.interval.text }}
+                            {{ budget.interval_text }}
 
                             <div class="editable-tray">
                                 <i
@@ -225,14 +226,14 @@
                     <td class="text-right start-date">
                         <div class="font-11 color-blue-grey-lighter uppercase">Starting</div>
                         <span class="editable"
-                            onbeforesave="handleBudgetIntervalChange(scenario, budget, $data)"
-                            editable-bsdate="budget.interval.start"
+                            onbeforesave="updateBudget(scenario, budget, { start: $data })"
+                            editable-bsdate="budget.start"
                             e-is-open="opened.$data"
                             e-ng-click="open($event, '$data')"
                             e-readonly="true"
                             e-show-calendar-button="false"
                             e-datepicker-popup="MMM dd, yyyy">
-                            {{ budget.interval.start | date }}
+                            {{ budget.start | date }}
 
                             <div class="editable-tray">
                                 <i
@@ -246,14 +247,14 @@
                     <td class="text-left end-date">
                         <div class="font-11 color-blue-grey-lighter uppercase">Ending</div>
                         <span class="editable"
-                            onbeforesave="handleBudgetIntervalChange(scenario, budget, $data)"
-                            editable-bsdate="budget.interval.end"
+                            onbeforesave="updateBudget(scenario, budget, { end: $data })"
+                            editable-bsdate="budget.end"
                             e-is-open="opened.$data"
                             e-ng-click="open($event, '$data')"
                             e-readonly="true"
                             e-show-calendar-button="false"
                             e-datepicker-popup="MMM dd, yyyy">
-                            {{ budget.interval.end | date }}
+                            {{ budget.end | date }}
 
                             <div class="editable-tray">
                                 <i

@@ -34,27 +34,27 @@ function BudgetsController(
     $scope.intervals = [
         {
             text: 'Daily',
-            dateRange: moment().add(1, 'days').diff(moment())
+            value: moment().add(1, 'days').diff(moment())
         },
         {
             text: 'Weekly',
-            dateRange: moment().add(1, 'weeks').diff(moment())
+            value: moment().add(1, 'weeks').diff(moment())
         },
         {
             text: 'Bi-Weekly',
-            dateRange: moment().add(2, 'weeks').diff(moment())
+            value: moment().add(2, 'weeks').diff(moment())
         },
         {
             text: 'Monthly',
-            dateRange: moment().add(1, 'months').diff(moment())
+            value: moment().add(1, 'months').diff(moment())
         },
         {
             text: 'Quarterly',
-            dateRange: moment().add(3, 'months').diff(moment())
+            value: moment().add(3, 'months').diff(moment())
         },
         {
             text: 'Yearly',
-            dateRange: moment().add(1, 'year').diff(moment())
+            value: moment().add(1, 'year').diff(moment())
         }
     ]
 
@@ -266,7 +266,12 @@ function BudgetsController(
                 hierarchy: ['Set Category'],
                 transactions: []
             },
-            interval: $scope.intervals[3],
+            interval: {
+                start: moment().format(),
+                end: moment().add(1, 'years').format(),
+                text: $scope.intervals[3].text,
+                dateRange: $scope.intervals[3].dateRange
+            },
             allowance: 0,
             scenario_id: scenario.id,
             incomplete: true,
@@ -290,11 +295,16 @@ function BudgetsController(
     }
 
 
-    $scope.updateBudget = function(scenario, budget) {
+    $scope.updateBudget = function(scenario, budget, properties) {
+        console.log('Budget argument: ', angular.copy(budget), angular.copy(properties))
+        console.log('Extended Budget: ', angular.copy(angular.extend(budget, properties)))
+
+        angular.extend(budget, properties)
+
         BudgetManager.update(budget, {
             startDate: $scope.dateRange.dates.startDate,
             endDate: $scope.dateRange.dates.endDate
-        }).then(function(budget) {
+        }).then(function(updatedBudget) {
             scenario.virtuals($scope.dateRange.periods)
         })
     }
@@ -337,15 +347,8 @@ function BudgetsController(
 
 
     $scope.handleBudgetIntervalChange = function(scenario, budget, interval) {
-        console.log(interval)
-
-        budget.interval = angular.extend(budget.interval, interval)
-
-        console.log(budget.interval)
-
+        angular.extend(budget.interval, interval)
         $scope.updateBudget(scenario, budget)
-
-        console.log('Updated Budget Interval: ', budget)
     }
 
     $scope.opened = {}

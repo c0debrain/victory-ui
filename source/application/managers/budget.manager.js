@@ -144,31 +144,28 @@ function BudgetManager(
         update: function(data) {
             var deferred = $q.defer()
             var scope = this
-            var instance = this._search(data.id)
+            var instance = data
 
-            console.log('new budget data: ', data)
-
-            $http.put(Environment.api.path + '/budgets/self/' + data.id, data)
+            /**
+             * I have absolutely no idea why, but we have to use angular.copy on the Budget
+             * that is getting created. This fixes a bug when changing the Budget's interval
+             * where the start and end date would get wiped because they aren't part of the
+             * interval picker object. Using angular.extend would work, but somewhere between
+             * here and the HTTP request below they're wiped. I'm clueless.
+             */
+            $http.put(Environment.api.path + '/budgets/self/' + data.id, angular.copy(data))
                 .then(function(response) {
-                    console.log('response: ', response.data)
                     if (response.data.category) {
                         response.data.category = CategoryManager.set(response.data.category)
                     }
 
-                    if (instance) {
-                        instance.setData(response.data)
-
-                    } else {
-                        instance = scope._retrieveInstance(response.data.id, response.data)
-                    }
-
+                    instance.setData(response.data)
                     deferred.resolve(instance)
                 })
                 .catch(function(error) {
                     console.error(error)
                     deferred.reject()
                 })
-
 
             return deferred.promise
         },
