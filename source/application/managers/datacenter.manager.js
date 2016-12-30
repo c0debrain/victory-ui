@@ -5,7 +5,8 @@ DatacenterManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.datacenter'
+    'models.datacenter',
+    'services.socket'
 ]
 
 /**
@@ -17,7 +18,8 @@ function DatacenterManager(
     Environment,
     $http,
     $q,
-    Instance
+    Instance,
+    SocketService
 ) {
     var manager = {
         /* Class properties */
@@ -102,7 +104,7 @@ function DatacenterManager(
         */
         set: function(data) {
             var scope = this
-            var instance = this._search(data.id)
+            var instance = this._search(data.data_center_code)
 
             if (instance) {
                 instance.setData(data)
@@ -114,6 +116,13 @@ function DatacenterManager(
             return instance
         }
     }
+
+    // Socket Events
+    SocketService.on('datacenter:new', function(response) {
+        var newInstance = manager.set(response.data)
+
+        console.log('datacenter:new ', newInstance)
+    })
 
     return manager
 }

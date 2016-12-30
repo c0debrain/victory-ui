@@ -39,7 +39,7 @@ function DatacenterModel(
 
     function Datacenter(data) {
         if (data) {
-            this.setData(mockStatistics(data))
+            this.setData(data)
         }
     }
 
