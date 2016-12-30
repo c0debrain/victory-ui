@@ -93,13 +93,14 @@
         >
             <thead>
                 <tr>
-                    <th st-sort="category" style="width: 25%;">Category</th>
-                    <th colspan="1" style="width: 5%;"></th>
-                    <th st-sort="progress" style="width: 25%;">Progress</th>
-                    <th colspan="1" style="width: 10%;"></th>
-                    <th colspan="1" style="width: 8%;"></th>
-                    <th colspan="1" style="width: 10%;"></th>
-                    <th colspan="1" style="width: 10%;"></th>
+                    <th style="width: 23%;" st-sort="category">Category</th>
+                    <th style="width: 7%;" st-sort="total">Usage</th>
+                    <th style="width: 23%;" st-sort="progress">Progress</th>
+                    <th style="width: 7%;" st-sort="allowance">Allowance</th>
+                    <th style="width: 10%;"></th>
+                    <th style="width: 8%;"></th>
+                    <th style="width: 10%;"></th>
+                    <th style="width: 10%;"></th>
                     <!-- <th style="width: 5%;"></th> -->
                 </tr>
             </thead>
@@ -179,10 +180,11 @@
 
                     <td class="text-left allowance">
                         <div class="font-11 color-blue-grey-lighter uppercase">
-                            Allowance
-                            <span class="period">({{
-                                dateRange.periods !== 1 ? (dateRange.periods * 100.).toFixed(2) + '% of a month' : 'Monthly'
-                            }})</span>
+                            {{ budget.allowance > 0 ? 'Expected' : 'Allowance' }}
+                            <span class="period">
+                                <!-- ({{ dateRange.periods !== 1 ? (dateRange.periods * 100.).toFixed(2) + '% of a month' : 'Monthly' }}) -->
+                                <!-- ({{ budget.interval_text }}) -->
+                            </span>
                         </div>
                         <span class="editable"
                             editable-number="budget.allowance"
@@ -202,12 +204,16 @@
 
                     </td>
 
+                    <td class="text-right interval">
+                        <div class="font-11 color-blue-grey-lighter uppercase">Current Period</div>
+                        {{ budget.period.start | date: 'MMM dd' }} - {{ budget.period.end | date: 'MMM dd' }}
+                    </td>
+
                     <td class="text-left interval">
                         <div class="font-11 color-blue-grey-lighter uppercase">Interval</div>
                         <span class="editable"
                             editable-text="budget.interval"
                             e-form="editBudgetInterval"
-                            ng-model="budget.interval_text"
                             e-uib-typeahead="interval as interval.text for interval in intervals | filter: $viewValue"
                             onbeforesave="updateBudget(scenario, budget, { interval: $data.value, interval_text: $data.text })"
                             ng-click="editBudgetInterval.$show()">
@@ -276,7 +282,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="7" class="row-gray text-center add" ng-click="toggleCreateBudget(scenario)">
+                    <td colspan="10" class="row-gray text-center add" ng-click="toggleCreateBudget(scenario)">
                         <i class="fa fa-plus"></i>
                     </td>
                 </tr>

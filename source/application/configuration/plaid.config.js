@@ -80,8 +80,8 @@ function PlaidConfiguration(
         },
 
         // Callback for when user exits modal
-        function exit() {
-            console.log('Exited plaidLink modal')
+        function exit(error) {
+            console.log('Exited plaidLink modal: ', error)
         }
     )
 }

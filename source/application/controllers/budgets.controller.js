@@ -2,11 +2,8 @@ angular.module('app.controllers')
     .controller('controllers.budget', BudgetsController)
 
 BudgetsController.$inject = [
-    '$scope',
     '$rootScope',
-    'services.category',
-    'services.scenario',
-    'services.budget',
+    '$scope',
     'services.notification',
     'managers.scenario',
     'managers.category',
@@ -15,11 +12,8 @@ BudgetsController.$inject = [
 ]
 
 function BudgetsController(
-    $scope,
     $rootScope,
-    Category,
-    Scenario,
-    Budget,
+    $scope,
     NotificationService,
     ScenarioManager,
     CategoryManager,
@@ -34,27 +28,27 @@ function BudgetsController(
     $scope.intervals = [
         {
             text: 'Daily',
-            value: moment().add(1, 'days').diff(moment())
+            value: moment.duration(1, 'days').asMilliseconds()
         },
         {
             text: 'Weekly',
-            value: moment().add(1, 'weeks').diff(moment())
+            value: moment.duration(1, 'weeks').asMilliseconds()
         },
         {
             text: 'Bi-Weekly',
-            value: moment().add(2, 'weeks').diff(moment())
+            value: moment.duration(2, 'weeks').asMilliseconds()
         },
         {
             text: 'Monthly',
-            value: moment().add(1, 'months').diff(moment())
+            value: moment.duration(1, 'months').asMilliseconds()
         },
         {
             text: 'Quarterly',
-            value: moment().add(3, 'months').diff(moment())
+            value: moment.duration(3, 'months').asMilliseconds()
         },
         {
             text: 'Yearly',
-            value: moment().add(1, 'year').diff(moment())
+            value: moment.duration(1, 'years').asMilliseconds()
         }
     ]
 

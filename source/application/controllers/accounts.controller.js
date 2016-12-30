@@ -18,6 +18,8 @@ function AccountsController(
 ) {
     $scope.accounts = $rootScope.accounts
 
+    console.log($scope.accounts)
+
     // Plaid connect modal
     $scope.linkAccount = function() {
         if (plaidLink.isLoaded()) {

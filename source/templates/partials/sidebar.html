@@ -20,19 +20,24 @@
                 <i class="fa fa-cog"></i>
                 <i class="fa fa-plus" ng-click="linkAccount()"></i>
             </div>
-            <ul>
-                <li ng-repeat="account in $root.accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">
-                    <a href="">
-                        <i class="fa fa-bank" aria-hidden="true"></i>{{ account.name }}
-                    </a>
-                </li>
-            </ul>
+            <div class="accounts">
+                <div class="account" ng-repeat="account in $root.accounts">
+                    <div class="primary">
+                        <div class="name left">{{ account.name | limitTo: 16 }}{{ account.name.length > 16 ? '&hellip;' : '' }}</div>
+                        <div class="value right">{{ account.balance_available | currency }}</div>
+                    </div>
+                    <div class="secondary color-blue-grey-lighter">
+                        <div class="name left">{{ account.subtype | capitalize }}</div>
+                        <div class="value right" am-time-ago="account.updated_at" title="{{ account.updated_at | date: 'MMM dd, yyyy hh:MM a' }}"></div>
+                    </div>
+                </div>
+            </div>
             <p class="empty" ng-hide="$root.accounts.length >= 0">
                 You have no accounts linked
             </p>
         </div>
 
-        <div class="account" ng-controller="controllers.sidemenu as sidemenuCtrl">
+        <div class="user" ng-controller="controllers.sidemenu as sidemenuCtrl">
             <img src="http://themesanytime.com/startui/demo/img/photo-64-4.jpg" alt="Account">
             <a href="#">Nick</a>
             <i class="fa fa-cog" aria-hidden="true"></i>

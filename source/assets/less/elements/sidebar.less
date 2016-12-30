@@ -70,9 +70,15 @@
                 i {
                     height: 100%;
                     float: right;
-                    width: 20px;
+                    width: 16px;
                     color: @text-faded-gray;
                     cursor: pointer;
+                    text-align: center;
+                    margin-left: 5px;
+
+                    &:hover {
+                        color: @text-hover-gray;
+                    }
                 }
             }
 
@@ -91,6 +97,16 @@
                 li {
                     display: block;
                     height: 36px;
+
+                    &:hover {
+                        a {
+                            color: @text-hover-gray;
+                        }
+
+                        i.fa {
+                            color: @text-hover-gray;
+                        }
+                    }
 
                     a {
                         text-decoration: none;
@@ -111,14 +127,6 @@
                             font-size: 18px;
                             width: 30px;
                             text-align: center;
-                        }
-
-                        &:hover {
-                            color: @text-hover-gray;
-
-                            i.fa {
-                                color: @text-hover-gray;
-                            }
                         }
                     }
 
@@ -150,68 +158,106 @@
 
         }
 
+        /*
+            List of linked accounts
+         */
+
         .accounts {
-            li {
-                a *, span  {
-                    height: 50px !important;
-                    line-height: 50px !important;
+            width: 100%;
+            float: left;
+            margin: 15px 0 25px 0;
+
+            .account {
+                height: 50px;
+                margin-bottom: 10px;
+
+                &:hover {
+                    color: @text-hover-gray;
                 }
-                a {
 
-                    span.title {
+                .primary {
+                    float: left;
+                    clear: both;
+                    height: 50%;
+                    width: 100%;
+                    position: relative;
+                }
 
-                    }
+                .secondary {
+                    float: left;
+                    clear: both;
+                    height: 50%;
+                    width: 100%;
+                    position: relative;
+                    font-size: 12px;
+                }
 
-                    span.amount {
+                .left {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 100%;
+                    text-align: left;
+                }
 
-                    }
+                .right {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 100%;
+                    text-align: right;
                 }
             }
         }
-    }
 
-    .account {
-        display: block;
-        height: 64px;
-        width: 100%;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        color: #B7C0CD;
-        line-height: 64px;
-        padding: 0 29px 0 29px;
-        margin-bottom: 10px;
-
-        img {
-            float: left;
-            height: 32px;
-            width: 32px;
+        /*
+            Bottom user section
+         */
+        .user {
             display: block;
-            -webkit-border-radius: 50%;
-            border-radius: 50%;
-            margin: 16px 16px 16px 0;
-        }
-
-        a {
+            height: 64px;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
             color: #B7C0CD;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            // display: block;
-            overflow: hidden;
-        }
-
-        a:hover {
-            color: #fff;
-        }
-
-        i {
-            float: right;
-            display: block;
-            height: 100%;
             line-height: 64px;
-            font-size: 18px;
-            cursor: pointer;
-            padding-left: 10px;
+            padding: 0 29px 0 29px;
+            margin-bottom: 10px;
+
+            img {
+                float: left;
+                height: 32px;
+                width: 32px;
+                display: block;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                margin: 16px 16px 16px 0;
+            }
+
+            a {
+                color: #B7C0CD;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                // display: block;
+                overflow: hidden;
+            }
+
+            a:hover {
+                color: #fff;
+            }
+
+            i {
+                float: right;
+                display: block;
+                height: 100%;
+                line-height: 64px;
+                font-size: 18px;
+                cursor: pointer;
+                padding-left: 10px;
+            }
         }
     }
 }
