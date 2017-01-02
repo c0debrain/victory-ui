@@ -2,26 +2,27 @@
     <div class="exterior"></div>
 
     <div class="sidebar">
-        <div class="menu-section" ng-controller="controllers.navigation as navigationCtrl">
+        <div class="menu-section">
             <div class="menu-header">
                 <h1>Menu</h1>
             </div>
             <ul>
-                <li ng-repeat="item in menu">
+                <li ng-repeat="item in navigation">
                     <a ui-sref="{{ item.url }}">{{ item.title }}</a>
                     <span ng-if="item.badge" class="badge {{ item.badge.type }}">{{ item.badge.content }}</span>
                 </li>
             </ul>
         </div>
 
-        <div class="menu-section" ng-controller="controllers.account as accountCtrl">
+        <div class="menu-section">
             <div class="menu-header">
                 <h1>Accounts</h1>
-                <i class="fa fa-cog"></i>
+                <i class="fa fa-refresh" ng-click="refreshAccounts()"></i>
                 <i class="fa fa-plus" ng-click="linkAccount()"></i>
             </div>
             <div class="accounts">
-                <div class="account" ng-repeat="account in $root.accounts">
+                <div class="account" ng-repeat="account in accounts
+                ">
                     <div class="primary">
                         <div class="name left">{{ account.name | limitTo: 16 }}{{ account.name.length > 16 ? '&hellip;' : '' }}</div>
                         <div class="value right">{{ account.balance_available | currency }}</div>
@@ -32,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <p class="empty" ng-hide="$root.accounts.length >= 0">
+            <p class="empty" ng-hide="accounts.length >= 0">
                 You have no accounts linked
             </p>
         </div>

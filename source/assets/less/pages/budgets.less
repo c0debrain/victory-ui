@@ -118,6 +118,12 @@
             }
 
             .budget {
+                &:hover {
+                    .period-start, .period-end {
+                        display: inline-block !important;
+                    }
+                }
+
                 &.unassigned {
                     td.category {
                         .editable-tray {
@@ -285,6 +291,24 @@
                     &.interval {
                         input {
                             width: 65px;
+                        }
+
+                        .editable-buttons {
+                            button {
+                                background: transparent;
+                                border: none;
+                                margin: 0 3px;
+                                color: @color-grey-blue;
+
+                                &:hover {
+                                    color: @color-blue !important;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+
+                        .ui-select-bootstrap .ui-select-toggle > a.btn {
+                            display: none !important;
                         }
                     }
 

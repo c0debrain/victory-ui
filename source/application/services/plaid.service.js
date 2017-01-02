@@ -1,25 +1,46 @@
 angular.module('app.services')
     .factory('services.plaid', PlaidService)
 
-PlaidService.$inject = ['$resource', 'environment']
+PlaidService.$inject = [
+    'environment',
+    '$http',
+    '$q'
+]
 
-function PlaidService($resource, Environment) {
-    return $resource(Environment.api.path + '/plaid/', {}, {
-        connect: {
-            url: Environment.api.path + '/plaid/connect',
-            method: 'POST'
+function PlaidService(
+    Environment,
+    $http,
+    $q
+) {
+    return {
+        refreshAccounts: function() {
+            var deferred = $q.defer()
+
+            $http.get(Environment.api.path + '/plaid/self/accounts')
+                .then(function(response) {
+                    deferred.resolve(response)
+                })
+                .catch(function(error) {
+                    console.error(error)
+                    deferred.reject()
+                })
+
+            return deferred.promise
         },
-        exchange: {
-            url: Environment.api.path + '/plaid/exchange',
-            method: 'POST'
-        },
-        getAccounts: {
-            url: Environment.api.path + '/plaid/accounts',
-            method: 'GET'
-        },
-        getTransactions: {
-            url: Environment.api.path + '/plaid/transactions',
-            method: 'GET'
+
+        refreshTransactions: function() {
+            var deferred = $q.defer()
+
+            $http.get(Environment.api.path + '/plaid/self/transactions')
+                .then(function(response) {
+                    deferred.resolve(response)
+                })
+                .catch(function(error) {
+                    console.error(error)
+                    deferred.reject()
+                })
+
+            return deferred.promise
         }
-    })
+    }
 }

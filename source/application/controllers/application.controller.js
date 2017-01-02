@@ -2,11 +2,11 @@ angular.module('app.controllers')
     .controller('controllers.application', ApplicationController)
 
 ApplicationController.$inject = [
-    '$rootScope',
-    'services.account',
-    'services.transaction',
-    'services.category',
+    '$scope',
+    '$state',
+    'services.plaid',
     'managers.account',
+    'managers.transaction',
     'services.notification'
 ]
 
@@ -15,17 +15,63 @@ ApplicationController.$inject = [
     core.controller which is instatiated on page load.
 */
 function ApplicationController(
-    $rootScope,
-    Accounts,
-    Transactions,
-    Category,
+    $scope,
+    $state,
+    PlaidService,
     AccountManager,
+    TransactionManager,
     NotificationService
 ) {
+    $scope.navigation = [
+        {
+            title: "Overview",
+            url: "app.overview"
+        }, {
+            title: "Transactions",
+            url: "app.transactions",
+            badge: {
+                type: 'complete',
+                content: '21'
+            }
+        }, {
+            title: "Budgets",
+            url: "app.budgets"
+        }, {
+            title: "Goals",
+            url: "app.goals"
+        }, {
+            title: "Forecast",
+            url: "app.forecast"
+        }
+    ]
+
     AccountManager.loadAll()
         .then(function(accounts) {
-            $rootScope.accounts = accounts
+            $scope.accounts = accounts
         }).catch(function(error) {
             NotificationService.create('warning', error)
         })
+
+    $scope.logout = function() {
+        $state.go('access.login')
+    }
+
+
+    // Plaid connect modal
+    $scope.linkAccount = function() {
+        if (plaidLink.isLoaded()) {
+            plaidLink.open()
+        } else {
+            console.log('Plaid Link isn\'t loaded!')
+        }
+    }
+
+    $scope.refreshAccounts = function() {
+        PlaidService.refreshAccounts()
+            .then(function(response) {
+                response.data.forEach(function(account) {
+                    AccountManager.set(account)
+                })
+            })
+    }
 }

@@ -59,6 +59,19 @@ function TransactionsController(
         TransactionManager.loadAll(parameters)
             .then(function(transactions) {
                 console.log('Transaction Response: ', transactions)
+
+                if (transactions.length === 0) {
+                    $scope.dates.startDate = $scope.dates.startDate.subtract(1, 'months')
+                        $scope.retrieveTransactions({
+                            startDate: moment($scope.dates.startDate).format(),
+                            endDate: moment($scope.dates.endDate).format(),
+                            relations: true
+                        })
+
+                    // Don't continue execution of this function call
+                    return
+                }
+
                 $scope.transactions = transactions
                 $scope.initial.concat(transactions)
                 $scope.pulledTransactions = true

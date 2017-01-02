@@ -21,6 +21,7 @@ angular.module('app', [
     // Components
     'ngFlash',
     'ui.tree',
+    'ui.select',
     'ui.calendar',
     'xeditable',
     'smart-table',
