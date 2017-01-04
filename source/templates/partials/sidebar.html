@@ -2,37 +2,43 @@
     <div class="exterior"></div>
 
     <div class="sidebar">
-        <div class="menu-section" ng-controller="controllers.navigation as navigationCtrl">
+        <div class="menu-section">
             <div class="menu-header">
                 <h1>Menu</h1>
             </div>
             <ul>
-                <li ng-repeat="item in menu">
+                <li ng-repeat="item in navigation">
                     <a ui-sref="{{ item.url }}">{{ item.title }}</a>
                     <span ng-if="item.badge" class="badge {{ item.badge.type }}">{{ item.badge.content }}</span>
                 </li>
             </ul>
         </div>
 
-        <div class="menu-section" ng-controller="controllers.account as accountCtrl">
+        <div class="menu-section">
             <div class="menu-header">
                 <h1>Accounts</h1>
-                <i class="fa fa-cog"></i>
+                <i class="fa fa-refresh" ng-click="refreshAccounts()"></i>
                 <i class="fa fa-plus" ng-click="linkAccount()"></i>
             </div>
-            <ul>
-                <li ng-repeat="account in $root.accounts" ng-class="{ inactive: account.filtered }" ng-click="filterAccount(account.id)">
-                    <a href="">
-                        <i class="fa fa-bank" aria-hidden="true"></i>{{ account.name }}
-                    </a>
-                </li>
-            </ul>
-            <p class="empty" ng-hide="$root.accounts.length >= 0">
+            <div class="accounts">
+                <div class="account" ng-repeat="account in accounts
+                ">
+                    <div class="primary">
+                        <div class="name left">{{ account.name | limitTo: 16 }}{{ account.name.length > 16 ? '&hellip;' : '' }}</div>
+                        <div class="value right">{{ account.balance_available | currency }}</div>
+                    </div>
+                    <div class="secondary color-blue-grey-lighter">
+                        <div class="name left">{{ account.subtype | capitalize }}</div>
+                        <div class="value right" am-time-ago="account.updated_at" title="{{ account.updated_at | date: 'MMM dd, yyyy hh:MM a' }}"></div>
+                    </div>
+                </div>
+            </div>
+            <p class="empty" ng-hide="accounts.length >= 0">
                 You have no accounts linked
             </p>
         </div>
 
-        <div class="account" ng-controller="controllers.sidemenu as sidemenuCtrl">
+        <div class="user">
             <img src="http://themesanytime.com/startui/demo/img/photo-64-4.jpg" alt="Account">
             <a href="#">Nick</a>
             <i class="fa fa-cog" aria-hidden="true"></i>

@@ -16,14 +16,14 @@
                 </div>
             </div>
 
-            <div class="row row-white row-tabs">
+            <!-- <div class="row row-white row-tabs">
                 <div class="col-md-12">
                     <ul>
                         <li class="active">Recent</li>
                         <li>By Category</li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
 
             <!--
                 <div class="row row-gray row-filters">
@@ -99,7 +99,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody vs-repeat vs-scroll-parent=".table-responsive">
                                     <tr ng-repeat="item in initial" ng-show="!item.filtered">
                                         <td class="table-check account" ng-class="{
                                             'pending': ($index <= 4),
@@ -110,7 +110,7 @@
                                                 <label for="tbl-check-{{ $index }}"></label>
                                             </div>
                                         </td>
-                                        <td am-time-ago="item.date"></td>
+                                        <td am-time-ago="item.date" title="{{ item.date | date}}"></td>
                                         <td>{{ item.name }}</td>
                                         <td>
                                             <i
@@ -122,7 +122,7 @@
                                             </i>
                                             {{ item.category.hierarchy[item.category.hierarchy.length - 1] || "Uncategorized" }}
                                         </td>
-                                        <td>{{ item.account.name }}</td>
+                                        <td>{{ item.account.name | limitTo: 20 }}{{ item.account.name.length > 20 ? '&hellip;' : '' }}</td>
                                         <td nowrap="nowrap" class="text-right">
                                             {{ item.amount | currency }}
                                             <span class="caret" ng-class="{
@@ -133,17 +133,19 @@
                                             </span>
                                         </td>
                                     </tr>
+                                </tbody>
+                                <tfoot>
                                     <tr ng-show="pulledTransactions === false">
                                         <td colspan="6" class="text-center">
                                             Loading transactions...
                                         </td>
                                     </tr>
-                                    <tr ng-show="pulledTransactions && transactions.length == 0">
+                                    <tr ng-show="pulledTransactions === true && initial.length === 0">
                                         <td colspan="6" class="text-center">
                                             No transactions to display.
                                         </td>
                                     </tr>
-                                </tbody>
+                                </tfoot>
                             </table>
                         </div>
                     </div><!--.box-typical-body-->

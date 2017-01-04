@@ -21,17 +21,21 @@ angular.module('app', [
     // Components
     'ngFlash',
     'ui.tree',
+    'ui.select',
     'ui.calendar',
     'xeditable',
     'smart-table',
     'ngLetterAvatar',
     'daterangepicker',
     'highcharts-ng',
+    'vs-repeat',
 
     // Application Modules
     'app.environment',
     'app.configuration',
     'app.controllers',
+    'app.models',
+    'app.managers',
     'app.services',
     'app.directives',
     'app.filters'

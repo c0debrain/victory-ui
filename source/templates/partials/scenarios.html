@@ -86,18 +86,21 @@
         <table
             class="table table-hover table-datatable table-budgets"
             st-table="scenario.budgets"
-            ui-tree="dragOptions"
+            ui-tree="draggableConfiguration"
             data-clone-enabled="true"
             data-nodrop-enabled
             data-empty-placeholder-enabled="false"
         >
             <thead>
                 <tr>
-                    <th st-sort="category" style="width: 25%;">Category</th>
-                    <th colspan="1" style="width: 15%;"></th>
-                    <th st-sort="progress" style="width: 25%;">Progress</th>
-                    <th colspan="1" style="width: 15%;"></th>
-                    <th colspan="1" style="width: 15%;"></th>
+                    <th style="width: 22%;">Category</th>
+                    <th style="width: 7%;">Usage</th>
+                    <th style="width: 23%;">Progress</th>
+                    <th style="width: 8%;">Allowance</th>
+                    <!-- <th style="width: 10%;"></th> -->
+                    <th style="width: 10%;"></th>
+                    <th style="width: 8%;"></th>
+                    <th style="width: 8%;"></th>
                     <!-- <th style="width: 5%;"></th> -->
                 </tr>
             </thead>
@@ -106,10 +109,10 @@
                     class="budget"
                     ng-repeat="budget in scenario.budgets | orderBy: ['created_at']"
                     ui-tree-node
-                    ng-class="{ 'unassigned': budget.incomplete }"
+                    ng-class="{ 'unassigned': !budget.category_id }"
                 >
                     <td class="category" ng-hide="budget.gettingDeleted">
-                        <div ng-if="budget.type" class="font-11 color-blue-grey-lighter uppercase">{{ budget.type }}</div>
+                        <div ng-if="budget.type" class="font-11 color-blue-grey-lighter uppercase">{{ budget.allowance > 0 ? 'Income' : 'Expense' }}</div>
                         <span
                             editable-text="budget.category"
                             e-form="editBudgetCategory"
@@ -155,7 +158,7 @@
                         </span>
                     </td>
 
-                    <td class="text-right" style="width: 15%">
+                    <td class="text-right">
                         <div class="font-11 color-blue-grey-lighter uppercase">{{ budget.allowance > 0 ? 'Earned' : 'Spent' }}</div>
                         {{ budget.total | currency }}
                     </td>
@@ -171,21 +174,24 @@
                                     'progress-danger expense': (budget.total < 0)
                                 }">
                             </uib-progressbar>
+                            <span class="period-start">{{ budget.period.start | date: 'MMM dd' }}</span>
+                            <span class="period-end">{{ budget.period.end | date: 'MMM dd' }}</span>
                             <div class="progress-with-amount-number">{{ budget.progress | numberPadding: 2 }}%</div>
                         </div>
                     </td>
 
-                    <td class="text-left allowance" style="width: 15%">
+                    <td class="text-left allowance">
                         <div class="font-11 color-blue-grey-lighter uppercase">
-                            Allowance
-                            <span class="period">({{
-                                dateRange.periods !== 1 ? (dateRange.periods * 100.).toFixed(2) + '% of a month' : 'Monthly'
-                            }})</span>
+                            {{ budget.allowance > 0 ? 'Expected' : 'Allowance' }}
+                            <span class="period">
+                                <!-- ({{ dateRange.periods !== 1 ? (dateRange.periods * 100.).toFixed(2) + '% of a month' : 'Monthly' }}) -->
+                                <!-- ({{ budget.interval_text }}) -->
+                            </span>
                         </div>
                         <span class="editable"
                             editable-number="budget.allowance"
                             e-form="editBudgetAllowance"
-                            onbeforesave="handleBudgetChange(scenario, budget, budget.category)"
+                            onbeforesave="updateBudget(scenario, budget, { allowance: $data })"
                             ng-click="editBudgetAllowance.$show()">
                             {{ budget.allowance * dateRange.periods | currency }}
 
@@ -200,15 +206,98 @@
 
                     </td>
 
-                    <td class="text-left" style="width: 15%">
+                    <!-- <td class="text-right interval">
+                        <div class="font-11 color-blue-grey-lighter uppercase">Current Period</div>
+                        {{ budget.period.start | date: 'MMM dd' }} - {{ budget.period.end | date: 'MMM dd' }}
+                    </td> -->
+
+                    <td class="text-left interval">
                         <div class="font-11 color-blue-grey-lighter uppercase">Interval</div>
-                        <span
+                        <!-- <span class="editable"
                             editable-text="budget.interval"
                             e-form="editBudgetInterval"
                             e-uib-typeahead="interval as interval.text for interval in intervals | filter: $viewValue"
-                            onbeforesave="handleBudgetIntervalChange(scenario, budget, $data)"
+                            onbeforesave="updateBudget(scenario, budget, { interval: $data.value, interval_text: $data.text })"
                             ng-click="editBudgetInterval.$show()">
-                            {{ budget.interval.text }}
+                            {{ budget.interval_text }}
+
+                            <div class="editable-tray">
+                                <i
+                                    class="fa fa-pencil edit color-blue-grey-lighter"
+                                    ng-click="editBudgetInterval.$show()"
+                                    ng-hide="editBudgetInterval.$visible">
+                                </i>
+                            </div>
+                        </span> -->
+                        <form data-editable-form name="intervalForm" class="editable">
+                            <div
+                                editable-ui-select="budget.interval_text"
+                                e-form="intervalForm"
+                                e-name="interval"
+                                e-ng-model="budget.interval_text"
+                                ng-click="intervalForm.$show()"
+                                onbeforesave="updateBudget(scenario, budget, { interval: $data.value, interval_text: $data.text })"
+                            >{{ budget.interval_text }}
+                                <editable-ui-select-match placeholder="Interval">
+                                    {{ $select.selected.text || $select.selected }}
+                                </editable-ui-select-match>
+                                <editable-ui-select-choices repeat="interval in intervals | filter: $select.text track by $index">
+                                    {{ interval.text }}
+                                </editable-ui-select-choices>
+                            </div>
+                            <div class="editable-tray">
+                                <i
+                                    class="fa fa-pencil edit color-blue-grey-lighter"
+                                    ng-click="intervalForm.$show()"
+                                    ng-hide="intervalForm.$visible">
+                                </i>
+                            </div>
+                            <div class="editable-buttons" ng-show="intervalForm.$visible">
+                                <button class="fa fa-check" title="Submit" aria-label="Submit"></button>
+                                <button class="fa fa-times" ng-click="intervalForm.$cancel()" title="Cancel" aria-label="Cancel"></button>
+                            </div>
+                        </form>
+                    </td>
+
+                    <td class="text-right start-date">
+                        <div class="font-11 color-blue-grey-lighter uppercase">Starting</div>
+                        <span class="editable"
+                            onbeforesave="updateBudget(scenario, budget, { start: $data })"
+                            editable-bsdate="budget.start"
+                            e-is-open="opened.$data"
+                            e-ng-click="open($event, '$data')"
+                            e-readonly="true"
+                            e-show-calendar-button="false"
+                            e-datepicker-popup="MMM dd, yyyy">
+                            {{ budget.start | date }}
+
+                            <div class="editable-tray">
+                                <i
+                                    class="fa fa-pencil edit color-blue-grey-lighter"
+                                    ng-hide="opened.$data">
+                                </i>
+                            </div>
+                        </span>
+                    </td>
+
+                    <td class="text-left end-date">
+                        <div class="font-11 color-blue-grey-lighter uppercase">Ending</div>
+                        <span class="editable"
+                            onbeforesave="updateBudget(scenario, budget, { end: $data })"
+                            editable-bsdate="budget.end"
+                            e-is-open="opened.$data"
+                            e-ng-click="open($event, '$data')"
+                            e-readonly="true"
+                            e-show-calendar-button="false"
+                            e-datepicker-popup="MMM dd, yyyy">
+                            {{ budget.end | date }}
+
+                            <div class="editable-tray">
+                                <i
+                                    class="fa fa-pencil edit color-blue-grey-lighter"
+                                    ng-hide="opened.$data">
+                                </i>
+                            </div>
                         </span>
                     </td>
                     <!-- <td class="text-center list-transactions">
@@ -223,7 +312,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="6" class="row-gray text-center add" ng-click="toggleCreateBudget(scenario)">
+                    <td colspan="10" class="row-gray text-center add" ng-click="toggleCreateBudget(scenario)">
                         <i class="fa fa-plus"></i>
                     </td>
                 </tr>

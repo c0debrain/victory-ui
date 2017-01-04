@@ -2,19 +2,21 @@ angular.module('app.controllers')
     .controller('controllers.transaction', TransactionsController)
 
 TransactionsController.$inject = [
-    '$scope',
     '$rootScope',
+    '$scope',
     'moment',
-    'services.transaction',
-    'services.scenario'
+    'managers.transaction',
+    'managers.scenario',
+    'services.notification'
 ]
 
 function TransactionsController(
-    $scope,
     $rootScope,
+    $scope,
     moment,
-    Transaction,
-    Scenario
+    TransactionManager,
+    ScenarioManager,
+    NotificationService
 ) {
     $scope.initial = []
     $scope.transactions = []
@@ -46,53 +48,43 @@ function TransactionsController(
             'apply.daterangepicker': function(ev, picker) {
                 $scope.retrieveTransactions({
                     startDate: moment($scope.dates.startDate).format(),
-                    endDate: moment($scope.dates.endDate).format()
+                    endDate: moment($scope.dates.endDate).format(),
+                    relations: true
                 })
             }
         }
     }
 
-    // Retrieve User's Transactions
     $scope.retrieveTransactions = function(parameters) {
-        Transaction.allWithAll(parameters, function(transactionResponse) {
-            console.log('Transaction Service Response: ', transactionResponse.data)
+        TransactionManager.loadAll(parameters)
+            .then(function(transactions) {
+                console.log('Transaction Response: ', transactions)
 
-            // Don't pull scenarios unless we have transactions
-            if (transactionResponse.data.length > 0) {
-                Scenario.allWithBudgets(function(scenarioResponse) {
-                    console.log('Scenario Service Response: ', scenarioResponse.data)
-                    $scope.scenarios = scenarioResponse.data
-
-                    $scope.transactions = transactionResponse.data.map(function(transaction) {
-                        transaction.scenarios = []
-
-                        scenarioResponse.data.forEach(function(scenario) {
-                            scenario.budgets.forEach(function(budget) {
-                                if (budget.category_id === transaction.category_id) {
-                                    transaction.scenarios.push(scenario)
-                                }
-                            })
+                if (transactions.length === 0) {
+                    $scope.dates.startDate = $scope.dates.startDate.subtract(1, 'months')
+                        $scope.retrieveTransactions({
+                            startDate: moment($scope.dates.startDate).format(),
+                            endDate: moment($scope.dates.endDate).format(),
+                            relations: true
                         })
 
-                        return transaction
-                    })
+                    // Don't continue execution of this function call
+                    return
+                }
 
-                    $scope.pulledTransactions = true
-                })
-
-                $scope.initial.concat($scope.transactions)
-
-            // No Transactions were returned for the specified date range
-            } else {
-                $scope.transactions = []
+                $scope.transactions = transactions
+                $scope.initial.concat(transactions)
                 $scope.pulledTransactions = true
-            }
-        })
 
+            }).catch(function(error) {
+                NotificationService.create('warning', error)
+            })
     }
+
     $scope.retrieveTransactions({
         startDate: moment($scope.dates.startDate).format(),
-        endDate: moment($scope.dates.endDate).format()
+        endDate: moment($scope.dates.endDate).format(),
+        relations: true
     })
 
     // Hack to make the date button show the datepicker

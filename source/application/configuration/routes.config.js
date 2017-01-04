@@ -62,8 +62,6 @@ function RoutesConfiguration(
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'application/services/transactions.service.js',
-                            'application/services/scenarios.service.js',
                             'application/controllers/transactions.controller.js',
                         ])
                     }]
@@ -76,10 +74,7 @@ function RoutesConfiguration(
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'application/controllers/budgets.controller.js',
-                            'application/services/categories.service.js',
-                            'application/services/scenarios.service.js',
-                            'application/services/budgets.service.js'
+                            'application/controllers/budgets.controller.js'
                         ])
                     }]
                 }
@@ -91,8 +86,6 @@ function RoutesConfiguration(
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'application/services/transactions.service.js',
-                            'application/services/scenarios.service.js',
                             'application/controllers/forecast.controller.js'
                         ])
                     }]

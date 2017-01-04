@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="components/angular-xeditable/dist/css/xeditable.min.css">
     <link rel="stylesheet" type="text/css" href="components/angular-bootstrap/ui-bootstrap-csp.css">
+    <link rel="stylesheet" type="text/css" href="components/angular-ui-select/dist/select.min.css">
     <link rel="stylesheet" type="text/css" href="components/fullcalendar/dist/fullcalendar.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/application.css" />
 </head>
@@ -45,6 +46,7 @@
     <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="components/ng-letter-avatar/dist/ngletteravatar.min.js"></script>
     <script src="components/angular-xeditable/dist/js/xeditable.min.js"></script>
+    <script src="components/angular-ui-select/dist/select.min.js"></script>
     <script src="components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
     <script src="components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="components/angular-daterangepicker/js/angular-daterangepicker.min.js"></script>
@@ -52,6 +54,7 @@
     <script src="components/highcharts-ng/dist/highcharts-ng.min.js"></script>
     <script src="components/angular-ui-calendar/src/calendar.js"></script>
     <script src="components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="components/angular-vs-repeat/src/angular-vs-repeat.min.js"></script>
 
     <!-- Application -->
     <script src="application/app.js"></script>
@@ -74,16 +77,26 @@
     <script src="application/services/users.service.js"></script>
     <script src="application/services/plaid.service.js"></script>
     <script src="application/services/notification.service.js"></script>
-    <script src="application/services/accounts.service.js"></script>
-    <script src="application/services/transactions.service.js"></script>
-    <script src="application/services/categories.service.js"></script>
+
+    <!-- Models -->
+    <script src="application/models/index.js"></script>
+    <script src="application/models/transaction.model.js"></script>
+    <script src="application/models/account.model.js"></script>
+    <script src="application/models/category.model.js"></script>
+    <script src="application/models/budget.model.js"></script>
+    <script src="application/models/scenario.model.js"></script>
+
+    <!-- Managers -->
+    <script src="application/managers/index.js"></script>
+    <script src="application/managers/transaction.manager.js"></script>
+    <script src="application/managers/account.manager.js"></script>
+    <script src="application/managers/category.manager.js"></script>
+    <script src="application/managers/budget.manager.js"></script>
+    <script src="application/managers/scenario.manager.js"></script>
 
     <!-- Controllers -->
     <script src="application/controllers/index.js"></script>
     <script src="application/controllers/core.controller.js"></script>
-    <script src="application/controllers/navigation.controller.js"></script>
-    <script src="application/controllers/accounts.controller.js"></script>
-    <script src="application/controllers/sidemenu.controller.js"></script>
 
     <!-- Filters -->
     <script src="application/filters/index.js"></script>
@@ -96,6 +109,7 @@
 
     <!-- Interceptors -->
     <script src="application/interceptors/index.js"></script>
+    <script src="application/interceptors/api.interceptor.js"></script>
     <script src="application/interceptors/unauthenticated.interceptor.js"></script>
 </body>
 </html>

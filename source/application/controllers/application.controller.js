@@ -2,10 +2,13 @@ angular.module('app.controllers')
     .controller('controllers.application', ApplicationController)
 
 ApplicationController.$inject = [
-    '$rootScope',
-    'services.account',
-    'services.transaction',
-    'services.category'
+    '$scope',
+    '$state',
+    'services.plaid',
+    'managers.account',
+    'managers.transaction',
+    'services.notification',
+    'plaidLink',
 ]
 
 /*
@@ -13,50 +16,64 @@ ApplicationController.$inject = [
     core.controller which is instatiated on page load.
 */
 function ApplicationController(
-    $rootScope,
-    Accounts,
-    Transactions,
-    Category
+    $scope,
+    $state,
+    PlaidService,
+    AccountManager,
+    TransactionManager,
+    NotificationService,
+    PlaidLink
 ) {
-
-    // Retrieve User's Accounts
-    Accounts.all(function(response) {
-        console.log('Account Service Response: ', response.data)
-        $rootScope.accounts = response.data
-
-        // Map through and add filtered status to accounts
-        $rootScope.accounts.map(function(account) {
-            account.filtered = false
-        })
-
-        $rootScope.currentNetWorth = $rootScope.accounts.reduce(function(previous, current) {
-            if (current.type === 'credit') {
-                return previous - current.balance_current
+    $scope.navigation = [
+        {
+            title: "Overview",
+            url: "app.overview"
+        }, {
+            title: "Transactions",
+            url: "app.transactions",
+            badge: {
+                type: 'complete',
+                content: '21'
             }
-
-            return previous + current.balance_current
-        }, 0)
-
-        $rootScope.$broadcast('retrievedAccounts')
-    })
-
-
-    /**
-     * Pull in all categories
-     * @type {[type]}
-     */
-    $rootScope.retrieveCategories = function() {
-        // Limit the attributes we are retrieving
-        var parameters = {
-            attributes: ['id', 'hierarchy', 'type']
+        }, {
+            title: "Budgets",
+            url: "app.budgets"
+        }, {
+            title: "Goals",
+            url: "app.goals"
+        }, {
+            title: "Forecast",
+            url: "app.forecast"
         }
+    ]
 
-        // Make request for categories
-        Category.all(parameters, function(response) {
-            // console.log('Category Service Response: ', response.data)
-            $rootScope.categories = response.data
+    AccountManager.loadAll()
+        .then(function(accounts) {
+            $scope.accounts = accounts
+        }).catch(function(error) {
+            NotificationService.create('warning', error)
         })
-    }
-    $rootScope.retrieveCategories()
 
+    $scope.logout = function() {
+        $state.go('access.login')
+    }
+
+
+    // Plaid connect modal
+    $scope.linkAccount = function() {
+        if (PlaidLink.isLoaded()) {
+            PlaidLink.open()
+        } else {
+            console.log('Plaid Link isn\'t loaded!')
+        }
+    }
+
+    $scope.refreshAccounts = function() {
+        PlaidService.refreshAccounts()
+            .then(function(response) {
+                response.data.forEach(function(account) {
+                    AccountManager.set(account)
+                })
+            })
+    }
 }

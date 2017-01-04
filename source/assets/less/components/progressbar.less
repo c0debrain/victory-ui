@@ -76,6 +76,7 @@
     border-radius: 2px;
     background-color: @color-blue;
     height: 100%;
+    position: relative;
 }
 
 .progress-success {
@@ -163,6 +164,30 @@
         top: 0;
         line-height: 16px;
         color: @color-grey-blue-lighter-txt;
+    }
+
+    .period-start {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        line-height: 16px;
+        padding-left: 5px;
+        font-size: 10px;
+        display: none;
+        color: #131313;
+    }
+
+    .period-end {
+        position: absolute;
+        top: 0;
+        right: 50px;
+        height: 100%;
+        line-height: 16px;
+        padding-right: 5px;
+        font-size: 10px;
+        display: none;
+        color: #131313;
     }
 }
 // Progress steps
