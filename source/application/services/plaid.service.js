@@ -13,6 +13,22 @@ function PlaidService(
     $q
 ) {
     return {
+        exchangeToken: function(token) {
+            var deferred = $q.defer()
+
+            $http.post(Environment.api.path + '/plaid/self/exchange', {
+                public_token: token
+            }).then(function(response) {
+                deferred.resolve(response)
+            })
+            .catch(function(error) {
+                console.error(error)
+                deferred.reject()
+            })
+
+            return deferred.promise
+        },
+
         refreshAccounts: function() {
             var deferred = $q.defer()
 

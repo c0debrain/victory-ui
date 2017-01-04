@@ -7,7 +7,8 @@ ApplicationController.$inject = [
     'services.plaid',
     'managers.account',
     'managers.transaction',
-    'services.notification'
+    'services.notification',
+    'plaidLink',
 ]
 
 /*
@@ -20,7 +21,8 @@ function ApplicationController(
     PlaidService,
     AccountManager,
     TransactionManager,
-    NotificationService
+    NotificationService,
+    PlaidLink
 ) {
     $scope.navigation = [
         {
@@ -59,8 +61,8 @@ function ApplicationController(
 
     // Plaid connect modal
     $scope.linkAccount = function() {
-        if (plaidLink.isLoaded()) {
-            plaidLink.open()
+        if (PlaidLink.isLoaded()) {
+            PlaidLink.open()
         } else {
             console.log('Plaid Link isn\'t loaded!')
         }
