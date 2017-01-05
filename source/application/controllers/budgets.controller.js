@@ -144,13 +144,11 @@ function BudgetsController(
                 return false
             }
 
-            BudgetManager.create({
-                name: budget.name,
-                category_id: budget.category_id,
-                scenario_id: event.dest.nodesScope.$parent.$parent.scenario.id,
-                type: budget.type,
-                allowance: budget.allowance
-            }).then(function(budget) {
+            BudgetManager.create(
+                angular.extend(budget, { 
+                    scenario_id: event.dest.nodesScope.$parent.$parent.scenario.id,
+                })
+            ).then(function(budget) {
                 event.source.cloneModel = budget
                 ScenarioManager.get(budget.scenario_id).then(function(scenario) {
                     scenario.virtuals($scope.dateRange.periods)
@@ -260,12 +258,8 @@ function BudgetsController(
                 hierarchy: ['Set Category'],
                 transactions: []
             },
-            interval: {
-                start: moment().format(),
-                end: moment().add(1, 'years').format(),
-                text: $scope.intervals[3].text,
-                dateRange: $scope.intervals[3].dateRange
-            },
+            interval: $scope.intervals[3].value,
+            interval_text: $scope.intervals[3].text,
             allowance: 0,
             scenario_id: scenario.id,
             incomplete: true,

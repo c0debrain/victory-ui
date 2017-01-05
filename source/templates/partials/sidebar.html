@@ -17,7 +17,9 @@
         <div class="menu-section">
             <div class="menu-header">
                 <h1>Accounts</h1>
-                <i class="fa fa-refresh" ng-click="refreshAccounts()"></i>
+                <i class="fa fa-refresh" ng-class="{
+                    'fa-spin': refreshing === true
+                }" ng-click="refreshAccounts()"></i>
                 <i class="fa fa-plus" ng-click="linkAccount()"></i>
             </div>
             <div class="accounts">

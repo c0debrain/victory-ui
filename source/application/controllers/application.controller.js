@@ -69,11 +69,46 @@ function ApplicationController(
     }
 
     $scope.refreshAccounts = function() {
+        $scope.refreshing = true
+        var refreshing = {
+            accounts: true,
+            transactions: true
+        }
+
         PlaidService.refreshAccounts()
             .then(function(response) {
-                response.data.forEach(function(account) {
-                    AccountManager.set(account)
-                })
+                if (response.data.length > 0) {
+                    response.data.forEach(function(token) {
+                        if (token.data.length > 0) {
+                            token.data.forEach(function(account) {
+                                AccountManager.set(account)
+                            })
+                        }
+                    })
+                }
+
+                refreshing.accounts = false
+                $scope.refreshing = (!refreshing.accounts && !refreshing.transactions ? false : true)
+            }).catch(function(error) {
+                console.error('Refresh accounts failed: ', error)
+            })
+
+        PlaidService.refreshTransactions()
+            .then(function(response) {
+                if (response.data.length > 0) {
+                    response.data.forEach(function(token) {
+                        if (token.data.length > 0) {
+                            token.data.forEach(function(transaction) {
+                                TransactionManager.set(transaction)
+                            })
+                        }
+                    })
+                }
+
+                refreshing.transactions = false
+                $scope.refreshing = (!refreshing.accounts && !refreshing.transactions ? false : true)
+            }).catch(function(error) {
+                console.error('Refresh transactions failed: ', error)
             })
     }
 }
