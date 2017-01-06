@@ -1,0 +1,22 @@
+/* ============
+ * Main Stylesheet
+ * ============
+ *
+ * Used for the global application styling.
+ *
+ * The Scss CSS-preprocessor is used for this boilerplate.
+ * If you don't want to use Scss, that's fine!
+ * Replace the scss directory with the CSS preprocessor you want.
+ * Require the stylesheet in the bootstrap.js file & install the webpack loader.
+ *
+ * It's that easy...
+ *
+ * http://sass-lang.com/
+ */
+
+html {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+}

@@ -4,7 +4,6 @@ import store from './../../store'
 // When the request succeeds
 const success = (account) => {
     account = accountTransformer.fetch(account)
-
     store.dispatch('getAccount', account)
 }
 

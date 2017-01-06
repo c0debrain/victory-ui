@@ -163,17 +163,16 @@ require('font-awesome/less/font-awesome.less')
  * ============
  *
  * Require the application styling.
- * Stylus is used for this boilerplate.
  *
- * If you don't want to use Stylus, that's fine!
- * Replace the stylus directory with the CSS preprocessor you want.
+ * If you don't want to use Scss, that's fine!
+ * Replace the scss directory with the CSS preprocessor you want.
  * Require the entry point here & install the webpack loader.
  *
  * It's that easy...
  *
- * http://stylus-lang.com/
+ * http://sass-lang.com/
  */
-require('./assets/stylus/app.styl')
+require('./assets/scss/app.scss')
 
 
 export default {

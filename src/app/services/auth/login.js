@@ -6,13 +6,16 @@ import store from './../../store'
 const success = (token) => {
     store.dispatch('login', token)
     accountService.find()
+
     Vue.router.push({
         name: 'home.index'
     })
 }
 
 // When the request fails
-const failed = () => {}
+const failed = (error) => {
+    console.log('Authentication failed: ', error)
+}
 
 export default (user) => {
     /*
@@ -32,6 +35,7 @@ export default (user) => {
     Vue.$http.post('/authenticate', user)
         .then((response) => {
             console.log('Auth Response: ', response)
+
             if (response) {
                 success(response)
             } else {
