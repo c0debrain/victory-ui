@@ -36,7 +36,7 @@ import authService from './app/services/auth'
 Axios.defaults.baseURL = process.env.API_LOCATION
 Axios.defaults.headers.common.Accept = 'application/json'
 Axios.interceptors.response.use(
-    response => response,
+    response => response.data,
     (error) => {
         if (error.response.status === 401) {
             authService.logout()
