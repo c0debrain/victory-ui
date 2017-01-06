@@ -7,7 +7,7 @@
  * Gives an idea how components work.
  */
 
-import slotMixin from './../../mixins/slot';
+import slotMixin from './../../mixins/slot'
 
 export default {
     mixins: [
@@ -21,15 +21,15 @@ export default {
     },
     computed: {
         classNames() {
-            const classNames = ['panel'];
+            const classNames = ['panel']
 
             if (this.contextualStyle) {
-                classNames.push(`panel-${this.contextualStyle}`);
+                classNames.push(`panel-${this.contextualStyle}`)
             } else {
-                classNames.push('panel-default');
+                classNames.push('panel-default')
             }
 
-            return classNames;
+            return classNames
         },
     },
-};
+}

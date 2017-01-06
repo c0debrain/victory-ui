@@ -1,15 +1,15 @@
-import accountTransformer from './../../transformers/account';
-import store from './../../store';
+import accountTransformer from './../../transformers/account'
+import store from './../../store'
 
 // When the request succeeds
 const success = (account) => {
-    account = accountTransformer.fetch(account);
+    account = accountTransformer.fetch(account)
 
-    store.dispatch('getAccount', account);
-};
+    store.dispatch('getAccount', account)
+}
 
 // When the request fails
-const failed = () => {};
+const failed = () => {}
 
 export default () => {
     /*
@@ -19,21 +19,21 @@ export default () => {
      * With the include REST-client Axios, you can do something like this:
      * Vue.$http.get('/account')
      *   .then((response) => {
-     *     success(response);
+     *     success(response)
      *   })
      *   .catch((error) => {
-     *     failed(error);
-     *   });
+     *     failed(error)
+     *   })
      */
-    const succeeds = true;
+    const succeeds = true
 
     if (succeeds) {
         success({
             first_name: 'John',
             last_name: 'Doe',
             email: 'john@doe.com',
-        });
+        })
     } else {
-        failed();
+        failed()
     }
-};
+}

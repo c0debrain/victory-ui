@@ -15,9 +15,9 @@
  *
  * http://rc.vuejs.org/guide/
  */
-import Vue from 'vue';
+import Vue from 'vue'
 
-Vue.config.debug = process.env.NODE_ENV !== 'production';
+Vue.config.debug = process.env.NODE_ENV !== 'production'
 
 
 /* ============
@@ -30,19 +30,19 @@ Vue.config.debug = process.env.NODE_ENV !== 'production';
  *
  * https://github.com/mzabriskie/axios
  */
-import Axios from 'axios';
-import authService from './app/services/auth';
+import Axios from 'axios'
+import authService from './app/services/auth'
 
-Axios.defaults.baseURL = process.env.API_LOCATION;
-Axios.defaults.headers.common.Accept = 'application/json';
+Axios.defaults.baseURL = process.env.API_LOCATION
+Axios.defaults.headers.common.Accept = 'application/json'
 Axios.interceptors.response.use(
     response => response,
     (error) => {
         if (error.response.status === 401) {
-            authService.logout();
+            authService.logout()
         }
-    });
-Vue.$http = Axios;
+    })
+Vue.$http = Axios
 
 
 /* ============
@@ -53,10 +53,10 @@ Vue.$http = Axios;
  *
  * https://github.com/vuejs/vuex-router-sync/blob/master/README.md
  */
-import VuexRouterSync from 'vuex-router-sync';
-import store from './app/store';
+import VuexRouterSync from 'vuex-router-sync'
+import store from './app/store'
 
-store.dispatch('checkAuthentication');
+store.dispatch('checkAuthentication')
 
 
 /* ============
@@ -68,14 +68,14 @@ store.dispatch('checkAuthentication');
  *
  * http://router.vuejs.org/en/index.html
  */
-import VueRouter from 'vue-router';
-import routes from './app/routes';
+import VueRouter from 'vue-router'
+import routes from './app/routes'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 export const router = new VueRouter({
     routes,
-});
+})
 router.beforeEach((to, from, next) => {
     if (to.matched.some(m => m.meta.auth) && !store.state.auth.authenticated) {
         /*
@@ -84,7 +84,7 @@ router.beforeEach((to, from, next) => {
          */
         next({
             name: 'login.index',
-        });
+        })
     } else if (to.matched.some(m => m.meta.guest) && store.state.auth.authenticated) {
         /*
          * If the user is authenticated and visits
@@ -92,14 +92,14 @@ router.beforeEach((to, from, next) => {
          */
         next({
             name: 'home.index',
-        });
+        })
     } else {
-        next();
+        next()
     }
-});
-VuexRouterSync.sync(store, router);
+})
+VuexRouterSync.sync(store, router)
 
-Vue.router = router;
+Vue.router = router
 
 
 /* ============
@@ -110,16 +110,16 @@ Vue.router = router;
  *
  * https://kazupon.github.io/vue-i18n/
  */
-import VueI18n from 'vue-i18n';
-import locale from './app/locale';
+import VueI18n from 'vue-i18n'
+import locale from './app/locale'
 
-Vue.use(VueI18n);
+Vue.use(VueI18n)
 
-Vue.config.lang = 'en';
+Vue.config.lang = 'en'
 
 Object.keys(locale).forEach((lang) => {
-    Vue.locale(lang, locale[lang]);
-});
+    Vue.locale(lang, locale[lang])
+})
 
 
 /* ============
@@ -130,9 +130,9 @@ Object.keys(locale).forEach((lang) => {
  *
  * http://jquery.com/
  */
-import jQuery from 'jquery';
+import jQuery from 'jquery'
 
-window.$ = window.jQuery = jQuery;
+window.$ = window.jQuery = jQuery
 
 
 /* ============
@@ -143,8 +143,8 @@ window.$ = window.jQuery = jQuery;
  *
  * http://getbootstrap.com/
  */
-require('bootstrap');
-require('bootstrap/less/bootstrap.less');
+require('bootstrap')
+require('bootstrap/less/bootstrap.less')
 
 
 /* ============
@@ -155,7 +155,7 @@ require('bootstrap/less/bootstrap.less');
  *
  * http://http://fontawesome.io/
  */
-require('font-awesome/less/font-awesome.less');
+require('font-awesome/less/font-awesome.less')
 
 
 /* ============
@@ -173,9 +173,9 @@ require('font-awesome/less/font-awesome.less');
  *
  * http://stylus-lang.com/
  */
-require('./assets/stylus/app.styl');
+require('./assets/stylus/app.styl')
 
 
 export default {
     router,
-};
+}

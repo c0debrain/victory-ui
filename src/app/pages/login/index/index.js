@@ -5,7 +5,7 @@
  * Page where the user can login
  */
 
-import authService from './../../../services/auth';
+import authService from './../../../services/auth'
 
 export default {
 
@@ -15,12 +15,12 @@ export default {
                 email: null,
                 password: null,
             },
-        };
+        }
     },
 
     methods: {
         login(user) {
-            authService.login(user);
+            authService.login(user)
         },
     },
 
@@ -28,4 +28,4 @@ export default {
         VLayout: require('layouts/minimal/minimal.vue'),
         VPanel: require('components/panel/panel.vue'),
     },
-};
+}

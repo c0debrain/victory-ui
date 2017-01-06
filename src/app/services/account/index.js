@@ -1,5 +1,5 @@
-import find from './find';
+import find from './find'
 
 export default {
     find,
-};
+}

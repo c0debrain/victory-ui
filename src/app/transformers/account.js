@@ -5,7 +5,7 @@
  * The transformer for the account
  */
 
-import Transformer from './transformer';
+import Transformer from './transformer'
 
 export default class AccountTransformer extends Transformer {
     /**
@@ -20,7 +20,7 @@ export default class AccountTransformer extends Transformer {
             email: account.email,
             firstName: account.first_name,
             lastName: account.last_name,
-        };
+        }
     }
 
     /**
@@ -35,6 +35,6 @@ export default class AccountTransformer extends Transformer {
             email: account.email,
             first_name: account.firstName,
             last_name: account.lastName,
-        };
+        }
     }
 }

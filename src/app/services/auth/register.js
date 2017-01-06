@@ -1,16 +1,16 @@
-import Vue from 'vue';
-import store from './../../store';
+import Vue from 'vue'
+import store from './../../store'
 
 // When the request succeeds
 const success = (token) => {
-    store.dispatch('login', token);
+    store.dispatch('login', token)
     Vue.router.push({
         name: 'home.index',
-    });
-};
+    })
+}
 
 // When the request fails
-const failed = () => {};
+const failed = () => {}
 
 export default (user) => {
     /*
@@ -20,17 +20,17 @@ export default (user) => {
      * With the include REST-client Axios, you can do something like this:
      * Vue.$http.post('/register', user)
      *   .then((response) => {
-     *     success(response);
+     *     success(response)
      *   })
      *   .catch((error) => {
-     *     failed(error);
-     *   });
+     *     failed(error)
+     *   })
      */
     if (!user.email || !user.password || !user.passwordConfirm || !user.firstName || !user.lastName) {
-        failed();
+        failed()
     } else if (user.password !== user.passwordConfirm) {
-        failed();
+        failed()
     } else {
-        success('RandomGeneratedToken');
+        success('RandomGeneratedToken')
     }
-};
+}

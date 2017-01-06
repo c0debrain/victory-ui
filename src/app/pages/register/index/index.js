@@ -5,7 +5,7 @@
  * Page where the user can register
  */
 
-import authService from './../../../services/auth';
+import authService from './../../../services/auth'
 
 export default {
 
@@ -18,12 +18,12 @@ export default {
                 passwordConfirm: null,
                 password: null,
             },
-        };
+        }
     },
 
     methods: {
         register(user) {
-            authService.register(user);
+            authService.register(user)
         },
     },
 
@@ -31,4 +31,4 @@ export default {
         VLayout: require('layouts/minimal/minimal.vue'),
         VPanel: require('components/panel/panel.vue'),
     },
-};
+}

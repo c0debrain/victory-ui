@@ -7,7 +7,7 @@ export default {
          * @returns {boolean} Whether the component has a slot
          */
         hasSlot(slotName = 'default') {
-            return !!this.$slots[slotName];
+            return !!this.$slots[slotName]
         },
     },
-};
+}
