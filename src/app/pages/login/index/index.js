@@ -9,23 +9,23 @@ import authService from './../../../services/auth';
 
 export default {
 
-  data() {
-    return {
-      user: {
-        email: null,
-        password: null,
-      },
-    };
-  },
-
-  methods: {
-    login(user) {
-      authService.login(user);
+    data() {
+        return {
+            user: {
+                email: null,
+                password: null,
+            },
+        };
     },
-  },
 
-  components: {
-    VLayout: require('layouts/minimal/minimal.vue'),
-    VPanel: require('components/panel/panel.vue'),
-  },
+    methods: {
+        login(user) {
+            authService.login(user);
+        },
+    },
+
+    components: {
+        VLayout: require('layouts/minimal/minimal.vue'),
+        VPanel: require('components/panel/panel.vue'),
+    },
 };

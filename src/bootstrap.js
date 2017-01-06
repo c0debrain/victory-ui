@@ -36,12 +36,12 @@ import authService from './app/services/auth';
 Axios.defaults.baseURL = process.env.API_LOCATION;
 Axios.defaults.headers.common.Accept = 'application/json';
 Axios.interceptors.response.use(
-  response => response,
-  (error) => {
-    if (error.response.status === 401) {
-      authService.logout();
-    }
-  });
+    response => response,
+    (error) => {
+        if (error.response.status === 401) {
+            authService.logout();
+        }
+    });
 Vue.$http = Axios;
 
 
@@ -74,28 +74,28 @@ import routes from './app/routes';
 Vue.use(VueRouter);
 
 export const router = new VueRouter({
-  routes,
+    routes,
 });
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(m => m.meta.auth) && !store.state.auth.authenticated) {
-    /*
-     * If the user is not authenticated and visits
-     * a page that requires authentication, redirect to the login page
-     */
-    next({
-      name: 'login.index',
-    });
-  } else if (to.matched.some(m => m.meta.guest) && store.state.auth.authenticated) {
-    /*
-     * If the user is authenticated and visits
-     * an guest page, redirect to the dashboard page
-     */
-    next({
-      name: 'home.index',
-    });
-  } else {
-    next();
-  }
+    if (to.matched.some(m => m.meta.auth) && !store.state.auth.authenticated) {
+        /*
+         * If the user is not authenticated and visits
+         * a page that requires authentication, redirect to the login page
+         */
+        next({
+            name: 'login.index',
+        });
+    } else if (to.matched.some(m => m.meta.guest) && store.state.auth.authenticated) {
+        /*
+         * If the user is authenticated and visits
+         * an guest page, redirect to the dashboard page
+         */
+        next({
+            name: 'home.index',
+        });
+    } else {
+        next();
+    }
 });
 VuexRouterSync.sync(store, router);
 
@@ -118,7 +118,7 @@ Vue.use(VueI18n);
 Vue.config.lang = 'en';
 
 Object.keys(locale).forEach((lang) => {
-  Vue.locale(lang, locale[lang]);
+    Vue.locale(lang, locale[lang]);
 });
 
 
@@ -177,5 +177,5 @@ require('./assets/stylus/app.styl');
 
 
 export default {
-  router,
+    router,
 };
