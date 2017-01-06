@@ -5,5 +5,5 @@ import register from './register'
 export default {
     login,
     logout,
-    register,
+    register
 }

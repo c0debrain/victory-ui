@@ -11,13 +11,13 @@ import slotMixin from './../../mixins/slot'
 
 export default {
     mixins: [
-        slotMixin,
+        slotMixin
     ],
     props: {
         contextualStyle: {
             type: String,
-            required: false,
-        },
+            required: false
+        }
     },
     computed: {
         classNames() {
@@ -30,6 +30,6 @@ export default {
             }
 
             return classNames
-        },
-    },
+        }
+    }
 }

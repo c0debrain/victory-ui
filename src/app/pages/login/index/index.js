@@ -13,19 +13,19 @@ export default {
         return {
             user: {
                 email: null,
-                password: null,
-            },
+                password: null
+            }
         }
     },
 
     methods: {
         login(user) {
             authService.login(user)
-        },
+        }
     },
 
     components: {
         VLayout: require('layouts/minimal/minimal.vue'),
-        VPanel: require('components/panel/panel.vue'),
-    },
+        VPanel: require('components/panel/panel.vue')
+    }
 }

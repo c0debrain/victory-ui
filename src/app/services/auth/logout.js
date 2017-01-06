@@ -4,6 +4,6 @@ import store from './../../store'
 export default () => {
     store.dispatch('logout')
     Vue.router.push({
-        name: 'login.index',
+        name: 'login.index'
     })
 }

@@ -16,19 +16,19 @@ export default {
                 lastName: null,
                 email: null,
                 passwordConfirm: null,
-                password: null,
-            },
+                password: null
+            }
         }
     },
 
     methods: {
         register(user) {
             authService.register(user)
-        },
+        }
     },
 
     components: {
         VLayout: require('layouts/minimal/minimal.vue'),
-        VPanel: require('components/panel/panel.vue'),
-    },
+        VPanel: require('components/panel/panel.vue')
+    }
 }

@@ -19,7 +19,7 @@ export default class AccountTransformer extends Transformer {
         return {
             email: account.email,
             firstName: account.first_name,
-            lastName: account.last_name,
+            lastName: account.last_name
         }
     }
 
@@ -34,7 +34,7 @@ export default class AccountTransformer extends Transformer {
         return {
             email: account.email,
             first_name: account.firstName,
-            last_name: account.lastName,
+            last_name: account.lastName
         }
     }
 }

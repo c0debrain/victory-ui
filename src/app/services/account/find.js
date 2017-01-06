@@ -31,7 +31,7 @@ export default () => {
         success({
             first_name: 'John',
             last_name: 'Doe',
-            email: 'john@doe.com',
+            email: 'john@doe.com'
         })
     } else {
         failed()

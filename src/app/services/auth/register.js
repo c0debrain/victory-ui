@@ -5,7 +5,7 @@ import store from './../../store'
 const success = (token) => {
     store.dispatch('login', token)
     Vue.router.push({
-        name: 'home.index',
+        name: 'home.index'
     })
 }
 

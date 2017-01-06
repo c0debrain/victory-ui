@@ -74,7 +74,7 @@ import routes from './app/routes'
 Vue.use(VueRouter)
 
 export const router = new VueRouter({
-    routes,
+    routes
 })
 router.beforeEach((to, from, next) => {
     if (to.matched.some(m => m.meta.auth) && !store.state.auth.authenticated) {
@@ -83,7 +83,7 @@ router.beforeEach((to, from, next) => {
          * a page that requires authentication, redirect to the login page
          */
         next({
-            name: 'login.index',
+            name: 'login.index'
         })
     } else if (to.matched.some(m => m.meta.guest) && store.state.auth.authenticated) {
         /*
@@ -91,7 +91,7 @@ router.beforeEach((to, from, next) => {
          * an guest page, redirect to the dashboard page
          */
         next({
-            name: 'home.index',
+            name: 'home.index'
         })
     } else {
         next()
@@ -177,5 +177,5 @@ require('./assets/stylus/app.styl')
 
 
 export default {
-    router,
+    router
 }

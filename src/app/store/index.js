@@ -37,7 +37,7 @@ export default new Vuex.Store({
      */
     modules: {
         account,
-        auth,
+        auth
     },
 
     /**
@@ -48,5 +48,5 @@ export default new Vuex.Store({
     /**
      * Plugins used in the store
      */
-    plugins: debug ? [createLogger()] : [],
+    plugins: debug ? [createLogger()] : []
 })
