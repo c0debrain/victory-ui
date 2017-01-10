@@ -1,5 +1,5 @@
 {
-  "name": "vue-2-boilerplate",
+  "name": "vue-dashboard",
   "version": "0.0.0",
   "description": "A boilerplate for medium to large Vue 2 single page applications",
   "main": "index.js",
@@ -12,25 +12,11 @@
     "type": "git",
     "url": "git+https://github.com/petervmeijgaard/vue-2-boilerplate.git"
   },
-  "keywords": [
-    "Vue",
-    "Next",
-    "Boilerplate",
-    "Webpack",
-    "Lint",
-    "Medium",
-    "Large",
-    "SPA",
-    "Single",
-    "Page",
-    "Application"
-  ],
-  "author": "Peter van Meijgaard <petervanmeijgaard@hotmail.com>",
-  "license": "MIT",
+  "author": "Nick Lombardi <nlombardi@translations.com>",
   "bugs": {
-    "url": "https://github.com/petervmeijgaard/vue-2-boilerplate/issues"
+    "url": "https://github.com/onelink-translations/vue-dashboard/issues"
   },
-  "homepage": "https://github.com/petervmeijgaard/vue-2-boilerplate#readme",
+  "homepage": "https://github.com/onelink-translations/vue-dashboard#readme",
   "dependencies": {
     "axios": "^0.15.2",
     "babel-runtime": "^6.0.0",

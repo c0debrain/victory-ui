@@ -1,0 +1,88 @@
+.hardware {
+    section {
+        z-index: 5;
+
+        header {
+            position: relative;
+            z-index: 5;
+
+            .tbl-row {
+                z-index: 15;
+
+                * {
+                    z-index: 15;
+                }
+            }
+
+            .abbreviation {
+                position: absolute;
+                display: inline-block;
+                right: 0;
+                bottom: 0;
+                text-transform: uppercase;
+                font-size: 32px;
+                padding-right: 15px;
+                line-height: 54px;
+                color: @color-bg-grey;
+                z-index: -5;
+                cursor: default;
+
+                -webkit-touch-callout: none; /* iOS Safari */
+                  -webkit-user-select: none; /* Chrome/Safari/Opera */
+                   -khtml-user-select: none; /* Konqueror */
+                     -moz-user-select: none; /* Firefox */
+                      -ms-user-select: none; /* Internet Explorer/Edge */
+                          user-select: none; /* Non-prefixed version, currently
+                                              not supported by any browser */
+            }
+
+            .health {
+                height: 4px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                cursor: pointer;
+
+                // This will make it so the bar is always 100%. This is a
+                // very lazy fix for this. Only here to make the mocked
+                // data look good.
+                background: @color-red;
+
+                &:hover {
+                    height: 8px;
+                }
+
+                li {
+                    display: block;
+                    float: left;
+                    height: 100%;
+                    margin: 0;
+                    padding: 0;
+
+                    &.stable {
+                        width: 33%;
+                        background: @color-green;
+                    }
+
+                    &.warning {
+                        width: 34%;
+                        background: @color-yellow;
+                    }
+
+                    &.danger {
+                        width: 33%;
+                        background: @color-red;
+                    }
+                }
+            }
+
+            .tbl-row {
+                width: 100%;
+            }
+        }
+    }
+}

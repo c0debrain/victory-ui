@@ -1,0 +1,93 @@
+@import '../partials/reset';
+@import '../partials/mixins';
+@import '../partials/vars';
+@import '../partials/icons';
+
+/* ==========================================================================
+   Page Header
+   ========================================================================== */
+
+section.page-control {
+    .row-title {
+        padding: 0 20px;
+        height: 80px;
+
+        div {
+            height: 100%;
+
+            h1 {
+                font-size: 28px;
+                padding: 25px 0px;
+            }
+
+            .date {
+                padding: 21px 0px;
+            }
+        }
+    }
+
+    .row-tabs {
+        padding: 0 20px;
+        border-bottom: 1px solid #E6EAEE;
+
+        ul {
+            display: block;
+            list-style: none;
+            float: left;
+            height: 100%;
+            width: 100%;
+            border-top: 1px solid #eceeef;
+
+            li {
+                display: block;
+                float: left;
+                padding: 21px 0;
+                margin: 0 25px;
+                height: 100%;
+                cursor: pointer;
+                font-size: 16px;
+                color: #7F8FA4;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                &.active {
+                    border-bottom: 3px solid #2EA2F8;
+                    padding-bottom: 18px;
+                    color: #354052;
+                }
+
+                &:hover {
+                    color: @color-text;
+                }
+            }
+        }
+    }
+
+    .row-filters {
+        padding: 0 20px;
+        border-bottom: 1px solid #E6EAEE;
+        height: 64px;
+
+        .filter {
+            margin: 12px 0;
+        }
+
+        .search {
+            margin: 12px 0;
+        }
+    }
+
+    .row-message {
+        padding: 0 20px;
+    }
+}
+
+.row-transactions {
+    padding: 0 20px;
+}

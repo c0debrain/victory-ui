@@ -173,7 +173,7 @@ require('font-awesome/less/font-awesome.less')
  *
  * http://sass-lang.com/
  */
-require('./assets/scss/app.scss')
+require('./assets/less/application.less')
 
 
 export default {
