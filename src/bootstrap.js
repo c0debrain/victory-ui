@@ -143,8 +143,9 @@ window.$ = window.jQuery = jQuery
  *
  * http://getbootstrap.com/
  */
+global.Tether = require('tether')
 require('bootstrap')
-require('bootstrap/less/bootstrap.less')
+require('bootstrap/scss/bootstrap.scss')
 
 
 /* ============
