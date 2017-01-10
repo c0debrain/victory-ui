@@ -1,4 +1,4 @@
-# vue-2-boilerplate
+# vue-dashboard
 > A boilerplate for building medium to large Vue 2.0 single page applications
 
 This boilerplate is based on the Vue webpack template.
