@@ -8,12 +8,12 @@
  * This way the app stays clean.
  */
 
-import authService from './../../services/auth'
+import authenticationService from './../../services/authentication'
 
 export default {
     methods: {
         logout() {
-            authService.logout()
+            authenticationService.logout()
         }
     }
 }

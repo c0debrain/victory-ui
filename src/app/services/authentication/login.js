@@ -1,11 +1,9 @@
 import Vue from 'vue'
-import accountService from './../account'
 import store from './../../store'
 
 // When the request succeeds
 const success = (token) => {
     store.dispatch('login', token)
-    accountService.find()
 
     Vue.router.push({
         name: 'home.index'
@@ -18,20 +16,6 @@ const failed = (error) => {
 }
 
 export default (user) => {
-    /*
-     * Normally you would perform an AJAX-request.
-     * But to get the example working, the data is hardcoded.
-     *
-     * With the include REST-client Axios, you can do something like this:
-     * Vue.$http.post('/auth/login', user)
-     *   .then((response) => {
-     *     success(response)
-     *   })
-     *   .catch((error) => {
-     *     failed(error)
-     *   })
-     */
-
     Vue.$http.post('/authenticate', user)
         .then((response) => {
             console.log('Auth Response: ', response)

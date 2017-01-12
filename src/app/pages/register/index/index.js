@@ -5,7 +5,7 @@
  * Page where the user can register
  */
 
-import authService from './../../../services/auth'
+import authenticationService from './../../../services/authentication'
 
 export default {
 
@@ -23,7 +23,7 @@ export default {
 
     methods: {
         register(user) {
-            authService.register(user)
+            authenticationService.register(user)
         }
     },
 

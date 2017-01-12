@@ -20,19 +20,19 @@ export default [
 
         // If the user needs to be authenticated to view this page
         meta: {
-            auth: true
+            authentication: true
         }
     },
 
-    // Account
+    // Home
     {
-        path: '/account',
-        name: 'account.index',
-        component: require('pages/account/index/index.vue'),
+        path: '/datacenters',
+        name: 'datacenters.index',
+        component: require('pages/datacenters/index/index.vue'),
 
         // If the user needs to be authenticated to view this page
         meta: {
-            auth: true
+            authentication: true
         }
     },
 

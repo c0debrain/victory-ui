@@ -5,7 +5,7 @@
  * Page where the user can login
  */
 
-import authService from './../../../services/auth'
+import authenticationService from './../../../services/authentication'
 
 export default {
 
@@ -20,7 +20,7 @@ export default {
 
     methods: {
         login(user) {
-            authService.login(user)
+            authenticationService.login(user)
         }
     },
 

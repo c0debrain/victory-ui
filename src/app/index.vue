@@ -14,7 +14,7 @@
 
     import store from './store'
     import { router } from './../bootstrap'
-    import accountService from './services/account'
+    // import datacenterService from './services/datacenters'
 
     export default {
         /**
@@ -33,8 +33,8 @@
         mounted() {
             // If the user is authenticated,
             // fetch the data from the API
-            if (this.$store.state.auth.authenticated) {
-                accountService.find()
+            if (this.$store.state.authentication.authenticated) {
+                // datacenterService.findAll()
             }
         }
     }
