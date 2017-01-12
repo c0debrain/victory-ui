@@ -60,6 +60,22 @@ store.dispatch('checkAuthentication')
 
 
 /* ============
+ * Vue Socket.io
+ * ============
+ *
+ * Aims to make realtime apps possible in every browser and mobile
+ * device, blurring the differences between the different transport
+ * mechanisms.
+ *
+ * https://github.com/socketio/socket.io
+ */
+
+import VueSocket from 'vue-socket.io'
+
+Vue.use(VueSocket, process.env.API_LOCATION, store)
+
+
+/* ============
  * Vue Router
  * ============
  *
@@ -76,6 +92,7 @@ Vue.use(VueRouter)
 export const router = new VueRouter({
     routes
 })
+
 router.beforeEach((to, from, next) => {
     if (to.matched.some(m => m.meta.auth) && !store.state.auth.authenticated) {
         /*
@@ -97,8 +114,8 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
-VuexRouterSync.sync(store, router)
 
+VuexRouterSync.sync(store, router)
 Vue.router = router
 
 
@@ -114,7 +131,6 @@ import VueI18n from 'vue-i18n'
 import locale from './app/locale'
 
 Vue.use(VueI18n)
-
 Vue.config.lang = 'en'
 
 Object.keys(locale).forEach((lang) => {
@@ -174,7 +190,6 @@ require('font-awesome/less/font-awesome.less')
  * http://sass-lang.com/
  */
 require('./assets/less/application.less')
-
 
 export default {
     router

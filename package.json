@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/petervmeijgaard/vue-2-boilerplate.git"
+    "url": "git+https://github.com/onelink-translations/vue-dashboard/issues"
   },
   "author": "Nick Lombardi <nlombardi@translations.com>",
   "bugs": {
@@ -21,13 +21,14 @@
     "axios": "^0.15.2",
     "babel-runtime": "^6.0.0",
     "bootstrap": "^4.0.0-alpha.6",
-    "css-loader": "^0.26.1",
     "font-awesome": "^4.6.3",
+    "html-webpack-plugin": "^2.26.0",
     "jquery": "^3.1.0",
     "tether": "^1.4.0",
     "vue": "^2.0.3",
     "vue-i18n": "^4.6.0",
     "vue-router": "^2.0.1",
+    "vue-socket.io": "^2.1.0",
     "vuex": "^2.0.0",
     "vuex-router-sync": "^3.0.0"
   },
@@ -42,6 +43,7 @@
     "babel-preset-stage-2": "^6.0.0",
     "babel-register": "^6.0.0",
     "connect-history-api-fallback": "^1.1.0",
+    "css-loader": "^0.26.1",
     "eslint": "^3.7.1",
     "eslint-config-airbnb-base": "^8.0.0",
     "eslint-friendly-formatter": "^2.0.5",
