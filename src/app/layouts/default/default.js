@@ -15,5 +15,9 @@ export default {
         logout() {
             authService.logout()
         }
+    },
+    components: {
+        VTray:  require('components/tray/tray.vue'),
+        VContentheader: require('components/contentheader/contentheader.vue')
     }
 }
