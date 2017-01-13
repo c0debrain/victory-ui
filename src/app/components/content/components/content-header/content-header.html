@@ -2,17 +2,13 @@
     <section class="page-control">
         <div class="row row-white row-title">
             <div class="col-md-12">
-                <h1>Worldview</h1>
+                <h1>{{ title }}</h1>
             </div>
         </div>
         <div class="row row-white row-tabs">
             <div class="col-md-12">
                 <ul>
-                    <li class="active">Global</li>
-                    <li>North America</li>
-                    <li>South America</li>
-                    <li>Europe</li>
-                    <li>Asia</li>
+                    <li v-for="item in menu">{{ item.name }}</li>
                 </ul>
             </div>
         </div>

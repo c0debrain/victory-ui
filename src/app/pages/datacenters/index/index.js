@@ -7,27 +7,38 @@
 
 import store from 'store'
 import datacenterService from 'services/datacenters'
-import { mapActions } from 'vuex'
 
 export default {
     components: {
         VLayout: require('layouts/default/default.vue'),
-        VPanel: require('components/panel/panel.vue')
+        VResource: require('components/resource/resource.vue')
     },
 
-    computed: {
-        // datacenters: (state) => {
-        //     datacenterService.findAll()
-        //         .then(function(datacenters) {
-        //             console.log(datacenters)
-        //         })
-        // }
+    // computed: {
+    //     // datacenters: (state) => {
+    //     //     datacenterService.findAll()
+    //     //         .then(function(datacenters) {
+    //     //             console.log(datacenters)
+    //     //         })
+    //     // }
+    //
+    //     datacenters: (state) => {
+    //         state.$store.dispatch('getDatacenters')
+    //             .then(function(datacenters) {
+    //                 console.log(datacenters)
+    //             })
+    //     }
+    // }
+    //
+    onready: () => {
+        this.loadAll()
+    },
 
-        datacenters: (state) => {
-            state.$store.dispatch('getDatacenters')
-                .then(function(datacenters) {
-                    console.log(datacenters)
-                })
+    methods: {
+        loadAll: () => {
+            datacenterService.findAll().then(function(datacenters) {
+                this.datacenters = datacenters
+            })
         }
     }
 }

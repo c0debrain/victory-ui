@@ -1,22 +1,9 @@
 <v-layout>
-    <v-panel contextual-style="primary">
-        <h1 class="panel-title" slot="heading">My Account</h1>
+    <h1 class="panel-title" slot="heading">My Account</h1>
 
-        <div slot="body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="datacenter in datacenters">
-                        <td>{{ datacenter.id }}</td>
-                        <td>{{ datacenter.name }}</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div slot="body">
+        <div class="row">
+            <v-resource v-for="datacenter in datacenters"></v-resource>
         </div>
-    </v-panel>
+    </div>
 </v-layout>

@@ -18,7 +18,6 @@ export default {
     },
     components: {
         VTray:  require('components/tray/tray.vue'),
-        VContentheader: require('components/contentheader/contentheader.vue'),
-        VResource: require('components/resource/resource.vue')
+        VContent: require('components/content/content.vue')
     }
 }

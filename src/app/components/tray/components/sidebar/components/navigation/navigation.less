@@ -1,0 +1,73 @@
+@import '~assets/less/partials/vars';
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+ul.navigation {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    float: left;
+    width: 100%;
+    margin: 15px 0 25px;
+    border-bottom: 1px solid #2a3547;
+    padding-bottom: 15px;
+
+    li {
+        display: block;
+        height: 36px;
+
+        a {
+            text-decoration: none;
+            color: @text-regular-gray;
+            font-size: 15px;
+            font-family: @font-text, sans-serif;
+            line-height: 36px;
+            height: 100%;
+            display: block;
+            float: left;
+
+            i.fa {
+                color: @text-regular-gray;
+                float: left;
+                display: block;
+                height: 100%;
+                padding: 10px 10px 10px 0;
+                font-size: 18px;
+                width: 30px;
+                text-align: center;
+            }
+
+            &:hover {
+                color: @text-hover-gray;
+
+                i.fa {
+                    color: @text-hover-gray;
+                }
+            }
+        }
+
+        &.inactive * {
+            color: #5b6779 !important;
+        }
+
+        span.badge {
+            border-radius: 31px;
+            height: 24px;
+            float: right;
+            font-family: @font-text, sans-serif;
+            font-size: 14px;
+            color: #ffffff;
+            text-align: center;
+            margin: 6px 0;
+            padding: 3px 9px;
+            background: @gradient-blue-bg;
+
+            &.round {
+                width: 24px;
+            }
+        }
+    }
+}

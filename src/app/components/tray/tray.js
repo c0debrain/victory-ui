@@ -1,6 +1,6 @@
 export default {
     components: {
-        VSidebar: require('components/sidebar/sidebar.vue'),
-        VGutter: require('components/gutter/gutter.vue')
+        'sidebar': require('./components/sidebar/sidebar.vue'),
+        'gutter': require('./components/gutter/gutter.vue')
     }
 }
