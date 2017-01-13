@@ -1,12 +1,6 @@
 <ul class="navigation">
-    <li>
-        <router-link :to="{ name: 'home.index' }" active-class="active" class="nav-item" tag="li">
-            <a>Overview</a>
-        </router-link>
-    </li>
-    <li>
-        <router-link :to="{ name: 'datacenters.index' }" class="nav-item" tag="li">
-            <a>Datacenters</a>
-        </router-link>
-    </li>
+    <router-link v-for="item in menu" :to="{ name: item.name }" active-class="active" class="nav-item" tag="li">
+        <a>{{ item.title }}</a>
+        <span v-if="item.badge" class="badge" :class="item.badge.type">{{ item.badge.content }}</span>
+    </router-link>
 </ul>
