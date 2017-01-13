@@ -1,0 +1,49 @@
+<div class="page-content">
+    <div class="container-fluid mb-2">
+        <section class="page-control">
+            <div class="row row-white row-title">
+                <div class="col-md-9">
+                    <h1>{{ client.client_name }}</h1>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container-fluid content mb-2">
+        <div class="row">
+            <div class="col-md-12">
+                <highchart id="status-chart" config="chartConfiguration"></highchart>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-md-4 hardware" ng-repeat="(key, origin) in origins" ng-click="enterCluster(origin)">
+                <section class="box-typical">
+                    <header class="box-typical-header">
+                        <ul class="health">
+                            <li class="stable" style="width: {{ origin.status.stable }}%"></li>
+                            <li class="warning" style="width: {{ origin.status.warning }}%"></li>
+                            <li class="danger" style="width: {{ origin.status.danger }}%"></li>
+                        </ul>
+
+                        <div class="tbl-row">
+                            <div class="tbl-cell tbl-cell-title">
+                                <h3>{{ origin.origin_name }}</h3>
+                            </div>
+                        </div>
+
+                        <div class="abbreviation">{{ origin.origin_name }}</div>
+                    </header>
+
+                    <div class="box-typical-body">
+                        <div class="table-responsive">
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

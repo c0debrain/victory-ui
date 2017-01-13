@@ -45,7 +45,7 @@ function LoginController(
             $cookieStore.put('user', response.data.user)
             $rootScope.token = response.data.token.auth_token
             $rootScope.user = response.data.user
-            $state.go('app.overview')
+            $state.go('app.datacenters')
 
         }).catch(function(response) {
             console.log(response)

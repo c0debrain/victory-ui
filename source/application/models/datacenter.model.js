@@ -51,7 +51,6 @@ function DatacenterModel(
         var deferred = $q.defer()
         var scope = this
 
-
         $http.get(Environment.api.path + '/datacenters/' + this.data_center_code + '/clusters')
             .then(function(response) {
                 console.log('API response: ', response)

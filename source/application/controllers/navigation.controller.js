@@ -10,8 +10,20 @@ function NavigationController(
 ) {
     $scope.menu = [
         {
-            title: "Overview",
-            url: "app.overview"
+            title: "Datacenters Worldview",
+            url: "app.datacenters"
+        },
+        {
+            title: "Clients Worldview",
+            url: "app.clients"
+        },
+        {
+            title: "Origins Worldview",
+            url: "app.origins"
+        },
+        {
+            title: "Targets Worldview",
+            url: "app.targets"
         }
     ]
 }

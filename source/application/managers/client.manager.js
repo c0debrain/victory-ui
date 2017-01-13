@@ -1,11 +1,11 @@
 angular.module('app.managers')
-    .factory('managers.datacenter', DatacenterManager)
+    .factory('managers.client', ClientManager)
 
-DatacenterManager.$inject = [
+ClientManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.datacenter'
+    'models.client'
 ]
 
 /**
@@ -13,7 +13,7 @@ DatacenterManager.$inject = [
  * same template for all models throughout the front-end. This will make
  * copying code across files much easier.
  */
-function DatacenterManager(
+function ClientManager(
     Environment,
     $http,
     $q,
@@ -46,9 +46,9 @@ function DatacenterManager(
         _load: function(id, deferred) {
             var scope = this
 
-            $http.get(Environment.api.path + '/datacenters/' + id)
+            $http.get(Environment.api.path + '/clients/' + id)
                 .then(function(response) {
-                    var instance = scope._retrieveInstance(response.data.data_center_code, response.data)
+                    var instance = scope._retrieveInstance(response.data.client_id, response.data)
                     deferred.resolve(instance)
                 })
                 .catch(function() {
@@ -77,12 +77,12 @@ function DatacenterManager(
             var deferred = $q.defer()
             var scope = this
 
-            $http.get(Environment.api.path + '/datacenters/')
+            $http.get(Environment.api.path + '/clients/')
                 .then(function(response) {
                     var collection = []
 
                     response.data.forEach(function(data) {
-                        var instance = scope._retrieveInstance(data.data_center_code, data)
+                        var instance = scope._retrieveInstance(data.client_id, data)
                         collection.push(instance)
                     })
 
@@ -102,7 +102,7 @@ function DatacenterManager(
         */
         set: function(data) {
             var scope = this
-            var instance = this._search(data.data_center_code)
+            var instance = this._search(data.client_id)
 
             if (instance) {
                 instance.setData(data)

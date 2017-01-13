@@ -1,11 +1,11 @@
 angular.module('app.managers')
-    .factory('managers.datacenter', DatacenterManager)
+    .factory('managers.target', TargetManager)
 
-DatacenterManager.$inject = [
+TargetManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.datacenter'
+    'models.target'
 ]
 
 /**
@@ -13,7 +13,7 @@ DatacenterManager.$inject = [
  * same template for all models throughout the front-end. This will make
  * copying code across files much easier.
  */
-function DatacenterManager(
+function TargetManager(
     Environment,
     $http,
     $q,
@@ -46,9 +46,9 @@ function DatacenterManager(
         _load: function(id, deferred) {
             var scope = this
 
-            $http.get(Environment.api.path + '/datacenters/' + id)
+            $http.get(Environment.api.path + '/targets/' + id)
                 .then(function(response) {
-                    var instance = scope._retrieveInstance(response.data.data_center_code, response.data)
+                    var instance = scope._retrieveInstance(response.data[0].target_id, response.data[0])
                     deferred.resolve(instance)
                 })
                 .catch(function() {
@@ -77,12 +77,12 @@ function DatacenterManager(
             var deferred = $q.defer()
             var scope = this
 
-            $http.get(Environment.api.path + '/datacenters/')
+            $http.get(Environment.api.path + '/targets/')
                 .then(function(response) {
                     var collection = []
 
                     response.data.forEach(function(data) {
-                        var instance = scope._retrieveInstance(data.data_center_code, data)
+                        var instance = scope._retrieveInstance(data.target_id, data)
                         collection.push(instance)
                     })
 
@@ -102,7 +102,7 @@ function DatacenterManager(
         */
         set: function(data) {
             var scope = this
-            var instance = this._search(data.data_center_code)
+            var instance = this._search(data.target_id)
 
             if (instance) {
                 instance.setData(data)

@@ -1,13 +1,13 @@
 angular.module('app.controllers')
-    .controller('controllers.overview', OverviewController)
+    .controller('controllers.datacenters', DatacentersController)
 
-OverviewController.$inject = [
+DatacentersController.$inject = [
     '$scope',
     '$state',
     'managers.datacenter'
 ]
 
-function OverviewController(
+function DatacentersController(
     $scope,
     $state,
     DatacenterManager

@@ -1,0 +1,53 @@
+<div class="page-content">
+    <div class="container-fluid mb-2">
+        <section class="page-control">
+            <div class="row row-white row-title">
+                <div class="col-md-9">
+                    <h1>Worldview</h1>
+                </div>
+            </div>
+
+            <div class="row row-white row-tabs">
+                <div class="col-md-12">
+                    <ul>
+                        <li class="active">Global</li>
+                        <li>North America</li>
+                        <li>South America</li>
+                        <li>Europe</li>
+                        <li>Asia</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-md-3 hardware" ng-repeat="(key, target) in targets">
+                <section class="box-typical">
+                    <header class="box-typical-header">
+                        <ul class="health">
+                            <li class="stable" style="width: {{ target.status.stable }}%"></li>
+                            <li class="warning" style="width: {{ target.status.warning }}%"></li>
+                            <li class="danger" style="width: {{ target.status.danger }}%"></li>
+                        </ul>
+
+                        <div class="tbl-row">
+                            <div class="tbl-cell tbl-cell-title">
+                                <h3 style="text-overflow: ellipsis; width: 100%;">{{ target.target_live_domain }}</h3>
+                            </div>
+                        </div>
+
+                        <div class="abbreviation">{{ target.target_id }}</div>
+                    </header>
+
+                    <div class="box-typical-body">
+                        <div class="table-responsive">
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

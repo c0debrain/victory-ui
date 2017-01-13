@@ -1,11 +1,11 @@
 angular.module('app.managers')
-    .factory('managers.datacenter', DatacenterManager)
+    .factory('managers.origin', OriginManager)
 
-DatacenterManager.$inject = [
+OriginManager.$inject = [
     'environment',
     '$http',
     '$q',
-    'models.datacenter'
+    'models.origin'
 ]
 
 /**
@@ -13,7 +13,7 @@ DatacenterManager.$inject = [
  * same template for all models throughout the front-end. This will make
  * copying code across files much easier.
  */
-function DatacenterManager(
+function OriginManager(
     Environment,
     $http,
     $q,
@@ -46,9 +46,9 @@ function DatacenterManager(
         _load: function(id, deferred) {
             var scope = this
 
-            $http.get(Environment.api.path + '/datacenters/' + id)
+            $http.get(Environment.api.path + '/origins/' + id)
                 .then(function(response) {
-                    var instance = scope._retrieveInstance(response.data.data_center_code, response.data)
+                    var instance = scope._retrieveInstance(response.data[0].origin_id, response.data[0])
                     deferred.resolve(instance)
                 })
                 .catch(function() {
@@ -77,12 +77,13 @@ function DatacenterManager(
             var deferred = $q.defer()
             var scope = this
 
-            $http.get(Environment.api.path + '/datacenters/')
+            $http.get(Environment.api.path + '/origins/')
                 .then(function(response) {
+                    console.log('OriginManager loadAll Response: ', response)
                     var collection = []
 
                     response.data.forEach(function(data) {
-                        var instance = scope._retrieveInstance(data.data_center_code, data)
+                        var instance = scope._retrieveInstance(data.origin_id, data)
                         collection.push(instance)
                     })
 
@@ -102,7 +103,7 @@ function DatacenterManager(
         */
         set: function(data) {
             var scope = this
-            var instance = this._search(data.data_center_code)
+            var instance = this._search(data.origin_id)
 
             if (instance) {
                 instance.setData(data)
