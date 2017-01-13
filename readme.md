@@ -1,8 +1,5 @@
-# vue-dashboard
-> A boilerplate for building medium to large Vue 2.0 single page applications
-
-This boilerplate is based on the Vue webpack template.
-Common topics are discussed in the Vuejs [docs](http://vuejs-templates.github.io/webpack). Make sure to read it!
+# NOC Dashboard
+Network operations center dashboard that displays important information regarding the various hardware and software deployments that are embodied by the OneLink service.
 
 ## Usage
 To get up and running run:
@@ -20,19 +17,9 @@ But yeah, this will basically do the same as `npm install`.
 If even this is too much of a deal, try creating an alias and bind `npm install && npm run dev` to `npmid`.
 
 ## Configuration ##
-> Wait a minute, you just said that I only need to run npm install?
-> What's this? I need to do more?
-
-Yeah, to get up and running real quick, `npm install` is enough.
-But if you want to, let's say, connect to an external API, there's a little bit more involved.
-You need to configure your application a bit more, explained below:
-
-### Config files ###
 Inside the `config/*.env.js`-files, you can configure your environment variables.
 Out of the box the applications comes bundled with AJAX-support.
 The only thing you need to do is change `http://example.*/api/v1` to your endpoint.
-
-For more information, visit the [docs](http://vuejs-templates.github.io/webpack/env.html).
 
 ## What's included ##
 - `npm run dev`: first-in-class development experience.
@@ -145,27 +132,3 @@ So given the previous example, using a transformer, it will look something like 
 Last but not least we get an `utils`-directory.
 Here you can place handy utils you want to use inside your application.
 Out of the box it comes with a `loader`-util which will prevent the relative directory hell.
-
-## Got questions or improvements? ##
-Feel free to hit me up on:
- - [Gitter](https://gitter.im/petervmeijgaard)
- - [GitHub](https://github.com/petervmeijgaard)
- - [Twitter](https://twitter.com/petervmeijgaard)
-
-Or create an [issue](https://github.com/petervmeijgaard/vue-2-boilerplate/issues)
-
-## Fork It And Make Your Own ##
-What are you waiting for?!
-Make something awesome!
-
-## License ##
-
-The MIT License (MIT)
-
-Copyright (c) 2016 Peter van Meijgaard
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
