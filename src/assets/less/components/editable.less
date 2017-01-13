@@ -1,0 +1,92 @@
+@import '../partials/reset';
+@import '../partials/mixins';
+@import '../partials/vars';
+@import '../partials/icons';
+
+/* ==========================================================================
+   Editable
+   ========================================================================== */
+
+.editable-wrap {
+    .editable-controls > input {
+        border: inherit;
+        font: inherit;
+        border-bottom: 1px dotted @color-blue;
+        margin: 1px 0 0 0;
+        position: relative;
+    }
+
+    .editable-input {
+        background: transparent;
+    }
+
+    .editable-buttons {
+        button {
+            background: transparent;
+            border: none;
+            margin: 0 3px;
+            color: @color-grey-blue;
+
+            &:hover {
+                color: @color-blue !important;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        * {
+            transition: all .1ms linear;
+            -webkit-transition: all .1ms linear;
+            -moz-transition: all .1ms linear;
+            -o-transition: all .1ms linear;
+        }
+
+        li {
+            padding: 10px;
+            transition: 0s all;
+
+            &:hover, &.active {
+                background-color: @color-bg-blue;
+                cursor: pointer;
+
+                a {
+                    color: @color-white;
+                }
+            }
+        }
+    }
+}
+
+.editable-click, a.editable-click {
+    color: inherit;
+    border: inherit;
+}
+
+.editable-tray {
+    i {
+        margin-right: 5px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .edit {
+        &:hover {
+            color: @color-blue !important;
+        }
+    }
+
+    .copy {
+        &:hover {
+            color: @color-green !important;
+        }
+    }
+
+    .delete {
+        &:hover {
+            color: @color-red !important;
+        }
+    }
+}
