@@ -1,9 +1,15 @@
-<v-layout>
-    <h1 class="panel-title" slot="heading">My Account</h1>
+<layout>
+    <div slot="header">
+        <!-- Header Transclude -->
+    </div>
 
     <div slot="body">
         <div class="row">
-            <v-resource v-for="datacenter in datacenters"></v-resource>
+            <resource
+                v-for="datacenter in datacenters"
+                :abbreviation="datacenter.id"
+                :name="datacenter.name">
+            </resource>
         </div>
     </div>
-</v-layout>
+</layout>

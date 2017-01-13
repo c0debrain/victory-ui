@@ -1,4 +1,13 @@
 <div class="content">
-    <content-header></content-header>
-    <content-body></content-body>
+    <content-header>
+        <div slot="header">
+            <slot slot="header" name="header"></slot>
+        </div>
+    </content-header>
+
+    <content-body>
+        <div slot="body">
+            <slot name="body"></slot>
+        </div>
+    </content-body>
 </div>

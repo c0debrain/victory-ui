@@ -1,4 +1,11 @@
 <div>
     <v-tray></v-tray>
-    <v-content></v-content>
+    <v-content>
+        <div slot="header">
+            <slot name="header"></slot>
+        </div>
+        <div slot="body">
+            <slot name="body"></slot>
+        </div>
+    </v-content>
 </div>

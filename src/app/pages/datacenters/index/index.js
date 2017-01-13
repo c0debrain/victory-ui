@@ -10,35 +10,23 @@ import datacenterService from 'services/datacenters'
 
 export default {
     components: {
-        VLayout: require('layouts/default/default.vue'),
-        VResource: require('components/resource/resource.vue')
+        'layout': require('layouts/default/default.vue'),
+        'resource': require('components/resource/resource.vue')
     },
 
-    // computed: {
-    //     // datacenters: (state) => {
-    //     //     datacenterService.findAll()
-    //     //         .then(function(datacenters) {
-    //     //             console.log(datacenters)
-    //     //         })
-    //     // }
-    //
-    //     datacenters: (state) => {
-    //         state.$store.dispatch('getDatacenters')
-    //             .then(function(datacenters) {
-    //                 console.log(datacenters)
-    //             })
-    //     }
-    // }
-    //
-    onready: () => {
+    computed: {
+        datacenters() {
+            return store.state.datacenters.all
+        }
+    },
+
+    mounted: function() {
         this.loadAll()
     },
 
     methods: {
-        loadAll: () => {
-            datacenterService.findAll().then(function(datacenters) {
-                this.datacenters = datacenters
-            })
+        loadAll() {
+            datacenterService.findAll()
         }
     }
 }
