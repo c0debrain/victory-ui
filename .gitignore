@@ -1,5 +1,0 @@
-.build/
-./environment/private.env
-node_modules/
-bower_components/
-dist/
