@@ -1,7 +1,7 @@
 <div class="account">
-    <img src="http://themesanytime.com/startui/demo/img/photo-64-4.jpg" alt="Account">
+    <img :src="user.avatar" alt="Account">
 
-    <a href="#">Administrator</a>
+    <a href="#">{{ user.name }}</a>
 
     <i class="fa fa-cog" aria-hidden="true"></i>
     <i class="fa fa-sign-out" @click.prevent="logout" aria-hidden="true"></i>
