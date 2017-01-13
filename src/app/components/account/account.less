@@ -1,0 +1,56 @@
+
+@import '~assets/less/partials/reset';
+@import '~assets/less/partials/mixins';
+@import '~assets/less/partials/vars';
+@import '~assets/less/partials/icons';
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+
+.tray {
+    .account {
+        display: block;
+        height: 64px;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        color: #B7C0CD;
+        line-height: 64px;
+        padding: 0 29px 0 29px;
+        margin-bottom: 10px;
+
+        img {
+            float: left;
+            height: 32px;
+            width: 32px;
+            display: block;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            margin: 16px 16px 16px 0;
+        }
+
+        a {
+            color: #B7C0CD;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            // display: block;
+            overflow: hidden;
+        }
+
+        a:hover {
+            color: #fff;
+        }
+
+        i {
+            float: right;
+            display: block;
+            height: 100%;
+            line-height: 64px;
+            font-size: 18px;
+            cursor: pointer;
+            padding-left: 10px;
+        }
+    }
+}
