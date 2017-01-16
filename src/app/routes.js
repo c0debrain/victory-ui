@@ -24,11 +24,23 @@ export default [
         }
     },
 
-    // Home
+    // Datacenters
     {
         path: '/datacenters',
         name: 'datacenters.index',
         component: require('pages/datacenters/index/index.vue'),
+
+        // If the user needs to be authenticated to view this page
+        meta: {
+            authentication: true
+        }
+    },
+
+    // Single Datacenter view(example page of aws)
+    {
+        path: '/aws',
+        name: 'aws.index',
+        component: require('pages/aws/index/index.vue'),
 
         // If the user needs to be authenticated to view this page
         meta: {
