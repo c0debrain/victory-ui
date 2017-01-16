@@ -27,6 +27,7 @@
     "tether": "^1.4.0",
     "vue": "^2.0.3",
     "vue-i18n": "^4.6.0",
+    "vue-material": "^0.6.3",
     "vue-router": "^2.0.1",
     "vue-socket.io": "^2.1.0",
     "vuex": "^2.0.0",
