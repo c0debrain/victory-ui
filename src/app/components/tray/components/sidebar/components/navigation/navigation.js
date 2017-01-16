@@ -7,7 +7,7 @@ export default {
                     title: 'Overview'
                 },
                 {
-                    name: 'datacenters.index',
+                    name: 'datacenters.collection',
                     title: 'Datacenters',
                     badge: {
                         type: 'complete',

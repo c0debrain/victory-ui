@@ -12,6 +12,7 @@
  * @type {object} The routes
  */
 export default [
+
     // Home
     {
         path: '/home',
@@ -24,17 +25,29 @@ export default [
         }
     },
 
-    // Home
+
+    // Datacenters
     {
         path: '/datacenters',
-        name: 'datacenters.index',
-        component: require('pages/datacenters/index/index.vue'),
+        name: 'datacenters.collection',
+        component: require('pages/datacenters/collection/collection.vue'),
 
         // If the user needs to be authenticated to view this page
         meta: {
             authentication: true
         }
     },
+    {
+        path: '/datacenters/:id',
+        name: 'datacenters.singleton',
+        component: require('pages/datacenters/singleton/singleton.vue'),
+
+        // If the user needs to be authenticated to view this page
+        meta: {
+            authentication: true
+        }
+    },
+
 
     // Login
     {
@@ -47,6 +60,7 @@ export default [
             guest: true
         }
     },
+
 
     // Register
     {
