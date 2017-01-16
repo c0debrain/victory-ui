@@ -4,5 +4,8 @@
 # Denote all files that are truly binary and should not be modified.
 *.png binary
 *.jpg binary
-*.woff
-*.woff2
+
+*.ttf     -text diff
+*.eot     -text diff
+*.woff    -text diff
+*.woff2   -text diff
