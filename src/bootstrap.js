@@ -176,6 +176,19 @@ require('font-awesome/less/font-awesome.less')
 
 
 /* ============
+ * Vue Highcharts/ Highcharts
+ * ============
+ *
+ * Require vue-highcharts/highcharts
+ *
+ * https://highcharts.com
+ */
+import VueHighcharts from 'vue-highcharts'
+
+Vue.use(VueHighcharts)
+
+
+/* ============
  * Styling
  * ============
  *

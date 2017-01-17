@@ -7,26 +7,27 @@
 
 import store from 'store'
 import datacenterService from 'services/datacenters'
+import VueHighcharts from 'vue-highcharts';
 
 export default {
     components: {
-        'layout': require('layouts/default/default.vue'),
+        'layout': require('layouts/minimal/minimal.vue'),
         'resource': require('components/resource/resource.vue')
     },
 
     computed: {
-        datacenter() {
-            return store.state.datacenters
+        datacenters() {
+            return store.state.datacenters.all
         }
     },
 
     mounted: function() {
-        this.load(this.$route.params.id)
+        this.loadAll()
     },
 
     methods: {
-        load(id) {
-            datacenterService.find(id)
+        loadAll() {
+            datacenterService.findAll()
         }
     }
 }

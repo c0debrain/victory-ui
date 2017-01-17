@@ -37,6 +37,9 @@ export default [
             authentication: true
         }
     },
+
+
+    // Datacenters Singleton
     {
         path: '/datacenters/:id',
         name: 'datacenters.singleton',
