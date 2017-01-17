@@ -1,16 +1,17 @@
 <layout>
     <div slot="header">
-        <!-- Header Transclude -->
+        <div class="col-md-12">
+            <h1>{{ datacenter.name }}</h1>
+        </div>
     </div>
 
     <div slot="body">
         <div class="row">
-            <resource
+            <!-- <resource
                 v-for="datacenter in datacenters"
                 :abbreviation="datacenter.id"
-                :name="datacenter.name"
-            >
-            </resource>
+                :name="datacenter.name">
+            </resource> -->
         </div>
     </div>
 </layout>

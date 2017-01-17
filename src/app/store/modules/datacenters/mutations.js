@@ -1,11 +1,14 @@
-import { FETCH_DATACENTER, FETCH_DATACENTERS } from './../../mutation-types'
+import Vue from 'vue'
+import { SET_DATACENTER, SET_DATACENTERS } from './../../mutation-types'
 
 export default {
-    [FETCH_DATACENTER](state, datacenter) {
-        state.all.push(datacenter)
+    [SET_DATACENTER](state, datacenter) {
+        Vue.set(state.all, datacenter.id, datacenter)
     },
 
-    [FETCH_DATACENTERS](state, datacenters) {
-        state.all = datacenters
+    [SET_DATACENTERS](state, datacenters) {
+        datacenters.forEach((datacenter) => {
+            Vue.set(state.all, datacenter.id, datacenter)
+        })
     }
 }

@@ -1,22 +1,17 @@
 <layout>
     <div slot="header">
-        <!-- Header Transclude -->
+        <div class="col-md-12">
+            <h1>Datacenters</h1>
+        </div>
     </div>
 
     <div slot="body">
         <div class="row">
-            <!-- <router-link
-            v-for="datacenter in datacenters"
-            :to="{ path: datacenter.id }" append
-            tag="div"
-            > -->
-                <resource
-                    v-for="datacenter in datacenters"
-                    :abbreviation="datacenter.id"
-                    :name="datacenter.name"
-                >
-                </resource>
-            <!-- </router-link> -->
+            <resource
+                v-for="datacenter in datacenters"
+                :abbreviation="datacenter.id"
+                :name="datacenter.name">
+            </resource>
         </div>
     </div>
 </layout>

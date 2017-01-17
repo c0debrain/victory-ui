@@ -19,7 +19,7 @@ export default (id) => {
             console.log('Datacenter Response: ', response)
 
             if (response) {
-                success(response)
+                success(response.data)
             } else {
                 failed(response)
             }

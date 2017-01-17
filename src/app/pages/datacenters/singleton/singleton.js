@@ -16,7 +16,7 @@ export default {
 
     computed: {
         datacenter() {
-            return store.state.datacenters
+            return store.state.datacenters.all[this.$route.params.id]
         }
     },
 
