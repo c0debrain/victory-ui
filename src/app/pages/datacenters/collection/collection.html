@@ -1,0 +1,22 @@
+<layout>
+    <div slot="header">
+        <!-- Header Transclude -->
+    </div>
+
+    <div slot="body">
+        <div class="row">
+            <!-- <router-link
+            v-for="datacenter in datacenters"
+            :to="{ path: datacenter.id }" append
+            tag="div"
+            > -->
+                <resource
+                    v-for="datacenter in datacenters"
+                    :abbreviation="datacenter.id"
+                    :name="datacenter.name"
+                >
+                </resource>
+            <!-- </router-link> -->
+        </div>
+    </div>
+</layout>
