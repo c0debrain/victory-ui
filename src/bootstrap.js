@@ -72,7 +72,7 @@ store.dispatch('checkAuthentication')
 
 import VueSocket from 'vue-socket.io'
 
-Vue.use(VueSocket, 'http://localhost:3000', store)
+Vue.use(VueSocket, process.env.SOCKET_LOCATION, store)
 
 
 /* ============

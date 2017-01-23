@@ -36,10 +36,9 @@ export default {
     },
 
     sockets: {
-        'datacenters:health': function(healths) {
-            console.log('datacenters:health event receieved: ', healths)
-
-            store.dispatch('setHealths', healths)
+        'datacenters:health': function(response) {
+            console.log('datacenters:health event receieved: ', response)
+            store.dispatch('setHealths', response.data)
         }
     }
 }
