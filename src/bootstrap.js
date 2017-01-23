@@ -72,7 +72,7 @@ store.dispatch('checkAuthentication')
 
 import VueSocket from 'vue-socket.io'
 
-Vue.use(VueSocket, process.env.API_LOCATION, store)
+Vue.use(VueSocket, 'http://localhost:3000', store)
 
 
 /* ============
@@ -152,6 +152,19 @@ window.$ = window.jQuery = jQuery
 
 
 /* ============
+ * Highcharts
+ * ============
+ *
+ * Require Highcharts
+ *
+ * http://highcharts.com/
+ */
+import VueHighcharts from 'vue-highcharts'
+
+Vue.use(VueHighcharts)
+
+
+/* ============
  * Bootstrap
  * ============
  *
@@ -173,19 +186,6 @@ require('bootstrap/scss/bootstrap.scss')
  * http://http://fontawesome.io/
  */
 require('font-awesome/less/font-awesome.less')
-
-
-/* ============
- * Vue Highcharts/ Highcharts
- * ============
- *
- * Require vue-highcharts/highcharts
- *
- * https://highcharts.com
- */
-import VueHighcharts from 'vue-highcharts'
-
-Vue.use(VueHighcharts)
 
 
 /* ============

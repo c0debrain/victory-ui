@@ -10,7 +10,8 @@
             <resource
                 v-for="datacenter in datacenters"
                 :abbreviation="datacenter.id"
-                :name="datacenter.name">
+                :name="datacenter.name"
+                :health="datacenter.health">
             </resource>
         </div>
     </div>

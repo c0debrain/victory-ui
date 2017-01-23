@@ -2,9 +2,8 @@
     <section class="box-typical">
         <header class="box-typical-header">
             <ul class="health">
-                <li class="stable" style="width:60%"></li>
-                <li class="warning" style="width: 30%"></li>
-                <li class="danger" style="width: 10%"></li>
+                <li class="stable" :style="{ width: health + '%' }"></li>
+                <!-- <li class="danger" :style="{ width: (100 - health) + '%' }"></li> -->
             </ul>
 
             <div class="tbl-row">

@@ -10,7 +10,8 @@ export default class DatacenterTransformer extends Transformer {
     static fetch(datacenter) {
         return {
             id: datacenter.data_center_code,
-            name: datacenter.data_center_name
+            name: datacenter.data_center_name,
+            health: datacenter.data_center_health || 0
         }
     }
 
@@ -22,7 +23,8 @@ export default class DatacenterTransformer extends Transformer {
     static send(datacenter) {
         return {
             data_center_code: datacenter.id,
-            data_center_name: datacenter.name
+            data_center_name: datacenter.name,
+            data_center_health: datacenter.health
         }
     }
 }

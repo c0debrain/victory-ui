@@ -1,11 +1,13 @@
 <layout>
     <div slot="header">
         <div class="col-md-12">
-            <h1>{{ datacenter.name }}</h1>
+            <h1></h1>
         </div>
     </div>
 
     <div slot="body">
+        <highcharts :options="options" ref="highcharts"></highcharts>
+
         <div class="row">
             <!-- <resource
                 v-for="datacenter in datacenters"

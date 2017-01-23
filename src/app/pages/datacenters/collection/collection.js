@@ -20,13 +20,26 @@ export default {
         }
     },
 
-    mounted: function() {
+    mounted() {
         this.loadAll()
     },
 
     methods: {
         loadAll() {
             datacenterService.findAll()
+        }
+    },
+
+    destroyed() {
+        console.log('Killing socket listener for: ', 'datacenters:health')
+        delete this.$options.sockets['datacenters:health']
+    },
+
+    sockets: {
+        'datacenters:health': function(healths) {
+            console.log('datacenters:health event receieved: ', healths)
+
+            store.dispatch('setHealths', healths)
         }
     }
 }
