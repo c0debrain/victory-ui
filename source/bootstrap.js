@@ -31,7 +31,7 @@ Vue.config.debug = process.env.NODE_ENV !== 'production'
  * https://github.com/mzabriskie/axios
  */
 import Axios from 'axios'
-import authenticationService from './app/services/authentication'
+import authenticationService from './application/services/authentication'
 
 Axios.defaults.baseURL = process.env.API_LOCATION
 Axios.defaults.headers.common.Accept = 'application/json'
@@ -54,7 +54,7 @@ Vue.$http = Axios
  * https://github.com/vuejs/vuex-router-sync/blob/master/README.md
  */
 import VuexRouterSync from 'vuex-router-sync'
-import store from './app/store'
+import store from './application/store'
 
 store.dispatch('checkAuthentication')
 
@@ -85,7 +85,7 @@ Vue.use(VueSocket, process.env.SOCKET_LOCATION, store)
  * http://router.vuejs.org/en/index.html
  */
 import VueRouter from 'vue-router'
-import routes from './app/routes'
+import routes from './application/routes'
 
 Vue.use(VueRouter)
 
@@ -128,7 +128,7 @@ Vue.router = router
  * https://kazupon.github.io/vue-i18n/
  */
 import VueI18n from 'vue-i18n'
-import locale from './app/locale'
+import locale from './application/locale'
 
 Vue.use(VueI18n)
 Vue.config.lang = 'en'

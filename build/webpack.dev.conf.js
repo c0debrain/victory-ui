@@ -1,4 +1,4 @@
-var config = require('../config')
+var config = require('../configuration')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
 var utils = require('./utils')

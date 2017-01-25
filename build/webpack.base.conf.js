@@ -1,5 +1,5 @@
 var path = require('path')
-var config = require('../config')
+var config = require('../configuration')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 
@@ -12,7 +12,7 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
     entry: {
-        app: './src/main.js'
+        app: './source/main.js'
     },
     output: {
         path: config.build.assetsRoot,
@@ -23,19 +23,19 @@ module.exports = {
         extensions: ['', '.js', '.vue'],
         fallback: [path.join(__dirname, '../node_modules')],
         alias: {
-            'src': path.resolve(__dirname, '../src'),
-            'app': path.resolve(__dirname, '../src/app'),
-            'assets': path.resolve(__dirname, '../src/assets'),
+            'source': path.resolve(__dirname, '../source'),
+            'app': path.resolve(__dirname, '../source/application'),
+            'assets': path.resolve(__dirname, '../source/assets'),
             'static': path.resolve(__dirname, '../static'),
-            'components': path.resolve(__dirname, '../src/app/components'),
-            'layouts': path.resolve(__dirname, '../src/app/layouts'),
-            'locale': path.resolve(__dirname, '../src/app/locale'),
-            'mixins': path.resolve(__dirname, '../src/app/mixins'),
-            'pages': path.resolve(__dirname, '../src/app/pages'),
-            'services': path.resolve(__dirname, '../src/app/services'),
-            'store': path.resolve(__dirname, '../src/app/store'),
-            'transformers': path.resolve(__dirname, '../src/app/transformers'),
-            'utils': path.resolve(__dirname, '../src/app/utils')
+            'components': path.resolve(__dirname, '../source/application/components'),
+            'layouts': path.resolve(__dirname, '../source/application/layouts'),
+            'locale': path.resolve(__dirname, '../source/application/locale'),
+            'mixins': path.resolve(__dirname, '../source/application/mixins'),
+            'pages': path.resolve(__dirname, '../source/application/pages'),
+            'services': path.resolve(__dirname, '../source/application/services'),
+            'store': path.resolve(__dirname, '../source/application/store'),
+            'transformers': path.resolve(__dirname, '../source/application/transformers'),
+            'utils': path.resolve(__dirname, '../source/application/utils')
         }
     },
     resolveLoader: {

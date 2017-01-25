@@ -1,4 +1,4 @@
-var config = require('../config')
+var config = require('../configuration')
 if (!process.env.NODE_ENV) process.env.NODE_ENV = config.dev.env
 var path = require('path')
 var express = require('express')
