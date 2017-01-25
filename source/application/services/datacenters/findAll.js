@@ -14,6 +14,10 @@ const failed = (error) => {
 }
 
 export default () => {
+    console.log(Vue)
+
+    Vue.socket.emit('datacenters')
+
     Vue.$http.get('/datacenters/')
         .then((response) => {
             console.log('Datacenters Response: ', response)

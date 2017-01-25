@@ -3,6 +3,5 @@ var devEnv = require('./dev.env')
 
 module.exports = merge(devEnv, {
     NODE_ENV: '"testing"',
-    API_LOCATION: '"http://api.onelink.com/v1"',
-    SOCKET_LOCATION: '"http://api.onelink.com:80"'
+    API_LOCATION: '"http://example.test/api/v1"',
 })

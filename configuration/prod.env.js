@@ -1,5 +1,4 @@
 module.exports = {
     NODE_ENV: '"production"',
-    API_LOCATION: '"http://api.onelink.com/v1"',
-    SOCKET_LOCATION: '"http://api.onelink.com:80"'
+    API_LOCATION: '"http://example.com/api/v1"',
 }

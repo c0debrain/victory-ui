@@ -24,9 +24,9 @@ export default {
     },
 
     [SET_HEALTHS](state, healths) {
-        healths.forEach((entry) => {
-            Vue.set(state.all, entry.id, Object.assign(state.all[entry.id], {
-                health: entry.health
+        healths.forEach((health) => {
+            Vue.set(state.all, health.id, Object.assign(state.all[health.id], {
+                health: health.percent
             }))
         })
     }
