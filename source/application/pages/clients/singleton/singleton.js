@@ -20,7 +20,6 @@ export default {
 
                 clientService.findOrigins(id).then(() => {
                     this.origins = store.getters.getOrigins(this.client.origins)
-                    console.log('this.origins:', store.getters.getOrigins(this.client.origins), this.origins, this.client.origins, store.state.origins.all)
                 })
             })
         }
@@ -35,21 +34,17 @@ export default {
 
     sockets: {
         'clients:health': function(response) {
-            // console.log('datacenters:health event receieved: ', response)
-
             if (this.client) {
-                store.dispatch('setClientHealth', {
-                    id: this.$route.params.id,
-                    health: response.data.find(health => {
-                        return health.id === this.$route.params.id
-                    }).health
-                })
+                const singletonHealth = response.data.find(health => health.id === this.$route.params.id) || false
+                if (singletonHealth) {
+                    store.dispatch('setClientHealth', {
+                        id: this.$route.params.id,
+                        health: singletonHealth.health
+                    })
+                }
             }
-
         },
         'origins:health': function(response) {
-            // console.log('clusters:health event receieved: ', response)
-
             if (this.client && this.origins.length > 0 && response.data.length > 0) {
                 store.dispatch('setOriginsHealth', response.data.filter(
                     health => this.client.origins.includes(health.id)

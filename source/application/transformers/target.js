@@ -1,6 +1,6 @@
 import Transformer from './transformer'
 
-export default class ClusterTransformer extends Transformer {
+export default class TargetTransformer extends Transformer {
 
     /**
      * Method used to transform a fetched singleton
@@ -9,8 +9,8 @@ export default class ClusterTransformer extends Transformer {
      */
     static fetch(singleton) {
         return {
-            id: singleton.cluster_name,
-            name: singleton.cluster_name,
+            id: singleton.target_id,
+            name: singleton.target_live_domain,
             health: singleton.health_score || 0
         }
     }
@@ -22,7 +22,8 @@ export default class ClusterTransformer extends Transformer {
      */
     static send(singleton) {
         return {
-            cluster_name: singleton.id,
+            target_id: singleton.id,
+            target_live_domain: singleton.name,
             health_score: singleton.health
         }
     }

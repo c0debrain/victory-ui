@@ -1,0 +1,21 @@
+<layout>
+    <div slot="header">
+        <div class="col-md-12">
+            <h1>[{{ origin.id }}] {{ origin.name }}</h1>
+        </div>
+    </div>
+
+    <div slot="body">
+        <highcharts :options="options" ref="highcharts"></highcharts>
+
+        <div class="row mt-3">
+            <resource
+                v-for="target in targets"
+                :abbreviation="target.id"
+                :name="target.name"
+                :health="target.health"
+                :type="'targets'">
+            </resource>
+        </div>
+    </div>
+</layout>

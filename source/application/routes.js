@@ -78,6 +78,32 @@ export default [
     },
 
 
+    // Origins
+    {
+        path: '/origins',
+        name: 'origins.collection',
+        component: require('pages/origins/collection/collection.vue'),
+
+        // If the user needs to be authenticated to view this page
+        meta: {
+            authentication: true
+        }
+    },
+
+
+    // Origins Singleton
+    {
+        path: '/origins/:id',
+        name: 'origins.singleton',
+        component: require('pages/origins/singleton/singleton.vue'),
+
+        // If the user needs to be authenticated to view this page
+        meta: {
+            authentication: true
+        }
+    },
+
+
     // Login
     {
         path: '/login',

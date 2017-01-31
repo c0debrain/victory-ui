@@ -1,0 +1,19 @@
+<layout>
+    <div slot="header">
+        <div class="col-md-12">
+            <h1>Origins</h1>
+        </div>
+    </div>
+
+    <div slot="body">
+        <div class="row">
+            <resource
+                v-for="origin in origins"
+                :abbreviation="origin.id"
+                :name="origin.name"
+                :health="origin.health"
+                :type="'origins'">
+            </resource>
+        </div>
+    </div>
+</layout>

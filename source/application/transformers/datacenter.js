@@ -3,9 +3,9 @@ import Transformer from './transformer'
 export default class DatacenterTransformer extends Transformer {
 
     /**
-     * Method used to transform a fetched datacenter
-     * @param account The fetched datacenter
-     * @returns {Object} The transformed datacenter
+     * Method used to transform a fetched singleton
+     * @param {Object} singleton information in api format
+     * @returns {Object} The transformed singleton
      */
     static fetch(singleton) {
         return {
@@ -16,9 +16,9 @@ export default class DatacenterTransformer extends Transformer {
     }
 
     /**
-     * Method used to transform a send datacenter
-     * @param account The datacenter to be send
-     * @returns {Object} The transformed datacenter
+     * Method used to transform a send singleton
+     * @param {Object} singleton information in vue format
+     * @returns {Object} The transformed singleton
      */
     static send(singleton) {
         return {

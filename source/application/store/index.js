@@ -17,6 +17,7 @@ import datacenters from './modules/datacenters'
 import clusters from './modules/clusters'
 import clients from './modules/clients'
 import origins from './modules/origins'
+import targets from './modules/targets'
 
 Vue.use(Vuex)
 
@@ -36,7 +37,8 @@ export default new Vuex.Store({
 
         // Software
         clients,
-        origins
+        origins,
+        targets
     },
 
     /**

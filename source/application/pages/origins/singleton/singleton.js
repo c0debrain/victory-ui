@@ -1,12 +1,5 @@
-/* ============
- * Account Index Page
- * ============
- *
- * Page where the user can view the account information
- */
-
 import store from 'store'
-import datacenterService from 'services/datacenters'
+import originService from 'services/origins'
 
 export default {
     components: {
@@ -20,41 +13,83 @@ export default {
 
     methods: {
         load(id) {
-            this.$socket.emit('datacenter:health:history', id)
+            originService.find(id).then(() => {
+                this.origin = store.state.origins.all[id]
 
-            datacenterService.find(id).then(() => {
-                this.datacenter = store.state.datacenters.all[id]
-
-                datacenterService.findClusters(id).then(() => {
-                    this.clusters = store.getters.getClusters(this.datacenter.clusters)
+                originService.findTargets(id).then(() => {
+                    this.targets = store.getters.getTargets(this.origin.targets)
                 })
+
+                originService.findHealthHistory(id).then((history) => {
+                    history.forEach(health => {
+                        this.options.series[0].data.push(health.statistic_health_score)
+                        this.options.xAxis.categories.push(health.health_dtm)
+                    })
+                }).then(() => this.edgeExtend(this.$refs.highcharts.chart))
+            })
+        },
+
+        edgeExtend(chart) {
+            var self = chart
+
+            chart.series.map(function(series) {
+                // Get inner-chart box
+                var box = self.plotBox
+
+                // Take areas path
+                var areaPath = series.areaPath
+
+                // Add start point
+                // Right after the first element (M)
+                areaPath.splice(1, 0, 0, areaPath[2], 'L')
+
+                // Add Last points upper area end
+                // Remove penultimate point
+                // Replace it with a new point reaching to the width of chart and growing to the height of last element
+                // And add the bottom-right corner
+                areaPath.splice(-6, 3, 'L', box.width, areaPath[areaPath.length - 7], 'L', box.width, box.height)
+
+                // Make the last points X be zero - that will result in bottom left corner
+                areaPath[areaPath.length - 2] = 0
+
+                // Replace value (redraw)
+                series.area.element.attributes.d.value = areaPath.join(' ')
+                var graphPath = series.graphPath
+
+                // Add start point
+                // Right after the first element (M)
+                graphPath.splice(1, 0, 0, graphPath[2], 'L')
+
+                // Add end point
+                graphPath.push('L', box.width, graphPath[graphPath.length - 1])
+                series.graph.element.attributes.d.value = graphPath.join(' ')
             })
         }
     },
 
     destroyed() {
-        console.log('Killing socket listener for: ', 'datacenters:health')
+        console.log('Killing socket listener for: ', 'clients:health')
 
-        delete this.$options.sockets['datacenters:health']
-        delete this.$options.sockets['clusters:health']
+        delete this.$options.sockets['origins:health']
+        delete this.$options.sockets['targets:health']
     },
 
     sockets: {
-        'datacenters:health': function(response) {
-            if (this.datacenter) {
+        'origins:health': function(response) {
+            if (this.origin) {
                 const singletonHealth = response.data.find(health => health.id === this.$route.params.id) || false
                 if (singletonHealth) {
-                    store.dispatch('setDatacenterHealth', {
+                    store.dispatch('setOriginHealth', {
                         id: this.$route.params.id,
                         health: singletonHealth.health
                     })
                 }
             }
         },
-        'clusters:health': function(response) {
-            if (this.datacenter && this.clusters.length > 0 && response.data.length > 0) {
-                store.dispatch('setClustersHealth', response.data.filter(
-                    health => this.datacenter.clusters.includes(health.id)
+        'targets:health': function(response) {
+            if (this.origin && this.targets.length > 0 && response.data.length > 0) {
+                store.dispatch('setTargetsHealth', response.data.filter(
+                    health => this.origin.targets.includes(health.id)
                 ))
             }
         }
@@ -62,9 +97,12 @@ export default {
 
     data() {
         return {
-            datacenter: false,
-            clusters: [],
+            // Page data
+            origin: false,
+            targets: [],
+            health_history: [],
 
+            // Chart configuration
             options: {
                 chart: {
                     animation: true,
@@ -93,6 +131,7 @@ export default {
                     text: null
                 },
                 xAxis: {
+                    categories: [],
                     crosshair: {
                         color: "#e5e5e5",
                         width: 2,
@@ -121,8 +160,8 @@ export default {
                     softMin: 0
                 },
                 series: [{
-                    name: 'Performance',
-                    data: [99, 22, 33, 44, 55, 66, 77, 88, 99],
+                    name: 'Health',
+                    data: [],
                     type: 'area',
                     color: "#2099ea",
                     lineWidth: 1,
