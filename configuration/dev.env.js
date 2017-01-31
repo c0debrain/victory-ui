@@ -3,6 +3,6 @@ var prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
     NODE_ENV: '"development"',
-    API_LOCATION: '"http://localhost:3000/v1"',
-    SOCKET_LOCATION: 'http://localhost:3000'
+    API_LOCATION: '"http://api.onelink.com/v1"',
+    SOCKET_LOCATION: '"http://api.onelink.com:80"'
 })
