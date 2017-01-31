@@ -1,5 +1,5 @@
-# NOC Dashboard
-Network operations center dashboard that displays important information regarding the various hardware and software deployments that are embodied by the OneLink service.
+# Network Operations Center Dashboard
+This is a dashboard that displays important information regarding the various hardware and software deployments that constitute the OneLink product.
 
 ## Usage
 To get up and running run:
