@@ -39,7 +39,6 @@ export default {
 
     sockets: {
         'datacenters:health': function(response) {
-            // console.log('datacenters:health event receieved: ', response)
             store.dispatch('setDatacentersHealth', response.data)
         }
     }
