@@ -14,6 +14,9 @@ import createLogger from 'vuex/dist/logger'
 // Modules
 import authentication from './modules/authentication'
 import datacenters from './modules/datacenters'
+import clusters from './modules/clusters'
+import clients from './modules/clients'
+import origins from './modules/origins'
 
 Vue.use(Vuex)
 
@@ -24,8 +27,16 @@ export default new Vuex.Store({
      * Assign the modules to the store
      */
     modules: {
+        // Services
         authentication,
-        datacenters
+
+        // Hardware
+        datacenters,
+        clusters,
+
+        // Software
+        clients,
+        origins
     },
 
     /**

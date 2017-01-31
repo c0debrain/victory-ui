@@ -1,12 +1,5 @@
-/* ============
- * Account Index Page
- * ============
- *
- * Page where the user can view the account information
- */
-
 import store from 'store'
-import datacenterService from 'services/datacenters'
+import clientService from 'services/clients'
 
 export default {
     components: {
@@ -14,8 +7,64 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
+    created: function() {
+        this.load(this.$route.params.id)
+    },
+
+    methods: {
+        load(id) {
+            this.$socket.emit('client:health:history', id)
+
+            clientService.find(id).then(() => {
+                this.client = store.state.clients.all[id]
+
+                clientService.findOrigins(id).then(() => {
+                    this.origins = store.getters.getOrigins(this.client.origins)
+                    console.log('this.origins:', store.getters.getOrigins(this.client.origins), this.origins, this.client.origins, store.state.origins.all)
+                })
+            })
+        }
+    },
+
+    destroyed() {
+        console.log('Killing socket listener for: ', 'clients:health')
+
+        delete this.$options.sockets['clients:health']
+        delete this.$options.sockets['origins:health']
+    },
+
+    sockets: {
+        'clients:health': function(response) {
+            // console.log('datacenters:health event receieved: ', response)
+
+            if (this.client) {
+                store.dispatch('setClientHealth', {
+                    id: this.$route.params.id,
+                    health: response.data.find(health => {
+                        return health.id === this.$route.params.id
+                    }).health
+                })
+            }
+
+        },
+        'origins:health': function(response) {
+            // console.log('clusters:health event receieved: ', response)
+
+            if (this.client && this.origins.length > 0 && response.data.length > 0) {
+                store.dispatch('setOriginsHealth', response.data.filter(
+                    health => this.client.origins.includes(health.id)
+                ))
+            }
+        }
+    },
+
     data() {
         return {
+            // Page data
+            client: false,
+            origins: [],
+
+            // Chart configuration
             options: {
                 chart: {
                     animation: true,
@@ -89,59 +138,6 @@ export default {
                         symbol: 'circle'
                     }
                 }]
-            },
-
-            datacenter: false,
-            clusters: []
-        }
-    },
-
-    created: function() {
-        this.load(this.$route.params.id)
-    },
-
-    methods: {
-        load(id) {
-            this.$socket.emit('datacenter:health:history', id)
-
-            datacenterService.find(id).then(() => {
-                this.datacenter = store.state.datacenters.all[id]
-
-                datacenterService.findClusters(id).then(() => {
-                    this.clusters = store.getters.getClusters(this.datacenter.clusters)
-                })
-            })
-        }
-    },
-
-    destroyed() {
-        console.log('Killing socket listener for: ', 'datacenters:health')
-
-        delete this.$options.sockets['datacenters:health']
-        delete this.$options.sockets['clusters:health']
-    },
-
-    sockets: {
-        'datacenters:health': function(response) {
-            // console.log('datacenters:health event receieved: ', response)
-
-            if (this.datacenter) {
-                store.dispatch('setDatacenterHealth', {
-                    id: this.$route.params.id,
-                    health: response.data.find(health => {
-                        return health.id === this.$route.params.id
-                    }).health
-                })
-            }
-
-        },
-        'clusters:health': function(response) {
-            // console.log('clusters:health event receieved: ', response)
-
-            if (this.datacenter && this.clusters.length > 0 && response.data.length > 0) {
-                store.dispatch('setClustersHealth', response.data.filter(
-                    health => this.datacenter.clusters.includes(health.id)
-                ))
             }
         }
     }

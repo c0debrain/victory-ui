@@ -52,6 +52,32 @@ export default [
     },
 
 
+    // Clients
+    {
+        path: '/clients',
+        name: 'clients.collection',
+        component: require('pages/clients/collection/collection.vue'),
+
+        // If the user needs to be authenticated to view this page
+        meta: {
+            authentication: true
+        }
+    },
+
+
+    // Clients Singleton
+    {
+        path: '/clients/:id',
+        name: 'clients.singleton',
+        component: require('pages/clients/singleton/singleton.vue'),
+
+        // If the user needs to be authenticated to view this page
+        meta: {
+            authentication: true
+        }
+    },
+
+
     // Login
     {
         path: '/login',

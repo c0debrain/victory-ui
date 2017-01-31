@@ -3,7 +3,6 @@ import Vue from 'vue'
 export default {
     props: {
         abbreviation: {
-            type: String,
             required: true
         },
         name: {
@@ -13,13 +12,17 @@ export default {
         health: {
             type: Number,
             required: true
+        },
+        type: {
+            type: String,
+            required: true
         }
     },
 
     methods: {
         enterResource: function(resource) {
             Vue.router.push({
-                name: 'datacenters.singleton',
+                name: `${this.type}.singleton`,
                 params: {
                     id: this.abbreviation
                 }

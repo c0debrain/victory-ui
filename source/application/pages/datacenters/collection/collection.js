@@ -14,9 +14,9 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
-    computed: {
-        datacenters() {
-            return store.state.datacenters.all
+    data() {
+        return {
+            datacenters: false
         }
     },
 
@@ -26,7 +26,9 @@ export default {
 
     methods: {
         loadAll() {
-            datacenterService.findAll()
+            datacenterService.findAll().then(() => {
+                this.datacenters = store.state.datacenters.all
+            })
         }
     },
 
@@ -37,8 +39,8 @@ export default {
 
     sockets: {
         'datacenters:health': function(response) {
-            console.log('datacenters:health event receieved: ', response)
-            store.dispatch('setHealths', response.data)
+            // console.log('datacenters:health event receieved: ', response)
+            store.dispatch('setDatacentersHealth', response.data)
         }
     }
 }

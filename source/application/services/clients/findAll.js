@@ -1,19 +1,19 @@
 import Vue from 'vue'
-import transformer from './../../transformers/datacenter'
+import transformer from './../../transformers/client'
 import store from './../../store'
 
 // When the request succeeds
 const success = (collection) => {
-    store.dispatch('setDatacenters', transformer.fetchCollection(collection))
+    store.dispatch('setClients', transformer.fetchCollection(collection))
 }
 
 // When the request fails
 const failed = (error) => {
-    console.error('Failed to retrieve datacenters: ', error)
+    console.error('Failed to retrieve clients: ', error)
     return error
 }
 
 // Execute the request
-export default () => Vue.$http.get('/datacenters/')
+export default () => Vue.$http.get('/clients/')
     .then(response => success(response.data))
     .catch(error => failed(error))

@@ -71,8 +71,10 @@ store.dispatch('checkAuthentication')
  */
 
 import VueSocket from 'vue-socket.io'
+import io from 'socket.io-client'
 
-Vue.use(VueSocket, process.env.SOCKET_LOCATION, store)
+Vue.$socket = io(process.env.SOCKET_LOCATION, { transports: ['websocket', 'polling', 'flashsocket'] })
+Vue.use(VueSocket, Vue.$socket, store)
 
 
 /* ============

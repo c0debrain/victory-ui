@@ -2,19 +2,25 @@ import * as types from './../../mutation-types'
 
 // Datacenter
 export default {
-    getDatacenter({ commit }, datacenter) {
-        commit(types.SET_DATACENTER, datacenter)
+    // Singleton Actions
+    setDatacenter({ commit }, singleton) {
+        commit(types.SET_DATACENTER, singleton)
     },
 
-    getDatacenters({ commit }, datacenters) {
-        commit(types.SET_DATACENTERS, datacenters)
+    setDatacenterHealth({ commit }, data) {
+        commit(types.SET_DATACENTER_HEALTH, data)
     },
 
-    setHealth({ commit }, health) {
-        commit(types.SET_HEALTH, health)
+    setDatacenterClusters({ commit }, collection) {
+        commit(types.SET_DATACENTER_CLUSTERS, collection)
     },
 
-    setHealths({ commit }, healths) {
-        commit(types.SET_HEALTHS, healths)
+    // Collection Actions
+    setDatacenters({ commit }, collection) {
+        commit(types.SET_DATACENTERS, collection)
+    },
+
+    setDatacentersHealth({ commit }, healths) {
+        commit(types.SET_DATACENTERS_HEALTH, healths)
     }
 }

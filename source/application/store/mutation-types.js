@@ -1,10 +1,42 @@
-// Datacenter
-export const SET_DATACENTER = 'FETCH_DATACENTER'
-export const SET_DATACENTERS = 'FETCH_DATACENTERS'
-export const SET_HEALTH = 'SET_HEALTH'
-export const SET_HEALTHS = 'SET_HEALTHS'
-
-// Auth
+// Authentication
 export const CHECK_AUTHENTICATION = 'CHECK_AUTHENTICATION'
 export const LOGOUT = 'LOGOUT'
 export const LOGIN = 'LOGIN'
+
+
+// Datacenter
+export const SET_DATACENTER = 'SET_DATACENTER'
+export const SET_DATACENTER_HEALTH = 'SET_DATACENTER_HEALTH'
+export const SET_DATACENTER_CLUSTERS = 'SET_DATACENTER_CLUSTERS'
+
+// Datacenters
+export const SET_DATACENTERS = 'SET_DATACENTERS'
+export const SET_DATACENTERS_HEALTH = 'SET_DATACENTERS_HEALTH'
+
+
+// Cluster
+export const SET_CLUSTER = 'SET_CLUSTER'
+export const SET_CLUSTER_HEALTH = 'SET_CLUSTER_HEALTH'
+
+// Clusters
+export const SET_CLUSTERS = 'SET_CLUSTERS'
+export const SET_CLUSTERS_HEALTH = 'SET_CLUSTERS_HEALTH'
+
+
+// Client
+export const SET_CLIENT = 'SET_CLIENT'
+export const SET_CLIENT_HEALTH = 'SET_CLIENT_HEALTH'
+export const SET_CLIENT_ORIGINS = 'SET_CLIENT_ORIGINS'
+
+// Clients
+export const SET_CLIENTS = 'SET_CLIENTS'
+export const SET_CLIENTS_HEALTH = 'SET_CLIENTS_HEALTH'
+
+
+// Origin
+export const SET_ORIGIN = 'SET_ORIGIN'
+export const SET_ORIGIN_HEALTH = 'SET_ORIGIN_HEALTH'
+
+// Origins
+export const SET_ORIGINS = 'SET_ORIGINS'
+export const SET_ORIGINS_HEALTH = 'SET_ORIGINS_HEALTH'

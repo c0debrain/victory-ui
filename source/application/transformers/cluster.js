@@ -1,6 +1,6 @@
 import Transformer from './transformer'
 
-export default class DatacenterTransformer extends Transformer {
+export default class ClusterTransformer extends Transformer {
 
     /**
      * Method used to transform a fetched datacenter
@@ -9,8 +9,8 @@ export default class DatacenterTransformer extends Transformer {
      */
     static fetch(singleton) {
         return {
-            id: singleton.data_center_code,
-            name: singleton.data_center_name,
+            id: singleton.cluster_name,
+            name: singleton.cluster_name,
             health: singleton.health_score || 0
         }
     }
@@ -22,8 +22,7 @@ export default class DatacenterTransformer extends Transformer {
      */
     static send(singleton) {
         return {
-            data_center_code: singleton.id,
-            data_center_name: singleton.name,
+            cluster_name: singleton.id,
             health_score: singleton.health
         }
     }

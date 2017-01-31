@@ -1,19 +1,19 @@
 import Vue from 'vue'
 import {
-    SET_DATACENTER,
-    SET_DATACENTER_HEALTH,
-    SET_DATACENTER_CLUSTERS,
-    SET_DATACENTERS,
-    SET_DATACENTERS_HEALTH
+    SET_ORIGIN,
+    SET_ORIGIN_HEALTH,
+    SET_ORIGIN_TARGETS,
+    SET_ORIGINS,
+    SET_ORIGINS_HEALTH
 } from './../../mutation-types'
 
 export default {
     // Singleton Mutations
-    [SET_DATACENTER](state, singleton) {
+    [SET_ORIGIN](state, singleton) {
         Vue.set(state.all, singleton.id, singleton)
     },
 
-    [SET_DATACENTER_HEALTH](state, data) {
+    [SET_ORIGIN_HEALTH](state, data) {
         if (state.all[data.id]) {
             Vue.set(state.all, data.id, Object.assign(state.all[data.id], {
                 health: data.health
@@ -23,24 +23,24 @@ export default {
         }
     },
 
-    [SET_DATACENTER_CLUSTERS](state, data) {
+    [SET_ORIGIN_TARGETS](state, data) {
         if (state.all[data.id]) {
             Vue.set(state.all, data.id, Object.assign(state.all[data.id], {
                 clusters: data.collection.map(singleton => singleton.id)
             }))
         } else {
-            console.warn('Trying to set clusters for non-existant resource: ', data)
+            console.warn('Trying to set relations for non-existant resource: ', data)
         }
     },
 
     // Collection Mutations
-    [SET_DATACENTERS](state, collection) {
+    [SET_ORIGINS](state, collection) {
         collection.forEach((singleton) => {
             Vue.set(state.all, singleton.id, singleton)
         })
     },
 
-    [SET_DATACENTERS_HEALTH](state, healths) {
+    [SET_ORIGINS_HEALTH](state, healths) {
         healths.forEach((entry) => {
             if (state.all[entry.id]) {
                 Vue.set(state.all, entry.id, Object.assign(state.all[entry.id], {

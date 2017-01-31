@@ -1,9 +1,9 @@
 import find from './find'
 import findAll from './findAll'
-import findClusters from './findClusters'
+import findOrigins from './findOrigins'
 
 export default {
     find,
     findAll,
-    findClusters
+    findOrigins
 }
