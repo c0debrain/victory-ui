@@ -35,7 +35,7 @@ module.exports = {
             'services': path.resolve(__dirname, '../source/application/services'),
             'store': path.resolve(__dirname, '../source/application/store'),
             'transformers': path.resolve(__dirname, '../source/application/transformers'),
-            'utils': path.resolve(__dirname, '../source/application/utils')
+            'utilities': path.resolve(__dirname, '../source/application/utilities')
         }
     },
     resolveLoader: {

@@ -69,7 +69,6 @@ store.dispatch('checkAuthentication')
  *
  * https://github.com/socketio/socket.io
  */
-
 import VueSocket from 'vue-socket.io'
 import io from 'socket.io-client'
 
@@ -164,6 +163,17 @@ window.$ = window.jQuery = jQuery
 import VueHighcharts from 'vue-highcharts'
 
 Vue.use(VueHighcharts)
+
+
+/* ============
+ * Highcharts
+ * ============
+ *
+ * Require Highcharts
+ *
+ * http://highcharts.com/
+ */
+global.moment = require('moment')
 
 
 /* ============

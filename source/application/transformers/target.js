@@ -10,7 +10,7 @@ export default class TargetTransformer extends Transformer {
     static fetch(singleton) {
         return {
             id: singleton.target_id,
-            name: singleton.target_live_domain,
+            name: singleton.target_live_domain || singleton.target_staging_domain,
             health: singleton.health_score || 0
         }
     }
