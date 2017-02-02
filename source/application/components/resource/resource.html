@@ -1,9 +1,9 @@
-<div class="col-md-4 resource" @click="enterResource()">
-    <section class="box-typical">
+<div class="col-md-4 resource">
+    <section class="box-typical" @click="enterResource()">
         <header class="box-typical-header">
-            <ul class="health">
+            <ul class="health" v-if="health !== false">
                 <li class="stable" :style="{ width: health + '%' }"></li>
-                <!-- <li class="danger" :style="{ width: (100 - health) + '%' }"></li> -->
+                <li class="danger" :style="{ width: (100 - health) + '%' }"></li>
             </ul>
 
             <div class="tbl-row">
@@ -14,11 +14,5 @@
 
             <div class="abbreviation">{{ abbreviation }}</div>
         </header>
-
-        <div class="box-typical-body">
-            <div class="table-responsive">
-
-            </div>
-        </div>
     </section>
 </div>

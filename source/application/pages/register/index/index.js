@@ -28,6 +28,6 @@ export default {
     },
 
     components: {
-        VLayout: require('layouts/minimal/minimal.vue')
+        'layout': require('layouts/minimal/minimal.vue')
     }
 }

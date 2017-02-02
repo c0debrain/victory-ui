@@ -35,13 +35,30 @@ import authenticationService from './application/services/authentication'
 
 Axios.defaults.baseURL = process.env.API_LOCATION
 Axios.defaults.headers.common.Accept = 'application/json'
-Axios.interceptors.response.use(
-    response => response.data,
+
+Axios.interceptors.request.use(
+    (configuration) => {
+        Vue.$Progress.start()
+        return configuration
+    },
     (error) => {
-        if (error.response.status === 401) {
-            authenticationService.logout()
-        }
-    })
+        Vue.$Progress.fail()
+        return Promise.reject(error)
+    }
+)
+
+Axios.interceptors.response.use(
+    (response) => {
+        Vue.$Progress.finish()
+        return response.data
+    },
+    (error) => {
+        Vue.$Progress.fail()
+        if (error.response.status === 401) authenticationService.logout()
+        return Promise.reject(error)
+    }
+)
+
 Vue.$http = Axios
 
 
@@ -91,6 +108,7 @@ import routes from './application/routes'
 Vue.use(VueRouter)
 
 export const router = new VueRouter({
+    mode: 'history',
     routes
 })
 
@@ -163,6 +181,36 @@ window.$ = window.jQuery = jQuery
 import VueHighcharts from 'vue-highcharts'
 
 Vue.use(VueHighcharts)
+
+
+/* ============
+ * Vue Progress Bar
+ * ============
+ *
+ * A lightweight progress bar for vue
+ *
+ * https://github.com/hilongjw/vue-progressbar
+ */
+import VueProgressBar from 'vue-progressbar'
+
+Vue.use(VueProgressBar, {
+    color: '#74C7A8',
+    failedColor: '#FFA2AD',
+    thickness: '4px'
+})
+Vue.$Progress = Vue.prototype.$Progress
+
+
+/* ============
+ * Vue Waterfall
+ * ============
+ *
+ * A waterfall layout component for Vue.js
+ *
+ * https://github.com/MopTym/vue-waterfall
+ */
+import Waterfall from 'vue-waterfall/lib/waterfall'             // eslint-disable-line no-unused-vars
+import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'    // eslint-disable-line no-unused-vars
 
 
 /* ============

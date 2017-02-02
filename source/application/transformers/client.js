@@ -11,7 +11,7 @@ export default class ClientTransformer extends Transformer {
         return {
             id: singleton.client_id,
             name: singleton.client_name,
-            health: singleton.health_score || 0
+            health: false
         }
     }
 
@@ -23,8 +23,7 @@ export default class ClientTransformer extends Transformer {
     static send(singleton) {
         return {
             client_id: singleton.id,
-            client_name: singleton.name,
-            health_score: singleton.health
+            client_name: singleton.name
         }
     }
 }

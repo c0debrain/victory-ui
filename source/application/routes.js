@@ -26,6 +26,19 @@ export default [
     },
 
 
+    // Waterfall
+    {
+        path: '/waterfall',
+        name: 'waterfall.collection',
+        component: require('pages/waterfall/collection/collection.vue'),
+
+        // If the user needs to be authenticated to view this page
+        meta: {
+            authentication: true
+        }
+    },
+
+
     // Datacenters
     {
         path: '/datacenters',

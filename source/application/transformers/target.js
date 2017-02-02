@@ -11,7 +11,7 @@ export default class TargetTransformer extends Transformer {
         return {
             id: singleton.target_id,
             name: singleton.target_live_domain || singleton.target_staging_domain,
-            health: singleton.health_score || 0
+            health: false
         }
     }
 
@@ -23,8 +23,7 @@ export default class TargetTransformer extends Transformer {
     static send(singleton) {
         return {
             target_id: singleton.id,
-            target_live_domain: singleton.name,
-            health_score: singleton.health
+            target_live_domain: singleton.name
         }
     }
 }

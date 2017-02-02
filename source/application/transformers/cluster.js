@@ -11,7 +11,7 @@ export default class ClusterTransformer extends Transformer {
         return {
             id: singleton.cluster_name,
             name: singleton.cluster_name,
-            health: singleton.health_score || 0
+            health: false
         }
     }
 
@@ -22,8 +22,7 @@ export default class ClusterTransformer extends Transformer {
      */
     static send(singleton) {
         return {
-            cluster_name: singleton.id,
-            health_score: singleton.health
+            cluster_name: singleton.id
         }
     }
 }

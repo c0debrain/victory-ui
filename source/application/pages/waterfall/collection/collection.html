@@ -1,0 +1,32 @@
+<layout>
+    <div slot="header">
+        <div class="col-md-12">
+            <h1>Waterfall</h1>
+        </div>
+    </div>
+
+    <div slot="body">
+        <waterfall
+            :watch="datacenters"
+            :grow="[3, 2, 1, 2]"
+            ref="waterfall"
+        >
+            <waterfall-slot
+                v-for="(datacenter, index) in datacenters"
+                :width="300"
+                :height="300"
+                :order="datacenter.health"
+                :key="datacenter.id"
+            >
+                <waterfall-resource
+                    :abbreviation="datacenter.id"
+                    :name="datacenter.name"
+                    :health="datacenter.health"
+                    :resource="'datacenters'"
+                    :type="'waterfall'"
+                >
+                </waterfall-resource>
+            </waterfall-slot>
+        </waterfall>
+    </div>
+</layout>

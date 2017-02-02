@@ -8,6 +8,10 @@
     section {
         z-index: 5;
 
+        &:hover {
+            cursor: pointer;
+        }
+
         header {
             position: relative;
             z-index: 5;
@@ -43,8 +47,7 @@
                 -ms-user-select: none;
                 /* Internet Explorer/Edge */
                 user-select: none;
-                /* Non-prefixed version, currently
-                                             not supported by any browser */
+                /* Non-prefixed version, currently not supported by any browser */
             }
 
             .health {
@@ -60,7 +63,7 @@
                 // This will make it so the bar is always 100%. This is a
                 // very lazy fix for this. Only here to make the mocked
                 // data look good.
-                background: @color-red;
+                // background: @color-red;
 
                 &:hover {
                     height: 8px;

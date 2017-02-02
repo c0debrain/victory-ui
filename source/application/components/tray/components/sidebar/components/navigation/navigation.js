@@ -14,6 +14,9 @@ export default {
                 }, {
                     name: 'clients.collection',
                     title: 'Clients'
+                }, {
+                    name: 'waterfall.collection',
+                    title: 'Waterfall'
                 }
             ]
         }

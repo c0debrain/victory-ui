@@ -19,9 +19,11 @@ export default {
 
     methods: {
         loadAll() {
+            // this.$Progress.start()
             clientService.findAll().then(() => {
                 this.clients = store.state.clients.all
             })
+            // .then(this.$Progress.finish())
         }
     },
 

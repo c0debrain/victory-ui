@@ -11,7 +11,7 @@ export default class DatacenterTransformer extends Transformer {
         return {
             id: singleton.data_center_code,
             name: singleton.data_center_name,
-            health: singleton.health_score || 0
+            health: false
         }
     }
 
@@ -23,8 +23,7 @@ export default class DatacenterTransformer extends Transformer {
     static send(singleton) {
         return {
             data_center_code: singleton.id,
-            data_center_name: singleton.name,
-            health_score: singleton.health
+            data_center_name: singleton.name
         }
     }
 }

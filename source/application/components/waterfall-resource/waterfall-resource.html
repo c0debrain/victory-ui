@@ -1,0 +1,9 @@
+<div
+    class="waterfall-resource"
+    :class="{ 'good': health !== false && health > 50, 'bad': health !== false && health <= 50 }"
+    :style="{ opacity: (Math.abs(health - 50) / 50) }"
+>
+    <section>
+        <span>{{ abbreviation.replace(/[-|:]/g, '\n') }}</span>
+    </section>
+</div>

@@ -7,6 +7,6 @@
 
 export default {
     components: {
-        VLayout: require('layouts/default/default.vue')
+        'layout': require('layouts/default/default.vue')
     }
 }

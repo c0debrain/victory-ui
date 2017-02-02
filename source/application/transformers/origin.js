@@ -11,7 +11,7 @@ export default class OriginTransformer extends Transformer {
         return {
             id: singleton.origin_id,
             name: singleton.origin_live_domain,
-            health: singleton.health_score || 0
+            health: false
         }
     }
 
@@ -23,8 +23,7 @@ export default class OriginTransformer extends Transformer {
     static send(singleton) {
         return {
             origin_id: singleton.id,
-            origin_live_domain: singleton.name,
-            health_score: singleton.health
+            origin_live_domain: singleton.name
         }
     }
 }

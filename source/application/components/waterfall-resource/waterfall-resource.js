@@ -20,16 +20,5 @@ export default {
             type: String,
             required: false
         }
-    },
-
-    methods: {
-        enterResource: function(resource) {
-            Vue.router.push({
-                name: `${this.resource}.singleton`,
-                params: {
-                    id: this.abbreviation
-                }
-            })
-        }
     }
 }
