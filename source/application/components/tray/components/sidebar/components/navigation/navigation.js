@@ -6,17 +6,16 @@ export default {
                     title: 'Overview'
                 }, {
                     name: 'datacenters.collection',
-                    title: 'Datacenters',
-                    badge: {
-                        type: 'complete',
-                        content: '21'
-                    }
+                    title: 'Datacenters'
                 }, {
                     name: 'clients.collection',
                     title: 'Clients'
                 }, {
                     name: 'waterfall.collection',
                     title: 'Waterfall'
+                }, {
+                    name: 'origins.waterfall',
+                    title: 'Origins Waterfall'
                 }
             ]
         }

@@ -122,7 +122,7 @@ export default {
                 },
                 series: [{
                     name: 'Performance',
-                    data: [99, 22, 33, 44, 55, 66, 77, 88, 99],
+                    data: [50, 50],
                     type: 'area',
                     color: "#2099ea",
                     lineWidth: 1,

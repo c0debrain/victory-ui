@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 export default {
     props: {
-        abbreviation: {
+        short: {
             required: true
         },
         name: {
@@ -19,6 +19,20 @@ export default {
         type: {
             type: String,
             required: false
+        },
+        idlink: {
+            type: Number
+        }
+    },
+
+    methods: {
+        enterResource: function(resource) {
+            Vue.router.push({
+                name: `${this.resource}.singleton`,
+                params: {
+                    id: this.idlink
+                }
+            })
         }
     }
 }

@@ -1,9 +1,15 @@
 <div
     class="waterfall-resource"
-    :class="{ 'good': health !== false && health > 50, 'bad': health !== false && health <= 50 }"
-    :style="{ opacity: (Math.abs(health - 50) / 50) }"
+    :class="{
+        'good': health !== false && health >= 95,
+        'decent': health !== false && health > 80 && health < 95,
+        'bad': health !== false && health <= 80
+    }"
+    @click="enterResource()"
 >
+    <!-- :style="{ opacity: (Math.abs(health - 50) / 50) }" -->
     <section>
-        <span>{{ abbreviation.replace(/[-|:]/g, '\n') }}</span>
+        <span class="title">{{ id }}</span>
+        <span class="health">{{ health === false ? 'None': Math.round(health) + '%' }}</span>
     </section>
 </div>

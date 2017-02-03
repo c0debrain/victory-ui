@@ -9,22 +9,29 @@
     background: @color-bg-white;
     border: solid 1px @color-border-light;
 
-
     &.good {
         background: @color-green;
-        span { color: @color-white; }
+        border: solid 1px @color-border-green;
+        span.title { color: @color-white; }
+    }
+
+    &.decent {
+        background: @color-yellow;
+        border: solid 1px #f0ad4e;
+        span.title { color: @color-white; }
     }
 
     &.bad {
         background: @color-red;
-        span { color: @color-white; }
+        border: solid 1px @color-border-red;
+        span.title { color: @color-white; }
     }
 
     section {
         width: 100%;
         height: 100%;
 
-        span {
+        span.title {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -36,6 +43,32 @@
             word-wrap: break-word;
             white-space: pre-wrap;
             padding: 0 10px;
+        }
+
+        span.health {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 22px;
+            color: @color-text;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            padding: 0 10px;
+
+            // position: absolute;
+            // bottom: 0;
+            // right: 0;
+            // width: 100%;
+            // text-align: right;
+            // text-transform: uppercase;
+            // font-size: 22px;
+            // color: @color-text;
+            // word-wrap: break-word;
+            // white-space: pre-wrap;
+            // padding: 7px;
         }
     }
 }

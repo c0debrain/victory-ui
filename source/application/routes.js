@@ -104,6 +104,19 @@ export default [
     },
 
 
+    // Origins
+    {
+        path: '/origins/waterfall',
+        name: 'origins.waterfall',
+        component: require('pages/origins/waterfall/waterfall.vue'),
+
+        // If the user needs to be authenticated to view this page
+        meta: {
+            authentication: true
+        }
+    },
+
+
     // Origins Singleton
     {
         path: '/origins/:id',

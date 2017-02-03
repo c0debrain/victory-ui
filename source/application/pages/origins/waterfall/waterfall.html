@@ -1,0 +1,32 @@
+<layout>
+    <div slot="header" :menu="menu">
+        <div class="col-md-12">
+            <h1>Waterfall</h1>
+        </div>
+    </div>
+
+    <div slot="body" v-if="origins">
+        <waterfall
+            :line-gap="80"
+            :watch="origins"
+        >
+            <waterfall-slot
+                v-for="(origin, index) in origins"
+                v-if="origin.health !== false"
+                :width="200"
+                :height="200"
+                :order="origin.health"
+                :key="origin.id"
+            >
+                <waterfall-resource
+                    :short="origin.name.replace(/www./g, '')"
+                    :name="origin.name"
+                    :idlink="origin.id"
+                    :health="origin.health"
+                    :resource="'origins'"
+                >
+                </waterfall-resource>
+            </waterfall-slot>
+        </waterfall>
+    </div>
+</layout>

@@ -1,8 +1,11 @@
 export default {
-    data: function() {
-        return {
-            title: 'Worldview',
-            menu: [
+    props: {
+        title: {
+            type: String,
+            default: 'Worldview'
+        },
+        menu: {
+            default: () => [
                 {
                     name: 'Global',
                     view: '#'
