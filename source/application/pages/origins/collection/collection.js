@@ -1,5 +1,5 @@
 import store from 'store'
-import originService from 'services/clients'
+import originService from 'services/origins'
 
 export default {
     components: {
@@ -7,9 +7,9 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
-    data() {
-        return {
-            clients: false
+    computed: {
+        origins () {
+            return this.$store.state.origins.all
         }
     },
 
@@ -19,9 +19,7 @@ export default {
 
     methods: {
         loadAll() {
-            originService.findAll().then(() => {
-                this.clients = store.state.origins.all
-            })
+            originService.findAll()
         }
     },
 

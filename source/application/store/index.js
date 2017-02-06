@@ -10,7 +10,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createLogger from 'vuex/dist/logger'
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 
 // Modules
 import authentication from './modules/authentication'
@@ -50,5 +50,5 @@ export default new Vuex.Store({
     /**
      * Plugins used in the store
      */
-    plugins: debug ? [createLogger()] : []
+    plugins: debug ? [createLogger(), createPersistedState()] : [createPersistedState()]
 })

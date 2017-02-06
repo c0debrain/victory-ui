@@ -9,9 +9,12 @@ export default {
         'waterfall-resource': require('components/waterfall-resource/waterfall-resource.vue')
     },
 
-    data() {
-        return {
-            origins: false
+    computed: {
+        origins () {
+            const origins = this.$store.state.origins.all
+            return Object.keys(origins)
+                .filter(key => origins[key].health !== false)
+                .map(key => origins[key])
         }
     },
 
@@ -24,6 +27,8 @@ export default {
             originService.findAll().then(() => {
                 this.origins = store.state.origins.all
             })
+
+            console.log('this.$store', this.$store)
         }
     },
 

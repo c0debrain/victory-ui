@@ -2,14 +2,14 @@
     class="waterfall-resource"
     :class="{
         'good': health !== false && health >= 95,
-        'decent': health !== false && health > 80 && health < 95,
-        'bad': health !== false && health <= 80
+        'decent': health !== false && health >= 80 && health < 95,
+        'bad': health !== false && health < 80
     }"
     @click="enterResource()"
 >
     <!-- :style="{ opacity: (Math.abs(health - 50) / 50) }" -->
     <section>
         <span class="title">{{ id }}</span>
-        <span class="health">{{ health === false ? 'None': Math.round(health) + '%' }}</span>
+        <span class="health">{{ health === false ? 'None': health.toFixed(1) + '%' }}</span>
     </section>
 </div>

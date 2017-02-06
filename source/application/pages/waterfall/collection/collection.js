@@ -16,9 +16,12 @@ export default {
         'waterfall-resource': require('components/waterfall-resource/waterfall-resource.vue')
     },
 
-    data() {
-        return {
-            datacenters: false
+    computed: {
+        datacenters () {
+            const origins = this.$store.state.datacenters.all
+            return Object.keys(origins)
+                .filter(key => origins[key].health !== false)
+                .map(key => origins[key])
         }
     },
 
@@ -28,9 +31,7 @@ export default {
 
     methods: {
         loadAll() {
-            datacenterService.findAll().then(() => {
-                this.datacenters = store.state.datacenters.all
-            })
+            datacenterService.findAll()
         }
     },
 

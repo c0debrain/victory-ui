@@ -15,9 +15,11 @@ export default {
 
     [SET_ORIGIN_HEALTH](state, data) {
         if (state.all[data.id]) {
-            Vue.set(state.all, data.id, Object.assign(state.all[data.id], {
-                health: data.health
-            }))
+            if (state.all[data.id].health !== data.health) {
+                Vue.set(state.all, data.id, Object.assign(state.all[data.id], {
+                    health: data.health
+                }))
+            }
         } else {
             console.warn('Trying to set health for non-existant resource: ', data)
         }
@@ -35,20 +37,37 @@ export default {
 
     // Collection Mutations
     [SET_ORIGINS](state, collection) {
+        let increments = 0
+
         collection.forEach((singleton) => {
-            Vue.set(state.all, singleton.id, singleton)
+            const current = state.all[singleton.id]
+
+            if (current.name !== singleton.name && current.id !== singleton.id) {
+                Vue.set(state.all, singleton.id, singleton)
+                increments += 1
+            }
         })
+
+        console.log(`Updated ${increments} origins.`)
     },
 
     [SET_ORIGINS_HEALTH](state, healths) {
+        let increments = 0
+
         healths.forEach((entry) => {
             if (state.all[entry.id]) {
-                Vue.set(state.all, entry.id, Object.assign(state.all[entry.id], {
-                    health: entry.health
-                }))
+                if (state.all[entry.id].health !== entry.health) {
+                    Vue.set(state.all, entry.id, Object.assign(state.all[entry.id], {
+                        health: entry.health
+                    }))
+
+                    increments += 1
+                }
             } else {
                 console.warn('Trying to set health for non-existant resource: ', entry)
             }
         })
+
+        console.log(`Updated ${increments} origins.`)
     }
 }

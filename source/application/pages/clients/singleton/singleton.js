@@ -7,6 +7,12 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
+    computed: {
+        client () {
+            return this.$store.state.clients.all[this.$route.params.id]
+        }
+    },
+
     created: function() {
         this.load(this.$route.params.id)
     },
@@ -55,8 +61,6 @@ export default {
 
     data() {
         return {
-            // Page data
-            client: false,
             origins: [],
 
             // Chart configuration

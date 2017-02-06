@@ -1,3 +1,3 @@
 export default {
-    all: {}
+    all: JSON.parse(localStorage.getItem('vuex')).clusters.all || {}
 }

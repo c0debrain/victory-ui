@@ -7,9 +7,9 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
-    data() {
-        return {
-            clients: false
+    computed: {
+        clients () {
+            return this.$store.state.clients.all
         }
     },
 
@@ -19,11 +19,7 @@ export default {
 
     methods: {
         loadAll() {
-            // this.$Progress.start()
-            clientService.findAll().then(() => {
-                this.clients = store.state.clients.all
-            })
-            // .then(this.$Progress.finish())
+            clientService.findAll()
         }
     },
 

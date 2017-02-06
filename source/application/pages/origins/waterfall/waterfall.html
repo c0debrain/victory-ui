@@ -12,10 +12,8 @@
         >
             <waterfall-slot
                 v-for="(origin, index) in origins"
-                v-if="origin.health !== false"
                 :width="200"
                 :height="200"
-                :order="origin.health"
                 :key="origin.id"
             >
                 <waterfall-resource

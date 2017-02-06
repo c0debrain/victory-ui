@@ -14,9 +14,9 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
-    data() {
-        return {
-            datacenters: false
+    computed: {
+        datacenters () {
+            return this.$store.state.datacenters.all
         }
     },
 
@@ -26,9 +26,7 @@ export default {
 
     methods: {
         loadAll() {
-            datacenterService.findAll().then(() => {
-                this.datacenters = store.state.datacenters.all
-            })
+            datacenterService.findAll()
         }
     },
 

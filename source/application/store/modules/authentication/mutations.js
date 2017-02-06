@@ -9,15 +9,15 @@ export default {
     [CHECK_AUTHENTICATION](state) {
         state.authenticated = !!localStorage.getItem('token')
         if (state.authenticated) {
-            Vue.$http.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token.auth_token')}`
+            Vue.$http.defaults.headers.common.Authorization = `Bearer ${JSON.parse(localStorage.getItem('token')).auth_token}`
         }
     },
 
     [LOGIN](state, data) {
         state.authenticated = true
         state.user = data.user
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('user', data.user)
+        localStorage.setItem('token', JSON.stringify(data.token))
+        localStorage.setItem('user', JSON.stringify(data.user))
         Vue.$http.defaults.headers.common.Authorization = `Bearer ${data.token}`
     },
 

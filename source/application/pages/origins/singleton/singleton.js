@@ -9,6 +9,12 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
+    computed: {
+        origin() {
+            return this.$store.state.origins.all[this.$route.params.id]
+        }
+    },
+
     created: function() {
         this.load(this.$route.params.id)
     },
@@ -80,8 +86,6 @@ export default {
 
     data() {
         return {
-            // Page data
-            origin: false,
             targets: [],
             health_history: [],
 

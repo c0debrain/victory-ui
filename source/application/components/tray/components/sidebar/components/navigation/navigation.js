@@ -14,6 +14,9 @@ export default {
                     name: 'waterfall.collection',
                     title: 'Waterfall'
                 }, {
+                    name: 'origins.collection',
+                    title: 'Origins Collection'
+                }, {
                     name: 'origins.waterfall',
                     title: 'Origins Waterfall'
                 }
