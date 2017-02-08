@@ -1,8 +1,16 @@
 <template>
-    <div>
+    <div class="application">
         <router-view></router-view>
     </div>
 </template>
+
+<style media="screen">
+    .application {
+        height: 100%;
+        width: 100%;
+        display: flex;
+    }
+</style>
 
 <script>
     /* ============

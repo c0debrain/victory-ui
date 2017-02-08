@@ -1,20 +1,25 @@
 <layout>
     <div slot="header" :menu="menu">
-        <div class="col-md-12">
-            <h1>Origins Waterfall View</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Origins Waterfall View</h1>
+            </div>
         </div>
     </div>
 
     <div slot="body" v-if="origins">
         <waterfall
+            :line="v"
             :line-gap="80"
-            :watch="origins"
+            :watch="origins.length"
+            ref="waterfall"
         >
             <waterfall-slot
                 v-for="(origin, index) in origins"
-                :width="200"
-                :height="200"
+                :width="80"
+                :height="80"
                 :key="origin.id"
+                :order="origin.health"
             >
                 <waterfall-resource
                     :short="origin.name.replace(/www./g, '')"
@@ -22,6 +27,7 @@
                     :idlink="origin.id"
                     :health="origin.health"
                     :resource="'origins'"
+                    :title="origin.name"
                 >
                 </waterfall-resource>
             </waterfall-slot>

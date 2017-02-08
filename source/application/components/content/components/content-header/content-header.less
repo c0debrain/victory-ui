@@ -4,6 +4,45 @@
    Content Header
    ========================================================================== */
 
+.content-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.row-title {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1.page-title {
+        flex: 1;
+        padding: 0 20px;
+        font-size: 28px;
+    }
+}
+
+.row-navigation {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E6EAEE;
+    border-top: 1px solid #ecf2f5;
+
+    ul {
+        display: flex;
+        flex-direction: row;
+
+        li {
+            flex: 1;
+            cursor: pointer;
+            font-size: 16px;
+            color: #7F8FA4;
+        }
+    }
+}
+
 section.page-control {
     .row-title {
         padding: 0 20px;

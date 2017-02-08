@@ -8,44 +8,36 @@ ul.navigation {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: block;
-    float: left;
-    width: 100%;
     margin: 15px 0 25px;
     border-bottom: 1px solid #2a3547;
     padding-bottom: 15px;
 
     li {
         display: block;
-        height: 36px;
+        transition: all 0.2s ease-in-out;
+        text-decoration: none;
+        color: @text-regular-gray;
+        font-size: 15px;
+        font-family: @font-text, sans-serif;
+        line-height: 36px;
 
-        a {
-            text-decoration: none;
+        i.fa {
             color: @text-regular-gray;
-            font-size: 15px;
-            font-family: @font-text, sans-serif;
-            line-height: 36px;
-            height: 100%;
-            display: block;
             float: left;
+            display: block;
+            height: 100%;
+            padding: 10px 10px 10px 0;
+            font-size: 18px;
+            width: 30px;
+            text-align: center;
+        }
+
+        &:hover {
+            cursor: pointer;
+            color: @text-hover-gray;
 
             i.fa {
-                color: @text-regular-gray;
-                float: left;
-                display: block;
-                height: 100%;
-                padding: 10px 10px 10px 0;
-                font-size: 18px;
-                width: 30px;
-                text-align: center;
-            }
-
-            &:hover {
                 color: @text-hover-gray;
-
-                i.fa {
-                    color: @text-hover-gray;
-                }
             }
         }
 

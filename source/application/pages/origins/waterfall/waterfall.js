@@ -10,7 +10,7 @@ export default {
     },
 
     computed: {
-        origins () {
+        origins() {
             const origins = this.$store.state.origins.all
             return Object.keys(origins)
                 .filter(key => origins[key].health !== false)
@@ -24,11 +24,7 @@ export default {
 
     methods: {
         loadAll() {
-            originService.findAll().then(() => {
-                this.origins = store.state.origins.all
-            })
-
-            console.log('this.$store', this.$store)
+            originService.findAll()
         }
     },
 

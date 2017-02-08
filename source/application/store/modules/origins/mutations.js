@@ -42,7 +42,13 @@ export default {
         collection.forEach((singleton) => {
             const current = state.all[singleton.id]
 
-            if (current.name !== singleton.name && current.id !== singleton.id) {
+            // console.log(current.importance, singleton.importance)
+
+            if (!current || (
+                current.name !== singleton.name &&
+                current.id !== singleton.id &&
+                current.importance !== singleton.importance
+            )) {
                 Vue.set(state.all, singleton.id, singleton)
                 increments += 1
             }
