@@ -17,18 +17,17 @@
 
     h1.page-title {
         flex: 1;
-        padding: 0 20px;
-        font-size: 28px;
+        margin: 0 25px;
+        font-size: 24px;
     }
 }
 
 .row-navigation {
-    height: 50px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #E6EAEE;
-    border-top: 1px solid #ecf2f5;
 
     ul {
         display: flex;
@@ -36,81 +35,21 @@
         list-style: none;
         flex: 1;
         height: 100%;
+        border-top: 1px solid #ecf2f5;
+        margin: 0 25px;
 
         li {
             cursor: pointer;
             font-size: 16px;
-            color: #7F8FA4;
+            color: @inactive-menu-item;
             cursor: pointer;
             margin: 0 25px;
-            line-height: 48px;
+            line-height: 58px;
 
-            &:hover {
-                color: @text-faded-gray;
-            }
-        }
-    }
-}
-
-section.page-control {
-    .row-title {
-        padding: 0 20px;
-        height: 80px;
-
-        div {
-            height: 100%;
-
-            h1 {
-                font-size: 28px;
-                padding: 25px 0px;
-            }
-
-            .date {
-                padding: 21px 0px;
-            }
-        }
-    }
-
-    .row-tabs {
-        padding: 0 20px;
-        border-bottom: 1px solid #E6EAEE;
-
-        ul {
-            display: block;
-            list-style: none;
-            float: left;
-            height: 100%;
-            width: 100%;
-            border-top: 1px solid #ecf2f5;
-
-            li {
-                display: block;
-                float: left;
-                padding: 21px 0;
-                margin: 0 25px;
-                height: 100%;
-                cursor: pointer;
-                font-size: 16px;
-                color: #7F8FA4;
-
-                &:first-child {
-                    margin-left: 0;
-                }
-
-                &:last-child {
-                    margin-right: 0;
-                }
-
-                &.active {
-                    border-bottom: 3px solid #2EA2F8;
-                    padding-bottom: 18px;
-                    color: #354052;
-                }
-
-                &:hover {
-                    color: #FF0000;
-                }
-            }
+            &:hover { color: @dark-blue-gray; }
+            &.active { color: @dark-blue-gray; border-bottom: 3px solid @color-bg-blue; }
+            &:first-child { margin-left: 0; }
+            &:last-child { margin-right: 0; }
         }
     }
 }

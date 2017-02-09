@@ -8,9 +8,6 @@ ul.navigation {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    margin: 15px 0 25px;
-    border-bottom: 1px solid #2a3547;
-    padding-bottom: 15px;
 
     li {
         display: block;
@@ -20,6 +17,7 @@ ul.navigation {
         font-size: 15px;
         font-family: @font-text, sans-serif;
         line-height: 36px;
+        padding: 0 30px;
 
         i.fa {
             color: @text-regular-gray;
@@ -39,6 +37,10 @@ ul.navigation {
             i.fa {
                 color: @text-hover-gray;
             }
+        }
+
+        .touch-ripple {
+            color: rgba(0, 0, 0, 0.55);
         }
 
         &.inactive * {

@@ -1,5 +1,11 @@
 <ul class="navigation">
-    <router-link v-for="item in menu" :to="{ name: item.name }" active-class="active" class="nav-item" tag="li">
+    <router-link
+        v-for="item in menu"
+        :to="{ name: item.name }"
+        active-class="active"
+        class="nav-item"
+        tag="li"
+    >
         {{ item.title }}
         <span v-if="item.badge" class="badge" :class="item.badge.type">{{ item.badge.content }}</span>
     </router-link>

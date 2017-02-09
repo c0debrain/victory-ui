@@ -194,9 +194,22 @@ Vue.use(VueProgressBar, {
 Vue.$Progress = Vue.prototype.$Progress
 
 
-import MaterialUI from 'muse-ui'
+/* ============
+ * Vue Touch Ripple
+ * ============
+ *
+ * Touch ripple component for Vue.js(1.x ~ 2.x)
+ *
+ * https://github.com/surmon-china/vue-touch-ripple
+ */
+import VueTouchRipple from 'vue-touch-ripple'
 
-Vue.use(MaterialUI)
+Vue.use(VueTouchRipple)
+
+
+import KeenUI from 'keen-ui'
+
+Vue.use(KeenUI)
 
 
 /* ============

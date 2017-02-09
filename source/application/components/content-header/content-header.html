@@ -9,10 +9,9 @@
                 v-for="tab in tabs"
                 :to="{ name: tab.view }"
                 active-class="active"
-                class="nav-item"
                 tag="li"
-            >
-                {{ tab.name }}
+                exact
+            >{{ tab.name }}
             </router-link>
         </ul>
     </div>
