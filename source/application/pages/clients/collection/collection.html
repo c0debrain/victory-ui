@@ -2,7 +2,7 @@
     <div slot="body" class="row-resource">
         <resource
             v-for="client in clients"
-            :abbreviation="client.id"
+            :identifier="client.id"
             :name="client.name"
             :health="client.health"
             :resource="'clients'">

@@ -7,12 +7,13 @@
 .resource {
     background: #FFF;
     border: solid 1px #d8e2e7;
-    border-radius: 4px;
     width: 20%;
     margin: 8px;
     flex-grow: 1;
     position: relative;
     z-index: 5;
+    border-radius: 4px;
+    cursor: pointer;
 
     .title {
         padding: 15px 100px 15px 15px;
@@ -25,7 +26,7 @@
         z-index: 15;
     }
 
-    .abbreviation {
+    .background-text {
         position: absolute;
         display: flex;
         flex: 1;
@@ -44,5 +45,33 @@
         -moz-user-select: none;         /* Konqueror */
         -ms-user-select: none;          /* Firefox */
         user-select: none;              /* Internet Explorer/Edge */
+    }
+
+    ul.health-bar {
+        height: 4px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        background: @color-red;
+
+        &:hover { height: 8px; }
+
+        li {
+            display: block;
+            float: left;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+
+            &.stable {
+                width: 33%;
+                background: @color-green;
+            }
+        }
     }
 }

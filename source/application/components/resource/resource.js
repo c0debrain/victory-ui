@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 export default {
     props: {
-        abbreviation: {
+        identifier: {
             required: true
         },
         name: {
@@ -24,10 +24,12 @@ export default {
 
     methods: {
         enterResource: function(resource) {
+            if (!this.resource || !this.identifier) return
+
             Vue.router.push({
                 name: `${this.resource}.singleton`,
                 params: {
-                    id: this.abbreviation
+                    id: this.identifier
                 }
             })
         }

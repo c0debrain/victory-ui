@@ -1,9 +1,9 @@
-<div class="resource"  @click="enterResource()">
+<div class="resource"  v-on:click="enterResource()">
     <h3 class="title">{{ name.replace('www.', '') }}</h3>
-    <span class="abbreviation">{{ health === false ? 'None': health.toFixed(1) + '%' }}</span>
 
-    <ul class="health" v-if="health !== false">
+    <span class="background-text">{{ health === false ? 'None': health.toFixed(1) + '%' }}</span>
+
+    <ul class="health-bar" v-if="health !== false">
         <li class="stable" :style="{ width: health + '%' }"></li>
-        <li class="danger" :style="{ width: (100 - health) + '%' }"></li>
     </ul>
 </div>

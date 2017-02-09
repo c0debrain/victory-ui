@@ -1,17 +1,16 @@
-<layout>
-    <div slot="header">
-        <div class="col-md-12">
-            <h1>[{{ datacenter.id }}] {{ datacenter.name }}</h1>
-        </div>
-    </div>
+<layout :title="datacenter.name">
+    <div slot="body" class="page singleton">
+        <highcharts
+            :options="options"
+            ref="highcharts"
+            class="chart-container"
+            :class="{ 'no-history': !health }">
+        </highcharts>
 
-    <div slot="body">
-        <highcharts :options="options" ref="highcharts"></highcharts>
-
-        <div class="row mt-3">
+        <div class="row-resource">
             <resource
                 v-for="cluster in clusters"
-                :abbreviation="cluster.id"
+                :identifier="cluster.id"
                 :name="cluster.name"
                 :health="cluster.health"
                 :resource="'clusters'">

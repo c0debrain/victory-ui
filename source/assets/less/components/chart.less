@@ -1,0 +1,34 @@
+.chart-container {
+    display: flex;
+    flex: 1 1 auto;
+    max-height: 400px;
+    margin: 20px 20px 0 20px;
+    position: relative;
+
+    &.no-history {
+        &:before {
+            content: 'No Health History';
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 20;
+            height: 100%;
+            width: 100%;
+            line-height: 400px;
+            text-align: center;
+            font-size: 56px;
+            text-transform: uppercase;
+        }
+
+        .highcharts-container {
+            -webkit-filter: blur(3px);
+            filter: blur(3px);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;      /* iOS Safari */
+            -khtml-user-select: none;       /* Chrome/Safari/Opera */
+            -moz-user-select: none;         /* Konqueror */
+            -ms-user-select: none;          /* Firefox */
+            user-select: none;              /* Internet Explorer/Edge */
+        }
+    }
+}

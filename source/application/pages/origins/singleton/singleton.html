@@ -1,17 +1,11 @@
-<layout>
-    <div slot="header">
-        <div class="col-md-12">
-            <h1>[{{ origin.id }}] {{ origin.name }}</h1>
-        </div>
-    </div>
+<layout :title="origin.name" :tabs="tabs">
+    <div slot="body" class="page singleton">
+        <highcharts :options="options" ref="highcharts" class="chart-container"></highcharts>
 
-    <div slot="body">
-        <highcharts :options="options" ref="highcharts"></highcharts>
-
-        <div class="row mt-3">
+        <div class="row-resource">
             <resource
                 v-for="target in targets"
-                :abbreviation="target.id"
+                :identifier="target.id"
                 :name="target.name"
                 :health="target.health"
                 :resource="'targets'">

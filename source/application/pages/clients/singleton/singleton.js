@@ -62,6 +62,7 @@ export default {
     data() {
         return {
             origins: [],
+            health: false,
 
             // Chart configuration
             options: {

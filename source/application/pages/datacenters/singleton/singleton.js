@@ -64,6 +64,7 @@ export default {
         return {
             datacenter: false,
             clusters: [],
+            health: false,
 
             options: {
                 chart: {
@@ -122,7 +123,7 @@ export default {
                 },
                 series: [{
                     name: 'Performance',
-                    data: [50, 50],
+                    data: [45, 45],
                     type: 'area',
                     color: "#2099ea",
                     lineWidth: 1,
