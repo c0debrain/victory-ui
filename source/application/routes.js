@@ -26,22 +26,9 @@ export default [
     },
 
 
-    // Waterfall
-    {
-        path: '/waterfall',
-        name: 'waterfall.collection',
-        component: require('pages/waterfall/collection/collection.vue'),
-
-        // If the user needs to be authenticated to view this page
-        meta: {
-            authentication: true
-        }
-    },
-
-
     // Datacenters
     {
-        path: '/datacenters',
+        path: '/datacenters/collection',
         name: 'datacenters.collection',
         component: require('pages/datacenters/collection/collection.vue'),
 
@@ -50,9 +37,16 @@ export default [
             authentication: true
         }
     },
-
-
-    // Datacenters Singleton
+    // {
+    //     path: '/datacenters/waterfall',
+    //     name: 'datacenters.waterfall',
+    //     component: require('pages/datacenters/waterfall/waterfall.vue'),
+    //
+    //     // If the user needs to be authenticated to view this page
+    //     meta: {
+    //         authentication: true
+    //     }
+    // },
     {
         path: '/datacenters/:id',
         name: 'datacenters.singleton',
@@ -76,9 +70,6 @@ export default [
             authentication: true
         }
     },
-
-
-    // Clients Singleton
     {
         path: '/clients/:id',
         name: 'clients.singleton',
@@ -102,9 +93,6 @@ export default [
             authentication: true
         }
     },
-
-
-    // Origins
     {
         path: '/origins/waterfall',
         name: 'origins.waterfall',
@@ -115,9 +103,6 @@ export default [
             authentication: true
         }
     },
-
-
-    // Origins Singleton
     {
         path: '/origins/:id',
         name: 'origins.singleton',

@@ -1,19 +1,11 @@
-<layout>
-    <div slot="header">
-        <div class="col-md-12">
-            <h1>Datacenters Collection View</h1>
-        </div>
-    </div>
-
-    <div slot="body">
-        <div class="row">
-            <resource
-                v-for="datacenter in datacenters"
-                :abbreviation="datacenter.id"
-                :name="datacenter.name"
-                :health="datacenter.health"
-                :resource="'datacenters'">
-            </resource>
-        </div>
+<layout :title="title" :tabs="tabs">
+    <div slot="body" class="row-resource">
+        <resource
+            v-for="datacenter in datacenters"
+            :abbreviation="datacenter.id"
+            :name="datacenter.name"
+            :health="datacenter.health"
+            :resource="'datacenters'">
+        </resource>
     </div>
 </layout>

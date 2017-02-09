@@ -177,19 +177,6 @@ Vue.use(VueHighcharts)
 
 
 /* ============
- * Vue Bootstrap
- * ============
- *
- * Twitter Bootstrap 4 Components For Vue.js 2
- *
- * https://bootstrap-vue.github.io/
- */
-import BootstrapVue from 'bootstrap-vue'
-
-Vue.use(BootstrapVue)
-
-
-/* ============
  * Vue Progress Bar
  * ============
  *
@@ -205,6 +192,11 @@ Vue.use(VueProgressBar, {
     thickness: '4px'
 })
 Vue.$Progress = Vue.prototype.$Progress
+
+
+import MaterialUI from 'muse-ui'
+
+Vue.use(MaterialUI)
 
 
 /* ============

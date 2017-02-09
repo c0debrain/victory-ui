@@ -1,3 +1,3 @@
 export default {
-    all: JSON.parse(localStorage.getItem('vuex')).datacenters.all || {}
+    all: localStorage.getItem('vuex') ? (JSON.parse(localStorage.getItem('vuex')).datacenters.all || {}) : {}
 }

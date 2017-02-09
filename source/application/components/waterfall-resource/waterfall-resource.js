@@ -2,9 +2,6 @@ import Vue from 'vue'
 
 export default {
     props: {
-        short: {
-            required: true
-        },
         name: {
             type: String,
             required: true

@@ -42,8 +42,6 @@ export default {
         collection.forEach((singleton) => {
             const current = state.all[singleton.id]
 
-            // console.log(current.importance, singleton.importance)
-
             if (!current || (
                 current.name !== singleton.name &&
                 current.id !== singleton.id &&

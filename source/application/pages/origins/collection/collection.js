@@ -4,8 +4,20 @@ import originService from 'services/origins'
 export default {
     components: {
         'layout': require('layouts/default/default.vue'),
-        'resource': require('components/resource/resource.vue'),
-        'tooltip': require('bootstrap-vue/components/tooltip')
+        'resource': require('components/resource/resource.vue')
+    },
+
+    data() {
+        return {
+            title: 'Origins',
+            tabs: [{
+                name: 'Collection',
+                view: 'origins.collection'
+            }, {
+                name: 'Waterfall',
+                view: 'origins.waterfall'
+            }]
+        }
     },
 
     computed: {

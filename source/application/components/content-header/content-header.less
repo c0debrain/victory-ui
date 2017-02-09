@@ -23,7 +23,7 @@
 }
 
 .row-navigation {
-    height: 40px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,12 +33,21 @@
     ul {
         display: flex;
         flex-direction: row;
+        list-style: none;
+        flex: 1;
+        height: 100%;
 
         li {
-            flex: 1;
             cursor: pointer;
             font-size: 16px;
             color: #7F8FA4;
+            cursor: pointer;
+            margin: 0 25px;
+            line-height: 48px;
+
+            &:hover {
+                color: @text-faded-gray;
+            }
         }
     }
 }

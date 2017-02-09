@@ -11,14 +11,8 @@ export default {
                     name: 'clients.collection',
                     title: 'Clients'
                 }, {
-                    name: 'waterfall.collection',
-                    title: 'Waterfall'
-                }, {
                     name: 'origins.collection',
-                    title: 'Origins Collection'
-                }, {
-                    name: 'origins.waterfall',
-                    title: 'Origins Waterfall'
+                    title: 'Origins'
                 }
             ]
         }

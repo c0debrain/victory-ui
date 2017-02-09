@@ -14,6 +14,21 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
+    data() {
+        return {
+            title: 'Datacenters',
+            tabs: [{
+                name: 'Collection',
+                view: 'datacenters.collection'
+            },
+            // {
+            //     name: 'Waterfall',
+            //     view: 'datacenters.waterfall'
+            // }
+            ]
+        }
+    },
+
     computed: {
         datacenters () {
             return this.$store.state.datacenters.all

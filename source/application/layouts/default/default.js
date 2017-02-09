@@ -11,13 +11,26 @@
 import authenticationService from './../../services/authentication'
 
 export default {
+    components: {
+        'tray': require('components/tray/tray.vue'),
+        'content-header': require('components/content-header/content-header.vue'),
+        'content-body': require('components/content-body/content-body.vue')
+    },
+
+    props: {
+        title: {
+            type: String,
+            default: 'Worldview'
+        },
+        tabs: {
+            type: Array,
+            default: () => []
+        }
+    },
+
     methods: {
         logout() {
             authenticationService.logout()
         }
-    },
-    components: {
-        'v-tray':  require('components/tray/tray.vue'),
-        'v-content': require('components/content/content.vue')
     }
 }

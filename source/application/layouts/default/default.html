@@ -1,12 +1,12 @@
 <div class="layout">
-    <!-- <vue-progress-bar></vue-progress-bar> -->
-    <v-tray></v-tray>
-    <v-content>
-        <div slot="header">
-            <slot name="header"></slot>
-        </div>
-        <div slot="body">
+    <vue-progress-bar></vue-progress-bar>
+    <tray></tray>
+
+    <div class="content">
+        <content-header :title="title" :tabs="tabs"></content-header>
+
+        <div class="content-body" slot="body">
             <slot name="body"></slot>
         </div>
-    </v-content>
+    </div>
 </div>

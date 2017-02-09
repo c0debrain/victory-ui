@@ -1,36 +1,11 @@
-<layout>
-    <div slot="header" :menu="menu">
-        <div class="row">
-            <div class="col-md-4">
-                <h1>Origins Waterfall View</h1>
-            </div>
-        </div>
-    </div>
-
-    <div slot="body" v-if="origins">
-        <waterfall
-            :line="v"
-            :line-gap="80"
-            :watch="origins.length"
-            ref="waterfall"
-        >
-            <waterfall-slot
-                v-for="(origin, index) in origins"
-                :width="80"
-                :height="80"
-                :key="origin.id"
-                :order="origin.health"
-            >
-                <waterfall-resource
-                    :short="origin.name.replace(/www./g, '')"
-                    :name="origin.name"
-                    :idlink="origin.id"
-                    :health="origin.health"
-                    :resource="'origins'"
-                    :title="origin.name"
-                >
-                </waterfall-resource>
-            </waterfall-slot>
-        </waterfall>
+<layout :title="title" :tabs="tabs">
+    <div slot="body" class="row-waterfall-resource" v-if="origins">
+        <waterfall-resource
+            v-for="origin in origins"
+            :health="origin.health"
+            :resource="'origins'"
+            :name="origin.name"
+            :title="origin.name">
+        </waterfall-resource>
     </div>
 </layout>

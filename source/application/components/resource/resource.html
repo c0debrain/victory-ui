@@ -1,18 +1,9 @@
-<div class="col-md-4 resource">
-    <section class="box-typical" @click="enterResource()">
-        <header class="box-typical-header">
-            <ul class="health" v-if="health !== false">
-                <li class="stable" :style="{ width: health + '%' }"></li>
-                <li class="danger" :style="{ width: (100 - health) + '%' }"></li>
-            </ul>
+<div class="resource"  @click="enterResource()">
+    <h3 class="title">{{ name.replace('www.', '') }}</h3>
+    <span class="abbreviation">{{ health === false ? 'None': health.toFixed(1) + '%' }}</span>
 
-            <div class="tbl-row">
-                <div class="tbl-cell tbl-cell-title">
-                    <h3>{{ name }}</h3>
-                </div>
-            </div>
-
-            <div class="abbreviation">{{ abbreviation }}</div>
-        </header>
-    </section>
+    <ul class="health" v-if="health !== false">
+        <li class="stable" :style="{ width: health + '%' }"></li>
+        <li class="danger" :style="{ width: (100 - health) + '%' }"></li>
+    </ul>
 </div>

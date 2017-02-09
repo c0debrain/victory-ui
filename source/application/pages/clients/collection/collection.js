@@ -7,6 +7,21 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
+    data() {
+        return {
+            title: 'Clients',
+            tabs: [{
+                name: 'Collection',
+                view: 'clients.collection'
+            },
+            // {
+            //     name: 'Waterfall',
+            //     view: 'clients.waterfall'
+            // }
+            ]
+        }
+    },
+
     computed: {
         clients () {
             return this.$store.state.clients.all
