@@ -17,17 +17,19 @@ export default {
             type: String,
             required: false
         },
-        idlink: {
+        identifier: {
             type: Number
         }
     },
 
     methods: {
         enterResource: function(resource) {
+            if (!this.resource || !this.identifier) return
+
             Vue.router.push({
                 name: `${this.resource}.singleton`,
                 params: {
-                    id: this.idlink
+                    id: this.identifier
                 }
             })
         }

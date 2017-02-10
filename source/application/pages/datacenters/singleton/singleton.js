@@ -20,8 +20,17 @@ export default {
 
     methods: {
         load(id) {
-            this.$socket.emit('datacenter:health:history', id)
+            // Autofill datacenter from store IF exists
+            if (store.state.datacenters.all[id]) {
+                this.datacenter = store.state.datacenters.all[id]
 
+                // Autofill clusters from store IF exists
+                if (store.state.datacenters.all[id].clusters && store.state.datacenters.all[id].clusters.length > 0) {
+                    this.clusters = store.getters.getClusters(store.state.datacenters.all[id].clusters)
+                }
+            }
+
+            // Retrieve fresh data from API
             datacenterService.find(id).then(() => {
                 this.datacenter = store.state.datacenters.all[id]
 

@@ -1,11 +1,35 @@
 <layout :title="origin.name" :tabs="tabs">
     <div slot="body" class="page singleton">
-        <highcharts
+        <highstock
             :options="options"
             ref="highcharts"
             class="chart-container"
-            :class="{ 'no-history': !health_history }">
-        </highcharts>
+            :class="{ 'no-history': health_history.length === 0 }">
+        </highstock>
+
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>Start Time</td>
+                        <td>Reasoning</td>
+                        <td>Decision</td>
+                        <td>Decision Time</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="dispatch in dispatches">
+                        <td>{{ dispatch.noc_dispatch_start_dtm | moment("MMM Do, hh:mm A") }}</td>
+                        <td>{{ dispatch.noc_dispatch_reason }}</td>
+                        <td>{{ dispatch.noc_pager_reason || 'No alert necessary' }}</td>
+                        <td>{{ dispatch.noc_dispatch_last_considered_dtm | moment("MMM Do, hh:mm A") }}</td>
+                    </tr>
+                    <tr v-if="dispatches.length === 0">
+                        <td class="text-center" colspan="4">There are no dispatch alerts for this origin.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="row-resource">
             <resource

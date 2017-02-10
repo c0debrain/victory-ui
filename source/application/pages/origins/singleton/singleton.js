@@ -10,8 +10,14 @@ export default {
     },
 
     computed: {
-        origin() {
-            return this.$store.state.origins.all[this.$route.params.id]
+        origin() { return this.$store.state.origins.all[this.$route.params.id] },
+
+
+        // Chart configuration
+        options() {
+            return chartConstructor({
+                series: [{ name: 'Health', data: this.health_history }]
+            })
         }
     },
 
@@ -21,6 +27,16 @@ export default {
 
     methods: {
         load(id) {
+            // Autofill datacenter from store IF exists
+            if (store.state.origins.all[id]) {
+                this.origin = store.state.origins.all[id]
+
+                // Autofill clusters from store IF exists
+                if (store.state.origins.all[id].targets && store.state.origins.all[id].targets.length > 0) {
+                    this.targets = store.getters.getTargets(store.state.origins.all[id].targets)
+                }
+            }
+
             // Retrieve origin from API
             originService.find(id).then(() => {
                 this.origin = store.state.origins.all[id]
@@ -32,15 +48,16 @@ export default {
 
                 // Retrieve health history from API
                 originService.findHealthHistory(id).then((history) => {
+                    this.health_history = history
+                        .map(health => [
+                            moment.utc(health.health_dtm).valueOf(),
+                            health.statistic_health_score
+                        ])
+                        .sort((previous, current) => current[0] > previous[0] ? -1 : 1)
+                })
 
-                    // Push health onto chart
-                    history.forEach(health => {
-                        this.options.series[0].data.push([moment(health.health_dtm).calendar(), health.statistic_health_score])
-                        this.options.xAxis.categories.push(moment(health.health_dtm).format('hh:mm A'))
-                    })
-
-                // Extend chart edges beyond boundaries
-                }).then(() => edgeExtend(this.$refs.highcharts.chart))
+                // Retrieve health history from API
+                originService.findDispatchHistory(id).then((history) => { this.dispatches = history })
             })
         }
     },
@@ -87,14 +104,8 @@ export default {
     data() {
         return {
             targets: [],
-            health_history: [],
-
-            // Chart configuration
-            options: chartConstructor({
-                series: [{
-                    name: 'Health'
-                }]
-            })
+            dispatches: [],
+            health_history: []
         }
     }
 }

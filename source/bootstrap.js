@@ -172,8 +172,9 @@ window.$ = window.jQuery = jQuery
  * http://highcharts.com/
  */
 import VueHighcharts from 'vue-highcharts'
+import Highcharts from 'highcharts/highstock'
 
-Vue.use(VueHighcharts)
+Vue.use(VueHighcharts, { Highcharts })
 
 
 /* ============
@@ -220,8 +221,12 @@ Vue.$Progress = Vue.prototype.$Progress
  *
  * http://highcharts.com/
  */
+
+import VueMoment from 'vue-moment'
+
 global.moment = require('moment')
 
+Vue.use(VueMoment)
 
 /* ============
  * Bootstrap
@@ -231,9 +236,9 @@ global.moment = require('moment')
  *
  * http://getbootstrap.com/
  */
-// global.Tether = require('tether')
-// require('bootstrap')
-// require('bootstrap/scss/bootstrap.scss')
+global.Tether = require('tether')
+require('bootstrap')
+require('bootstrap/scss/bootstrap.scss')
 // require('keen-ui/dist/keen-ui.min.css')
 
 
