@@ -202,14 +202,14 @@ Vue.$Progress = Vue.prototype.$Progress
  *
  * https://github.com/surmon-china/vue-touch-ripple
  */
-import VueTouchRipple from 'vue-touch-ripple'
+// import VueTouchRipple from 'vue-touch-ripple'
+//
+// Vue.use(VueTouchRipple)
 
-Vue.use(VueTouchRipple)
 
-
-import KeenUI from 'keen-ui'
-
-Vue.use(KeenUI)
+// import KeenUI from 'keen-ui'
+//
+// Vue.use(KeenUI)
 
 
 /* ============
@@ -231,9 +231,10 @@ global.moment = require('moment')
  *
  * http://getbootstrap.com/
  */
-global.Tether = require('tether')
-require('bootstrap')
-require('bootstrap/scss/bootstrap.scss')
+// global.Tether = require('tether')
+// require('bootstrap')
+// require('bootstrap/scss/bootstrap.scss')
+// require('keen-ui/dist/keen-ui.min.css')
 
 
 /* ============

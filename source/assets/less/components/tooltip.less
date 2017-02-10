@@ -6,3 +6,55 @@
 /* ==========================================================================
    Tooltips
    ========================================================================== */
+
+[tooltip] {
+    &:hover .tooltip {
+        opacity: 1;
+    }
+
+    .tooltip {
+        opacity: 0;
+        width: 200px;
+        height: 30px;
+        top: -30px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        position: absolute;
+        z-index: 1;
+        display: block;
+
+        -webkit-transition: all .2s ease-in-out;
+        -o-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+
+        span.text {
+            border-radius: 6px;
+            padding: 5px 10px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: relative;
+            background-color: black;
+            color: #fff;
+            white-space: nowrap;
+            text-align: center;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        &:before {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+
+            bottom: -5px;
+            left: 50%;
+            margin-left: -5px;
+            content: "";
+            border-width: 5px 5px 0;
+            border-top-color: #000;
+        }
+    }
+}

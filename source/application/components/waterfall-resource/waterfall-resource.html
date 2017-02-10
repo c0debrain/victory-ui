@@ -1,7 +1,10 @@
-<div class="waterfall-resource" :class="{
-    'good': health !== false && health >= 95,
-    'decent': health !== false && health >= 80 && health < 95,
-    'bad': health !== false && health < 80
-}">
-    <span class="health">{{ health === false ? 'None': health.toFixed(1) + '%' }}</span>
+<div class="waterfall-resource"
+    tooltip
+    :class="{
+        'good': health !== false && health >= 95,
+        'decent': health !== false && health >= 80 && health < 95,
+        'bad': health !== false && health < 80
+    }">
+    <span class="health" ref="name">{{ health === false ? 'None': health.toFixed(1) + '%' }}</span>
+    <div class="tooltip"><span class="text">{{ name.replace('www.', '') }}</span></div>
 </div>
