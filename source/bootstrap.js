@@ -203,11 +203,11 @@ Vue.$Progress = Vue.prototype.$Progress
  *
  * https://github.com/surmon-china/vue-touch-ripple
  */
-// import VueTouchRipple from 'vue-touch-ripple'
+import VueTouchRipple from 'vue-touch-ripple'
+
+Vue.use(VueTouchRipple)
+
 //
-// Vue.use(VueTouchRipple)
-
-
 // import KeenUI from 'keen-ui'
 //
 // Vue.use(KeenUI)

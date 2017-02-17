@@ -1,5 +1,5 @@
-<layout :title="title" :tabs="tabs">
-    <div slot="body" class="row-resource">
+<div class="page collection">
+    <div class="row-resource">
         <resource
             v-for="origin in origins"
             :identifier="origin.id"
@@ -8,4 +8,4 @@
             :resource="'origins'">
         </resource>
     </div>
-</layout>
+</div>

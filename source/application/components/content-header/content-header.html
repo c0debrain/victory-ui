@@ -3,7 +3,7 @@
         <h1 class="page-title">{{ title }}</h1>
     </div>
 
-    <div class="row-navigation row-white" v-if="tabs.length > 0">
+    <div class="row-navigation row-white" v-if="tabs.length > 0 && isTabbed">
         <ul>
             <router-link
                 v-for="tab in tabs"

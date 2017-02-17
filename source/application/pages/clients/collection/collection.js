@@ -3,22 +3,15 @@ import clientService from 'services/clients'
 
 export default {
     components: {
-        'layout': require('layouts/default/default.vue'),
         'resource': require('components/resource/resource.vue')
     },
 
     data() {
         return {
-            title: 'Clients',
             tabs: [{
                 name: 'Collection',
                 view: 'clients.collection'
-            },
-            // {
-            //     name: 'Waterfall',
-            //     view: 'clients.waterfall'
-            // }
-            ]
+            }]
         }
     },
 

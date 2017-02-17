@@ -1,5 +1,5 @@
-<layout :title="title" :tabs="tabs">
-    <div slot="body" class="row-resource">
+<div class="page collection">
+    <div class="row-resource">
         <resource
             v-for="datacenter in datacenters"
             :identifier="datacenter.id"
@@ -8,4 +8,4 @@
             :resource="'datacenters'">
         </resource>
     </div>
-</layout>
+</div>

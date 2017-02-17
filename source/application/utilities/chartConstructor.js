@@ -93,7 +93,7 @@ export default configuration => ({
         },
         offset: -5,
         gridlineWidth: 1,
-        gridLineColor: '#d8e2e7',
+        gridLineColor: '#d8e2e7'
         // plotLines: [{
         //     value: 80,
         //     color: '#FFDF6D',

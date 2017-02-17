@@ -1,25 +1,26 @@
-import { UiRippleInk } from 'keen-ui';
-
-
 export default {
-    components: {
-        'ui-ripple': UiRippleInk
-    },
-
     data: () => {
         return {
             menu: [{
                 name: 'home.index',
-                title: 'Overview'
+                title: 'Overview',
+                icon: 'fa-tachometer'
             }, {
-                name: 'datacenters.collection',
-                title: 'Datacenters'
+                name: 'datacenters',
+                title: 'Datacenters',
+                icon: 'fa-database'
             }, {
                 name: 'clients.collection',
-                title: 'Clients'
+                title: 'Clients',
+                icon: 'fa-users'
             }, {
                 name: 'origins.collection',
-                title: 'Origins'
+                title: 'Origins',
+                icon: 'fa-sitemap'
+            }, {
+                name: 'targets.collection',
+                title: 'Targets',
+                icon: 'fa-language'
             }]
         }
     }

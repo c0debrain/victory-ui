@@ -12,9 +12,7 @@ import authenticationService from './../../services/authentication'
 
 export default {
     components: {
-        'tray': require('components/tray/tray.vue'),
-        'content-header': require('components/content-header/content-header.vue'),
-        'content-body': require('components/content-body/content-body.vue')
+        'tray': require('components/tray/tray.vue')
     },
 
     props: {

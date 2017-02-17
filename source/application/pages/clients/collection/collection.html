@@ -1,5 +1,5 @@
-<layout :title="title" :tabs="tabs">
-    <div slot="body" class="row-resource">
+<div class="page collection">
+    <div class="row-resource">
         <resource
             v-for="client in clients"
             :identifier="client.id"
@@ -8,4 +8,4 @@
             :resource="'clients'">
         </resource>
     </div>
-</layout>
+</div>

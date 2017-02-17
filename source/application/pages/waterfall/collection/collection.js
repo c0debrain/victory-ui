@@ -10,7 +10,7 @@ import datacenterService from 'services/datacenters'
 
 export default {
     components: {
-        'layout': require('layouts/default/default.vue'),
+        'layout': require('layouts/dashboard/dashboard.vue'),
         'waterfall': require('vue-waterfall/lib/waterfall'),
         'waterfall-slot': require('vue-waterfall/lib/waterfall-slot'),
         'waterfall-resource': require('components/waterfall-resource/waterfall-resource.vue')

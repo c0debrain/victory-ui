@@ -1,0 +1,58 @@
+.content-body {
+    display: flex;
+    flex: 1;
+}
+
+.clients {
+    .page {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+
+        // Styles specific to the singleton view
+        &.singleton {
+            .row-chart {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                flex: 1;
+                padding: 8px 12px;
+                overflow-y: scroll;
+            }
+
+            .row-resource {
+                overflow: auto;
+                align-items: flex-start;
+                justify-content: flex-start;
+                align-content: flex-start;
+            }
+
+            .table-container {
+                display: flex;
+                margin: 20px 20px 0 20px;
+            }
+        }
+    }
+
+    // Styles common throughout the datacenters page
+    .row-resource {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex: 1;
+        padding: 8px 12px;
+        overflow-y: scroll;
+    }
+
+    .row-waterfall-resource {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex: 1;
+        padding: 8px 12px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        align-items: stretch;
+        position: relative;
+    }
+}

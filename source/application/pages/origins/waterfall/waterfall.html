@@ -1,5 +1,5 @@
-<layout :title="title" :tabs="tabs">
-    <div slot="body" class="row-waterfall-resource" v-if="origins">
+<div class="page collection">
+    <div class="row-waterfall-resource" v-if="origins">
         <waterfall-resource
             v-for="origin in origins"
             :health="origin.health"
@@ -8,4 +8,4 @@
             :identifier="origin.id">
         </waterfall-resource>
     </div>
-</layout>
+</div>

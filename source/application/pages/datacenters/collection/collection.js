@@ -1,31 +1,14 @@
-/* ============
- * Account Index Page
- * ============
- *
- * Page where the user can view the account information
- */
-
 import store from 'store'
 import datacenterService from 'services/datacenters'
 
 export default {
     components: {
-        'layout': require('layouts/default/default.vue'),
         'resource': require('components/resource/resource.vue')
     },
 
     data() {
         return {
-            title: 'Datacenters',
-            tabs: [{
-                name: 'Collection',
-                view: 'datacenters.collection'
-            },
-            // {
-            //     name: 'Waterfall',
-            //     view: 'datacenters.waterfall'
-            // }
-            ]
+            title: 'Datacenters'
         }
     },
 

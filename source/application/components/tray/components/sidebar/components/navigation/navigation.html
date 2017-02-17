@@ -5,8 +5,10 @@
         active-class="active"
         class="nav-item"
         tag="li"
+        v-touch-ripple
     >
+        <i class="fa" :class="item.icon"></i>
         {{ item.title }}
-        <span v-if="item.badge" class="badge" :class="item.badge.type">{{ item.badge.content }}</span>
+        <span v-if="item.badge" class="badge" :class="item.badge.type" ref="item.name">{{ item.badge.content }}</span>
     </router-link>
 </ul>

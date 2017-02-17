@@ -10,7 +10,7 @@ import datacenterService from 'services/datacenters'
 
 export default {
     components: {
-        'layout': require('layouts/default/default.vue'),
+        'layout': require('layouts/dashboard/dashboard.vue'),
         'resource': require('components/resource/resource.vue')
     },
 

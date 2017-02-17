@@ -1,20 +1,18 @@
-<layout :title="client.name">
-    <div slot="body" class="page singleton">
-        <highcharts
-            :options="options"
-            ref="highcharts"
-            class="chart-container"
-            :class="{ 'no-history': !health }">
-        </highcharts>
+<div class="page singleton">
+    <highcharts
+        :options="options"
+        ref="highcharts"
+        class="chart-container"
+        :class="{ 'no-history': !health }">
+    </highcharts>
 
-        <div class="row-resource">
-            <resource
-                v-for="origin in origins"
-                :identifier="origin.id"
-                :name="origin.name"
-                :health="origin.health"
-                :resource="'origins'">
-            </resource>
-        </div>
+    <div class="row-resource">
+        <resource
+            v-for="origin in origins"
+            :identifier="origin.id"
+            :name="origin.name"
+            :health="origin.health"
+            :resource="'origins'">
+        </resource>
     </div>
-</layout>
+</div>
