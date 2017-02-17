@@ -1,0 +1,18 @@
+<div class="content-header">
+    <div class="row-title row-white">
+        <h1 class="page-title">{{ title }}</h1>
+    </div>
+
+    <div class="row-navigation row-white" v-if="tabs.length > 0 && isTabbed">
+        <ul>
+            <router-link
+                v-for="tab in tabs"
+                :to="{ name: tab.view }"
+                active-class="active"
+                tag="li"
+                exact
+            >{{ tab.name }}
+            </router-link>
+        </ul>
+    </div>
+</div>

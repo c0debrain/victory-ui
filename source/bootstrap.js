@@ -172,8 +172,9 @@ window.$ = window.jQuery = jQuery
  * http://highcharts.com/
  */
 import VueHighcharts from 'vue-highcharts'
+import Highcharts from 'highcharts/highstock'
 
-Vue.use(VueHighcharts)
+Vue.use(VueHighcharts, { Highcharts })
 
 
 /* ============
@@ -195,6 +196,24 @@ Vue.$Progress = Vue.prototype.$Progress
 
 
 /* ============
+ * Vue Touch Ripple
+ * ============
+ *
+ * Touch ripple component for Vue.js(1.x ~ 2.x)
+ *
+ * https://github.com/surmon-china/vue-touch-ripple
+ */
+import VueTouchRipple from 'vue-touch-ripple'
+
+Vue.use(VueTouchRipple)
+
+//
+// import KeenUI from 'keen-ui'
+//
+// Vue.use(KeenUI)
+
+
+/* ============
  * Highcharts
  * ============
  *
@@ -202,8 +221,12 @@ Vue.$Progress = Vue.prototype.$Progress
  *
  * http://highcharts.com/
  */
+
+import VueMoment from 'vue-moment'
+
 global.moment = require('moment')
 
+Vue.use(VueMoment)
 
 /* ============
  * Bootstrap
@@ -216,6 +239,7 @@ global.moment = require('moment')
 global.Tether = require('tether')
 require('bootstrap')
 require('bootstrap/scss/bootstrap.scss')
+// require('keen-ui/dist/keen-ui.min.css')
 
 
 /* ============

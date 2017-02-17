@@ -9,6 +9,7 @@ export default {
             }
         }
     },
+
     methods: {
         logout() {
             authenticationService.logout()

@@ -1,19 +1,11 @@
-<layout>
-    <div slot="header">
-        <div class="col-md-12">
-            <h1>Origins Collection View</h1>
-        </div>
+<div class="page collection">
+    <div class="row-resource">
+        <resource
+            v-for="origin in origins"
+            :identifier="origin.id"
+            :name="origin.name"
+            :health="origin.health"
+            :resource="'origins'">
+        </resource>
     </div>
-
-    <div slot="body">
-        <div class="row">
-            <resource
-                v-for="origin in origins"
-                :abbreviation="origin.id"
-                :name="origin.name"
-                :health="origin.health"
-                :resource="'origins'">
-            </resource>
-        </div>
-    </div>
-</layout>
+</div>

@@ -3,7 +3,6 @@ import originService from 'services/origins'
 
 export default {
     components: {
-        'layout': require('layouts/default/default.vue'),
         'resource': require('components/resource/resource.vue')
     },
 

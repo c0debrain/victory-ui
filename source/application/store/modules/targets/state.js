@@ -1,3 +1,3 @@
 export default {
-    all: {}
+    all: localStorage.getItem('vuex') ? (JSON.parse(localStorage.getItem('vuex')).targets.all || {}) : {}
 }

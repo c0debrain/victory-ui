@@ -1,21 +1,42 @@
-<layout>
-    <div slot="header">
-        <div class="col-md-12">
-            <h1>[{{ origin.id }}] {{ origin.name }}</h1>
-        </div>
+<div class="page singleton">
+    <highstock
+        :options="options"
+        ref="highcharts"
+        class="chart-container"
+        :class="{ 'no-history': health_history.length === 0 }">
+    </highstock>
+
+    <div class="table-container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Start Time</td>
+                    <td>Reasoning</td>
+                    <td>Decision</td>
+                    <td>Decision Time</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="dispatch in dispatches">
+                    <td>{{ dispatch.noc_dispatch_start_dtm | moment("MMM Do, hh:mm A") }}</td>
+                    <td>{{ dispatch.noc_dispatch_reason }}</td>
+                    <td>{{ dispatch.noc_pager_reason || 'No alert necessary' }}</td>
+                    <td>{{ dispatch.noc_dispatch_last_considered_dtm | moment("MMM Do, hh:mm A") }}</td>
+                </tr>
+                <tr v-if="dispatches.length === 0">
+                    <td class="text-center" colspan="4">There are no dispatch alerts for this origin.</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div slot="body">
-        <highcharts :options="options" ref="highcharts"></highcharts>
-
-        <div class="row mt-3">
-            <resource
-                v-for="target in targets"
-                :abbreviation="target.id"
-                :name="target.name"
-                :health="target.health"
-                :resource="'targets'">
-            </resource>
-        </div>
+    <div class="row-resource">
+        <resource
+            v-for="target in targets"
+            :identifier="target.id"
+            :name="target.name"
+            :health="target.health"
+            :resource="'targets'">
+        </resource>
     </div>
-</layout>
+</div>

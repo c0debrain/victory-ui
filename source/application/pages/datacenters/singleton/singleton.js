@@ -1,16 +1,8 @@
-/* ============
- * Account Index Page
- * ============
- *
- * Page where the user can view the account information
- */
-
 import store from 'store'
 import datacenterService from 'services/datacenters'
 
 export default {
     components: {
-        'layout': require('layouts/default/default.vue'),
         'resource': require('components/resource/resource.vue')
     },
 
@@ -20,8 +12,17 @@ export default {
 
     methods: {
         load(id) {
-            this.$socket.emit('datacenter:health:history', id)
+            // Autofill datacenter from store IF exists
+            if (store.state.datacenters.all[id]) {
+                this.datacenter = store.state.datacenters.all[id]
 
+                // Autofill clusters from store IF exists
+                if (store.state.datacenters.all[id].clusters && store.state.datacenters.all[id].clusters.length > 0) {
+                    this.clusters = store.getters.getClusters(store.state.datacenters.all[id].clusters)
+                }
+            }
+
+            // Retrieve fresh data from API
             datacenterService.find(id).then(() => {
                 this.datacenter = store.state.datacenters.all[id]
 
@@ -64,6 +65,7 @@ export default {
         return {
             datacenter: false,
             clusters: [],
+            health: false,
 
             options: {
                 chart: {
@@ -122,7 +124,7 @@ export default {
                 },
                 series: [{
                     name: 'Performance',
-                    data: [50, 50],
+                    data: [45, 45],
                     type: 'area',
                     color: "#2099ea",
                     lineWidth: 1,

@@ -1,0 +1,11 @@
+<div class="page collection">
+    <div class="row-waterfall-resource" v-if="targets">
+        <waterfall-resource
+            v-for="target in targets"
+            :health="target.health"
+            :resource="'targets'"
+            :name="target.name"
+            :identifier="target.id">
+        </waterfall-resource>
+    </div>
+</div>

@@ -5,57 +5,35 @@
    ========================================================================== */
 
 .sidebar {
-    width: 300px;
-    height: 100%;
-    float: left;
+    display: flex;
+    flex-grow: 2;
+    flex-flow: column;
     background: @dark-blue;
-    padding: 32px 29px 20px 29px;
     position: relative;
     color: @text-regular-gray;
 
     .menu-section {
-        &:last-child {
-            ul {
-                border: none !important;
-            }
+        flex-grow: 1;
+        padding: 30px 0;
+        border-bottom: 1px solid #2a3547;
+
+        h1.section-title {
+            font-family: @font-text, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: @text-faded-gray;
+            text-align: left;
+            line-height: 15px;
+            text-transform: uppercase;
+            padding: 10px 30px;
         }
 
-        .empty {
-            font-size: 15px;
-            color: @text-regular-gray;
-            text-align: center;
-        }
-
-        .menu-header {
-            width: 100%;
-            display: block;
-            float: left;
-            height: 16px;
-
-            h1 {
-                font-family: @font-text, sans-serif;
-                font-size: 12px;
-                font-weight: 500;
-                color: @text-faded-gray;
-                text-align: left;
-                line-height: 15px;
-                text-transform: uppercase;
-                float: left;
-                display: block;
-                height: 100%;
-                -webkit-margin-before: 0em;
-                -webkit-margin-after: 0em;
-                -webkit-margin-start: 0px;
-                -webkit-margin-end: 0px;
-            }
-
-            i {
-                height: 100%;
-                float: right;
-                width: 20px;
-                color: @text-faded-gray;
-                cursor: pointer;
-            }
+        i {
+            height: 100%;
+            float: right;
+            width: 20px;
+            color: @text-faded-gray;
+            cursor: pointer;
         }
     }
 }

@@ -1,0 +1,10 @@
+<div class="layout">
+    <vue-progress-bar></vue-progress-bar>
+    <tray></tray>
+
+    <transition name="fade" mode="out-in">
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+    </transition>
+</div>

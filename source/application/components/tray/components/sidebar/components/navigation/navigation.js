@@ -2,25 +2,26 @@ export default {
     data: () => {
         return {
             menu: [{
-                    name: 'home.index',
-                    title: 'Overview'
-                }, {
-                    name: 'datacenters.collection',
-                    title: 'Datacenters'
-                }, {
-                    name: 'clients.collection',
-                    title: 'Clients'
-                }, {
-                    name: 'waterfall.collection',
-                    title: 'Waterfall'
-                }, {
-                    name: 'origins.collection',
-                    title: 'Origins Collection'
-                }, {
-                    name: 'origins.waterfall',
-                    title: 'Origins Waterfall'
-                }
-            ]
+                name: 'home.index',
+                title: 'Overview',
+                icon: 'fa-tachometer'
+            }, {
+                name: 'datacenters',
+                title: 'Datacenters',
+                icon: 'fa-database'
+            }, {
+                name: 'clients.collection',
+                title: 'Clients',
+                icon: 'fa-users'
+            }, {
+                name: 'origins.collection',
+                title: 'Origins',
+                icon: 'fa-sitemap'
+            }, {
+                name: 'targets.collection',
+                title: 'Targets',
+                icon: 'fa-language'
+            }]
         }
     }
 }

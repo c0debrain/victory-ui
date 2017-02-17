@@ -10,6 +10,13 @@
 body { background: @color-bg-page; }
 //html { overflow-x: hidden; }
 
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
 * {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
@@ -20,12 +27,6 @@ body { background: @color-bg-page; }
 *, body, dl, fieldset, figure, form, menu, ol, pre, ul {
     margin: 0;
     padding: 0;
-}
-
-html, body {
-    height: 100%;
-    width: 100%;
-    position: relative;
 }
 
 a, p, h1, h2, h3, h4, h5, span, ul, li {

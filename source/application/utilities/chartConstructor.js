@@ -16,13 +16,42 @@ export default configuration => ({
         style: {
             fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
             fontSize: '12px'
-        }
+        },
+        zoomType: 'x'
     },
     tooltip: {
         style: {
             padding: 15,
             fontWeight: 'bold'
         }
+    },
+    rangeSelector: {
+        enabled: false,
+        buttons: [{
+            type: 'day',
+            count: 3,
+            text: '3d'
+        }, {
+            type: 'week',
+            count: 1,
+            text: '1w'
+        }, {
+            type: 'month',
+            count: 1,
+            text: '1m'
+        }, {
+            type: 'month',
+            count: 6,
+            text: '6m'
+        }, {
+            type: 'year',
+            count: 1,
+            text: '1y'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        selected: 3
     },
     legend: {
         enabled: false
@@ -34,12 +63,22 @@ export default configuration => ({
         text: null
     },
     xAxis: {
-        categories: [],
         crosshair: {
             color: '#e5e5e5',
             width: 2,
             zIndex: 2,
             dashStyle: 'shortdash'
+        },
+        type: 'datetime',
+        dateTimeLabelFormats: {
+            millisecond: '%I:%M:%S.%L %p',
+            second: '%I:%M:%S %p',
+            minute: '%I:%M %p',
+            hour: '%I:%M %p',
+            day: '%e. %b',
+            week: '%e. %b',
+            month: '%b \'%y',
+            year: '%Y'
         },
         startOnTick: false,
         endOnTick: false,
@@ -49,18 +88,23 @@ export default configuration => ({
         tickLength: 0
     },
     yAxis: {
-        title: {
-            text: ''
-        },
         labels: {
-            align: 'left',
-            x: 10,
-            y: -8
+            format: '{value}%'
         },
-        startOnTick: false,
-        endOnTick: false,
-        softMax: 100,
-        softMin: 0
+        offset: -5,
+        gridlineWidth: 1,
+        gridLineColor: '#d8e2e7'
+        // plotLines: [{
+        //     value: 80,
+        //     color: '#FFDF6D',
+        //     dashStyle: 'shortdash',
+        //     width: 2
+        // }, {
+        //     value: 95,
+        //     color: '#FFA2AD',
+        //     dashStyle: 'shortdash',
+        //     width: 2
+        // }]
     },
     series: configuration.series.map(entry => Object.assign({
         name: 'Series',

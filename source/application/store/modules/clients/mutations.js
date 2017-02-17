@@ -35,9 +35,22 @@ export default {
 
     // Collection Mutations
     [SET_CLIENTS](state, collection) {
+        let increments = 0
+
         collection.forEach((singleton) => {
-            Vue.set(state.all, singleton.id, singleton)
+            const current = state.all[singleton.id]
+
+            if (!current || (
+                current.name !== singleton.name &&
+                current.id !== singleton.id &&
+                current.importance !== singleton.importance
+            )) {
+                Vue.set(state.all, singleton.id, singleton)
+                increments += 1
+            }
         })
+
+        console.log(`Updated ${increments} datacenters.`)
     },
 
     [SET_CLIENTS_HEALTH](state, healths) {
