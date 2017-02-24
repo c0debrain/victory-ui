@@ -24,9 +24,7 @@ export default {
 
     // Collection Mutations
     [SET_TARGETS](state, collection) {
-        collection.forEach((singleton) => {
-            Vue.set(state.all, singleton.id, singleton)
-        })
+        collection.forEach(singleton => Vue.set(state.all, singleton.id, singleton))
     },
 
     [SET_TARGETS_HEALTH](state, healths) {

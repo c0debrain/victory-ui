@@ -1,11 +1,17 @@
 <div class="page collection">
     <div class="row-resource">
         <resource
-            v-for="client in clients"
+            v-for="client in list"
             :identifier="client.id"
             :name="client.name"
             :health="client.health"
             :resource="'clients'">
         </resource>
+
+        <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="spiral">
+            <span slot="no-more">
+                There are no more clients.
+            </span>
+        </infinite-loading>
     </div>
 </div>

@@ -1,11 +1,17 @@
 <div class="page collection">
     <div class="row-resource">
         <resource
-            v-for="origin in origins"
+            v-for="origin in list"
             :identifier="origin.id"
             :name="origin.name"
             :health="origin.health"
             :resource="'origins'">
         </resource>
+
+        <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="spiral">
+            <span slot="no-more">
+                There are no more origins.
+            </span>
+        </infinite-loading>
     </div>
 </div>

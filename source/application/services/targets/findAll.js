@@ -14,6 +14,6 @@ const failed = (error) => {
 }
 
 // Execute the request
-export default () => Vue.$http.get('/targets/')
+export default (parameters = {}) => Vue.$http.get('/targets/', { params: parameters })
     .then(response => success(response.data))
     .catch(error => failed(error))

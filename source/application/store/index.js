@@ -50,5 +50,7 @@ export default new Vuex.Store({
     /**
      * Plugins used in the store
      */
-    plugins: debug ? [createLogger(), createPersistedState()] : [createPersistedState()]
+    plugins: debug ? [createLogger(), createPersistedState({
+        paths: ['datacenters', 'clusters', 'servers', 'clients', 'origins']
+    })] : [createPersistedState()]
 })

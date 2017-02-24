@@ -9,8 +9,8 @@ export default class DatacenterTransformer extends Transformer {
      */
     static fetch(singleton) {
         return {
-            id: singleton.data_center_code,
-            name: singleton.data_center_name,
+            id: singleton.id,
+            name: singleton.name,
             health: false
         }
     }
@@ -22,8 +22,8 @@ export default class DatacenterTransformer extends Transformer {
      */
     static send(singleton) {
         return {
-            data_center_code: singleton.id,
-            data_center_name: singleton.name
+            id: singleton.id,
+            name: singleton.name
         }
     }
 }

@@ -9,8 +9,9 @@ export default class ClientTransformer extends Transformer {
      */
     static fetch(singleton) {
         return {
-            id: singleton.client_id,
-            name: singleton.client_name,
+            id: singleton.id,
+            name: singleton.name,
+            importance: Math.ceil((singleton.importance + 1) / 2),
             health: false
         }
     }
@@ -22,8 +23,8 @@ export default class ClientTransformer extends Transformer {
      */
     static send(singleton) {
         return {
-            client_id: singleton.id,
-            client_name: singleton.name
+            id: singleton.id,
+            name: singleton.name
         }
     }
 }

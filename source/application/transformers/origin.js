@@ -9,10 +9,10 @@ export default class OriginTransformer extends Transformer {
      */
     static fetch(singleton) {
         return {
-            id: singleton.origin_id,
-            name: singleton.origin_live_domain || 'Unknown',
+            id: singleton.id,
+            name: singleton.domain,
             health: false,
-            importance: Math.ceil((singleton.notification_level + 1) / 2)
+            importance: Math.ceil((singleton.importance + 1) / 2)
         }
     }
 
@@ -23,9 +23,9 @@ export default class OriginTransformer extends Transformer {
      */
     static send(singleton) {
         return {
-            origin_id: singleton.id,
-            origin_live_domain: singleton.name,
-            notification_level: singleton.importance
+            id: singleton.id,
+            name: singleton.name,
+            importance: singleton.importance
         }
     }
 }

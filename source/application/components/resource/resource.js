@@ -7,7 +7,8 @@ export default {
         },
         name: {
             type: String,
-            required: true
+            required: true,
+            default: ''
         },
         health: {
             required: true

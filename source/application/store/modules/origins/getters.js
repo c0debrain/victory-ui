@@ -7,5 +7,12 @@ export default {
      */
     getOrigins: state => ids => Object.keys(state.all)
         .filter(key => ids.map(String).includes(key))
+        .map(key => state.all[key]),
+
+    /*
+        We are getting all of the ID's of singletons from the resource store
+        in array format.
+     */
+    getOriginsArray: state => () => Object.keys(state.all)
         .map(key => state.all[key])
 }

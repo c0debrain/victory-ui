@@ -9,8 +9,8 @@ export default class TargetTransformer extends Transformer {
      */
     static fetch(singleton) {
         return {
-            id: singleton.target_id,
-            name: singleton.target_live_domain || singleton.target_staging_domain,
+            id: singleton.id,
+            name: singleton.domain,
             health: false
         }
     }
@@ -22,8 +22,8 @@ export default class TargetTransformer extends Transformer {
      */
     static send(singleton) {
         return {
-            target_id: singleton.id,
-            target_live_domain: singleton.name
+            id: singleton.id,
+            domain: singleton.name
         }
     }
 }

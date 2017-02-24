@@ -9,8 +9,8 @@ export default class ClusterTransformer extends Transformer {
      */
     static fetch(singleton) {
         return {
-            id: singleton.cluster_name,
-            name: singleton.cluster_name,
+            id: singleton.id,
+            name: singleton.name,
             health: false
         }
     }
