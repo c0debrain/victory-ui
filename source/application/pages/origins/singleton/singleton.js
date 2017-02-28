@@ -1,5 +1,4 @@
 import chartConstructor from 'utilities/chartConstructor'
-import edgeExtend from 'utilities/edgeExtend'
 import originService from 'services/origins'
 import store from 'store'
 
@@ -46,14 +45,15 @@ export default {
                 })
 
                 // Retrieve health history from API
-                originService.findHealthHistory(id).then((history) => {
-                    this.health_history = history
-                        .map(health => [
-                            moment.utc(health.health_dtm).valueOf(),
-                            health.statistic_health_score
-                        ])
-                        .sort((previous, current) => current[0] > previous[0] ? -1 : 1)
-                })
+                originService.findHealthHistory(id)
+                    .then((history) => {
+                        this.health_history = history
+                            .map(health => [
+                                moment.utc(health.created_at).valueOf(),
+                                health.score
+                            ])
+                            .sort((previous, current) => current[0] > previous[0] ? -1 : 1)
+                    })
 
                 // Retrieve health history from API
                 originService.findDispatchHistory(id).then((history) => { this.dispatches = history })
@@ -81,7 +81,7 @@ export default {
                 if (singletonHealth) {
                     store.dispatch('setOriginHealth', {
                         id: this.$route.params.id,
-                        health: singletonHealth.health
+                        health: singletonHealth.score
                     })
                 }
             }
