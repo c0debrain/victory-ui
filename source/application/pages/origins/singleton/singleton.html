@@ -1,4 +1,6 @@
 <div class="page singleton">
+    <h2 class="section-title">Health History</h2>
+
     <highstock
         :options="options"
         ref="highcharts"
@@ -6,37 +8,116 @@
         :class="{ 'no-history': health_history.length === 0 }">
     </highstock>
 
-    <div class="table-container">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <td>Start Time</td>
-                    <td>Reasoning</td>
-                    <td>Decision</td>
-                    <td>Decision Time</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="dispatch in dispatches">
-                    <td>{{ dispatch.noc_dispatch_start_dtm | moment("MMM Do, hh:mm A") }}</td>
-                    <td>{{ dispatch.noc_dispatch_reason }}</td>
-                    <td>{{ dispatch.noc_pager_reason || 'No alert necessary' }}</td>
-                    <td>{{ dispatch.noc_dispatch_last_considered_dtm | moment("MMM Do, hh:mm A") }}</td>
-                </tr>
-                <tr v-if="dispatches.length === 0">
-                    <td class="text-center" colspan="4">There are no dispatch alerts for this origin.</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="dispatch-history">
+        <h2 class="section-title">Dispatch History</h2>
+        <ul class="dispatches">
+            <!-- Iterate dispatches -->
+            <li v-for="(dispatch, index) in dispatches" v-on:click="openDispatch(dispatch, index)" :class="{
+                'active': opened !== null && (index === opened.index)
+            }">
+                <i class="fa" :class="dispatch.icon" :style="{ 'border-color': dispatch.color }"></i>
+            </li>
+
+            <!-- Show close dispatch -->
+            <li v-on:click="closeDispatch()" v-if="opened !== null">
+                <i class="fa fa-close"></i>
+            </li>
+
+            <li v-if="dispatches.length === 0" class="dispatch-empty">
+                There are no dispatches for this resource
+            </li>
+        </ul>
     </div>
 
-    <div class="row-resource">
-        <resource
-            v-for="target in targets"
-            :identifier="target.id"
-            :name="target.name"
-            :health="target.health"
-            :resource="'targets'">
-        </resource>
+    <div class="dispatch-description" v-if="opened">
+        <div class="table-column">
+            <table class="table table-striped">
+                <tr>
+                    <td class="text-bold">Created At</td>
+                    <td class="text-right">{{ opened.dispatch.created_at | moment("MMMM Do, hh:mm A") }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {{ opened.dispatch.created_reason }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="table-column">
+            <p class="no-paged" v-if="opened.dispatch.approved_at === null">
+                This dispatch was not paged.
+            </p>
+
+            <table class="table table-striped" v-if="opened.dispatch.approved_at !== null">
+                <tr>
+                    <td class="text-bold">Approved At</td>
+                    <td>{{ opened.dispatch.approved_at | moment("MMMM Do, hh:mm A") }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {{ opened.dispatch.approved_reason }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- <h2 class="section-title">Related Resources</h2> -->
+    <div class="resources-container">
+        <div class="row-resource">
+            <h4>Clients</h4>
+            <resource
+                v-for="target in targets"
+                :identifier="target.id"
+                :name="target.name"
+                :health="target.health"
+                :resource="'targets'">
+            </resource>
+        </div>
+
+        <div class="row-resource">
+            <h4>Targets</h4>
+            <resource
+                v-for="target in targets"
+                :identifier="target.id"
+                :name="target.name"
+                :health="target.health"
+                :resource="'targets'">
+            </resource>
+        </div>
+
+        <div class="row-resource">
+            <h4>Datacenters</h4>
+            <resource
+                v-for="target in targets"
+                :identifier="target.id"
+                :name="target.name"
+                :health="target.health"
+                :resource="'targets'">
+            </resource>
+        </div>
+
+        <div class="row-resource">
+            <h4>Clusters</h4>
+            <resource
+                v-for="target in targets"
+                :identifier="target.id"
+                :name="target.name"
+                :health="target.health"
+                :resource="'targets'">
+            </resource>
+        </div>
+
+        <div class="row-resource">
+            <h4>Servers</h4>
+            <resource
+                v-for="target in targets"
+                :identifier="target.id"
+                :name="target.name"
+                :health="target.health"
+                :resource="'targets'">
+            </resource>
+        </div>
     </div>
 </div>

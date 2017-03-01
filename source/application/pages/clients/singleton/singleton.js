@@ -1,3 +1,4 @@
+import chartConstructor from 'utilities/chartConstructor'
 import store from 'store'
 import clientService from 'services/clients'
 
@@ -6,9 +7,23 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
+    data() {
+        return {
+            origins: [],
+            health: false,
+        }
+    },
+
     computed: {
         client () {
             return this.$store.state.clients.all[this.$route.params.id]
+        },
+
+        // Chart configuration
+        options() {
+            return chartConstructor({
+                series: [{ name: 'Health', data: this.health_history }]
+            })
         }
     },
 
@@ -38,105 +53,22 @@ export default {
     },
 
     sockets: {
-        'clients:health': function(response) {
-            if (this.client) {
+        /**
+         * Listen for new health for origin resources
+         * @type {object} response
+         */
+        'origins:health': function(response) {
+            if (this.target) {
                 const singletonHealth = response.data.find(health => health.id === this.$route.params.id) || false
+
+                // If this resource's health was found in the emitted values,
+                // then updated store with the new data
                 if (singletonHealth) {
-                    store.dispatch('setClientHealth', {
+                    store.dispatch('setOriginHealth', {
                         id: this.$route.params.id,
                         health: singletonHealth.health
                     })
                 }
-            }
-        },
-        'origins:health': function(response) {
-            if (this.client && this.origins.length > 0 && response.data.length > 0) {
-                store.dispatch('setOriginsHealth', response.data.filter(
-                    health => this.client.origins.includes(health.id)
-                ))
-            }
-        }
-    },
-
-    data() {
-        return {
-            origins: [],
-            health: false,
-
-            // Chart configuration
-            options: {
-                chart: {
-                    animation: true,
-                    type: 'area',
-                    spacingLeft: 0,
-                    spacingRight: 0,
-                    spacingTop: 0,
-                    style: {
-                        fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                        fontSize: '12px'
-                    }
-                },
-                tooltip: {
-                    style: {
-                        padding: 15,
-                        fontWeight: 'bold'
-                    }
-                },
-                legend: {
-                    enabled: false
-                },
-                credits: {
-                    enabled: false
-                },
-                title: {
-                    text: null
-                },
-                xAxis: {
-                    crosshair: {
-                        color: "#e5e5e5",
-                        width: 2,
-                        zIndex: 2,
-                        dashStyle: "shortdash"
-                    },
-                    startOnTick: false,
-                    endOnTick: false,
-                    gridLineWidth: 0,
-                    minPadding: 0,
-                    maxPadding: 0,
-                    tickLength: 0
-                },
-                yAxis: {
-                    title: {
-                        text: ''
-                    },
-                    labels: {
-                        align: "left",
-                        x: 10,
-                        y: -8
-                    },
-                    startOnTick: false,
-                    endOnTick: false,
-                    softMax: 100,
-                    softMin: 0
-                },
-                series: [{
-                    name: 'Performance',
-                    data: [50, 50],
-                    type: 'area',
-                    color: "#2099ea",
-                    lineWidth: 1,
-                    dashStyle: "longdash",
-                    fillOpacity: 0.08,
-                    marker: {
-                        fillColor: "#FFF",
-                        lineColor: null,
-                        lineWidth: 1.5,
-                        width: 6,
-                        height: 6,
-                        radius: 3,
-                        symbol: 'circle'
-                    }
-                }]
             }
         }
     }

@@ -23,6 +23,16 @@ export default {
         }
     },
 
+    computed: {
+        text() {
+            if (this.health && isNaN(this.health)) {
+                return this.health.toFixed(1) + '%'
+            }
+
+            return 'None'
+        }
+    },
+
     methods: {
         enterResource: function(resource) {
             if (!this.resource || !this.identifier) return

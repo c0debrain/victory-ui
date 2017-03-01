@@ -7,6 +7,15 @@ export default {
         'resource': require('components/resource/resource.vue')
     },
 
+    data() {
+        return {
+            targets: [],
+            dispatches: [],
+            health_history: [],
+            opened: null
+        }
+    },
+
     computed: {
         origin() { return this.$store.state.origins.all[this.$route.params.id] },
 
@@ -14,7 +23,35 @@ export default {
         // Chart configuration
         options() {
             return chartConstructor({
-                series: [{ name: 'Health', data: this.health_history }]
+                series: [{
+                    name: 'Health',
+                    data: this.health_history
+                }, {
+                    type: 'flags',
+                    name: 'Flags on series',
+                    data: this.dispatches.map(dispatch => {
+                        if (dispatch.approved_at !== null) return {
+                            x: moment.utc(dispatch.created_at).valueOf(),
+                            title: dispatch.approved_reason.includes('attention') ? 'Attention!' : 'Re-page',
+                            text: dispatch.approved_reason,
+                            color: dispatch.approved_reason.includes('attention') ? '#FD6666' : '#FFDF6D',
+                        }
+
+                        if (dispatch.rejected_at !== null) return {
+                            x: moment.utc(dispatch.created_at).valueOf(),
+                            title: 'Paged!',
+                            text: dispatch.created_reason
+                        }
+
+                        return {
+                            x: moment.utc(dispatch.created_at).valueOf(),
+                            title: 'Dispatched!',
+                            text: dispatch.created_reason
+                        }
+                    }),
+                    onSeries: 'dataseries',
+                    shape: 'squarepin'
+                }]
             })
         }
     },
@@ -56,8 +93,45 @@ export default {
                     })
 
                 // Retrieve health history from API
-                originService.findDispatchHistory(id).then((history) => { this.dispatches = history })
+                originService.findDispatchHistory(id).then((history) => {
+                    this.dispatches = history.reverse().map((dispatch) => {
+                        if (dispatch.approved_at !== null) {
+                            // If dispatch is not a repeated alarm
+                            if (dispatch.approved_reason.includes('attention')) {
+                                dispatch.repeat = false
+                                dispatch.icon = 'fa-warning'
+                                dispatch.color = '#FFA2AD'
+                                return dispatch
+                            }
+
+                            // If it is repeated
+                            dispatch.repeat = true
+                            dispatch.icon = 'fa-bell-o'
+                            dispatch.color = '#FDC006'
+                            return dispatch
+                        }
+
+                        if (dispatch.rejected_at !== null) {
+                            dispatch.icon = 'fa-bell-slash-o'
+                            dispatch.color = '#74C7A8'
+                            return dispatch
+                        }
+
+                        dispatch.icon = 'fa-clock-o'
+                        dispatch.color = '#000'
+
+                        return dispatch
+                    })
+                })
             })
+        },
+
+        openDispatch(dispatch, index) {
+            this.opened = { index, dispatch }
+        },
+
+        closeDispatch() {
+            this.opened = null
         }
     },
 
@@ -97,14 +171,6 @@ export default {
                     health => this.origin.targets.includes(health.id)
                 ))
             }
-        }
-    },
-
-    data() {
-        return {
-            targets: [],
-            dispatches: [],
-            health_history: []
         }
     }
 }

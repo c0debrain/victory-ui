@@ -32,6 +32,7 @@
     "socket.io-client": "^1.7.2",
     "tether": "^1.4.0",
     "vue": "^2.0.3",
+    "vue-d3": "^0.1.0",
     "vue-highcharts": "0.0.9",
     "vue-i18n": "^4.6.0",
     "vue-infinite-loading": "^2.0.0",

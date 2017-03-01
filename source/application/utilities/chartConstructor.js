@@ -53,6 +53,9 @@ export default configuration => ({
         }],
         selected: 3
     },
+    scrollbar: {
+        enabled: true
+    },
     legend: {
         enabled: false
     },

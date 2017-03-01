@@ -18,10 +18,10 @@
             </thead>
             <tbody>
                 <tr v-for="dispatch in dispatches">
-                    <td>{{ dispatch.noc_dispatch_start_dtm | moment("MMM Do, hh:mm A") }}</td>
-                    <td>{{ dispatch.noc_dispatch_reason }}</td>
-                    <td>{{ dispatch.noc_pager_reason || 'No alert necessary' }}</td>
-                    <td>{{ dispatch.noc_dispatch_last_considered_dtm | moment("MMM Do, hh:mm A") }}</td>
+                    <td>{{ dispatch.created_at | moment("MMM Do, hh:mm A") }}</td>
+                    <td>{{ dispatch.created_reason }}</td>
+                    <td>{{ dispatch.approved_reason || 'No alert necessary' }}</td>
+                    <td>{{ dispatch.last_considered_at | moment("MMM Do, hh:mm A") }}</td>
                 </tr>
                 <tr v-if="dispatches.length === 0">
                     <td class="text-center" colspan="4">There are no dispatch alerts for this origin.</td>

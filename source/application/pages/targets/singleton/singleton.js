@@ -1,11 +1,17 @@
 import chartConstructor from 'utilities/chartConstructor'
-import edgeExtend from 'utilities/edgeExtend'
 import targetService from 'services/targets'
 import store from 'store'
 
 export default {
     components: {
         'resource': require('components/resource/resource.vue')
+    },
+
+    data() {
+        return {
+            dispatches: [],
+            health_history: []
+        }
     },
 
     computed: {
@@ -37,8 +43,8 @@ export default {
                 targetService.findHealthHistory(id).then((history) => {
                     this.health_history = history
                         .map(health => [
-                            moment.utc(health.health_dtm).valueOf(),
-                            health.statistic_health_score
+                            moment.utc(health.created_at).valueOf(),
+                            health.score
                         ])
                         .sort((previous, current) => current[0] > previous[0] ? -1 : 1)
                 })
@@ -66,19 +72,12 @@ export default {
                 // If this resource's health was found in the emitted values,
                 // then updated store with the new data
                 if (singletonHealth) {
-                    store.dispatch('setOriginHealth', {
+                    store.dispatch('setTargetHealth', {
                         id: this.$route.params.id,
                         health: singletonHealth.health
                     })
                 }
             }
-        }
-    },
-
-    data() {
-        return {
-            dispatches: [],
-            health_history: []
         }
     }
 }
