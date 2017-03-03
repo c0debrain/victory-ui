@@ -25,7 +25,7 @@ export default {
 
     computed: {
         text() {
-            if (this.health && isNaN(this.health)) {
+            if (typeof this.health !== 'undefined' && this.health !== false && !isNaN(this.health)) {
                 return this.health.toFixed(1) + '%'
             }
 

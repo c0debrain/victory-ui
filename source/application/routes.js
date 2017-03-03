@@ -60,6 +60,7 @@ export default [
             {
                 path: '/clients',
                 name: 'clients',
+                redirect: '/clients/collection',
                 component: require('pages/clients/clients.vue'),
                 children: [
                     {
@@ -78,6 +79,7 @@ export default [
             {
                 path: '/origins',
                 name: 'origins',
+                redirect: '/origins/collection',
                 component: require('pages/origins/origins.vue'),
                 children: [
                     {
@@ -100,6 +102,7 @@ export default [
             {
                 path: '/targets',
                 name: 'targets',
+                redirect: '/targets/collection',
                 component: require('pages/targets/targets.vue'),
                 children: [
                     {

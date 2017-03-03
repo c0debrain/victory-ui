@@ -5,9 +5,25 @@
         active-class="active"
         class="nav-item"
         tag="li"
+        :class="{ 'active': $route.name.split('.')[0] === item.name }"
     >
-        <i class="fa" :class="item.icon"></i>
-        {{ item.title }}
-        <span v-if="item.badge" class="badge" :class="item.badge.type" ref="item.name">{{ item.badge.content }}</span>
+        <div class="title-row">
+            <i class="fa" :class="item.icon"></i>
+            <span class="title">
+                {{ item.title }}
+            </span>
+            <span v-if="item.badge" class="badge" :class="item.badge.type" ref="item.name">{{ item.badge.content }}</span>
+        </div>
+
+        <ul class="sub-menu" v-if="item.subitems.length > 0 && $route.name.split('.')[0] === item.name">
+            <router-link
+                v-for="subitem in item.subitems"
+                :to="{ name: subitem.name }"
+                active-class="active"
+                class="nav-item"
+                tag="li"
+                :class="{ 'active': $route.name === subitem.name }"
+            >{{ subitem.title }}</router-link>
+        </ul>
     </router-link>
 </ul>

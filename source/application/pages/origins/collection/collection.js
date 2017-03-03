@@ -15,11 +15,24 @@ export default {
     },
 
     computed: {
-        origins() { return this.$store.getters.getOriginsArray() }
+        origins() { return this.$store.getters.getOriginsArray() },
+
+        byHealth() {
+            if (this.origins.length === 0) return []
+            if (!(this.origins instanceof Array)) return []
+
+            return this.origins
+                .filter(origin => origin.health !== false)
+                .sort((previous, current) => {
+                    return previous.health - current.health
+            })
+        }
     },
 
     mounted() {
-        originService.findAll()
+        originService.findAll().then(() => {
+
+        })
     },
 
     methods: {
