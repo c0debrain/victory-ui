@@ -14,11 +14,9 @@ import createPersistedState from 'vuex-persistedstate'
 
 // Modules
 import authentication from './modules/authentication'
-import datacenters from './modules/datacenters'
-import clusters from './modules/clusters'
-import clients from './modules/clients'
-import origins from './modules/origins'
-import targets from './modules/targets'
+
+// Resources
+import transactions from './modules/transactions'
 
 Vue.use(Vuex)
 
@@ -32,14 +30,7 @@ export default new Vuex.Store({
         // Services
         authentication,
 
-        // Hardware
-        datacenters,
-        clusters,
-
-        // Software
-        clients,
-        origins,
-        targets
+        transactions
     },
 
     /**
@@ -51,6 +42,6 @@ export default new Vuex.Store({
      * Plugins used in the store
      */
     plugins: debug ? [createLogger(), createPersistedState({
-        paths: ['datacenters', 'clusters', 'servers', 'clients', 'origins']
+        paths: ['transactions']
     })] : [createPersistedState()]
 })

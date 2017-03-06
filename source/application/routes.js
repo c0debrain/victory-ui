@@ -36,89 +36,13 @@ export default [
                 path: '/home',
                 name: 'home.index',
                 component: require('pages/home/index/index.vue')
-
-            // Datacenters Section
-            }, {
-                path: '/datacenters',
-                name: 'datacenters',
-                redirect: '/datacenters/collection',
-                component: require('pages/datacenters/datacenters.vue'),
-                children: [
-                    {
-                        path: '/datacenters/collection',
-                        name: 'datacenters.collection',
-                        component: require('pages/datacenters/collection/collection.vue')
-                    }, {
-                        path: '/datacenters/:id',
-                        name: 'datacenters.singleton',
-                        component: require('pages/datacenters/singleton/singleton.vue')
-                    }
-                ]
             },
 
-            // Clients Section
+            // Transactions Section
             {
-                path: '/clients',
-                name: 'clients',
-                redirect: '/clients/collection',
-                component: require('pages/clients/clients.vue'),
-                children: [
-                    {
-                        path: '/clients/collection',
-                        name: 'clients.collection',
-                        component: require('pages/clients/collection/collection.vue')
-                    }, {
-                        path: '/clients/:id',
-                        name: 'clients.singleton',
-                        component: require('pages/clients/singleton/singleton.vue')
-                    }
-                ]
-            },
-
-            // Origins Section
-            {
-                path: '/origins',
-                name: 'origins',
-                redirect: '/origins/collection',
-                component: require('pages/origins/origins.vue'),
-                children: [
-                    {
-                        path: '/origins/collection',
-                        name: 'origins.collection',
-                        component: require('pages/origins/collection/collection.vue')
-                    }, {
-                        path: '/origins/waterfall',
-                        name: 'origins.waterfall',
-                        component: require('pages/origins/waterfall/waterfall.vue')
-                    }, {
-                        path: '/origins/:id',
-                        name: 'origins.singleton',
-                        component: require('pages/origins/singleton/singleton.vue')
-                    }
-                ]
-            },
-
-            // Targets Section
-            {
-                path: '/targets',
-                name: 'targets',
-                redirect: '/targets/collection',
-                component: require('pages/targets/targets.vue'),
-                children: [
-                    {
-                        path: '/targets/collection',
-                        name: 'targets.collection',
-                        component: require('pages/targets/collection/collection.vue')
-                    }, {
-                        path: '/targets/waterfall',
-                        name: 'targets.waterfall',
-                        component: require('pages/targets/waterfall/waterfall.vue')
-                    }, {
-                        path: '/targets/:id',
-                        name: 'targets.singleton',
-                        component: require('pages/targets/singleton/singleton.vue')
-                    }
-                ]
+                path: '/transactions',
+                name: 'transactions.index',
+                component: require('pages/transactions/transactions.vue')
             }
         ]
     },

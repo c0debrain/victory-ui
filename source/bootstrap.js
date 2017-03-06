@@ -86,11 +86,11 @@ store.dispatch('checkAuthentication')
  *
  * https://github.com/socketio/socket.io
  */
-import VueSocket from 'vue-socket.io'
-import io from 'socket.io-client'
-
-Vue.$socket = io(process.env.SOCKET_LOCATION, { transports: ['websocket', 'polling', 'flashsocket'] })
-Vue.use(VueSocket, Vue.$socket, store)
+// import VueSocket from 'vue-socket.io'
+// import io from 'socket.io-client'
+//
+// Vue.$socket = io(process.env.SOCKET_LOCATION, { transports: ['websocket', 'polling', 'flashsocket'] })
+// Vue.use(VueSocket, Vue.$socket, store)
 
 
 /* ============
@@ -139,15 +139,15 @@ Vue.router = router
  *
  * https://kazupon.github.io/vue-i18n/
  */
-import VueI18n from 'vue-i18n'
-import locale from './application/locale'
-
-Vue.use(VueI18n)
-Vue.config.lang = 'en'
-
-Object.keys(locale).forEach((lang) => {
-    Vue.locale(lang, locale[lang])
-})
+// import VueI18n from 'vue-i18n'
+// import locale from './application/locale'
+//
+// Vue.use(VueI18n)
+// Vue.config.lang = 'en'
+//
+// Object.keys(locale).forEach((lang) => {
+//     Vue.locale(lang, locale[lang])
+// })
 
 
 /* ============

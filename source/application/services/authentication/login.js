@@ -12,6 +12,6 @@ const failed = (error) => {
     console.log('Authentication failed: ', error)
 }
 
-export default user => Vue.$http.post('/authenticate', user)
+export default user => Vue.$http.post('/login', user)
     .then(response => success(response.data))
     .catch(error => failed(error))
