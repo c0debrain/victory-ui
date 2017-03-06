@@ -149,6 +149,15 @@ Vue.router = router
 //     Vue.locale(lang, locale[lang])
 // })
 
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+})
+
+/* Filters */
+Vue.filter('currency', value => formatter.format(value))
+
 
 /* ============
  * jQuery

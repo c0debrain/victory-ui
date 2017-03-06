@@ -1,22 +1,15 @@
-import store from 'store'
+import transactionService from 'services/transactions'
 
 export default {
-    components: {
-    },
-
     data() {
-
+        return {
+            transactions: {}
+        }
     },
 
-    computed: {
-
-    },
-
-    mounted() {
-
-    },
-
-    methods: {
-
+    created() {
+        transactionService.findAll().then(() => {
+            this.transactions = this.$store.state.transactions.all
+        })
     }
 }

@@ -1,9 +1,0 @@
-<div class="resource"  v-on:click="enterResource()">
-    <h3 class="title">{{ name.replace('www.', '') }}</h3>
-
-    <span class="background-text">{{ text }}</span>
-
-    <ul class="health-bar" v-if="health !== false">
-        <li class="stable" :style="{ width: health + '%' }"></li>
-    </ul>
-</div>

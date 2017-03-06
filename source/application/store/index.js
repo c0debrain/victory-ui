@@ -16,6 +16,7 @@ import createPersistedState from 'vuex-persistedstate'
 import authentication from './modules/authentication'
 
 // Resources
+import accounts from './modules/accounts'
 import transactions from './modules/transactions'
 
 Vue.use(Vuex)
@@ -30,6 +31,7 @@ export default new Vuex.Store({
         // Services
         authentication,
 
+        accounts,
         transactions
     },
 

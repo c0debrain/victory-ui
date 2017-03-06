@@ -40,9 +40,15 @@ export default [
 
             // Transactions Section
             {
-                path: '/transactions',
-                name: 'transactions.index',
-                component: require('pages/transactions/transactions.vue')
+                name: 'transactions',
+                path: 'transactions',
+                redirect: '/transactions/all',
+                component: require('pages/transactions/transactions.vue'),
+                children: [{
+                    path: '/transactions/all',
+                    name: 'transactions.collection',
+                    component: require('pages/transactions/collection/collection.vue')
+                }]
             }
         ]
     },

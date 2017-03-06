@@ -1,18 +1,22 @@
 <div class="page collection">
-    <table class="table table-striped">
-        <thead>
-            <th></th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Amount</th>
-        </thead>
-        <tbody>
-            <td><input type="radio" name="" value=""></td>
-            <td>Date</td>
-            <td>Description</td>
-            <td>Category</td>
-            <td>$0.00</td>
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table class="table table-striped">
+            <thead>
+                <th></th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+            </thead>
+            <tbody>
+                <tr v-for="transaction in transactions">
+                    <td><input type="checkbox" name="" value=""></td>
+                    <td>{{ transaction.date | moment('from', 'now') }}</td>
+                    <td>{{ transaction.name }}</td>
+                    <td>{{ transaction.category_id || 'Uncategorized' }}</td>
+                    <td class="text-right">{{ transaction.amount | currency }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

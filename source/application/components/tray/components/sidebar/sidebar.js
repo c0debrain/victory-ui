@@ -1,6 +1,7 @@
 export default {
     components: {
         'navigation': require('./components/navigation/navigation.vue'),
-        'account': require('./components/account/account.vue')
+        'user-info': require('./components/account/account.vue'),
+        'accounts': require('./components/accounts/accounts.vue')
     }
 }

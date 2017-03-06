@@ -8,6 +8,7 @@ export const LOGIN = 'LOGIN'
 
 // transactions
 export const SET_TRANSACTIONS = 'SET_TRANSACTIONS'
+export const SET_ACCOUNTS = 'SET_ACCOUNTS'
 
 // Datacenter
 export const SET_DATACENTER = 'SET_DATACENTER'

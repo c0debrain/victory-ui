@@ -1,8 +1,21 @@
 <div class="sidebar">
     <div class="menu-section">
-        <h1 class="section-title">Menu</h1>
+        <div class="menu-header">
+            <h1 class="section-title">Navigation</h1>
+        </div>
+
         <navigation></navigation>
     </div>
 
-    <account></account>
+    <div class="menu-section">
+        <div class="menu-header">
+            <h1 class="section-title">Accounts</h1>
+            <i class="fa fa-refresh" v-on:click="refresh()"></i>
+            <i class="fa fa-plus" v-on:click="link()"></i>
+        </div>
+
+        <accounts></accounts>
+    </div>
+
+    <user-info></user-info>
 </div>

@@ -1,6 +1,8 @@
 <div class="layout">
     <vue-progress-bar></vue-progress-bar>
     <tray></tray>
-    
-    <router-view></router-view>
+
+    <keep-alive>
+        <router-view></router-view>
+    </keep-alive>
 </div>

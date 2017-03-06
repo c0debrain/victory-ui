@@ -1,0 +1,57 @@
+@import '~assets/less/partials/vars';
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+
+/*
+   List of linked accounts
+*/
+.accounts {
+   margin: 15px 0 25px 0;
+
+   .account {
+       height: 50px;
+       margin-bottom: 10px;
+       padding: 0 30px;
+
+       &:hover {
+           color: @text-hover-gray;
+       }
+
+       .primary {
+           float: left;
+           clear: both;
+           height: 50%;
+           width: 100%;
+           position: relative;
+       }
+
+       .secondary {
+           float: left;
+           clear: both;
+           height: 50%;
+           width: 100%;
+           position: relative;
+           font-size: 12px;
+       }
+
+       .left {
+           position: absolute;
+           left: 0;
+           top: 0;
+           height: 100%;
+           width: 100%;
+           text-align: left;
+       }
+
+       .right {
+           position: absolute;
+           right: 0;
+           top: 0;
+           height: 100%;
+           width: 100%;
+           text-align: right;
+       }
+   }
+}

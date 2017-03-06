@@ -12,8 +12,8 @@ export default {
     data() {
         return {
             user: {
-                email: 'onelink',
-                password: 'onelink'
+                email: 'demo',
+                password: 'demo'
             }
         }
     },

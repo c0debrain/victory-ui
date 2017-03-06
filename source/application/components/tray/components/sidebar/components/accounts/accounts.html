@@ -1,0 +1,16 @@
+<div class="accounts">
+    <div class="account" v-for="account in accounts">
+        <div class="primary">
+            <div class="name left">{{ account.name }}</div>
+            <div class="value right">{{ account.balance_available | currency }}</div>
+        </div>
+        <div class="secondary color-blue-grey-lighter">
+            <div class="name left text-capitalize">{{ account.subtype }}</div>
+            <div class="value right">{{ account.updated_at | moment('from', 'now') }}</div>
+        </div>
+    </div>
+
+    <p class="empty" v-if="accounts.length >= 0">
+        You have no accounts linked
+    </p>
+</div>

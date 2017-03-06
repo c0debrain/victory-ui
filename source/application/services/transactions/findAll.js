@@ -8,7 +8,7 @@ const success = (collection) => {
 
 // When the request fails
 const failed = (error) => {
-    console.error('Failed to retrieve clients: ', error)
+    console.error('Failed to retrieve transactions: ', error)
     return error
 }
 

@@ -6,7 +6,7 @@ export default {
                 title: 'Overview',
                 icon: 'fa-tachometer'
             }, {
-                name: 'transactions.index',
+                name: 'transactions.collection',
                 title: 'Transactions',
                 icon: 'fa-database'
             }]
