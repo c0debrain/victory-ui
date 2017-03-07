@@ -5,7 +5,7 @@
             <div class="value right">{{ account.balance_available | currency }}</div>
         </div>
         <div class="secondary color-blue-grey-lighter">
-            <div class="name left text-capitalize">{{ account.subtype }}</div>
+            <div class="name left text-capitalize">{{ account.subtype || account.type }}</div>
             <div class="value right">{{ account.updated_at | moment('from', 'now') }}</div>
         </div>
     </div>
