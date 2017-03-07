@@ -2,15 +2,13 @@
     <div class="table-container">
         <table class="table table-striped">
             <thead>
-                <th></th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Amount</th>
+                <th v-on:click="sort('date')">Date</th>
+                <th v-on:click="sort('name')">Description</th>
+                <th v-on:click="sort('category_id')">Category</th>
+                <th v-on:click="sort('amount')" class="text-right">Amount</th>
             </thead>
             <tbody>
                 <tr v-for="transaction in transactions">
-                    <td><input type="checkbox" name="" value=""></td>
                     <td>{{ transaction.date | moment('from', 'now') }}</td>
                     <td>{{ transaction.name }}</td>
                     <td>{{ transaction.category_id || 'Uncategorized' }}</td>

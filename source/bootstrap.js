@@ -77,23 +77,6 @@ store.dispatch('checkAuthentication')
 
 
 /* ============
- * Vue Socket.io
- * ============
- *
- * Aims to make realtime apps possible in every browser and mobile
- * device, blurring the differences between the different transport
- * mechanisms.
- *
- * https://github.com/socketio/socket.io
- */
-// import VueSocket from 'vue-socket.io'
-// import io from 'socket.io-client'
-//
-// Vue.$socket = io(process.env.SOCKET_LOCATION, { transports: ['websocket', 'polling', 'flashsocket'] })
-// Vue.use(VueSocket, Vue.$socket, store)
-
-
-/* ============
  * Vue Router
  * ============
  *
